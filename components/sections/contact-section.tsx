@@ -1,8 +1,11 @@
 "use client"
 
+import Image from "next/image"
+
 import { useRef, useEffect, useState } from "react"
 import { RevealText } from "@/components/ui/reveal-text"
 import { ContactForm } from "./contact-form"
+import { DesignRushBadge } from "@/components/ui/design-rush-badge"
 
 export function ContactSection() {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -22,16 +25,21 @@ export function ContactSection() {
       observer.observe(sectionRef.current)
     }
 
-    // Load Contra embed script
-    const script = document.createElement('script')
-    script.src = 'https://contra.com/static/embed/sdk.js'
-    script.async = true
-    script.charset = 'utf-8'
-    document.body.appendChild(script)
+    // Load Contra embed script (Singleton check)
+    const scriptId = "contra-sdk-script";
+    if (!document.getElementById(scriptId)) {
+      const script = document.createElement('script')
+      script.id = scriptId
+      script.src = 'https://contra.com/static/embed/sdk.js'
+      script.async = true
+      script.charset = 'utf-8'
+      document.body.appendChild(script)
+    }
 
     return () => {
-        observer.disconnect()
-        document.body.removeChild(script)
+      observer.disconnect()
+      // We do not remove the script to avoid reloading it unnecessarily, 
+      // but we could if we wanted strict cleanup. However, the SDK might not handle re-injection well.
     }
   }, [])
 
@@ -75,15 +83,18 @@ export function ContactSection() {
               <RevealText text="Send your details" className="text-white" isVisible={isVisible} />
             </h2>
             <div className="space-y-4">
-                <p className="text-sm text-white/60">
-                    Olivos, Buenos Aires, Argentina
-                </p>
-                <div
-                    className="contra-hire-me-button"
-                    data-analyticsuserid="451cfc1e-e897-46ed-a701-9dd0533e7ec6"
-                    data-theme="dark"
-                    data-username="eneas_aldabe"
-                 />
+              <p className="text-sm text-white/60">
+                Olivos, Buenos Aires, Argentina
+              </p>
+              <div
+                className="contra-hire-me-button"
+                data-analyticsuserid="451cfc1e-e897-46ed-a701-9dd0533e7ec6"
+                data-theme="dark"
+                data-username="eneas_aldabe"
+              />
+              <div className="mt-8">
+                <DesignRushBadge color="white" size={170} />
+              </div>
             </div>
           </div>
         </div>

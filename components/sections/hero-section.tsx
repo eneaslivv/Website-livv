@@ -4,7 +4,7 @@ import dynamic from "next/dynamic"
 import { CSSProperties, useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { Navbar } from "@/components/layout/navbar"
-import { AwardLogo } from "@/components/ui/award-logo"
+import { DesignRushBadge } from "@/components/ui/design-rush-badge"
 
 const Shader = dynamic(() => import("shaders/react").then((mod) => mod.Shader), { ssr: false })
 const Swirl = dynamic(() => import("shaders/react").then((mod) => mod.Swirl), { ssr: false })
@@ -23,33 +23,8 @@ export function HeroSection() {
   }
 
   useEffect(() => {
-    const checkShaderReady = () => {
-      if (shaderContainerRef.current) {
-        const canvas = shaderContainerRef.current.querySelector("canvas")
-        if (canvas && canvas.width > 0 && canvas.height > 0) {
-          setIsLoaded(true)
-          return true
-        }
-      }
-      return false
-    }
-
-    if (checkShaderReady()) return
-
-    const intervalId = setInterval(() => {
-      if (checkShaderReady()) {
-        clearInterval(intervalId)
-      }
-    }, 100)
-
-    const fallbackTimer = setTimeout(() => {
-      setIsLoaded(true)
-    }, 1500)
-
-    return () => {
-      clearInterval(intervalId)
-      clearTimeout(fallbackTimer)
-    }
+    // Force loaded state immediately to prevent white screen
+    setIsLoaded(true)
   }, [])
 
   useEffect(() => {
@@ -91,22 +66,21 @@ export function HeroSection() {
     <>
       <Navbar isLoaded={isLoaded} />
 
-      <div
-        className={`fixed top-6 right-6 z-[90] hidden xl:flex items-center pointer-events-none transition-all duration-800 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
-        style={{ transitionDelay: "500ms" }}
-      >
-        <div className="bg-white/95 backdrop-blur-xl rounded-full px-4 py-1.5 pr-5 flex items-center gap-3 border border-white/60 shadow-[0_20px_60px_rgba(0,0,0,0.08)] pointer-events-auto">
-          <span className="bg-[#E8BC59] text-[#1a1a1a] text-[10px] font-semibold px-3 py-1 rounded-full tracking-[0.2em] uppercase">New</span>
-          <span className="text-[10px] font-medium tracking-[0.25em] text-gray-900 leading-none">Livv client management app</span>
-        </div>
-      </div>
-
       <section id="home" className="h-auto w-full p-4 sm:p-6 pt-2 pb-4 md:pb-8 flex items-start justify-center">
-       <div
-         ref={frameRef}
-         className="relative w-full h-[80vh] max-w-[1800px] rounded-[2.5rem] overflow-hidden bg-white shadow-sm isolate transform-gpu"
-         style={frameVars}
-       >
+        <div
+          ref={frameRef}
+          className="relative w-full h-[80vh] max-w-[1800px] rounded-[2.5rem] overflow-hidden bg-white shadow-sm isolate transform-gpu"
+          style={frameVars}
+        >
+          <div
+            className={`absolute top-6 right-6 z-[90] hidden md:flex items-center pointer-events-none transition-all duration-800 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
+            style={{ transitionDelay: "500ms" }}
+          >
+            <div className="group relative bg-white/80 backdrop-blur-md rounded-full px-1 py-1 pr-4 flex items-center gap-3 border border-white/40 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-all duration-300 pointer-events-auto cursor-default">
+              <span className="bg-[#E8BC59] text-[#1a1a1a] text-[9px] font-bold px-2.5 py-1 rounded-full tracking-wider uppercase shadow-sm">New</span>
+              <span className="text-[11px] font-medium tracking-wide text-zinc-600 group-hover:text-zinc-900 transition-colors">Livv client management app</span>
+            </div>
+          </div>
           <div className="absolute inset-x-0 top-0 h-24 pointer-events-none">
             <div className="absolute inset-0 bg-gradient-to-b from-white/90 to-transparent" />
           </div>
@@ -225,6 +199,14 @@ export function HeroSection() {
               <a href="/contact" className="px-6 py-2.5 rounded-full bg-transparent text-white text-sm font-medium tracking-wide border border-white/30 hover:bg-white/10 hover:border-white/50 transition-all duration-300">
                 Get in Touch
               </a>
+            </div>
+
+            {/* DesignRush Award Badge */}
+            <div
+              className={`mt-16 transition-all duration-1000 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+              style={{ transitionDelay: "700ms" }}
+            >
+              <DesignRushBadge color="white" size={140} />
             </div>
           </div>
         </div>

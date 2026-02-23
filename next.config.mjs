@@ -1,5 +1,3 @@
-/** @type {import('next').NextConfig} */
-// Force restart: Cache clear confirmed
 const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,

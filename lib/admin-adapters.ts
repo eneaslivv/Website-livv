@@ -281,3 +281,68 @@ export const adaptAnalyticsMetric = (dbMetric: any): any => {
     };
 };
 
+// --- CATALOG CMS ADAPTERS ---
+
+export const adaptCategory = (db: any): any => ({
+    id: db.id,
+    name: db.name,
+    slug: db.slug,
+    description: db.description,
+    imageUrl: db.image_url,
+    type: db.type || 'both',
+    parentId: db.parent_id,
+    displayOrder: db.display_order || 0,
+    status: db.status || 'active',
+    createdAt: db.created_at,
+    updatedAt: db.updated_at,
+});
+
+export const adaptProduct = (db: any): any => ({
+    id: db.id,
+    title: db.title,
+    slug: db.slug,
+    shortDescription: db.short_description,
+    longDescription: db.long_description,
+    featuredImage: db.featured_image,
+    price: db.price ? parseFloat(db.price) : null,
+    priceType: db.price_type || 'fixed',
+    isFeatured: db.is_featured || false,
+    status: db.status || 'draft',
+    seoTitle: db.seo_title,
+    seoDescription: db.seo_description,
+    ogImage: db.og_image,
+    displayOrder: db.display_order || 0,
+    createdAt: db.created_at,
+    updatedAt: db.updated_at,
+});
+
+export const adaptService = (db: any): any => ({
+    id: db.id,
+    title: db.title,
+    slug: db.slug,
+    subtitle: db.subtitle,
+    shortDescription: db.short_description,
+    fullDescription: db.full_description,
+    imageUrl: db.image_url,
+    icon: db.icon,
+    pricingModel: db.pricing_model || 'on_request',
+    priceValue: db.price_value ? parseFloat(db.price_value) : null,
+    ctaLabel: db.cta_label,
+    ctaLink: db.cta_link,
+    status: db.status || 'draft',
+    displayOrder: db.display_order || 0,
+    categoryId: db.category_id,
+    seoTitle: db.seo_title,
+    seoDescription: db.seo_description,
+    createdAt: db.created_at,
+    updatedAt: db.updated_at,
+});
+
+export const adaptServiceFeature = (db: any): any => ({
+    id: db.id,
+    serviceId: db.service_id,
+    title: db.title,
+    description: db.description,
+    displayOrder: db.display_order || 0,
+});
+

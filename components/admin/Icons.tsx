@@ -70,7 +70,10 @@ import {
     Quote,
     Globe,
     DollarSign,
-    Loader2
+    Loader2,
+    Package,
+    Wrench,
+    FolderTree
 } from 'lucide-react';
 
 export const Icons = {
@@ -147,5 +150,8 @@ export const Icons = {
     MessageSquare,
     Globe,
     DollarSign,
-    Loader: Loader2
+    Loader: Loader2,
+    Package,
+    Wrench,
+    FolderTree
 };

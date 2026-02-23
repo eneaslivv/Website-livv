@@ -27,6 +27,9 @@ const NAV_THEMES: Record<string, string> = {
     crm: 'hover:bg-blue-50 hover:text-blue-700 dark:hover:bg-blue-500/10 dark:hover:text-blue-400',
     sales_analytics: 'hover:bg-sky-50 hover:text-sky-700 dark:hover:bg-sky-500/10 dark:hover:text-sky-400',
     finance: 'hover:bg-amber-50 hover:text-amber-700 dark:hover:bg-amber-500/10 dark:hover:text-amber-400',
+    categories: 'hover:bg-teal-50 hover:text-teal-700 dark:hover:bg-teal-500/10 dark:hover:text-teal-400',
+    catalog_products: 'hover:bg-cyan-50 hover:text-cyan-700 dark:hover:bg-cyan-500/10 dark:hover:text-cyan-400',
+    catalog_services: 'hover:bg-violet-50 hover:text-violet-700 dark:hover:bg-violet-500/10 dark:hover:text-violet-400',
 };
 
 const ACTIVE_THEMES: Record<string, string> = {
@@ -42,6 +45,9 @@ const ACTIVE_THEMES: Record<string, string> = {
     crm: 'bg-blue-100 text-blue-900 dark:bg-blue-500/20 dark:text-blue-300 shadow-sm',
     sales_analytics: 'bg-sky-100 text-sky-900 dark:bg-sky-500/20 dark:text-sky-300 shadow-sm',
     finance: 'bg-amber-100 text-amber-900 dark:bg-amber-500/20 dark:text-amber-300 shadow-sm',
+    categories: 'bg-teal-100 text-teal-900 dark:bg-teal-500/20 dark:text-teal-300 shadow-sm',
+    catalog_products: 'bg-cyan-100 text-cyan-900 dark:bg-cyan-500/20 dark:text-cyan-300 shadow-sm',
+    catalog_services: 'bg-violet-100 text-violet-900 dark:bg-violet-500/20 dark:text-violet-300 shadow-sm',
 };
 
 const NavItem: React.FC<{
@@ -65,6 +71,9 @@ const NavItem: React.FC<{
         crm: 'bg-blue-50 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400',
         sales_analytics: 'bg-sky-50 text-sky-600 dark:bg-sky-500/20 dark:text-sky-400',
         finance: 'bg-amber-50 text-amber-600 dark:bg-amber-500/20 dark:text-amber-400',
+        categories: 'bg-teal-50 text-teal-600 dark:bg-teal-500/20 dark:text-teal-400',
+        catalog_products: 'bg-cyan-50 text-cyan-600 dark:bg-cyan-500/20 dark:text-cyan-400',
+        catalog_services: 'bg-violet-50 text-violet-600 dark:bg-violet-500/20 dark:text-violet-400',
     };
 
     const currentActiveColor = activeColors[id] || activeColors.home;
@@ -107,13 +116,24 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentMode, onSwitchMode }) =
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    const navItems = currentMode === 'os' ? [
+    const osNavItems = [
         { id: 'home', label: 'Home', icon: <Icons.Home />, href: '/admin/dashboard' },
         { id: 'projects', label: 'Projects', icon: <Icons.Briefcase />, href: '/admin/projects' },
         { id: 'clients', label: 'Team', icon: <Icons.Users />, href: '/admin/clients' },
         { id: 'calendar', label: 'Calendar', icon: <Icons.Calendar />, href: '/admin/calendar' },
         { id: 'activity', label: 'Activity', icon: <Icons.Activity />, href: '/admin/activity' },
         { id: 'docs', label: 'Docs', icon: <Icons.Docs />, href: '/admin/docs' },
+    ];
+
+    const catalogNavItems = [
+        { id: 'categories', label: 'Categories', icon: <Icons.FolderTree />, href: '/admin/categories' },
+        { id: 'catalog_products', label: 'Products', icon: <Icons.Package />, href: '/admin/products' },
+        { id: 'catalog_services', label: 'Services', icon: <Icons.Wrench />, href: '/admin/services' },
+    ];
+
+    const navItems = currentMode === 'os' ? [
+        ...osNavItems,
+        ...catalogNavItems,
     ] : [
         { id: 'sales_dashboard', label: 'Sales Overview', icon: <Icons.Chart />, href: '/admin/sales' },
         { id: 'inbox', label: 'Leads Inbox', icon: <Icons.Mail />, href: '/admin/inbox' },
@@ -154,13 +174,36 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentMode, onSwitchMode }) =
 
             {/* Navigation */}
             <nav className="flex-1 w-full flex flex-col gap-1 overflow-y-auto no-scrollbar items-center">
-                {navItems.map(item => (
-                    <NavItem
-                        key={item.id} id={item.id} icon={item.icon} label={item.label}
-                        active={currentActiveId === item.id} expanded={isSidebarExpanded}
-                        href={item.href}
-                    />
-                ))}
+                {currentMode === 'os' ? (
+                    <>
+                        {osNavItems.map(item => (
+                            <NavItem
+                                key={item.id} id={item.id} icon={item.icon} label={item.label}
+                                active={currentActiveId === item.id} expanded={isSidebarExpanded}
+                                href={item.href}
+                            />
+                        ))}
+                        <div className={`w-full px-4 pt-4 pb-2 ${isSidebarExpanded ? '' : 'hidden'}`}>
+                            <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-300 dark:text-zinc-600">Catalog</span>
+                        </div>
+                        {!isSidebarExpanded && <div className="w-8 h-px bg-zinc-200 dark:bg-zinc-700 my-2"></div>}
+                        {catalogNavItems.map(item => (
+                            <NavItem
+                                key={item.id} id={item.id} icon={item.icon} label={item.label}
+                                active={currentActiveId === item.id} expanded={isSidebarExpanded}
+                                href={item.href}
+                            />
+                        ))}
+                    </>
+                ) : (
+                    navItems.map(item => (
+                        <NavItem
+                            key={item.id} id={item.id} icon={item.icon} label={item.label}
+                            active={currentActiveId === item.id} expanded={isSidebarExpanded}
+                            href={item.href}
+                        />
+                    ))
+                )}
             </nav>
 
             {/* Bottom Actions */}

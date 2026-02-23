@@ -51,6 +51,7 @@ export function Navbar({ isLoaded = true, theme = "dark" }: NavbarProps) {
         { id: "about", label: "About", num: "02", isPage: true },
         { id: "work", label: "Work", num: "03", link: "/work" },
         { id: "services", label: "Services", num: "04", hasDropdown: true },
+        { id: "products", label: "Products", num: "05", link: "/products" },
     ]
 
     const serviceItems = [
@@ -61,7 +62,7 @@ export function Navbar({ isLoaded = true, theme = "dark" }: NavbarProps) {
 
     return (
         <>
-<nav className={`fixed left-1/2 -translate-x-1/2 z-[100] transition-all duration-500 ease-out ${isScrolled ? "top-4 w-[90%] md:w-auto scale-95" : "top-6 w-[88%] md:w-auto scale-100"}`}>
+            <nav className={`fixed left-1/2 -translate-x-1/2 z-[100] transition-all duration-500 ease-out ${isScrolled ? "top-6 w-[90%] md:w-auto scale-95" : "top-10 w-[88%] md:w-auto scale-100"}`}>
                 <div className={`backdrop-blur-3xl border rounded-full px-3 py-1.5 pl-4 flex items-center justify-between gap-4 md:gap-10 shadow-2xl transition-all duration-500 ${isScrolled
                     ? isLightPage ? "bg-white/80 border-black/10 shadow-black/5" : "bg-black/40 border-white/10 shadow-black/20"
                     : isLightPage ? "bg-white/40 border-black/10 shadow-black/5" : "bg-black/15 border-white/20 shadow-black/10"
@@ -72,7 +73,7 @@ export function Navbar({ isLoaded = true, theme = "dark" }: NavbarProps) {
                             <img
                                 src="/assets/logo-new.png"
                                 alt="Livv Logo"
-                                 className={`h-7 md:h-9 w-auto object-contain ${!isLightPage ? "brightness-0 invert" : ""}`}
+                                className={`h-7 md:h-9 w-auto object-contain ${!isLightPage ? "brightness-0 invert" : ""}`}
                             />
                         </Link>
                     </div>
@@ -105,11 +106,11 @@ export function Navbar({ isLoaded = true, theme = "dark" }: NavbarProps) {
                                         >
                                             <div className={`p-1.5 rounded-2xl backdrop-blur-xl border shadow-xl overflow-hidden ${isLightPage ? "bg-white/90 border-black/5" : "bg-[#1a1a1a]/90 border-white/10"}`}>
                                                 {serviceItems.map((service, idx) => (
-                                                        <Link
-                                                            key={idx}
-                                                            href={`/services/${service.slug}`}
-                                                            className={`block p-3 rounded-xl transition-all duration-300 group/item ${isLightPage ? "hover:bg-black/5" : "hover:bg-white/5"}`}
-                                                        >
+                                                    <Link
+                                                        key={idx}
+                                                        href={`/services/${service.slug}`}
+                                                        className={`block p-3 rounded-xl transition-all duration-300 group/item ${isLightPage ? "hover:bg-black/5" : "hover:bg-white/5"}`}
+                                                    >
                                                         <div className={`text-sm font-medium mb-0.5 ${isLightPage ? "text-black" : "text-white"}`}>{service.label}</div>
                                                         <div className={`text-[10px] ${isLightPage ? "text-black/50" : "text-white/50"}`}>{service.desc}</div>
                                                     </Link>

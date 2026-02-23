@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150" fill="none">
+  <!-- Framer F geometric mark (two triangles forming the F shape) -->
+  <!-- Top rectangle -->
+  <rect x="0" y="0" width="100" height="50" fill="#2C0405"/>
+  <!-- Middle-left rectangle -->
+  <rect x="0" y="50" width="50" height="50" fill="#2C0405"/>
+  <!-- Bottom triangle pointing right -->
+  <polygon points="0,100 50,100 0,150" fill="#2C0405"/>
+</svg>

@@ -9,6 +9,8 @@ import "./globals.css"
 import { CustomCursor } from "@/components/custom-cursor"
 import { ThemeProvider } from "@/components/theme-provider"
 import { AuthProvider } from "@/context/AuthContext"
+import { PageTransition } from "@/components/layout/page-transition"
+import { LazyMotion, domAnimation } from "framer-motion"
 
 export const metadata: Metadata = {
   title: "Livv Studio | Creative Design & Technical Excellence",
@@ -65,7 +67,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://rsms.me" />
         <link rel="preload" href="/images/gemini-generated-image-ndf416ndf416ndf4.png" as="image" />
       </head>
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${inter.className} antialiased`} suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -78,8 +80,8 @@ export default function RootLayout({
             </SmoothScroll>
             <CustomCursor />
             <Analytics />
-            <GoogleAnalytics />
             <SpeedInsights />
+            <GoogleAnalytics />
           </AuthProvider>
         </ThemeProvider>
       </body>

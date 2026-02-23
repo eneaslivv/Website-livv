@@ -5,12 +5,13 @@ import { ArrowUpRight } from "lucide-react"
 import { AnimatedBorders } from "@/components/ui/animated-borders"
 import { RevealText } from "@/components/ui/reveal-text"
 import { motion, useScroll, useTransform } from "framer-motion"
+import { DesignRushBadge } from "@/components/ui/design-rush-badge"
 import Image from "next/image"
 
 const stats = [
   { value: "150+", label: "Projects Delivered", description: "Across 12 countries" },
   { value: "08", label: "Years Experience", description: "Design & Development" },
-  { isBadge: true, badgeSrc: "/digital-design-primary.svg", alt: "Digital Design Award 2026" },
+  { isBadge: true, badgeSrc: "/digital-design-primary.svg", alt: "DesignRush Award 2026" },
   { value: "24/7", label: "Support", description: "Dedicated team" },
 ]
 
@@ -25,8 +26,7 @@ export function AboutSection({ id }: { id?: string }) {
 
   // Background Parallax and Opacity
   const bgOpacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0])
-  const parallaxY = useTransform(scrollYProgress, [0, 1], [0, -40])
-  const parallaxYReverse = useTransform(scrollYProgress, [0, 1], [0, 40])
+
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -81,13 +81,12 @@ export function AboutSection({ id }: { id?: string }) {
       />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32 relative z-10">
-          <AnimatedBorders color="#EDE5D8" />
+        <AnimatedBorders color="#EDE5D8" />
 
         <div className="relative">
           {/* Decorative Parallax Square */}
           <motion.div
             className="absolute inset-x-0 inset-y-0 left-1/2 bg-[#2C0405]/80 hidden md:block"
-            style={{ y: parallaxY }}
           />
 
           {/* Vertical Divider with Line-draw effect */}
@@ -100,9 +99,9 @@ export function AboutSection({ id }: { id?: string }) {
 
           {/* Header */}
           <div className="w-full relative z-10 mb-20 md:mb-24">
-                <div className="relative w-full h-[1px]">
-                  <AnimatedBorders showLeft={false} showRight={false} showTop={true} fullWidth={true} color="#EDE5D8" />
-                </div>
+            <div className="relative w-full h-[1px]">
+              <AnimatedBorders showLeft={false} showRight={false} showTop={true} fullWidth={true} color="#EDE5D8" />
+            </div>
             <div className="pt-6 flex justify-between items-center text-[10px] uppercase tracking-widest text-[#EDE5D8]/80 px-6 md:px-12">
               <motion.span
                 initial={{ opacity: 0, x: -10 }}
@@ -177,10 +176,13 @@ export function AboutSection({ id }: { id?: string }) {
                   className="object-cover object-center"
                   sizes="(max-width: 768px) 100vw, 900px"
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#2c0405]/40 to-[#1a0402]/80" />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#2c0405]/20 to-[#2c0405]/95" />
+                {/* Subtle blurred glowing divider between mountain and stats */}
+                <div className="absolute bottom-0 left-0 right-0 h-[100px] bg-gradient-to-t from-[#2C0405] to-transparent z-10" />
+                <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-[#EDE5D8]/20 blur-[3px] z-20" />
               </div>
 
-               <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-16 relative z-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-16 relative z-10">
                 {stats.map((stat, index) => (
                   <motion.div
                     key={index}
@@ -189,15 +191,8 @@ export function AboutSection({ id }: { id?: string }) {
                   >
                     {(stat as any).isBadge ? (
                       /* SVG Badge */
-                      <div className="flex items-center justify-center py-4">
-                        <Image
-                          src={(stat as any).badgeSrc}
-                          alt={(stat as any).alt}
-                          width={150}
-                          height={170}
-                          className="object-contain"
-                          priority
-                        />
+                      <div className="flex items-center justify-center h-full py-4 -ml-6 md:-ml-16 lg:-ml-24">
+                        <DesignRushBadge color="white" size={170} />
                       </div>
                     ) : (
                       /* Regular Stat Card */
@@ -227,14 +222,19 @@ export function AboutSection({ id }: { id?: string }) {
 
           </div>
 
-          {/* Bottom Divider */}
-          <motion.div
-            className="mt-24 w-full h-[1px] bg-[#EDE5D8]/10"
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: isVisible ? 1 : 0 }}
-            transition={{ duration: 1.5, delay: 0.5 }}
-          />
+          {/* Bottom Divider - Simplified, subtle glow */}
+          <div className="mt-24 relative h-[1px] w-full">
+            <motion.div
+              className="absolute inset-x-0 bottom-0 h-full bg-gradient-to-r from-transparent via-[#EDE5D8]/20 to-transparent"
+              initial={{ scaleX: 0, opacity: 0 }}
+              animate={{ scaleX: isVisible ? 1 : 0, opacity: isVisible ? 1 : 0 }}
+              transition={{ duration: 2, delay: 0.5 }}
+            />
+          </div>
+
         </div>
+
+        <AnimatedBorders color="#EDE5D8" />
       </div>
     </section>
   )

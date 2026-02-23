@@ -4,7 +4,6 @@ import dynamic from "next/dynamic"
 
 const HeroSection = dynamic(() => import("@/components/sections/hero-section").then((mod) => mod.HeroSection), {
   ssr: false,
-  loading: () => <div className="h-[90vh] w-full bg-[#ffffff]/80" />,
 })
 const ClientLogoSlider = dynamic(() => import("@/components/sections/client-logo-slider").then((mod) => mod.ClientLogoSlider), {
   ssr: false,

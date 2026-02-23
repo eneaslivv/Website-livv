@@ -8,8 +8,9 @@ import { useParams, useRouter } from "next/navigation"
 import { LiquidMetalButton } from "@/components/button-styling/liquid-metal-button"
 import { Navbar } from "@/components/layout/navbar"
 import { FooterSection } from "@/components/sections/footer-section"
+import { supabase } from "@/lib/supabase/client"
 
-const serviceData = {
+const fallbackServiceData: Record<string, any> = {
     "creative-engineering": {
         name: "Creative Engineering",
         headline: "We design and build digital solutions that actually make sense.",
@@ -35,7 +36,7 @@ const serviceData = {
         headline: "Product strategy and UI design that bring clarity to complexity.",
         subheadline: "We define what to build, why it matters, and how users interact with it.",
         bodyCopy: [
-            "Great products don’t happen by accident. They are the result of clear decisions, strong priorities, and a deep understanding of users.",
+            "Great products don't happen by accident. They are the result of clear decisions, strong priorities, and a deep understanding of users.",
             "We help you shape your product from the ground up — defining structure, flows, and features before translating them into intuitive, purposeful interfaces. Our UI work is rooted in strategy, not trends, ensuring every screen supports usability, consistency, and business objectives.",
             "The result is a product that feels natural to use and easy to scale."
         ],
@@ -55,7 +56,7 @@ const serviceData = {
         headline: "Motion and storytelling that make ideas easy to understand.",
         subheadline: "Visual narratives designed to explain, guide, and engage.",
         bodyCopy: [
-            "Motion is not decoration — it’s communication. We use animation and storytelling to simplify complex ideas, highlight what matters, and create memorable experiences.",
+            "Motion is not decoration — it's communication. We use animation and storytelling to simplify complex ideas, highlight what matters, and create memorable experiences.",
             "From product explainers to interface animations and brand narratives, we design motion with intention: clear structure, thoughtful pacing, and just the right amount of emotion. Every movement has a purpose, supporting the message instead of distracting from it."
         ],
         listTitle: "Use cases",
@@ -74,15 +75,53 @@ const serviceData = {
 export default function ServiceDetailPage() {
     const params = useParams()
     const slug = params.slug as string
-    const data = serviceData[slug as keyof typeof serviceData] || serviceData["creative-engineering"]
 
+    const [data, setData] = useState<any>(fallbackServiceData[slug] || fallbackServiceData["creative-engineering"])
     const [isVisible, setIsVisible] = useState(false)
     const router = useRouter()
 
     useEffect(() => {
+        // Initial setup
         window.scrollTo({ top: 0, behavior: "instant" })
         setIsVisible(true)
-    }, [])
+
+        // Fetch from DB, fall back to hardcoded data
+        async function fetchService() {
+            try {
+                const { supabase } = await import("@/lib/supabase/client")
+                const { data: dbService } = await supabase
+                    .from('services')
+                    .select('*')
+                    .eq('slug', slug)
+                    .eq('status', 'published')
+                    .single()
+
+                if (dbService) {
+                    // Also fetch features for the list items
+                    const { data: features } = await supabase
+                        .from('service_features')
+                        .select('*')
+                        .eq('service_id', dbService.id)
+                        .order('display_order', { ascending: true })
+
+                    setData({
+                        name: dbService.title,
+                        headline: dbService.subtitle || dbService.title,
+                        subheadline: dbService.short_description || '',
+                        bodyCopy: dbService.full_description ? dbService.full_description.split('\n\n').filter(Boolean) : [],
+                        listTitle: 'What we deliver',
+                        listItems: (features || []).map((f: any) => f.title),
+                        ctaText: dbService.cta_label || 'Get started',
+                        accentColor: '#2dd4bf',
+                        secondaryColor: '#0d9488',
+                    })
+                }
+            } catch (err) {
+                console.error('Error fetching service:', err)
+            }
+        }
+        fetchService()
+    }, [slug])
 
     const handleStartScoping = () => {
         router.push("/#blog")
@@ -90,7 +129,7 @@ export default function ServiceDetailPage() {
 
     return (
         <div className="text-stone-800 min-h-screen flex flex-col overflow-x-hidden relative selection:bg-stone-200 selection:text-stone-900 bg-[#FDFBF9]">
-            <Navbar isLoaded={isVisible} theme="light" />
+            <Navbar isLoaded={isVisible} theme="dark" />
             {/* Subtle Grain Background */}
             <div
                 className="fixed inset-0 pointer-events-none z-0 opacity-[0.15]"

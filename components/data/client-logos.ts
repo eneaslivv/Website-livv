@@ -55,4 +55,12 @@ export const clientLogos = [
     hoverBg: "/assets/logo-bg-1.jpg",
     useMask: true,
   },
+  {
+    src: "/logos-header/sunbird.svg",
+    alt: "Sunbird",
+    href: "https://sunbird.com/",
+    description: "Messaging platform for teams.",
+    hoverBg: "/assets/logo-bg-2.jpg",
+    useMask: true,
+  },
 ]

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 40" fill="none">
+  <!-- P icon (dark, no background fill) -->
+  <circle cx="16" cy="20" r="14" fill="#2C0405" opacity="0.08"/>
+  <text x="9" y="27" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="20" fill="#2C0405">P</text>
+  <!-- Sunbird wordmark -->
+  <text x="38" y="27" font-family="Arial, sans-serif" font-weight="600" font-size="15" fill="#2C0405" letter-spacing="-0.3">Sunbird</text>
+</svg>

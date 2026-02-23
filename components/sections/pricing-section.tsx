@@ -110,9 +110,9 @@ export function PricingSection({ id }: { id?: string }) {
                             className="text-balance font-sans"
                             style={{
                                 fontSize: "clamp(54px, 12vw, 120px)",
-                                lineHeight: 1.1,
+                                lineHeight: 1.15,
                                 marginBottom: "24px",
-                                paddingBottom: "8px",
+                                paddingBottom: "12px",
                                 fontWeight: 600,
                                 letterSpacing: "-0.06em",
                             }}

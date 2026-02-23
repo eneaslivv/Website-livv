@@ -75,6 +75,13 @@ export function LogoGridSection() {
             description: "AI video generator with avatars.",
             hoverBg: "/assets/logo-bg-1.jpg",
         },
+        {
+            src: "/logos-header/sunbird.svg",
+            alt: "Sunbird",
+            href: "https://sunbird.com/",
+            description: "Messaging platform for teams.",
+            hoverBg: "/assets/logo-bg-2.jpg",
+        },
     ]
 
     return (

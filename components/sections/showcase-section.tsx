@@ -37,7 +37,7 @@ export function ShowcaseSection() {
                 <AnimatedBorders className="hidden md:block" />
                 {/* Header Section - "Carbon AI in it" */}
                 <div
-                    className={`text-center mb-16 md:mb-24 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                    className={`text-center mb-16 md:mb-24 transition-all duration-1000 will-change-transform ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                         }`}
                 >
                     {/* Small label */}
@@ -53,7 +53,7 @@ export function ShowcaseSection() {
 
                 {/* Video Showcase Container - Aligned to Grid */}
                 <div
-                    className={`relative w-full transition-all duration-1000 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+                    className={`relative w-full transition-all duration-1000 delay-200 will-change-transform ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
                         }`}
                 >
                     {/* Shadow layer for depth */}
