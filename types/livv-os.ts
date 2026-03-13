@@ -302,6 +302,24 @@ export interface InboxMessage {
 }
 
 // --- PORTFOLIO CMS TYPES ---
+
+export interface PortfolioMedia {
+    url: string;
+    type: 'image' | 'video' | 'gif';
+    is_cover: boolean;
+    caption?: string;
+}
+
+export type ContentBlock =
+    | { type: 'text'; content: string; sort_order: number }
+    | { type: 'heading'; content: string; sort_order: number }
+    | { type: 'quote'; content: string; sort_order: number }
+    | { type: 'hero_image'; image_url: string; alt?: string; sort_order: number }
+    | { type: 'challenge'; label: string; heading: string; paragraphs: string[]; tools: string[]; kpis: { text: string }[]; sort_order: number }
+    | { type: 'image_showcase'; label?: string; layout: 'single' | 'side_by_side' | 'wireframe'; images: { url: string; alt?: string; theme?: 'light' | 'dark'; caption?: string }[]; sort_order: number }
+    | { type: 'design_system'; label: string; heading: string; description?: string; typeface?: { name: string; weights: { value: string; label: string }[] }; colors: { name: string; hex: string }[]; sort_order: number }
+    | { type: 'banner'; heading: string; subtext?: string; background_color?: string; sort_order: number };
+
 export interface PortfolioItem {
     id: string;
     title: string;
@@ -313,10 +331,13 @@ export interface PortfolioItem {
     featured: boolean;
     slug?: string;
     color?: string;
+    colors?: string[];
     description?: string;
     tech_tags?: string[];
     display_order?: number;
     published?: boolean;
+    media?: PortfolioMedia[];
+    content_blocks?: ContentBlock[];
     media_type?: 'image' | 'video' | 'gif';
     video_url?: string;
     thumbnail?: string;
