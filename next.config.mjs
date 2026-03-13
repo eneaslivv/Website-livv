@@ -26,7 +26,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'livvv.com',
+        hostname: 'heade-livv-page.vercel.app',
         pathname: '/images/**',
       },
     ],
