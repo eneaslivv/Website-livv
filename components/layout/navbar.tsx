@@ -141,13 +141,13 @@ export function Navbar({ isLoaded = true, theme = "dark" }: NavbarProps) {
                     {/* CTA Button */}
                     <Link
                         href={getLink({ id: "contact" })}
-                        className={`hidden md:flex relative rounded-full pl-4 pr-0.5 py-0.5 items-center gap-2 transition-all duration-500 ease-out group ml-1 overflow-hidden shadow-md ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-5"} ${isLightPage ? "bg-black text-white hover:bg-black/90 border border-black/40" : "bg-white text-[#1a1a1a] hover:bg-white/90 border border-white/40"
+                        className={`hidden md:flex relative rounded-full pl-4 pr-0.5 py-0.5 items-center gap-2 transition-all duration-500 ease-out group ml-1 overflow-hidden shadow-md shrink-0 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-5"} ${isLightPage ? "bg-black text-white hover:bg-black/90 border border-black/40" : "bg-white text-[#1a1a1a] hover:bg-white/90 border border-white/40"
                             }`}
                         style={{ transitionDelay: "500ms", transitionDuration: "800ms" }}
                         onMouseEnter={() => setIsButtonHovered(true)}
                         onMouseLeave={() => setIsButtonHovered(false)}
                     >
-                        <span className="text-[13px] font-medium tracking-wide relative z-10 transition-all duration-300 group-hover:tracking-wider">
+                        <span className="text-[13px] font-medium tracking-wide relative z-10 transition-all duration-300 group-hover:tracking-wider whitespace-nowrap">
                             Get in touch
                         </span>
 

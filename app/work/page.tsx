@@ -14,7 +14,7 @@ export default function WorkPage() {
              </div> */}
 
             <div className="relative z-10">
-                <Navbar />
+                <Navbar theme="light" />
 
                 <div className="pt-32">
                     <ProjectArchive />

@@ -828,7 +828,7 @@ export function ChatWidget() {
                     >
                         <motion.div
                             style={{ rotateX: springRotateX, rotateY: springRotateY }}
-                            className="relative flex w-[280px] sm:w-[360px] rounded-[22px] overflow-hidden bg-[#0A0A0A] border border-white/[0.04] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)]"
+                            className="relative flex w-[240px] sm:w-[360px] rounded-[22px] overflow-hidden bg-[#0A0A0A] border border-white/[0.04] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)]"
                         >
                             {/* Subtle shimmer effect */}
                             <motion.div
@@ -842,7 +842,7 @@ export function ChatWidget() {
                             />
 
                             {/* Left: Photo strip */}
-                            <div className="relative w-[90px] sm:w-[120px] flex-shrink-0">
+                            <div className="relative w-[70px] sm:w-[120px] flex-shrink-0">
                                 <Image
                                     src="/assets/luis-profile.jpg"
                                     alt="Luis - Livv Studio"
@@ -881,7 +881,7 @@ export function ChatWidget() {
                                 </div>
 
                                 {/* Name & role */}
-                                <div className="mb-3">
+                                <div className="mb-2 sm:mb-3">
                                     <h3 className="text-[12px] sm:text-[14px] font-semibold text-white tracking-[-0.01em] leading-tight">
                                         &ldquo;Luis&rdquo; <span className="text-[10px] font-normal text-white/40 ml-1">real human</span>
                                     </h3>
@@ -890,8 +890,8 @@ export function ChatWidget() {
                                     </p>
                                 </div>
 
-                                {/* Badges */}
-                                <div className="flex flex-wrap gap-1.5 mb-3.5">
+                                {/* Badges - hidden on mobile */}
+                                <div className="hidden sm:flex flex-wrap gap-1.5 mb-3.5">
                                     <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/[0.03] border border-white/[0.05] text-[10px] text-white/40 font-medium tracking-wide">
                                         <span className="text-[#C4A35A]/60">&#9670;</span>
                                         Systematize your <RotatingWords />
@@ -901,7 +901,7 @@ export function ChatWidget() {
                                     </span>
                                 </div>
 
-                                <p className="text-[10px] sm:text-[11px] text-white/40 leading-relaxed mb-4 pr-2">
+                                <p className="hidden sm:block text-[11px] text-white/40 leading-relaxed mb-4 pr-2">
                                     We build digital systems, websites and apps to scale your business.
                                 </p>
 
@@ -909,12 +909,12 @@ export function ChatWidget() {
                                 <div className="mt-auto flex flex-col gap-1.5">
                                     <MagneticButton
                                         onClick={openPanel}
-                                        className="group flex w-full items-center justify-center gap-2 rounded-full bg-white/[0.05] border border-white/[0.05] px-4 py-2.5 text-[11px] font-semibold text-white/70 tracking-wide transition-all duration-300 hover:bg-white/[0.08] hover:text-white hover:border-white/[0.1] hover:shadow-[0_0_25px_-5px_rgba(196,163,90,0.1)]"
+                                        className="group flex w-full items-center justify-center gap-2 rounded-full bg-white/[0.05] border border-white/[0.05] px-3 sm:px-4 py-2 sm:py-2.5 text-[11px] font-semibold text-white/70 tracking-wide transition-all duration-300 hover:bg-white/[0.08] hover:text-white hover:border-white/[0.1] hover:shadow-[0_0_25px_-5px_rgba(196,163,90,0.1)]"
                                     >
                                         Chat
                                         <ArrowRight className="w-3 h-3 opacity-30 group-hover:opacity-70 transition-all duration-200 group-hover:translate-x-0.5" />
                                     </MagneticButton>
-                                    <div className="flex items-center justify-center gap-3 py-1.5">
+                                    <div className="hidden sm:flex items-center justify-center gap-3 py-1.5">
                                         <a
                                             href="https://cal.com/eneas-aldabe-youfep/15min"
                                             target="_blank"

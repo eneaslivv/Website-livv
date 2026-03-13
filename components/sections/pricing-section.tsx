@@ -137,29 +137,25 @@ export function PricingSection({ id }: { id?: string }) {
                         </p>
                     </div>
 
-                    {/* Radar + ScopeCard Section (Copied from button-styling app/page.tsx) */}
+                    {/* Radar + ScopeCard Section */}
                     <div className="w-full flex flex-col items-center justify-center relative z-20 mb-20">
                         {/* Central area with radar + card */}
                         <div
+                            className="relative flex items-center justify-center w-full md:aspect-square"
                             style={{
-                                position: "relative",
-                                width: "clamp(280px, 100%, 500px)",
-                                aspectRatio: "1",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
+                                maxWidth: "500px",
                             }}
                         >
-                            {/* Radar rings */}
+                            {/* Radar rings — hidden on mobile to avoid overflow */}
                             {/* Outermost ring */}
                             <div
-                                className="absolute rounded-full"
+                                className="absolute rounded-full hidden md:block"
                                 style={{ width: "100%", height: "100%", border: "1px solid #e0ddd8" }}
                             />
 
                             {/* Conic glow sweep */}
                             <div
-                                className="absolute rounded-full"
+                                className="absolute rounded-full hidden md:block"
                                 style={{
                                     width: "100%",
                                     height: "100%",
@@ -176,7 +172,7 @@ export function PricingSection({ id }: { id?: string }) {
 
                             {/* Middle dashed ring */}
                             <div
-                                className="absolute rounded-full"
+                                className="absolute rounded-full hidden md:block"
                                 style={{
                                     width: "80%",
                                     height: "80%",
@@ -190,7 +186,7 @@ export function PricingSection({ id }: { id?: string }) {
 
                             {/* Inner dark ring */}
                             <div
-                                className="absolute rounded-full"
+                                className="absolute rounded-full hidden md:block"
                                 style={{
                                     width: "60%",
                                     height: "60%",
@@ -203,7 +199,7 @@ export function PricingSection({ id }: { id?: string }) {
 
                             {/* Core dark circle */}
                             <div
-                                className="absolute rounded-full"
+                                className="absolute rounded-full hidden md:block"
                                 style={{
                                     width: "40%",
                                     height: "40%",
@@ -217,7 +213,7 @@ export function PricingSection({ id }: { id?: string }) {
 
                             {/* HUD labels */}
                             <div
-                                className="absolute font-sans"
+                                className="absolute font-sans hidden md:block"
                                 style={{
                                     top: "10px",
                                     left: "50%",
@@ -231,7 +227,7 @@ export function PricingSection({ id }: { id?: string }) {
                                 explore services
                             </div>
                             <div
-                                className="absolute font-sans"
+                                className="absolute font-sans hidden md:block"
                                 style={{
                                     bottom: "10px",
                                     left: "50%",
