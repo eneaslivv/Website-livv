@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/lib/supabase/client';
 
-const TENANT_SLUG = 'principal-admin';
+const TENANT_SLUG = 'livvv';
 
 // Global cache for RPC results
 const RPC_CACHE: Record<string, any> = {};
@@ -53,6 +53,10 @@ export function useRpc<T>(publicRpcName: string, previewRpcName: string) {
 }
 
 // --- Typed hooks ---
+
+export function useFeaturedPortfolioItems() {
+    return useRpc<any>('get_featured_portfolio_items', 'get_preview_portfolio_items');
+}
 
 export function usePortfolioItems() {
     return useRpc<any>('get_public_portfolio_items', 'get_preview_portfolio_items');

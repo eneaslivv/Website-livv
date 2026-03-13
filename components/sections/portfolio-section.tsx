@@ -6,7 +6,7 @@ import { Playfair_Display } from "next/font/google"
 import { useRouter } from "next/navigation"
 import { RevealText } from "@/components/ui/reveal-text"
 import Image from "next/image"
-import { usePortfolioItems } from "@/hooks/usePublicData"
+import { useFeaturedPortfolioItems } from "@/hooks/usePublicData"
 import { PortfolioItem } from "@/types/livv-os"
 
 const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400", "500", "600"] })
@@ -82,11 +82,10 @@ const FALLBACK_ITEMS: PortfolioItem[] = [
 
 function PortfolioGrid() {
     const router = useRouter()
-    const { data: dbItems, isPreview } = usePortfolioItems()
+    const { data: dbItems, isPreview } = useFeaturedPortfolioItems()
 
     const displayedItems = ((dbItems.length > 0 ? dbItems : FALLBACK_ITEMS) as (PortfolioItem & { _is_draft?: boolean })[])
         .sort((a, b) => (a.display_order || 0) - (b.display_order || 0))
-        .slice(0, 6)
 
     const handleCardClick = (link: string) => {
         router.push(link)

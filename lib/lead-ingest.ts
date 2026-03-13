@@ -1,5 +1,5 @@
 const LEAD_INGEST_URL = 'https://ngswutcpsgdgmmjnfddi.supabase.co/functions/v1/lead-ingest';
-const TENANT_SLUG = 'principal-admin';
+const TENANT_SLUG = 'livvv';
 
 function getUtmParams(): Record<string, string> {
     if (typeof window === 'undefined') return {};

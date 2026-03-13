@@ -3,7 +3,7 @@ import { supabase } from '@/lib/supabase/client';
 import { Product } from '@/types/livv-os';
 import { getIsPreview } from '@/hooks/usePublicData';
 
-const TENANT_SLUG = 'principal-admin';
+const TENANT_SLUG = 'livvv';
 const PRODUCT_CACHE: Record<string, Product | null> = {};
 const ALL_CACHE: Record<string, Product[]> = {};
 
