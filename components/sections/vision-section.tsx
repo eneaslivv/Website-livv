@@ -3,6 +3,7 @@
 import { useRef, useEffect, useState } from "react"
 import { ArrowRight } from "lucide-react"
 import { AnimatedBorders } from "@/components/ui/animated-borders"
+import { submitLead } from "@/lib/lead-ingest"
 
 export function VisionSection() {
     const sectionRef = useRef<HTMLDivElement>(null)
@@ -35,13 +36,13 @@ export function VisionSection() {
         setIsSubmitting(true)
 
         try {
-            const { supabase } = await import('@/lib/supabase/client')
-            const { error } = await supabase.from('leads').insert([{
+            await submitLead({
                 name: email.split('@')[0],
-                email: email
-            }])
-
-            if (error) throw error
+                email: email,
+                origin: "Vision CTA",
+                source: "website",
+                category: "newsletter",
+            })
 
             setIsSuccess(true)
             setEmail("")

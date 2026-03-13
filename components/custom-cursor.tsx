@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { usePathname } from "next/navigation"
 
 export function CustomCursor() {
@@ -10,9 +10,16 @@ export function CustomCursor() {
   const positionRef = useRef({ x: 0, y: 0 })
   const targetPositionRef = useRef({ x: 0, y: 0 })
   const isPointerRef = useRef(false)
+  const needsUpdateRef = useRef(true)
+  const rafIdRef = useRef<number>(0)
+  const [isTouch, setIsTouch] = useState(false)
 
   useEffect(() => {
-    let animationFrameId: number
+    setIsTouch(window.matchMedia("(pointer: coarse)").matches)
+  }, [])
+
+  useEffect(() => {
+    if (isTouch) return
 
     const lerp = (start: number, end: number, factor: number) => {
       return start + (end - start) * factor
@@ -30,7 +37,14 @@ export function CustomCursor() {
         innerRef.current.style.transform = `translate3d(${positionRef.current.x}px, ${positionRef.current.y}px, 0) translate(-50%, -50%) scale(${innerScale})`
       }
 
-      animationFrameId = requestAnimationFrame(updateCursor)
+      const dx = Math.abs(positionRef.current.x - targetPositionRef.current.x)
+      const dy = Math.abs(positionRef.current.y - targetPositionRef.current.y)
+      if (dx < 0.1 && dy < 0.1) {
+        needsUpdateRef.current = false
+        return
+      }
+
+      rafIdRef.current = requestAnimationFrame(updateCursor)
     }
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -39,18 +53,23 @@ export function CustomCursor() {
       const target = e.target as HTMLElement
       isPointerRef.current =
         window.getComputedStyle(target).cursor === "pointer" || target.tagName === "BUTTON" || target.tagName === "A"
+
+      if (!needsUpdateRef.current) {
+        needsUpdateRef.current = true
+        rafIdRef.current = requestAnimationFrame(updateCursor)
+      }
     }
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true })
-    animationFrameId = requestAnimationFrame(updateCursor)
+    rafIdRef.current = requestAnimationFrame(updateCursor)
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove)
-      cancelAnimationFrame(animationFrameId)
+      cancelAnimationFrame(rafIdRef.current)
     }
-  }, [])
+  }, [isTouch])
 
-  if (pathname?.startsWith('/admin') || pathname?.startsWith('/portal')) return null
+  if (isTouch || pathname?.startsWith('/admin') || pathname?.startsWith('/portal')) return null
 
   return (
     <>

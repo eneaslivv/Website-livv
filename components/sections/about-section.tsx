@@ -1,11 +1,10 @@
 "use client"
 
 import { useRef, useEffect, useState } from "react"
-import { ArrowUpRight } from "lucide-react"
 import { AnimatedBorders } from "@/components/ui/animated-borders"
 import { RevealText } from "@/components/ui/reveal-text"
 import { motion, useScroll, useTransform } from "framer-motion"
-import { DesignRushBadge } from "@/components/ui/design-rush-badge"
+import { GoodfirmsBadge } from "@/components/ui/goodfirms-badge"
 import Image from "next/image"
 
 const stats = [
@@ -21,7 +20,7 @@ export function AboutSection({ id }: { id?: string }) {
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start end", "center center", "end center", "end start"]
+    offset: ["start end", "end start"]
   })
 
   // Background Parallax and Opacity
@@ -70,31 +69,24 @@ export function AboutSection({ id }: { id?: string }) {
       ref={sectionRef}
       className="relative w-full overflow-hidden bg-[#2C0405]"
     >
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#f5f2ed] via-[#f5f2ed]/70 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#2c0405]/70 to-[#2c0405]" />
-      </div>
-      {/* Dynamic Background Layer */}
+      {/* Smooth, animated section transition */}
       <motion.div
-        className="absolute inset-0 z-0 bg-[#2C0405]"
-        style={{ opacity: bgOpacity }}
+        className="absolute top-0 left-0 right-0 h-[800px] pointer-events-none z-0 origin-top"
+        style={{
+          background: "linear-gradient(to bottom, #f5f2ed 0%, #e8ddd0 15%, #c4a08a 35%, #7a4038 65%, #3d1214 85%, #2C0405 100%)",
+          opacity: useTransform(scrollYProgress, [0, 0.25], [1, 0]),
+          y: useTransform(scrollYProgress, [0, 0.3], [0, -150]),
+        }}
       />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32 relative z-10">
         <AnimatedBorders color="#EDE5D8" />
 
         <div className="relative">
-          {/* Decorative Parallax Square */}
-          <motion.div
-            className="absolute inset-x-0 inset-y-0 left-1/2 bg-[#2C0405]/80 hidden md:block"
-          />
-
-          {/* Vertical Divider with Line-draw effect */}
-          <motion.div
-            className="hidden md:block absolute left-1/2 top-0 bottom-0 w-[1px] bg-white/30 -translate-x-1/2"
-            initial={{ scaleY: 0 }}
-            animate={{ scaleY: isVisible ? 1 : 0 }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
+          {/* Vertical Divider - dashed, matching AnimatedBorders style */}
+          <div
+            className="hidden md:block absolute left-1/2 top-0 bottom-0 w-[1px] -translate-x-1/2 border-l border-dashed opacity-30"
+            style={{ borderColor: "#EDE5D8" }}
           />
 
           {/* Header */}
@@ -177,9 +169,7 @@ export function AboutSection({ id }: { id?: string }) {
                   sizes="(max-width: 768px) 100vw, 900px"
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#2c0405]/20 to-[#2c0405]/95" />
-                {/* Subtle blurred glowing divider between mountain and stats */}
                 <div className="absolute bottom-0 left-0 right-0 h-[100px] bg-gradient-to-t from-[#2C0405] to-transparent z-10" />
-                <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-[#EDE5D8]/20 blur-[3px] z-20" />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-16 relative z-10">
@@ -192,17 +182,12 @@ export function AboutSection({ id }: { id?: string }) {
                     {(stat as any).isBadge ? (
                       /* SVG Badge */
                       <div className="flex items-center justify-center h-full py-4 -ml-6 md:-ml-16 lg:-ml-24">
-                        <DesignRushBadge color="white" size={170} />
+                        <GoodfirmsBadge size={170} />
                       </div>
                     ) : (
                       /* Regular Stat Card */
                       <>
-                        {/* Dash with floating effect */}
-                        <motion.div
-                          className="w-4 h-[1px] bg-[#F1ADD8] mb-6 opacity-80"
-                          animate={{ x: [0, 4, 0] }}
-                          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: index * 0.5 }}
-                        />
+                        <div className="w-4 h-[1px] bg-[#EDE5D8]/30 mb-6" />
 
                         <div className="text-4xl md:text-5xl font-light text-[#EDE5D8] mb-3 tabular-nums">
                           {(stat as any).value}
@@ -222,19 +207,13 @@ export function AboutSection({ id }: { id?: string }) {
 
           </div>
 
-          {/* Bottom Divider - Simplified, subtle glow */}
-          <div className="mt-24 relative h-[1px] w-full">
-            <motion.div
-              className="absolute inset-x-0 bottom-0 h-full bg-gradient-to-r from-transparent via-[#EDE5D8]/20 to-transparent"
-              initial={{ scaleX: 0, opacity: 0 }}
-              animate={{ scaleX: isVisible ? 1 : 0, opacity: isVisible ? 1 : 0 }}
-              transition={{ duration: 2, delay: 0.5 }}
-            />
-          </div>
+          {/* Bottom Divider - consistent dashed style */}
+          <div
+            className="mt-24 w-full h-[1px] border-t border-dashed opacity-30"
+            style={{ borderColor: "#EDE5D8" }}
+          />
 
         </div>
-
-        <AnimatedBorders color="#EDE5D8" />
       </div>
     </section>
   )

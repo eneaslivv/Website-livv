@@ -10,7 +10,7 @@ import { Inter } from "next/font/google"
 
 const inter = Inter({ subsets: ["latin"] })
 
-import { useSupabase } from "@/hooks/useSupabase"
+import { usePortfolioItems } from "@/hooks/usePublicData"
 import { PortfolioItem } from "@/types/livv-os"
 
 const FALLBACK_PROJECTS: PortfolioItem[] = [
@@ -99,7 +99,7 @@ const FALLBACK_PROJECTS: PortfolioItem[] = [
         category: "E-commerce",
         services: "Shopify, Digital Design",
         year: "2024",
-        image: "/images/portfolio-6.png", // Using a different image to avoid duplication with Paper
+        image: "/images/portfolio-6.webp", // Using a different image to avoid duplication with Paper
         featured: true,
         slug: "boken",
         color: "#333333",
@@ -160,7 +160,7 @@ const itemVariants = {
 }
 
 export function ProjectArchive() {
-    const { data: dbProjects, loading } = useSupabase<PortfolioItem>('portfolio_items');
+    const { data: dbProjects, loading, isPreview } = usePortfolioItems();
 
     // Use DB projects if available, otherwise fallback (or empty if DB exists but empty)
     // Note: If the table doesn't exist yet, dbProjects might stay empty or error, so safety check is good.
@@ -242,6 +242,11 @@ export function ProjectArchive() {
                                                 fill
                                                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                                             />
+                                            {isPreview && (project as any)._is_draft && (
+                                                <div className="absolute top-3 left-3 z-20 px-3 py-1 bg-amber-500/90 text-white text-[10px] font-bold uppercase tracking-widest rounded-full backdrop-blur-sm">
+                                                    Draft
+                                                </div>
+                                            )}
                                         </div>
                                         <div className="flex justify-between items-start border-t border-[#1a1a1a]/10 pt-4">
                                             <div>
@@ -289,8 +294,13 @@ export function ProjectArchive() {
                                             {project.description}
                                         </div>
 
-                                        <div className="w-full md:w-1/3 text-2xl md:text-3xl font-medium">
+                                        <div className="w-full md:w-1/3 text-2xl md:text-3xl font-medium flex items-center gap-3">
                                             {project.title}
+                                            {isPreview && (project as any)._is_draft && (
+                                                <span className="px-2 py-0.5 bg-amber-500/90 text-white text-[9px] font-bold uppercase tracking-widest rounded-full">
+                                                    Draft
+                                                </span>
+                                            )}
                                         </div>
 
                                         <div className="w-full md:w-1/3 text-right text-sm md:text-base text-[#1a1a1a]/60 group-hover:text-[#1a1a1a] transition-colors">

@@ -314,5 +314,70 @@ export interface PortfolioItem {
     slug?: string;
     color?: string;
     description?: string;
+    tech_tags?: string[];
+    display_order?: number;
+    published?: boolean;
+    media_type?: 'image' | 'video' | 'gif';
+    video_url?: string;
+    thumbnail?: string;
+    gallery?: string[];
     created_at?: string;
+    updated_at?: string;
+}
+
+// --- PRODUCT DETAIL TYPES ---
+export interface ProductStat {
+    label: string;
+    value: string;
+}
+
+export interface ProductProblem {
+    title: string;
+    desc: string;
+}
+
+export interface ProductFeature {
+    title: string;
+    desc: string;
+}
+
+export interface ProductWorkflowStep {
+    step: string;
+    title: string;
+    desc: string;
+}
+
+export interface ProductPricing {
+    monthly: string;
+    setup: string;
+    includes: string[];
+}
+
+export interface Product {
+    id: string;
+    slug: string;
+    name: string;
+    industry?: string;
+    target?: string;
+    headline?: string;
+    subheadline?: string;
+    solution?: string;
+    accent_color?: string;
+    gradient?: string;
+    dark_gradient?: string;
+    stats: ProductStat[];
+    problems: ProductProblem[];
+    features: ProductFeature[];
+    workflow: ProductWorkflowStep[];
+    pricing: ProductPricing;
+    hero_image?: string;
+    gallery?: string[];
+    media_type?: 'image' | 'video' | 'gif';
+    video_url?: string;
+    thumbnail?: string;
+    published?: boolean;
+    display_order?: number;
+    portfolio_item_id?: string;
+    created_at?: string;
+    updated_at?: string;
 }

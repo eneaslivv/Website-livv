@@ -1,74 +1,92 @@
 ﻿"use client"
 
-import { useRef } from "react"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { AnimatedBorders } from "@/components/ui/animated-borders"
 import { Playfair_Display } from "next/font/google"
 import { useRouter } from "next/navigation"
 import { RevealText } from "@/components/ui/reveal-text"
+import Image from "next/image"
+import { usePortfolioItems } from "@/hooks/usePublicData"
+import { PortfolioItem } from "@/types/livv-os"
 
 const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400", "500", "600"] })
 
-const items = [
+const FALLBACK_ITEMS: PortfolioItem[] = [
     {
-        id: 1,
+        id: "1",
         title: "Internal Management Systems",
         subtitle: "Custom operational tools",
-        img: "/images/internal-dashboard.png",
-        link: "/projects/internal-management",
-        stats: "2024",
-        tech: ["Development", "Operational Tools"]
+        image: "/images/internal-dashboard.png",
+        slug: "internal-management",
+        year: "2024",
+        tech_tags: ["Development", "Operational Tools"],
+        featured: true,
+        display_order: 1,
     },
     {
-        id: 2,
+        id: "2",
         title: "Paper",
         subtitle: "Venue & nightlife software",
-        img: "/images/portfolio-2.jpg",
-        link: "/projects/paper",
-        stats: "2024",
-        tech: ["Product Strategy", "UI/UX"]
+        image: "/images/portfolio-2.jpg",
+        slug: "paper",
+        year: "2024",
+        tech_tags: ["Product Strategy", "UI/UX"],
+        featured: true,
+        display_order: 2,
     },
     {
-        id: 3,
+        id: "3",
         title: "SEO Blocks Generator",
         subtitle: "Programmatic SEO for Webflow",
-        img: "/images/portfolio-3.jpg",
-        link: "/projects/seo-blocks",
-        stats: "2024",
-        tech: ["Webflow Development", "SEO"]
+        image: "/images/portfolio-3.jpg",
+        slug: "seo-blocks",
+        year: "2024",
+        tech_tags: ["Webflow Development", "SEO"],
+        featured: true,
+        display_order: 3,
     },
     {
-        id: 4,
+        id: "4",
         title: "Azqira",
         subtitle: "Digital Experience",
-        img: "/images/project-mobile.png",
-        link: "/projects/azqira",
-        stats: "2024",
-        tech: ["UI/UX", "Development"]
+        image: "/images/project-mobile.png",
+        slug: "azqira",
+        year: "2024",
+        tech_tags: ["UI/UX", "Development"],
+        featured: true,
+        display_order: 4,
     },
     {
-        id: 5,
+        id: "5",
         title: "Pr Tool",
         subtitle: "Content Monetization",
-        img: "/images/pr-tool.png",
-        link: "/projects/pr-tool",
-        stats: "2024",
-        tech: ["App development", "Integrations"]
+        image: "/images/pr-tool.png",
+        slug: "pr-tool",
+        year: "2024",
+        tech_tags: ["App development", "Integrations"],
+        featured: true,
+        display_order: 5,
     },
     {
-        id: 6,
+        id: "6",
         title: "Sacoa Cashless",
         subtitle: "Design & Animations",
-        img: "/images/sacoa-cashless.png",
-        link: "/projects/sacoa",
-        stats: "2024",
-        tech: ["Design", "Animations"]
+        image: "/images/sacoa-cashless.png",
+        slug: "sacoa",
+        year: "2024",
+        tech_tags: ["Design", "Animations"],
+        featured: true,
+        display_order: 6,
     }
 ]
 
 function PortfolioGrid() {
     const router = useRouter()
-    const displayedItems = items.slice(0, 6)
+    const { data: dbItems, isPreview } = usePortfolioItems()
+
+    const displayedItems = ((dbItems.length > 0 ? dbItems : FALLBACK_ITEMS) as (PortfolioItem & { _is_draft?: boolean })[])
+        .sort((a, b) => (a.display_order || 0) - (b.display_order || 0))
+        .slice(0, 6)
 
     const handleCardClick = (link: string) => {
         router.push(link)
@@ -80,15 +98,38 @@ function PortfolioGrid() {
                 {displayedItems.map((item) => (
                     <div
                         key={item.id}
-                        onClick={() => handleCardClick(item.link)}
+                        onClick={() => handleCardClick(`/projects/${item.slug}`)}
                         className="group/card relative w-full aspect-[3/2] rounded-[10px] overflow-hidden cursor-pointer border border-[#1a1a1a]/10 hover:border-[#F2D696]/50 transition-all duration-500"
                     >
-                        {/* Image */}
-                        <img
-                            src={item.img}
-                            alt={item.title}
-                            className="w-full h-full object-cover transition-transform duration-1000 group-hover/card:scale-110"
-                        />
+                        {/* Cover Media */}
+                        {item.media_type === 'video' && item.video_url ? (
+                            <video
+                                src={item.video_url}
+                                poster={item.thumbnail || item.image || undefined}
+                                autoPlay
+                                muted
+                                loop
+                                playsInline
+                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover/card:scale-110"
+                            />
+                        ) : item.media_type === 'gif' && item.video_url ? (
+                            <Image
+                                src={item.video_url}
+                                alt={item.title}
+                                fill
+                                sizes="(max-width: 768px) 100vw, 50vw"
+                                className="object-cover transition-transform duration-1000 group-hover/card:scale-110"
+                                unoptimized
+                            />
+                        ) : (
+                            <Image
+                                src={item.image || '/images/placeholder.jpg'}
+                                alt={item.title}
+                                fill
+                                sizes="(max-width: 768px) 100vw, 50vw"
+                                className="object-cover transition-transform duration-1000 group-hover/card:scale-110"
+                            />
+                        )}
 
                         {/* Gradient Blur Overlay (Softened) */}
                         <div
@@ -114,10 +155,10 @@ function PortfolioGrid() {
                         <div className="absolute inset-x-0 top-0 p-4 md:p-6 flex justify-between items-start opacity-0 group-hover/card:opacity-100 transition-all duration-500 translate-y-[-10px] group-hover/card:translate-y-0">
                             <div className="flex flex-col gap-0.5">
                                 <span className="text-[8px] uppercase tracking-widest text-white/40">Perf.</span>
-                                <span className="text-white text-[10px] font-light tracking-wide">{item.stats}</span>
+                                <span className="text-white text-[10px] font-light tracking-wide">{item.year}</span>
                             </div>
                             <div className="flex flex-wrap gap-1.5 justify-end max-w-[120px]">
-                                {item.tech.map((t, i) => (
+                                {(item.tech_tags || []).map((t: string, i: number) => (
                                     <span key={i} className="text-[8px] text-[#E8BC59]/80 border border-[#E8BC59]/20 px-1.5 py-0.5 rounded-full bg-black/40 backdrop-blur-md">
                                         {t}
                                     </span>
@@ -127,6 +168,13 @@ function PortfolioGrid() {
 
                         {/* Subtle Border Glow */}
                         <div className="absolute inset-0 rounded-[10px] ring-1 ring-white/10 group-hover/card:ring-white/30 transition-all duration-500 pointer-events-none" />
+
+                        {/* Draft Badge (preview mode only) */}
+                        {isPreview && (item as any)._is_draft && (
+                            <div className="absolute bottom-4 left-4 z-20 px-3 py-1 bg-amber-500/90 text-white text-[10px] font-bold uppercase tracking-widest rounded-full backdrop-blur-sm">
+                                Draft
+                            </div>
+                        )}
                     </div>
                 ))}
             </div>

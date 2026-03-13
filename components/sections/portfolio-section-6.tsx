@@ -63,7 +63,7 @@ const items = [
         id: 6,
         title: 'Concotesta',
         subtitle: 'Brand Experience',
-        img: '/images/portfolio-6.png',
+        img: '/images/portfolio-6.webp',
         link: '/projects/concotesta',
         stats: '3D Product Showcase',
         tech: ['Three.js', 'Blender', 'GSAP']

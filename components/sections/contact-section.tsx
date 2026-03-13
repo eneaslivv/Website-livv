@@ -5,7 +5,7 @@ import Image from "next/image"
 import { useRef, useEffect, useState } from "react"
 import { RevealText } from "@/components/ui/reveal-text"
 import { ContactForm } from "./contact-form"
-import { DesignRushBadge } from "@/components/ui/design-rush-badge"
+import { GoodfirmsBadge } from "@/components/ui/goodfirms-badge"
 
 export function ContactSection() {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -51,6 +51,7 @@ export function ContactSection() {
           src="https://player.vimeo.com/video/1157793938?background=1&autoplay=1&loop=1&muted=1&dnt=1"
           frameBorder="0"
           allow="autoplay; fullscreen; picture-in-picture"
+          loading="lazy"
           className="absolute top-1/2 left-1/2 w-full h-full z-0 opacity-40"
           style={{
             width: '100vw',
@@ -93,7 +94,7 @@ export function ContactSection() {
                 data-username="eneas_aldabe"
               />
               <div className="mt-8">
-                <DesignRushBadge color="white" size={170} />
+                <GoodfirmsBadge size={170} />
               </div>
             </div>
           </div>

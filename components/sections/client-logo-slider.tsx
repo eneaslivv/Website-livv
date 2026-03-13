@@ -8,12 +8,35 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { clientLogos } from "@/components/data/client-logos"
+import { useClientLogos } from "@/hooks/usePublicData"
 
-const logos = clientLogos
+// Map DB client_logos to the format the slider expects
+interface SliderLogo {
+  src: string;
+  alt: string;
+  href: string;
+  description: string;
+  useMask: boolean;
+  className?: string;
+}
+
+const FALLBACK_LOGOS = clientLogos;
 
 export function ClientLogoSlider() {
-  // Increase duplication to 6x to ensure smooth infinite scroll on ultra-wide screens
-  const duplicatedLogos = [...logos, ...logos, ...logos, ...logos, ...logos, ...logos];
+  const { data: dbLogos, isPreview } = useClientLogos()
+
+  const logos: (SliderLogo & { _is_draft?: boolean })[] = dbLogos.length > 0
+    ? dbLogos.map((l: any) => ({
+        src: l.logo_url || '',
+        alt: l.name || '',
+        href: l.website_url || '#',
+        description: l.name || '',
+        useMask: true,
+        _is_draft: l._is_draft || false,
+      }))
+    : FALLBACK_LOGOS;
+
+  const duplicatedLogos = [...logos, ...logos, ...logos];
 
   return (
     <section className="py-2 bg-white">
@@ -26,7 +49,12 @@ export function ClientLogoSlider() {
             <div className="flex animate-scroll items-center w-max">
               <TooltipProvider>
                 {duplicatedLogos.map((logo, index) => (
-                  <div key={index} className="flex-shrink-0 mx-8">
+                  <div key={index} className="flex-shrink-0 mx-8 relative">
+                    {isPreview && (logo as any)._is_draft && (
+                      <span className="absolute -top-2 left-1/2 -translate-x-1/2 z-10 px-2 py-0.5 bg-amber-500/90 text-white text-[7px] font-bold uppercase tracking-widest rounded-full">
+                        Draft
+                      </span>
+                    )}
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <Link href={logo.href} target={logo.href.startsWith("http") ? "_blank" : undefined} className="block group">
@@ -76,7 +104,7 @@ export function ClientLogoSlider() {
             transform: translateX(0);
           }
           100% {
-            transform: translateX(-16.666%); /* 1/6 of the total width since we duplicated 6 times */
+            transform: translateX(-33.333%); /* 1/3 of the total width since we duplicated 3 times */
           }
         }
         .animate-scroll {

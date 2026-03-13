@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react"
 import { createPortal } from "react-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { X, Check, ArrowRight, Loader2 } from "lucide-react"
+import { submitLead } from "@/lib/lead-ingest"
 
 interface PartnerFormModalProps {
     isOpen: boolean
@@ -29,8 +30,19 @@ export function PartnerFormModal({ isOpen, onClose }: PartnerFormModalProps) {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setIsSubmitting(true)
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500))
+        try {
+            await submitLead({
+                name: formData.name,
+                email: formData.email,
+                company: formData.company,
+                message: `Partner Application\n\nApp Idea: ${formData.appIdea}`,
+                origin: "Partner Program",
+                source: "website",
+                category: "partner",
+            })
+        } catch (err) {
+            console.error("Failed to submit partner application:", err)
+        }
         setIsSubmitting(false)
         setIsSuccess(true)
         setTimeout(() => {

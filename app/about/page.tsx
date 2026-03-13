@@ -13,6 +13,7 @@ import { ScrollTypewriter } from "@/components/ui/scroll-typewriter"
 import { ExperienceStats } from "@/components/ui/experience-stats"
 import { SectionReveal } from "@/components/ui/section-reveal"
 import { DeconstructedExpertise } from "@/components/sections/deconstructed-expertise"
+import { GlobalReachSection } from "@/components/sections/global-reach"
 
 export default function AboutPage() {
     return (
@@ -137,131 +138,7 @@ export default function AboutPage() {
                 </section>
 
                 {/* Global Reach Section */}
-                <SectionReveal>
-                    <section className="py-20 md:py-32 px-6 overflow-hidden bg-[#FAFAFA] text-[#1a1a1a] relative group border-b border-[#1a1a1a]/5">
-                        <AnimatedBorders className="hidden md:block pointer-events-none opacity-20 absolute inset-0 z-0" />
-                        {/* Abstract Background */}
-                        <div className="absolute inset-0 opacity-[0.03] group-hover:opacity-[0.05] transition-opacity duration-1000" style={{ backgroundImage: 'radial-gradient(#000000 1px, transparent 1px)', backgroundSize: '32px 32px' }}></div>
-
-                        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 lg:gap-24 items-center relative z-10">
-                            <div>
-                                <div className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-[#C18972] mb-8 border border-[#1a1a1a]/10 rounded-full px-4 py-1.5 bg-[#1a1a1a]/5 backdrop-blur-sm">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-[#C18972] animate-pulse"></span>
-                                    Global Mindset
-                                </div>
-                                <h2 className="section-heading text-[#1a1a1a] mb-8">
-                                    From Buenos Aires<br />
-                                    <span className="text-gradient-gold">to the World.</span>
-                                </h2>
-                                <p className="text-[#1a1a1a]/60 mb-10 leading-relaxed max-w-md font-light text-lg">
-                                    We leverage world-class talent and a strategic time zone (GMT-3) to collaborate seamlessly with the Americas and Europe.
-                                </p>
-                                <div className="flex flex-col gap-6">
-                                    <div className="flex items-center gap-5 text-sm text-[#1a1a1a]/40 border-l border-[#1a1a1a]/10 pl-6 hover:border-[#C18972] hover:text-[#1a1a1a] transition-all duration-300 cursor-default group/item">
-                                        <span className="font-mono text-[#C18972]/50 group-hover/item:text-[#C18972] transition-colors">01</span>
-                                        <span className="font-light tracking-wide">Experts in asynchronous management.</span>
-                                    </div>
-                                    <div className="flex items-center gap-5 text-sm text-[#1a1a1a]/40 border-l border-[#1a1a1a]/10 pl-6 hover:border-[#C18972] hover:text-[#1a1a1a] transition-all duration-300 cursor-default group/item">
-                                        <span className="font-mono text-[#C18972]/50 group-hover/item:text-[#C18972] transition-colors">02</span>
-                                        <span className="font-light tracking-wide">Fluent English communication.</span>
-                                    </div>
-                                    <div className="flex items-center gap-5 text-sm text-[#1a1a1a]/40 border-l border-[#1a1a1a]/10 pl-6 hover:border-[#C18972] hover:text-[#1a1a1a] transition-all duration-300 cursor-default group/item">
-                                        <span className="font-mono text-[#C18972]/50 group-hover/item:text-[#C18972] transition-colors">03</span>
-                                        <span className="font-light tracking-wide">Cost efficiency without sacrificing seniority.</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Stylized Map Visualization */}
-                            <div className="relative h-[450px] w-full border border-[#1a1a1a]/5 rounded-[10px] bg-[#FAFAFA] p-10 flex items-center justify-center overflow-hidden group/map hover:border-[#1a1a1a]/10 transition-all duration-700 shadow-sm hover:shadow-2xl">
-                                {/* Grid Background inside card */}
-                                <div className="absolute inset-0 bg-[radial-gradient(rgba(0,0,0,0.05)_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"></div>
-
-                                {/* SVG Layer for connections */}
-                                <svg className="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-60" viewBox="0 0 100 100" preserveAspectRatio="none">
-                                    <defs>
-                                        <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                            <stop offset="0%" stopColor="rgba(193, 137, 114, 0.1)"></stop>
-                                            <stop offset="50%" stopColor="rgba(193, 137, 114, 0.4)"></stop>
-                                            <stop offset="100%" stopColor="rgba(0, 0, 0, 0.1)"></stop>
-                                        </linearGradient>
-                                    </defs>
-
-                                    {/* Path to USA (NY) */}
-                                    <path d="M 33 80 Q 20 50 25 25" stroke="url(#lineGradient)" fill="none" strokeWidth="0.15" strokeDasharray="2 2"></path>
-                                    <circle r="0.5" fill="#C18972">
-                                        <animateMotion repeatCount="indefinite" dur="3s" path="M 33 80 Q 20 50 25 25" keyPoints="0;1" keyTimes="0;1" calcMode="linear"></animateMotion>
-                                        <animate attributeName="opacity" values="0;1;0" dur="3s" repeatCount="indefinite"></animate>
-                                    </circle>
-
-                                    {/* Path to Canada */}
-                                    <path d="M 33 80 Q 15 60 15 15" stroke="rgba(0,0,0,0.1)" fill="none" strokeWidth="0.15" strokeDasharray="2 2"></path>
-                                    <circle r="0.5" fill="#1a1a1a" opacity="0.4">
-                                        <animateMotion repeatCount="indefinite" dur="4s" begin="1s" path="M 33 80 Q 15 60 15 15" keyPoints="0;1" keyTimes="0;1" calcMode="linear"></animateMotion>
-                                        <animate attributeName="opacity" values="0;1;0" dur="4s" begin="1s" repeatCount="indefinite"></animate>
-                                    </circle>
-
-                                    {/* Path to Europe */}
-                                    <path d="M 33 80 Q 60 40 80 20" stroke="url(#lineGradient)" fill="none" strokeWidth="0.15" strokeDasharray="2 2"></path>
-                                    <circle r="0.5" fill="#C18972">
-                                        <animateMotion repeatCount="indefinite" dur="3.5s" begin="0.5s" path="M 33 80 Q 60 40 80 20" keyPoints="0;1" keyTimes="0;1" calcMode="linear"></animateMotion>
-                                        <animate attributeName="opacity" values="0;1;0" dur="3.5s" begin="0.5s" repeatCount="indefinite"></animate>
-                                    </circle>
-
-                                    {/* Path to Chile */}
-                                    <path d="M 33 80 Q 28 85 22 75" stroke="rgba(0,0,0,0.1)" fill="none" strokeWidth="0.15" strokeDasharray="2 2"></path>
-                                    <circle r="0.4" fill="#1a1a1a" opacity="0.4">
-                                        <animateMotion repeatCount="indefinite" dur="2s" begin="0.2s" path="M 33 80 Q 28 85 22 75"></animateMotion>
-                                    </circle>
-
-                                    {/* Path to Paraguay */}
-                                    <path d="M 33 80 Q 36 75 38 68" stroke="rgba(0,0,0,0.1)" fill="none" strokeWidth="0.15" strokeDasharray="2 2"></path>
-                                    <circle r="0.4" fill="#1a1a1a" opacity="0.4">
-                                        <animateMotion repeatCount="indefinite" dur="2s" begin="1.5s" path="M 33 80 Q 36 75 38 68"></animateMotion>
-                                    </circle>
-                                </svg>
-
-                                {/* BA Pin (Source) */}
-                                <div className="absolute top-[80%] left-[33%] transform -translate-x-1/2 -translate-y-1/2 z-20 group/pin pointer-events-none">
-                                    <div className="w-3 h-3 bg-[#C18972] rounded-full shadow-[0_0_15px_rgba(193,137,114,0.6)] relative z-10 flex items-center justify-center">
-                                        <div className="w-1 h-1 bg-[#FFFFFF] rounded-full"></div>
-                                    </div>
-                                    <div className="absolute inset-0 bg-[#C18972] rounded-full animate-ping opacity-30 duration-1000"></div>
-                                    <div className="absolute -top-6 left-1/2 -translate-x-1/2 whitespace-nowrap">
-                                        <span className="text-[9px] font-bold tracking-widest text-[#FFFFFF] bg-[#C18972] px-1.5 py-0.5 rounded-sm shadow-md">B.A.</span>
-                                    </div>
-                                </div>
-
-                                {/* Pins USA, Canada, Europe, Chile, Paraguay */}
-                                <div className="absolute top-[25%] left-[25%] transform -translate-x-1/2 -translate-y-1/2 group/pin z-10">
-                                    <div className="w-1.5 h-1.5 bg-[#1a1a1a]/50 rounded-full group-hover/map:bg-[#1a1a1a] group-hover/map:scale-125 transition-all duration-500"></div>
-                                    <div className="absolute top-3 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover/map:opacity-100 transition-all duration-500 translate-y-1 group-hover/map:translate-y-0">
-                                        <span className="text-[9px] text-[#FAFAFA] font-medium tracking-wide bg-[#1a1a1a] px-2 py-0.5 rounded-full shadow-lg">USA</span>
-                                    </div>
-                                </div>
-                                <div className="absolute top-[15%] left-[15%] transform -translate-x-1/2 -translate-y-1/2 group/pin z-10">
-                                    <div className="w-1.5 h-1.5 bg-[#1a1a1a]/30 rounded-full group-hover/map:bg-[#1a1a1a] group-hover/map:scale-125 transition-all duration-500 delay-75"></div>
-                                    <div className="absolute top-3 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover/map:opacity-100 transition-all duration-500 translate-y-1 group-hover/map:translate-y-0">
-                                        <span className="text-[9px] text-[#FAFAFA] font-medium tracking-wide bg-[#1a1a1a] px-2 py-0.5 rounded-full shadow-lg">Canada</span>
-                                    </div>
-                                </div>
-                                <div className="absolute top-[20%] left-[80%] transform -translate-x-1/2 -translate-y-1/2 group/pin z-10">
-                                    <div className="w-1.5 h-1.5 bg-[#1a1a1a]/50 rounded-full group-hover/map:bg-[#1a1a1a] group-hover/map:scale-125 transition-all duration-500 delay-100"></div>
-                                    <div className="absolute top-3 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover/map:opacity-100 transition-all duration-500 translate-y-1 group-hover/map:translate-y-0">
-                                        <span className="text-[9px] text-[#FAFAFA] font-medium tracking-wide bg-[#1a1a1a] px-2 py-0.5 rounded-full shadow-lg">Europe</span>
-                                    </div>
-                                </div>
-                                {/* Smaller pins */}
-                                <div className="absolute top-[75%] left-[22%] transform -translate-x-1/2 -translate-y-1/2 group/pin z-10 opacity-50">
-                                    <div className="w-1 h-1 bg-[#1a1a1a]/50 rounded-full"></div>
-                                </div>
-                                <div className="absolute top-[68%] left-[38%] transform -translate-x-1/2 -translate-y-1/2 group/pin z-10 opacity-50">
-                                    <div className="w-1 h-1 bg-[#1a1a1a]/50 rounded-full"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </SectionReveal>
+                <GlobalReachSection />
 
 
 

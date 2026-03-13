@@ -76,7 +76,7 @@ export function WorkModelSection() {
                                 <div className="w-24 h-24 bg-[#FFFFFF] rounded-[1.5rem] border border-[#D6D1C5] flex items-center justify-center p-1.5 shadow-sm group-hover:scale-95 transition-transform duration-500 overflow-hidden relative z-10">
                                     {/* Blurred Image Effect */}
                                     <div className="w-full h-full rounded-[1.2rem] overflow-hidden relative">
-                                        <img src="/images/gemini-generated-image-ndf416ndf416ndf4.png" alt="Rapid" className="w-full h-full object-cover opacity-90 blur-[1px] scale-110" />
+                                        <img src="/images/gemini-generated-image-ndf416ndf416ndf4.webp" alt="Rapid" className="w-full h-full object-cover opacity-90 blur-[1px] scale-110" />
                                         <div className="absolute inset-0 bg-white/10" />
                                     </div>
                                 </div>

@@ -18,7 +18,7 @@ serve(async (req) => {
             },
             body: JSON.stringify({
                 from: 'Livv Contact Form <no-reply@livvv.com>',
-                to: ['eneas@livvv.com'], // Replace with your email
+                to: ['hola@livv.systems'],
                 subject: `🎯 New Lead: ${name}`,
                 html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">

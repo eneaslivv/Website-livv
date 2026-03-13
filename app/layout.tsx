@@ -6,11 +6,11 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics"
 import { SmoothScroll } from "@/components/ui/smooth-scroll"
 import "./globals.css"
-import { CustomCursor } from "@/components/custom-cursor"
 import { ThemeProvider } from "@/components/theme-provider"
 import { AuthProvider } from "@/context/AuthContext"
-import { PageTransition } from "@/components/layout/page-transition"
 import { LazyMotion, domAnimation } from "framer-motion"
+import { CustomCursor } from "@/components/custom-cursor"
+import { DeferredChatWidget } from "@/components/ui/deferred-chat-widget"
 
 export const metadata: Metadata = {
   title: "Livv Studio | Creative Design & Technical Excellence",
@@ -63,10 +63,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${mondwest.variable} ${playground.variable}`} suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://rsms.me" />
-        <link rel="preload" href="/images/gemini-generated-image-ndf416ndf416ndf4.png" as="image" />
-      </head>
+      <head />
       <body className={`${inter.className} antialiased`} suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
@@ -75,13 +72,16 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <AuthProvider>
-            <SmoothScroll>
-              {children}
-            </SmoothScroll>
+            <LazyMotion features={domAnimation}>
+              <SmoothScroll>
+                {children}
+              </SmoothScroll>
+            </LazyMotion>
             <CustomCursor />
             <Analytics />
             <SpeedInsights />
             <GoogleAnalytics />
+            <DeferredChatWidget />
           </AuthProvider>
         </ThemeProvider>
       </body>

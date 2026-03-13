@@ -39,7 +39,7 @@ export const projects: Project[] = [
     price: 29,
     createdAt: "2024-11-15",
     images: [
-      "/images/portfolio-6.png",
+      "/images/portfolio-6.webp",
       "/images/portfolio-1.png",
       "/images/portfolio-2.jpg",
       "/images/portfolio-3.jpg",
@@ -57,7 +57,7 @@ export const projects: Project[] = [
     images: [
       "/images/portfolio-4.jpg",
       "/images/portfolio-5.jpg",
-      "/images/portfolio-6.png",
+      "/images/portfolio-6.webp",
       "/images/portfolio-1.png",
       "/images/portfolio-2.jpg",
     ],
@@ -75,7 +75,7 @@ export const projects: Project[] = [
       "/images/portfolio-3.jpg",
       "/images/portfolio-4.jpg",
       "/images/portfolio-5.jpg",
-      "/images/portfolio-6.png",
+      "/images/portfolio-6.webp",
     ],
   },
   {
@@ -88,7 +88,7 @@ export const projects: Project[] = [
     createdAt: "2024-11-20",
     images: [
       "/images/portfolio-5.jpg",
-      "/images/portfolio-6.png",
+      "/images/portfolio-6.webp",
       "/images/portfolio-1.png",
       "/images/portfolio-2.jpg",
       "/images/portfolio-3.jpg",

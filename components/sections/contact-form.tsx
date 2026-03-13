@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { submitLead } from "@/lib/lead-ingest"
 
 export function ContactForm() {
   const [isLoading, setIsLoading] = useState(false)
@@ -17,17 +18,16 @@ export function ContactForm() {
     setIsLoading(true)
 
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+      await submitLead({
+        name: formData.name,
+        email: formData.email,
+        message: formData.phone
+          ? `${formData.message}\n\nPhone: ${formData.phone}`
+          : formData.message,
+        origin: "Contact Page",
+        source: "website",
+        category: "contact",
       })
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
 
       setIsSuccess(true)
       setFormData({ name: '', email: '', phone: '', message: '' })

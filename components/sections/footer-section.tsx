@@ -4,7 +4,7 @@ import { useRef, useEffect, useState } from "react"
 import { useScroll, useTransform, useSpring, motion } from "framer-motion"
 import { Instagram, Linkedin, Github, ArrowUpRight } from "lucide-react"
 import { AnimatedBorders } from "@/components/ui/animated-borders"
-import { DesignRushBadge } from "@/components/ui/design-rush-badge"
+import { GoodfirmsBadge } from "@/components/ui/goodfirms-badge"
 
 export function FooterSection({ id }: { id?: string }) {
     const containerRef = useRef<HTMLDivElement>(null)
@@ -43,7 +43,7 @@ export function FooterSection({ id }: { id?: string }) {
                         </h2>
 
                         <div className="mt-8">
-                            <DesignRushBadge color="#2C0405" size={170} />
+                            <GoodfirmsBadge size={170} />
                         </div>
                     </div>
 

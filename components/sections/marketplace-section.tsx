@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from "react"
 import { projects as initialProjects, type Project } from "@/lib/marketplace-data"
 import { Toaster, toast } from "sonner"
-import confetti from "canvas-confetti"
+// canvas-confetti loaded dynamically on click
 import { motion } from "framer-motion"
 
 // Dynamically import components to avoid circular dependencies if any, 
@@ -225,11 +225,12 @@ function MarketplaceContent({ id }: { id?: string }) {
                             </div>
                             <button
                                 className="text-sm font-medium text-primary-foreground rounded-full hover:opacity-90 transition-all duration-200 py-1.5 bg-primary px-4 whitespace-nowrap mt-1 animate-blur-in-delay-2 active:scale-[0.97]"
-                                onClick={(e) => {
+                                onClick={async (e) => {
                                     const rect = e.currentTarget.getBoundingClientRect()
                                     const x = (rect.left + rect.width / 2) / window.innerWidth
                                     const y = (rect.top + rect.height / 2) / window.innerHeight
                                     const colors = ["#b8836e", "#c9a48a", "#d4bfad", "#a0694f", "#8a7e74"]
+                                    const { default: confetti } = await import("canvas-confetti")
                                     confetti({
                                         particleCount: 40,
                                         spread: 50,

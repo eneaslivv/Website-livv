@@ -4,7 +4,7 @@ export const clientLogos = [
     alt: "Blackbox AI",
     href: "https://www.blackbox.ai/",
     description: "The AI coding assistant that turns any question into code.",
-    hoverBg: "/assets/logo-bg-2.jpg",
+    hoverBg: "/assets/logo-bg-2.webp",
     useMask: true,
   },
   {
@@ -12,7 +12,7 @@ export const clientLogos = [
     alt: "Buda.com",
     href: "https://www.buda.com/argentina",
     description: "La forma más simple y segura de comprar y vender criptomonedas.",
-    hoverBg: "/assets/logo-bg-3.jpg",
+    hoverBg: "/assets/logo-bg-3.webp",
     useMask: true,
   },
   {
@@ -20,7 +20,7 @@ export const clientLogos = [
     alt: "HeyGen",
     href: "https://www.heygen.com/",
     description: "AI video generator that creates stunning avatars and voices.",
-    hoverBg: "/assets/logo-bg-1.jpg",
+    hoverBg: "/assets/logo-bg-1.webp",
     useMask: true,
   },
   {
@@ -28,7 +28,7 @@ export const clientLogos = [
     alt: "ViewFi",
     href: "https://viewfi.live/",
     description: "Real-time monitoring and analytics.",
-    hoverBg: "/assets/logo-bg-1.jpg",
+    hoverBg: "/assets/logo-bg-1.webp",
     useMask: true,
   },
   {
@@ -36,7 +36,7 @@ export const clientLogos = [
     alt: "RE/MAX",
     href: "https://www.remax.com.ar/",
     description: "Venta y Alquiler de Propiedades.",
-    hoverBg: "/assets/logo-bg-2.jpg",
+    hoverBg: "/assets/logo-bg-2.webp",
     useMask: true,
   },
   {
@@ -44,7 +44,7 @@ export const clientLogos = [
     alt: "Sacoa",
     href: "https://sacoa.com/",
     description: "Entertainment experiences across LATAM.",
-    hoverBg: "/assets/logo-bg-3.jpg",
+    hoverBg: "/assets/logo-bg-3.webp",
     useMask: true,
   },
   {
@@ -52,15 +52,23 @@ export const clientLogos = [
     alt: "Wortise",
     href: "https://wortise.com/es",
     description: "AI-powered monetization and ads insights.",
-    hoverBg: "/assets/logo-bg-1.jpg",
+    hoverBg: "/assets/logo-bg-1.webp",
     useMask: true,
   },
   {
-    src: "/logos-header/sunbird.svg",
+    src: "/logos-header/sunbird.png",
     alt: "Sunbird",
     href: "https://sunbird.com/",
     description: "Messaging platform for teams.",
-    hoverBg: "/assets/logo-bg-2.jpg",
+    hoverBg: "/assets/logo-bg-2.webp",
     useMask: true,
+  },
+  {
+    src: "/logos-header/gio.png",
+    alt: "Gio",
+    href: "#",
+    description: "Gio",
+    hoverBg: "/assets/logo-bg-1.webp",
+    useMask: false,
   },
 ]

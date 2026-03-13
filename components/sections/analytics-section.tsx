@@ -34,6 +34,7 @@ export function AnalyticsSection() {
                                     frameBorder="0"
                                     allow="autoplay; fullscreen; picture-in-picture"
                                     allowFullScreen
+                                    loading="lazy"
                                     title="Livv Analytics Dashboard"
                                 ></iframe>
                             </div>

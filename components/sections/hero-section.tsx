@@ -4,7 +4,7 @@ import dynamic from "next/dynamic"
 import { CSSProperties, useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { Navbar } from "@/components/layout/navbar"
-import { DesignRushBadge } from "@/components/ui/design-rush-badge"
+import { GoodfirmsBadge } from "@/components/ui/goodfirms-badge"
 
 const Shader = dynamic(() => import("shaders/react").then((mod) => mod.Shader), { ssr: false })
 const Swirl = dynamic(() => import("shaders/react").then((mod) => mod.Swirl), { ssr: false })
@@ -30,20 +30,35 @@ export function HeroSection() {
   useEffect(() => {
     let animationFrame: number
     let time = 0
+    let isVisible = true
+
+    const observer = new IntersectionObserver(
+      ([entry]) => { isVisible = entry.isIntersecting },
+      { threshold: 0 }
+    )
+
+    if (frameRef.current) {
+      observer.observe(frameRef.current)
+    }
 
     const animate = () => {
-      time += 0.01
-      if (frameRef.current) {
-        const waveRotate = Math.sin(time * 0.3) * 0.8
-        const waveScale = 1.1 + Math.sin(time * 0.5) * 0.025
+      if (isVisible) {
+        time += 0.01
+        if (frameRef.current) {
+          const waveRotate = Math.sin(time * 0.3) * 0.8
+          const waveScale = 1.1 + Math.sin(time * 0.5) * 0.025
 
-        frameRef.current.style.setProperty("--rotate", `${waveRotate}deg`)
-        frameRef.current.style.setProperty("--scale", waveScale.toString())
+          frameRef.current.style.setProperty("--rotate", `${waveRotate}deg`)
+          frameRef.current.style.setProperty("--scale", waveScale.toString())
+        }
       }
       animationFrame = requestAnimationFrame(animate)
     }
     animationFrame = requestAnimationFrame(animate)
-    return () => cancelAnimationFrame(animationFrame)
+    return () => {
+      cancelAnimationFrame(animationFrame)
+      observer.disconnect()
+    }
   }, [])
 
   useEffect(() => {
@@ -58,7 +73,7 @@ export function HeroSection() {
       }
     }
 
-    window.addEventListener("mousemove", handleMouseMove)
+    window.addEventListener("mousemove", handleMouseMove, { passive: true })
     return () => window.removeEventListener("mousemove", handleMouseMove)
   }, [])
 
@@ -98,7 +113,7 @@ export function HeroSection() {
             }}
           >
             <Image
-              src="/images/gemini-generated-image-ndf416ndf416ndf4.png"
+              src="/images/gemini-generated-image-ndf416ndf416ndf4.webp"
               alt="Background"
               fill
               priority
@@ -206,7 +221,7 @@ export function HeroSection() {
               className={`mt-16 transition-all duration-1000 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
               style={{ transitionDelay: "700ms" }}
             >
-              <DesignRushBadge color="white" size={140} />
+              <GoodfirmsBadge size={140} />
             </div>
           </div>
         </div>

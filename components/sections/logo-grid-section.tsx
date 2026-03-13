@@ -31,56 +31,63 @@ export function LogoGridSection() {
             alt: "ViewFi",
             href: "https://viewfi.live/",
             description: "Real-time monitoring and analytics.",
-            hoverBg: "/assets/logo-bg-1.jpg",
+            hoverBg: "/assets/logo-bg-1.webp",
         },
         {
             src: "/logos-header/logo-7.png",
             alt: "RE/MAX",
             href: "https://www.remax.com.ar/",
             description: "Venta y alquiler de propiedades.",
-            hoverBg: "/assets/logo-bg-2.jpg",
+            hoverBg: "/assets/logo-bg-2.webp",
         },
         {
             src: "/logos-header/sacoa.png",
             alt: "Sacoa",
             href: "https://sacoa.com/",
             description: "Entertainment experiences across LATAM.",
-            hoverBg: "/assets/logo-bg-3.jpg",
+            hoverBg: "/assets/logo-bg-3.webp",
         },
         {
             src: "/logos-header/wortise.png",
             alt: "Wortise",
             href: "https://wortise.com/es",
             description: "AI-powered monetization and ads insights.",
-            hoverBg: "/assets/logo-bg-1.jpg",
+            hoverBg: "/assets/logo-bg-1.webp",
         },
         {
             src: "/logos-header/blackbox.png",
             alt: "Blackbox AI",
             href: "https://www.blackbox.ai/",
             description: "Autonomous agents for software teams.",
-            hoverBg: "/assets/logo-bg-2.jpg",
+            hoverBg: "/assets/logo-bg-2.webp",
         },
         {
             src: "/logos-header/buda.png",
             alt: "Buda.com",
             href: "https://www.buda.com/argentina",
             description: "Cripto exchange, simple and secure.",
-            hoverBg: "/assets/logo-bg-3.jpg",
+            hoverBg: "/assets/logo-bg-3.webp",
         },
         {
             src: "/logos-header/heygen.png",
             alt: "HeyGen",
             href: "https://www.heygen.com/",
             description: "AI video generator with avatars.",
-            hoverBg: "/assets/logo-bg-1.jpg",
+            hoverBg: "/assets/logo-bg-1.webp",
         },
         {
-            src: "/logos-header/sunbird.svg",
+            src: "/logos-header/sunbird.png",
             alt: "Sunbird",
             href: "https://sunbird.com/",
             description: "Messaging platform for teams.",
-            hoverBg: "/assets/logo-bg-2.jpg",
+            hoverBg: "/assets/logo-bg-2.webp",
+        },
+        {
+            src: "/logos-header/gio.png",
+            alt: "Gio",
+            href: "#",
+            description: "Gio",
+            hoverBg: "/assets/logo-bg-1.webp",
         },
     ]
 
@@ -123,14 +130,21 @@ export function LogoGridSection() {
                             </div>
 
                             <div
-                                className={`relative z-10 w-28 h-12 transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+                                className={`relative z-10 ${logo.alt === "Gio" ? "w-20 h-20" : logo.alt === "Sacoa" ? "w-32 h-16" : "w-28 h-12"} transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
                                 style={{ transitionDelay: `${500 + index * 100}ms` }}
                             >
                                 <Image
                                     src={logo.src}
                                     alt={logo.alt}
                                     fill
-                                    className="object-contain filter transition-all duration-500 group-hover:invert"
+                                    className={`object-contain filter transition-all duration-500 ${logo.alt === "Gio" ? "opacity-90 group-hover:opacity-100" : "group-hover:invert"}`}
+                                    style={
+                                        logo.alt === "Sunbird"
+                                            ? { filter: "brightness(0) saturate(100%) invert(8%) sepia(35%) saturate(5451%) hue-rotate(334deg) brightness(88%) contrast(108%)" }
+                                            : logo.alt === "Gio"
+                                                ? { filter: "contrast(1.1)" }
+                                                : {}
+                                    }
                                 />
                             </div>
                         </a>

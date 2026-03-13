@@ -10,8 +10,9 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
 
     // Create Lenis once
     useEffect(() => {
-        // Disable smooth scroll on admin and portal routes
+        // Disable smooth scroll on admin, portal routes, and touch devices
         if (pathname?.startsWith('/admin') || pathname?.startsWith('/portal')) return
+        if (window.matchMedia("(pointer: coarse)").matches) return
 
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual'
