@@ -4,6 +4,7 @@ import { ChallengeSection } from "./ChallengeSection"
 import { ImageShowcaseSection } from "./ImageShowcaseSection"
 import { DesignSystemSection } from "./DesignSystemSection"
 import { BannerSection } from "./BannerSection"
+import { RichText } from "./RichText"
 import { Playfair_Display } from "next/font/google"
 
 const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400", "500", "600"] })
@@ -62,15 +63,15 @@ export function BlockRenderer({ block }: { block: ContentBlock }) {
 
         case 'text':
             return (
-                <p className="text-lg text-[#5A3E3E]/70 leading-relaxed mb-8">
-                    {block.content}
-                </p>
+                <div className="text-lg text-[#5A3E3E]/70 leading-relaxed mb-8">
+                    <RichText content={block.content} />
+                </div>
             )
 
         case 'quote':
             return (
                 <blockquote className="border-l-4 border-[#C4A35A] pl-6 py-2 mb-8 italic text-lg text-[#5A3E3E]/70 leading-relaxed">
-                    {block.content}
+                    <RichText content={block.content} />
                 </blockquote>
             )
 

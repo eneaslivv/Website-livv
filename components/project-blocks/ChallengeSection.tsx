@@ -1,5 +1,6 @@
 import { ArrowUpRight } from "lucide-react"
 import { Playfair_Display } from "next/font/google"
+import { RichText } from "./RichText"
 
 const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400", "500", "600"] })
 
@@ -21,7 +22,7 @@ export function ChallengeSection({ label, heading, paragraphs, tools, kpis }: Pr
                 </h2>
                 <div className="space-y-6 text-lg text-[#5A3E3E]/70 leading-relaxed">
                     {paragraphs.map((p, i) => (
-                        <p key={i}>{p}</p>
+                        <p key={i}><RichText content={p} /></p>
                     ))}
                 </div>
             </div>

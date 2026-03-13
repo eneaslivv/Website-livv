@@ -821,14 +821,14 @@ export function ChatWidget() {
                         transition={{ type: "spring", damping: 25, stiffness: 250, mass: 0.8 }}
                         onMouseMove={handleWidgetMouse}
                         onMouseLeave={handleWidgetLeave}
-                        className="fixed bottom-6 right-6 z-[997]"
+                        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[997]"
                         style={{
                             perspective: 800,
                         }}
                     >
                         <motion.div
                             style={{ rotateX: springRotateX, rotateY: springRotateY }}
-                            className="relative flex w-[360px] sm:w-[420px] rounded-[22px] overflow-hidden bg-[#0A0A0A] border border-white/[0.04] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)]"
+                            className="relative flex w-[280px] sm:w-[360px] rounded-[22px] overflow-hidden bg-[#0A0A0A] border border-white/[0.04] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)]"
                         >
                             {/* Subtle shimmer effect */}
                             <motion.div
@@ -842,7 +842,7 @@ export function ChatWidget() {
                             />
 
                             {/* Left: Photo strip */}
-                            <div className="relative w-[130px] sm:w-[140px] flex-shrink-0">
+                            <div className="relative w-[90px] sm:w-[120px] flex-shrink-0">
                                 <Image
                                     src="/assets/luis-profile.jpg"
                                     alt="Luis - Livv Studio"
@@ -861,19 +861,19 @@ export function ChatWidget() {
                             </div>
 
                             {/* Right: Content */}
-                            <div className="flex flex-1 flex-col p-4 pl-3 relative min-w-0">
+                            <div className="flex flex-1 flex-col p-3 sm:p-4 pl-2 sm:pl-3 relative min-w-0">
                                 {/* Close / Minimize */}
                                 <div className="absolute top-3 right-3 flex gap-1 z-20">
                                     <button
                                         onClick={() => setIsMinimized(true)}
-                                        className="w-5 h-5 rounded-full flex items-center justify-center text-white/15 hover:text-white/40 transition-colors duration-200"
+                                        className="w-5 h-5 rounded-full flex items-center justify-center text-white/30 hover:text-white/50 transition-colors duration-200"
                                         aria-label="Minimize"
                                     >
                                         <svg width="8" height="2" viewBox="0 0 8 2" fill="none"><rect width="8" height="1.5" rx="0.75" fill="currentColor" /></svg>
                                     </button>
                                     <button
                                         onClick={() => { setIsVisible(false); setHasBeenClosed(true) }}
-                                        className="w-5 h-5 rounded-full flex items-center justify-center text-white/15 hover:text-white/40 transition-colors duration-200"
+                                        className="w-5 h-5 rounded-full flex items-center justify-center text-white/30 hover:text-white/50 transition-colors duration-200"
                                         aria-label="Close"
                                     >
                                         <X className="w-2.5 h-2.5" />
@@ -882,10 +882,10 @@ export function ChatWidget() {
 
                                 {/* Name & role */}
                                 <div className="mb-3">
-                                    <h3 className="text-[14px] font-semibold text-white tracking-[-0.01em] leading-tight">
-                                        &ldquo;Luis&rdquo; <span className="text-[10px] font-normal text-white/20 ml-1">real human</span>
+                                    <h3 className="text-[12px] sm:text-[14px] font-semibold text-white tracking-[-0.01em] leading-tight">
+                                        &ldquo;Luis&rdquo; <span className="text-[10px] font-normal text-white/40 ml-1">real human</span>
                                     </h3>
-                                    <p className="text-[9px] text-white/20 font-semibold tracking-[0.15em] uppercase mt-1">
+                                    <p className="text-[9px] text-white/40 font-semibold tracking-[0.15em] uppercase mt-1">
                                         Customer Access
                                     </p>
                                 </div>
@@ -901,7 +901,7 @@ export function ChatWidget() {
                                     </span>
                                 </div>
 
-                                <p className="text-[11px] text-white/20 leading-relaxed mb-4 pr-2">
+                                <p className="text-[10px] sm:text-[11px] text-white/40 leading-relaxed mb-4 pr-2">
                                     We build digital systems, websites and apps to scale your business.
                                 </p>
 
@@ -919,7 +919,7 @@ export function ChatWidget() {
                                             href="https://cal.com/eneas-aldabe-youfep/15min"
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="text-[10px] text-white/15 hover:text-white/40 transition-colors duration-200 font-medium tracking-wide"
+                                            className="text-[10px] text-white/35 hover:text-white/60 transition-colors duration-200 font-medium tracking-wide"
                                         >
                                             Schedule a call
                                         </a>
@@ -927,7 +927,7 @@ export function ChatWidget() {
                                         <a
                                             href="#services"
                                             onClick={() => { setIsMinimized(true) }}
-                                            className="text-[10px] text-white/15 hover:text-white/40 transition-colors duration-200 font-medium tracking-wide"
+                                            className="text-[10px] text-white/35 hover:text-white/60 transition-colors duration-200 font-medium tracking-wide"
                                         >
                                             View services
                                         </a>
