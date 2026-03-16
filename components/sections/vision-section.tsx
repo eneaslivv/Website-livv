@@ -39,6 +39,7 @@ export function VisionSection() {
             await submitLead({
                 name: email.split('@')[0],
                 email: email,
+                message: "Interested — submitted email via Vision CTA",
                 origin: "Vision CTA",
                 source: "website",
                 category: "newsletter",

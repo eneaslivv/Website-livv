@@ -6,6 +6,7 @@ import { Layers, ArrowRight, CheckCircle2 } from "lucide-react"
 import Link from "next/link"
 import { useParams, useRouter } from "next/navigation"
 import { LiquidMetalButton } from "@/components/button-styling/liquid-metal-button"
+import { clientLogos } from "@/components/data/client-logos"
 import { Navbar } from "@/components/layout/navbar"
 import { FooterSection } from "@/components/sections/footer-section"
 import { supabase } from "@/lib/supabase/client"
@@ -167,9 +168,9 @@ export default function ServiceDetailPage() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1, delay: 0.5 }}
-                    className="w-full relative h-[450px] md:h-[600px] flex items-center justify-center -mt-4 overflow-hidden"
+                    className="w-full relative h-[300px] md:h-[600px] flex items-center justify-center -mt-4 overflow-hidden"
                 >
-                    {/* SVG Lines Background */}
+                    {/* SVG Lines Background - animated paths hidden on mobile for performance */}
                     <svg className="absolute top-0 left-0 w-full h-full pointer-events-none" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1440 600" xmlns="http://www.w3.org/2000/svg">
                         <defs>
                             <filter id="line-glow" x="-50%" y="-50%" width="200%" height="200%">
@@ -193,50 +194,51 @@ export default function ServiceDetailPage() {
                             </linearGradient>
                         </defs>
 
-                        {/* LEFT SIDE FLOWS */}
+                        {/* LEFT SIDE FLOWS - static lines always visible */}
                         <path d="M-100,50 C300,50 500,300 660,300" stroke="#a8a29e" strokeWidth="1" fill="none" opacity="0.2"></path>
-                        <motion.path
-                            d="M-100,50 C300,50 500,300 660,300"
-                            stroke="url(#grad-left)"
-                            strokeWidth="2"
-                            fill="none"
-                            strokeDasharray="150 1000"
-                            strokeDashoffset="1150"
-                            strokeLinecap="round"
-                            filter="url(#line-glow)"
-                            animate={{ strokeDashoffset: [1150, -1150] }}
-                            transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                        />
-
                         <path d="M-100,200 C300,220 500,300 660,300" stroke="#d6d3d1" strokeWidth="1" fill="none" strokeDasharray="3 6"></path>
-
                         <path d="M-100,300 L660,300" stroke="#a8a29e" strokeWidth="1" opacity="0.2" fill="none"></path>
-                        <motion.path
-                            d="M-100,300 L660,300"
-                            stroke="url(#grad-left)"
-                            strokeWidth="2"
-                            fill="none"
-                            strokeDasharray="200 1200"
-                            strokeDashoffset="1400"
-                            strokeLinecap="round"
-                            filter="url(#line-glow)"
-                            animate={{ strokeDashoffset: [1400, -1400] }}
-                            transition={{ duration: 4, repeat: Infinity, ease: "linear", delay: 0.5 }}
-                        />
-
                         <path d="M-100,550 C300,550 500,300 660,300" stroke="#a8a29e" strokeWidth="1" fill="none" opacity="0.2"></path>
-                        <motion.path
-                            d="M-100,550 C300,550 500,300 660,300"
-                            stroke="url(#grad-left)"
-                            strokeWidth="2"
-                            fill="none"
-                            strokeDasharray="180 1000"
-                            strokeDashoffset="1180"
-                            strokeLinecap="round"
-                            filter="url(#line-glow)"
-                            animate={{ strokeDashoffset: [1180, -1180] }}
-                            transition={{ duration: 6, repeat: Infinity, ease: "linear", delay: 1 }}
-                        />
+
+                        {/* Animated glow paths - desktop only for performance */}
+                        <g className="hidden md:block">
+                            <motion.path
+                                d="M-100,50 C300,50 500,300 660,300"
+                                stroke="url(#grad-left)"
+                                strokeWidth="2"
+                                fill="none"
+                                strokeDasharray="150 1000"
+                                strokeDashoffset="1150"
+                                strokeLinecap="round"
+                                filter="url(#line-glow)"
+                                animate={{ strokeDashoffset: [1150, -1150] }}
+                                transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                            />
+                            <motion.path
+                                d="M-100,300 L660,300"
+                                stroke="url(#grad-left)"
+                                strokeWidth="2"
+                                fill="none"
+                                strokeDasharray="200 1200"
+                                strokeDashoffset="1400"
+                                strokeLinecap="round"
+                                filter="url(#line-glow)"
+                                animate={{ strokeDashoffset: [1400, -1400] }}
+                                transition={{ duration: 4, repeat: Infinity, ease: "linear", delay: 0.5 }}
+                            />
+                            <motion.path
+                                d="M-100,550 C300,550 500,300 660,300"
+                                stroke="url(#grad-left)"
+                                strokeWidth="2"
+                                fill="none"
+                                strokeDasharray="180 1000"
+                                strokeDashoffset="1180"
+                                strokeLinecap="round"
+                                filter="url(#line-glow)"
+                                animate={{ strokeDashoffset: [1180, -1180] }}
+                                transition={{ duration: 6, repeat: Infinity, ease: "linear", delay: 1 }}
+                            />
+                        </g>
 
                         <g transform="translate(660, 300)">
                             <circle cx="0" cy="0" r="8" fill="#FDFBF9" stroke="#a8a29e" strokeWidth="1.5"></circle>
@@ -244,48 +246,50 @@ export default function ServiceDetailPage() {
                         </g>
 
 
-                        {/* RIGHT SIDE FLOWS */}
+                        {/* RIGHT SIDE FLOWS - static lines always visible */}
                         <path d="M1540,50 C1140,50 940,300 780,300" stroke="#a8a29e" strokeWidth="1" fill="none" opacity="0.2"></path>
-                        <motion.path
-                            d="M1540,50 C1140,50 940,300 780,300"
-                            stroke="url(#grad-right)"
-                            strokeWidth="2"
-                            fill="none"
-                            strokeDasharray="150 1000"
-                            strokeDashoffset="-1150"
-                            strokeLinecap="round"
-                            filter="url(#line-glow)"
-                            animate={{ strokeDashoffset: [-1150, 1150] }}
-                            transition={{ duration: 5.5, repeat: Infinity, ease: "linear", delay: 0.2 }}
-                        />
-
                         <path d="M1540,300 L780,300" stroke="#a8a29e" strokeWidth="1" opacity="0.2" fill="none"></path>
-                        <motion.path
-                            d="M1540,300 L780,300"
-                            stroke="url(#grad-right)"
-                            strokeWidth="2"
-                            fill="none"
-                            strokeDasharray="200 1200"
-                            strokeDashoffset="-1400"
-                            strokeLinecap="round"
-                            filter="url(#line-glow)"
-                            animate={{ strokeDashoffset: [-1400, 1400] }}
-                            transition={{ duration: 4.5, repeat: Infinity, ease: "linear", delay: 1.2 }}
-                        />
-
                         <path d="M1540,550 C1140,550 940,300 780,300" stroke="#a8a29e" strokeWidth="1" fill="none" opacity="0.2"></path>
-                        <motion.path
-                            d="M1540,550 C1140,550 940,300 780,300"
-                            stroke="url(#grad-right)"
-                            strokeWidth="2"
-                            fill="none"
-                            strokeDasharray="180 1000"
-                            strokeDashoffset="-1180"
-                            strokeLinecap="round"
-                            filter="url(#line-glow)"
-                            animate={{ strokeDashoffset: [-1180, 1180] }}
-                            transition={{ duration: 7, repeat: Infinity, ease: "linear", delay: 2 }}
-                        />
+
+                        {/* Animated glow paths - desktop only for performance */}
+                        <g className="hidden md:block">
+                            <motion.path
+                                d="M1540,50 C1140,50 940,300 780,300"
+                                stroke="url(#grad-right)"
+                                strokeWidth="2"
+                                fill="none"
+                                strokeDasharray="150 1000"
+                                strokeDashoffset="-1150"
+                                strokeLinecap="round"
+                                filter="url(#line-glow)"
+                                animate={{ strokeDashoffset: [-1150, 1150] }}
+                                transition={{ duration: 5.5, repeat: Infinity, ease: "linear", delay: 0.2 }}
+                            />
+                            <motion.path
+                                d="M1540,300 L780,300"
+                                stroke="url(#grad-right)"
+                                strokeWidth="2"
+                                fill="none"
+                                strokeDasharray="200 1200"
+                                strokeDashoffset="-1400"
+                                strokeLinecap="round"
+                                filter="url(#line-glow)"
+                                animate={{ strokeDashoffset: [-1400, 1400] }}
+                                transition={{ duration: 4.5, repeat: Infinity, ease: "linear", delay: 1.2 }}
+                            />
+                            <motion.path
+                                d="M1540,550 C1140,550 940,300 780,300"
+                                stroke="url(#grad-right)"
+                                strokeWidth="2"
+                                fill="none"
+                                strokeDasharray="180 1000"
+                                strokeDashoffset="-1180"
+                                strokeLinecap="round"
+                                filter="url(#line-glow)"
+                                animate={{ strokeDashoffset: [-1180, 1180] }}
+                                transition={{ duration: 7, repeat: Infinity, ease: "linear", delay: 2 }}
+                            />
+                        </g>
 
                         <g transform="translate(780, 300)">
                             <circle cx="0" cy="0" r="8" fill="#FDFBF9" stroke="#a8a29e" strokeWidth="1.5"></circle>
@@ -355,21 +359,17 @@ export default function ServiceDetailPage() {
                 </section>
 
                 {/* Bottom Trusted By */}
-                <div className="py-20 flex flex-col items-center gap-4">
+                <div className="py-20 flex flex-col items-center gap-6">
                     <p className="text-[10px] font-semibold tracking-widest text-stone-400 uppercase">Trusted by engineering teams at</p>
-                    <div className="flex items-center gap-12 grayscale opacity-40 mix-blend-multiply">
-                        <div className="flex items-center gap-2">
-                            <div className="w-4 h-4 bg-stone-500 rounded-full"></div>
-                            <span className="font-bold text-stone-600 tracking-tight text-sm">Acme</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <div className="w-4 h-4 bg-stone-500 rounded-sm"></div>
-                            <span className="font-bold text-stone-600 tracking-tight text-sm">Corps</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <div className="w-4 h-4 bg-stone-500 rotate-45"></div>
-                            <span className="font-bold text-stone-600 tracking-tight text-sm">Global</span>
-                        </div>
+                    <div className="flex items-center justify-center gap-8 flex-wrap">
+                        {clientLogos.map((logo) => (
+                            <img
+                                key={logo.alt}
+                                src={logo.src}
+                                alt={logo.alt}
+                                className="h-6 w-auto object-contain grayscale opacity-40 hover:opacity-60 transition-opacity duration-300"
+                            />
+                        ))}
                     </div>
                 </div>
 
