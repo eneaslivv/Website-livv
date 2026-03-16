@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useEffect, useState } from "react"
+import { useRef, useEffect } from "react"
 import { useScroll, useTransform, useSpring, motion } from "framer-motion"
 import { Instagram, Linkedin, Github, ArrowUpRight } from "lucide-react"
 import { AnimatedBorders } from "@/components/ui/animated-borders"
@@ -12,6 +12,19 @@ export function FooterSection({ id }: { id?: string }) {
         target: containerRef,
         offset: ["start end", "end end"]
     })
+
+    // Load Contra embed script
+    useEffect(() => {
+        const scriptId = "contra-sdk-script"
+        if (!document.getElementById(scriptId)) {
+            const script = document.createElement("script")
+            script.id = scriptId
+            script.src = "https://contra.com/static/embed/sdk.js"
+            script.async = true
+            script.charset = "utf-8"
+            document.body.appendChild(script)
+        }
+    }, [])
 
     const rawY = useTransform(scrollYProgress, [0.4, 1], [300, 0])
     const rawOpacity = useTransform(scrollYProgress, [0.6, 1], [0, 1])
@@ -42,7 +55,13 @@ export function FooterSection({ id }: { id?: string }) {
                             Let's work together
                         </h2>
 
-                        <div className="mt-8">
+                        <div className="mt-8 flex flex-col gap-4">
+                            <div
+                                className="contra-hire-me-button"
+                                data-analyticsuserid="451cfc1e-e897-46ed-a701-9dd0533e7ec6"
+                                data-theme="dark"
+                                data-username="eneas_aldabe"
+                            />
                             <GoodfirmsBadge size={170} />
                         </div>
                     </div>
