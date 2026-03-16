@@ -9,6 +9,8 @@ import Image from "next/image"
 import { useFeaturedPortfolioItems } from "@/hooks/usePublicData"
 import { PortfolioItem } from "@/types/livv-os"
 
+const isVideoUrl = (url: string) => /\.(mp4|webm|mov)(\?|$)/i.test(url)
+
 const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400", "500", "600"] })
 
 const FALLBACK_ITEMS: PortfolioItem[] = [
@@ -101,10 +103,10 @@ function PortfolioGrid() {
                         className="group/card relative w-full aspect-[3/2] rounded-[10px] overflow-hidden cursor-pointer border border-[#1a1a1a]/10 hover:border-[#F2D696]/50 transition-all duration-500"
                     >
                         {/* Cover Media */}
-                        {item.media_type === 'video' && item.video_url ? (
+                        {(item.media_type === 'video' && item.video_url) || (item.image && isVideoUrl(item.image)) ? (
                             <video
-                                src={item.video_url}
-                                poster={item.thumbnail || item.image || undefined}
+                                src={item.video_url || item.image!}
+                                poster={item.thumbnail || undefined}
                                 autoPlay
                                 muted
                                 loop
