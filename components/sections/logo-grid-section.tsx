@@ -89,6 +89,13 @@ export function LogoGridSection() {
             description: "Gio",
             hoverBg: "/assets/logo-bg-1.webp",
         },
+        {
+            src: "/logos-header/srpro.png",
+            alt: "S.Rpro Marketing",
+            href: "#",
+            description: "S.Rpro Marketing",
+            hoverBg: "/assets/logo-bg-2.webp",
+        },
     ]
 
     return (
@@ -139,7 +146,7 @@ export function LogoGridSection() {
                                     fill
                                     className={`object-contain filter transition-all duration-500 ${logo.alt === "Gio" ? "opacity-90 group-hover:opacity-100" : "group-hover:invert"}`}
                                     style={
-                                        logo.alt === "Sunbird"
+                                        logo.alt === "Sunbird" || logo.alt === "S.Rpro Marketing"
                                             ? { filter: "brightness(0) saturate(100%) invert(8%) sepia(35%) saturate(5451%) hue-rotate(334deg) brightness(88%) contrast(108%)" }
                                             : logo.alt === "Gio"
                                                 ? { filter: "contrast(1.1)" }
