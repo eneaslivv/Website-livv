@@ -71,4 +71,12 @@ export const clientLogos = [
     hoverBg: "/assets/logo-bg-1.webp",
     useMask: false,
   },
+  {
+    src: "/logos-header/srpro.png",
+    alt: "S.Rpro Marketing",
+    href: "#",
+    description: "S.Rpro Marketing",
+    hoverBg: "/assets/logo-bg-2.webp",
+    useMask: true,
+  },
 ]
