@@ -11,6 +11,15 @@ import { PortfolioItem } from "@/types/livv-os"
 
 const isVideoUrl = (url: string) => /\.(mp4|webm|mov)(\?|$)/i.test(url)
 
+/** Derive the cover URL from media[] (if available) or fallback to image field */
+function getCoverUrl(item: PortfolioItem): string | null {
+    const cover = (item as any).media?.find((m: any) => m.is_cover)
+    if (cover?.url) return cover.url
+    if (item.image) return item.image
+    const firstMedia = (item as any).media?.[0]
+    return firstMedia?.url || null
+}
+
 const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400", "500", "600"] })
 
 const FALLBACK_ITEMS: PortfolioItem[] = [
@@ -103,34 +112,31 @@ function PortfolioGrid() {
                         className="group/card relative w-full aspect-[3/2] rounded-[10px] overflow-hidden cursor-pointer border border-[#1a1a1a]/10 hover:border-[#F2D696]/50 transition-all duration-500"
                     >
                         {/* Cover Media */}
-                        {(item.media_type === 'video' && item.video_url) || (item.image && isVideoUrl(item.image)) ? (
-                            <video
-                                src={item.video_url || item.image!}
-                                poster={item.thumbnail || undefined}
-                                autoPlay
-                                muted
-                                loop
-                                playsInline
-                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover/card:scale-110"
-                            />
-                        ) : item.media_type === 'gif' && item.video_url ? (
-                            <Image
-                                src={item.video_url}
-                                alt={item.title}
-                                fill
-                                sizes="(max-width: 768px) 100vw, 50vw"
-                                className="object-cover transition-transform duration-1000 group-hover/card:scale-110"
-                                unoptimized
-                            />
-                        ) : (
-                            <Image
-                                src={item.image || '/images/placeholder.jpg'}
-                                alt={item.title}
-                                fill
-                                sizes="(max-width: 768px) 100vw, 50vw"
-                                className="object-cover transition-transform duration-1000 group-hover/card:scale-110"
-                            />
-                        )}
+                        {(() => {
+                            const coverUrl = getCoverUrl(item) || '/images/placeholder.jpg'
+                            if (isVideoUrl(coverUrl)) {
+                                return (
+                                    <video
+                                        src={coverUrl}
+                                        autoPlay
+                                        muted
+                                        loop
+                                        playsInline
+                                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover/card:scale-110"
+                                    />
+                                )
+                            }
+                            return (
+                                <Image
+                                    src={coverUrl}
+                                    alt={item.title}
+                                    fill
+                                    sizes="(max-width: 768px) 100vw, 50vw"
+                                    className="object-cover transition-transform duration-1000 group-hover/card:scale-110"
+                                    unoptimized={coverUrl.endsWith('.gif')}
+                                />
+                            )
+                        })()}
 
                         {/* Gradient Blur Overlay (Softened) */}
                         <div

@@ -15,6 +15,15 @@ import { PortfolioItem } from "@/types/livv-os"
 
 const isVideoUrl = (url: string) => /\.(mp4|webm|mov)(\?|$)/i.test(url)
 
+/** Derive the cover URL from media[] (if available) or fallback to image field */
+function getCoverUrl(item: PortfolioItem): string | null {
+    const cover = (item as any).media?.find((m: any) => m.is_cover)
+    if (cover?.url) return cover.url
+    if (item.image) return item.image
+    const firstMedia = (item as any).media?.[0]
+    return firstMedia?.url || null
+}
+
 const FALLBACK_PROJECTS: PortfolioItem[] = [
     {
         id: "internal-systems",
@@ -238,29 +247,36 @@ export function ProjectArchive() {
                                     <Link href={`/projects/${project.slug || '#'}`} className="group block relative">
                                         <div className="aspect-[16/10] overflow-hidden rounded-[4px] mb-6 relative">
                                             <div className="absolute inset-0 bg-[#1a1a1a]/5 z-10 group-hover:bg-transparent transition-colors duration-500" />
-                                            {project.image ? (
-                                                isVideoUrl(project.image) ? (
-                                                    <video
-                                                        src={project.image}
-                                                        autoPlay
-                                                        muted
-                                                        loop
-                                                        playsInline
-                                                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                                                    />
-                                                ) : (
+                                            {(() => {
+                                                const coverUrl = getCoverUrl(project)
+                                                if (!coverUrl) {
+                                                    return (
+                                                        <div className="absolute inset-0 flex items-center justify-center" style={{ backgroundColor: project.color || '#E6E2D6' }}>
+                                                            <span className="text-5xl font-light text-white/40">{project.title?.[0]}</span>
+                                                        </div>
+                                                    )
+                                                }
+                                                if (isVideoUrl(coverUrl)) {
+                                                    return (
+                                                        <video
+                                                            src={coverUrl}
+                                                            autoPlay
+                                                            muted
+                                                            loop
+                                                            playsInline
+                                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                                        />
+                                                    )
+                                                }
+                                                return (
                                                     <Image
-                                                        src={project.image}
+                                                        src={coverUrl}
                                                         alt={project.title}
                                                         fill
                                                         className="object-cover transition-transform duration-700 group-hover:scale-105"
                                                     />
                                                 )
-                                            ) : (
-                                                <div className="absolute inset-0 flex items-center justify-center" style={{ backgroundColor: project.color || '#E6E2D6' }}>
-                                                    <span className="text-5xl font-light text-white/40">{project.title?.[0]}</span>
-                                                </div>
-                                            )}
+                                            })()}
                                             {isPreview && (project as any)._is_draft && (
                                                 <div className="absolute top-3 left-3 z-20 px-3 py-1 bg-amber-500/90 text-white text-[10px] font-bold uppercase tracking-widest rounded-full backdrop-blur-sm">
                                                     Draft
@@ -305,7 +321,7 @@ export function ProjectArchive() {
                                     key={project.id}
                                     variants={itemVariants}
                                     className="group relative border-b border-[#1a1a1a]/10 py-8 md:py-12 cursor-pointer transition-colors duration-300 hover:bg-[#1a1a1a]/[0.02]"
-                                    onMouseEnter={() => setHoveredProject(project.image || null)}
+                                    onMouseEnter={() => setHoveredProject(getCoverUrl(project))}
                                     onMouseLeave={() => setHoveredProject(null)}
                                 >
                                     <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0 relative z-20">
