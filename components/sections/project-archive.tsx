@@ -13,6 +13,8 @@ const inter = Inter({ subsets: ["latin"] })
 import { usePortfolioItems } from "@/hooks/usePublicData"
 import { PortfolioItem } from "@/types/livv-os"
 
+const isVideoUrl = (url: string) => /\.(mp4|webm|mov)(\?|$)/i.test(url)
+
 const FALLBACK_PROJECTS: PortfolioItem[] = [
     {
         id: "internal-systems",
@@ -237,12 +239,23 @@ export function ProjectArchive() {
                                         <div className="aspect-[16/10] overflow-hidden rounded-[4px] mb-6 relative">
                                             <div className="absolute inset-0 bg-[#1a1a1a]/5 z-10 group-hover:bg-transparent transition-colors duration-500" />
                                             {project.image ? (
-                                                <Image
-                                                    src={project.image}
-                                                    alt={project.title}
-                                                    fill
-                                                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                                                />
+                                                isVideoUrl(project.image) ? (
+                                                    <video
+                                                        src={project.image}
+                                                        autoPlay
+                                                        muted
+                                                        loop
+                                                        playsInline
+                                                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                                    />
+                                                ) : (
+                                                    <Image
+                                                        src={project.image}
+                                                        alt={project.title}
+                                                        fill
+                                                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                                    />
+                                                )
                                             ) : (
                                                 <div className="absolute inset-0 flex items-center justify-center" style={{ backgroundColor: project.color || '#E6E2D6' }}>
                                                     <span className="text-5xl font-light text-white/40">{project.title?.[0]}</span>
@@ -352,12 +365,23 @@ export function ProjectArchive() {
                         style={{ left: 0, top: 0 }} // Positioning managed by animate transform
                     >
                         <div className="relative w-full h-full bg-[#1a1a1a]">
-                            <Image
-                                src={hoveredProject}
-                                alt="Preview"
-                                fill
-                                className="object-cover"
-                            />
+                            {isVideoUrl(hoveredProject) ? (
+                                <video
+                                    src={hoveredProject}
+                                    autoPlay
+                                    muted
+                                    loop
+                                    playsInline
+                                    className="absolute inset-0 w-full h-full object-cover"
+                                />
+                            ) : (
+                                <Image
+                                    src={hoveredProject}
+                                    alt="Preview"
+                                    fill
+                                    className="object-cover"
+                                />
+                            )}
                         </div>
                     </motion.div>
                 )}
