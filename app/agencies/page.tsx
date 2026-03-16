@@ -140,7 +140,7 @@ export default function AgenciesPage() {
 
     return (
         <div className="min-h-screen w-full bg-white text-[#1a1a1a] antialiased relative">
-            <Navbar theme="light" />
+            <Navbar />
 
             {/* Hero Section */}
             <header className="relative pt-32 pb-24 md:pt-48 md:pb-40 px-6 overflow-hidden min-h-screen flex flex-col justify-center">

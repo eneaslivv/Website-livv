@@ -61,7 +61,7 @@ export default function ProjectPage() {
 
     return (
         <main className={`bg-[#FAF8F3] text-[#2A1818] selection:bg-[#E6E2D6] min-h-screen ${inter.className}`}>
-            <Navbar theme="light" />
+            <Navbar />
 
             {isPreview && (
                 <div className="fixed top-0 left-0 right-0 z-50 bg-amber-500 text-white text-center text-xs py-1 font-medium">

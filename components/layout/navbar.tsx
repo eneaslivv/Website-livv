@@ -8,10 +8,9 @@ import { motion, AnimatePresence } from "framer-motion"
 
 interface NavbarProps {
     isLoaded?: boolean
-    theme?: "light" | "dark"
 }
 
-export function Navbar({ isLoaded = true, theme = "dark" }: NavbarProps) {
+export function Navbar({ isLoaded = true }: NavbarProps) {
     const [isScrolled, setIsScrolled] = useState(false)
     const [isButtonHovered, setIsButtonHovered] = useState(false)
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -51,7 +50,7 @@ export function Navbar({ isLoaded = true, theme = "dark" }: NavbarProps) {
         setIsMobileMenuOpen(false)
     }
 
-    const isLightPage = theme === "light"
+    const isLightPage = false // Always dark navbar for brand consistency
 
     const navItems = [
         { id: "home", label: "Home", num: "01", link: "/" },
