@@ -245,8 +245,12 @@ export function ProjectArchive() {
                             {featuredProjects.map((project, i) => (
                                 <motion.div key={project.id} variants={itemVariants}>
                                     <Link href={`/projects/${project.slug || '#'}`} className="group block relative">
-                                        <div className="aspect-[16/10] overflow-hidden rounded-[4px] mb-6 relative">
-                                            <div className="absolute inset-0 bg-[#1a1a1a]/5 z-10 group-hover:bg-transparent transition-colors duration-500" />
+                                        <div
+                                            className="aspect-[16/10] overflow-hidden rounded-[4px] mb-6 relative"
+                                            onMouseEnter={(e) => { const v = e.currentTarget.querySelector('video'); v?.play() }}
+                                            onMouseLeave={(e) => { const v = e.currentTarget.querySelector('video'); if (v) { v.pause(); v.currentTime = 0 } }}
+                                        >
+                                            <div className="absolute inset-0 bg-[#1a1a1a]/5 z-10 group-hover:bg-transparent transition-colors duration-500 pointer-events-none" />
                                             {(() => {
                                                 const coverUrl = getCoverUrl(project)
                                                 if (!coverUrl) {
@@ -265,8 +269,6 @@ export function ProjectArchive() {
                                                             playsInline
                                                             preload="metadata"
                                                             poster={project.thumbnail || undefined}
-                                                            onMouseEnter={(e) => e.currentTarget.play()}
-                                                            onMouseLeave={(e) => { e.currentTarget.pause(); e.currentTarget.currentTime = 0 }}
                                                             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                                         />
                                                     )

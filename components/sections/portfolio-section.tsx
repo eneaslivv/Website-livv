@@ -109,6 +109,8 @@ function PortfolioGrid() {
                     <div
                         key={item.id}
                         onClick={() => handleCardClick(`/projects/${item.slug}`)}
+                        onMouseEnter={(e) => { const v = e.currentTarget.querySelector('video'); v?.play() }}
+                        onMouseLeave={(e) => { const v = e.currentTarget.querySelector('video'); if (v) { v.pause(); v.currentTime = 0 } }}
                         className="group/card relative w-full aspect-[3/2] rounded-[10px] overflow-hidden cursor-pointer border border-[#1a1a1a]/10 hover:border-[#F2D696]/50 transition-all duration-500"
                     >
                         {/* Cover Media */}
@@ -123,8 +125,6 @@ function PortfolioGrid() {
                                         playsInline
                                         preload="metadata"
                                         poster={item.thumbnail || undefined}
-                                        onMouseEnter={(e) => e.currentTarget.play()}
-                                        onMouseLeave={(e) => { e.currentTarget.pause(); e.currentTarget.currentTime = 0 }}
                                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover/card:scale-110"
                                     />
                                 )
