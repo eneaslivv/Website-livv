@@ -118,10 +118,13 @@ function PortfolioGrid() {
                                 return (
                                     <video
                                         src={coverUrl}
-                                        autoPlay
                                         muted
                                         loop
                                         playsInline
+                                        preload="metadata"
+                                        poster={item.thumbnail || undefined}
+                                        onMouseEnter={(e) => e.currentTarget.play()}
+                                        onMouseLeave={(e) => { e.currentTarget.pause(); e.currentTarget.currentTime = 0 }}
                                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover/card:scale-110"
                                     />
                                 )
