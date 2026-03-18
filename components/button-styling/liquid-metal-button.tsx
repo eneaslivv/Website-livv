@@ -45,7 +45,16 @@ export function LiquidMetalButton({ label = "Get Started", onClick, viewMode = "
     }
   }, [viewMode, label, fullWidth])
 
+  const [isMobile, setIsMobile] = useState(false)
+
   useEffect(() => {
+    setIsMobile(window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768)
+  }, [])
+
+  useEffect(() => {
+    // Skip shader on mobile for performance
+    if (isMobile) return
+
     const styleId = "shader-canvas-style-exploded"
     if (!document.getElementById(styleId)) {
       const style = document.createElement("style")
@@ -120,7 +129,7 @@ export function LiquidMetalButton({ label = "Get Started", onClick, viewMode = "
         shaderMount.current = null
       }
     }
-  }, [fullWidth])
+  }, [fullWidth, isMobile])
 
   const handleMouseEnter = () => {
     setIsHovered(true)
@@ -301,6 +310,8 @@ export function LiquidMetalButton({ label = "Get Started", onClick, viewMode = "
                   maxWidth: fullWidth ? "100%" : `${dimensions.shaderWidth}px`,
                   height: `${dimensions.shaderHeight}px`,
                   transition: "width 0.4s ease, height 0.4s ease",
+                  // CSS fallback for mobile (no shader)
+                  ...(isMobile ? { background: "linear-gradient(135deg, #2a2a2a 0%, #3d3d3d 40%, #4a4a4a 50%, #3d3d3d 60%, #2a2a2a 100%)" } : {}),
                 }}
               />
             </div>
