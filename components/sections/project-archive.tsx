@@ -247,7 +247,7 @@ export function ProjectArchive() {
                                     <Link href={`/projects/${project.slug || '#'}`} className="group block relative">
                                         <div
                                             className="aspect-[16/10] overflow-hidden rounded-[4px] mb-6 relative"
-                                            onMouseEnter={(e) => { const v = e.currentTarget.querySelector('video'); v?.play() }}
+                                            onMouseEnter={(e) => { const v = e.currentTarget.querySelector('video'); v?.play().catch(() => {}) }}
                                             onMouseLeave={(e) => { const v = e.currentTarget.querySelector('video'); if (v) { v.pause(); v.currentTime = 0 } }}
                                         >
                                             <div className="absolute inset-0 bg-[#1a1a1a]/5 z-10 group-hover:bg-transparent transition-colors duration-500 pointer-events-none" />
@@ -267,7 +267,7 @@ export function ProjectArchive() {
                                                             muted
                                                             loop
                                                             playsInline
-                                                            preload="metadata"
+                                                            preload="auto"
                                                             poster={project.thumbnail || undefined}
                                                             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                                         />
