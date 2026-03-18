@@ -3,6 +3,7 @@
 import { useState, useCallback, useEffect, useRef } from "react"
 import { LiquidMetalButton } from "./liquid-metal-button"
 import { ArrowLeft, SkipForward, Send, Mail } from "lucide-react"
+import { submitLead } from "@/lib/lead-ingest"
 
 // --- Data definitions ---
 
@@ -578,7 +579,33 @@ export function QuotingFlow({
                 <div style={{ marginTop: "4px", width: "100%" }}>
                   <LiquidMetalButton
                     label="schedule a call"
-                    onClick={() => window.open("https://cal.com", "_blank")}
+                    onClick={async () => {
+                      const designIncluded = answers.some((a) => a.includes("Design"))
+                      const scope = designIncluded ? "design + development" : answers.some((a) => a === "Design only") ? "design" : "development"
+                      const timeline = answers.find((a) => ["No rush", "Within a month", "ASAP"].includes(a)) || "flexible"
+                      const selections = answers.filter((a) => a !== "skipped").join(", ")
+                      const message = [
+                        `Service: ${badge.label}`,
+                        `Scope: ${scope}`,
+                        `Selections: ${selections}`,
+                        `Timeline: ${timeline}`,
+                        `Estimated range: $${estimate.low} – $${estimate.high} USD`,
+                      ].join("\n")
+
+                      try {
+                        await submitLead({
+                          name: emailInput.split("@")[0],
+                          email: emailInput,
+                          message,
+                          origin: "Quoting Flow",
+                          source: "website",
+                          category: "quote",
+                        })
+                      } catch (err) {
+                        console.error("Failed to save quote lead:", err)
+                      }
+                      window.open("https://cal.com", "_blank")
+                    }}
                     fullWidth
                   />
                 </div>
