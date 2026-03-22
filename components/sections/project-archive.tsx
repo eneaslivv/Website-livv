@@ -325,28 +325,32 @@ export function ProjectArchive() {
                                 <motion.div
                                     key={project.id}
                                     variants={itemVariants}
-                                    className="group relative border-b border-[#1a1a1a]/10 py-8 md:py-12 cursor-pointer transition-colors duration-300 hover:bg-[#1a1a1a]/[0.02]"
                                     onMouseEnter={() => setHoveredProject(getCoverUrl(project))}
                                     onMouseLeave={() => setHoveredProject(null)}
                                 >
-                                    <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0 relative z-20">
-                                        <div className="w-full md:w-1/3 text-lg md:text-xl font-light text-[#1a1a1a]/80 group-hover:text-[#1a1a1a] transition-colors">
-                                            {project.description}
-                                        </div>
+                                    <Link
+                                        href={`/projects/${project.slug || '#'}`}
+                                        className="group relative block border-b border-[#1a1a1a]/10 py-8 md:py-12 cursor-pointer transition-colors duration-300 hover:bg-[#1a1a1a]/[0.02]"
+                                    >
+                                        <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0 relative z-20">
+                                            <div className="w-full md:w-1/3 text-lg md:text-xl font-light text-[#1a1a1a]/80 group-hover:text-[#1a1a1a] transition-colors">
+                                                {project.description}
+                                            </div>
 
-                                        <div className="w-full md:w-1/3 text-2xl md:text-3xl font-medium flex items-center gap-3">
-                                            {project.title}
-                                            {isPreview && (project as any)._is_draft && (
-                                                <span className="px-2 py-0.5 bg-amber-500/90 text-white text-[9px] font-bold uppercase tracking-widest rounded-full">
-                                                    Draft
-                                                </span>
-                                            )}
-                                        </div>
+                                            <div className="w-full md:w-1/3 text-2xl md:text-3xl font-medium flex items-center gap-3">
+                                                {project.title}
+                                                {isPreview && (project as any)._is_draft && (
+                                                    <span className="px-2 py-0.5 bg-amber-500/90 text-white text-[9px] font-bold uppercase tracking-widest rounded-full">
+                                                        Draft
+                                                    </span>
+                                                )}
+                                            </div>
 
-                                        <div className="w-full md:w-1/3 text-right text-sm md:text-base text-[#1a1a1a]/60 group-hover:text-[#1a1a1a] transition-colors">
-                                            {project.services}
+                                            <div className="w-full md:w-1/3 text-right text-sm md:text-base text-[#1a1a1a]/60 group-hover:text-[#1a1a1a] transition-colors">
+                                                {project.services}
+                                            </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                 </motion.div>
                             ))}
                         </motion.div>
