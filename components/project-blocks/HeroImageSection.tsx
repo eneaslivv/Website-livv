@@ -6,7 +6,7 @@ interface Props {
 }
 
 export function HeroImageSection({ image_url, alt }: Props) {
-    if (!image_url) return null
+    if (!image_url || image_url.trim() === '') return null
 
     return (
         <div className="relative w-full rounded-2xl overflow-hidden mb-24 md:mb-32 shadow-2xl shadow-[#2A1818]/5">

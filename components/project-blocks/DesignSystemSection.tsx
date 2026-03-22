@@ -26,7 +26,7 @@ export function DesignSystemSection({ label, heading, description, typeface, col
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 {/* Typeface card */}
-                {typeface && (
+                {typeface?.name && (
                     <div className="lg:col-span-5 bg-white rounded-3xl border border-[#D6D1C5] p-8 flex flex-col justify-between relative overflow-hidden min-h-[500px] shadow-[0_2px_20px_rgba(42,24,24,0.03)]">
                         <div>
                             <div className="flex justify-between items-start mb-2">
@@ -39,7 +39,7 @@ export function DesignSystemSection({ label, heading, description, typeface, col
                                 The quick brown fox jumps over the lazy dog.
                             </p>
                         </div>
-                        {typeface.weights.length > 0 && (
+                        {typeface.weights?.length > 0 && (
                             <div className="grid grid-cols-3 gap-4 pt-12 mt-auto relative z-10">
                                 {typeface.weights.map((w, i) => (
                                     <div key={i}>
@@ -53,8 +53,8 @@ export function DesignSystemSection({ label, heading, description, typeface, col
                 )}
 
                 {/* Colors */}
-                <div className={typeface ? "lg:col-span-7 flex flex-col gap-6" : "lg:col-span-12"}>
-                    {colors.length > 0 && (
+                <div className={typeface?.name ? "lg:col-span-7 flex flex-col gap-6" : "lg:col-span-12"}>
+                    {colors?.length > 0 && (
                         <div className="bg-white rounded-3xl border border-[#D6D1C5] p-8 shadow-[0_2px_20px_rgba(42,24,24,0.03)]">
                             <div className="flex justify-between items-start mb-8">
                                 <span className="font-mono text-[10px] uppercase tracking-widest text-[#D6D1C5] font-medium">Color Variables</span>

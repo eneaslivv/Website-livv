@@ -15,7 +15,10 @@ interface Props {
 }
 
 export function ImageShowcaseSection({ label, layout, images }: Props) {
-    if (images.length === 0) return null
+    if (!images?.length) return null
+    // Skip if all image URLs are empty
+    const hasRealImages = images.some(img => img.url && img.url.trim() !== '')
+    if (!hasRealImages) return null
 
     if (layout === 'wireframe') {
         return (
