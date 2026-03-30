@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next"
+import { getAllPosts, getAllCategories } from "@/lib/blog/utils"
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://livvvv.com"
@@ -59,5 +60,40 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }))
 
-  return [...staticPages, ...productPages, ...servicePages]
+  // Blog index
+  const blogIndex: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+  ]
+
+  // Blog posts
+  const blogPosts = getAllPosts()
+  const blogPostPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.updatedAt),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }))
+
+  // Blog categories
+  const blogCategories = getAllCategories()
+  const blogCategoryPages: MetadataRoute.Sitemap = blogCategories.map((cat) => ({
+    url: `${baseUrl}/blog/category/${cat.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.6,
+  }))
+
+  return [
+    ...staticPages,
+    ...productPages,
+    ...servicePages,
+    ...blogIndex,
+    ...blogPostPages,
+    ...blogCategoryPages,
+  ]
 }

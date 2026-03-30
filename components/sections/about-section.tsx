@@ -182,7 +182,7 @@ export function AboutSection({ id }: { id?: string }) {
                     {(stat as any).isBadge ? (
                       /* SVG Badge */
                       <div className="flex items-center justify-center h-full py-4 -ml-6 md:-ml-16 lg:-ml-24">
-                        <GoodfirmsBadge size={170} />
+                        <GoodfirmsBadge size={170} variant="dark" />
                       </div>
                     ) : (
                       /* Regular Stat Card */

@@ -29,9 +29,9 @@ export function GoodfirmsBadge({
                 alt="Goodfirms Badge"
                 fill
                 className="object-contain"
-                style={variant === "dark"
-                    ? { filter: "brightness(0) invert(1)" }
-                    : { mixBlendMode: "multiply" as const }
+                style={variant === "light"
+                    ? { filter: "brightness(0.65) saturate(1.5)" }
+                    : {}
                 }
             />
         </div>

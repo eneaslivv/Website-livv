@@ -58,6 +58,7 @@ export function Navbar({ isLoaded = true }: NavbarProps) {
         { id: "work", label: "Work", num: "03", link: "/work" },
         { id: "services", label: "Services", num: "04", hasDropdown: true },
         { id: "products", label: "Products", num: "05", link: "/products" },
+        { id: "blog", label: "Blog", num: "06", link: "/blog" },
     ]
 
     const serviceItems = [

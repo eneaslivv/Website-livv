@@ -94,7 +94,7 @@ export function ContactSection() {
                 data-username="eneas_aldabe"
               />
               <div className="mt-8">
-                <GoodfirmsBadge size={170} />
+                <GoodfirmsBadge size={170} variant="dark" />
               </div>
             </div>
           </div>
