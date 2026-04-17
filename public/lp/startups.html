@@ -3,264 +3,1062 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LIVV Studio — Ship your MVP in weeks, not months</title>
-<meta name="description" content="The senior design & engineering team behind ambitious founders. MVP to production in 4–6 weeks. Built to raise, built to scale.">
+<title>LIVV Studio — Your Creative & Dev Partner for the Next Chapter</title>
+<meta name="description" content="LIVV is the white-label design & development studio for startups and ecommerce founders. Ship premium digital products in days — without the US price tag.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/lp/shared.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+/* LIVV DESIGN TOKENS */
+:root{
+  --bg:#FDFBF7;           /* Cream White */
+  --surface:#FFFFFF;
+  --muted:#F5F2EB;        /* Soft Cream */
+  --border:#E6E2D8;       /* Warm Border */
+  --ink:#09090B;          /* Ink Black */
+  --text2:#52525B;        /* Zinc 600 */
+  --text3:#78736A;        /* Warm Zinc */
+  --gold:#E8BC59;         /* LIVV Gold */
+  --sage:#769268;         /* LIVV Sage */
+  --blush:#2C0405;        /* Deep blush */
+  --radius:1.5rem;
+  --radius-sm:1rem;
+  --radius-xl:2.5rem;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;font-weight:300;line-height:1.6;overflow-x:hidden;letter-spacing:-0.01em}
+img,video{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.mono{font-family:'JetBrains Mono',monospace;letter-spacing:0}
+
+/* ============ NAV ============ */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 24px;display:flex;justify-content:center;pointer-events:none}
+.nav-inner{display:flex;justify-content:space-between;align-items:center;width:100%;max-width:1600px;padding:10px 10px 10px 24px;background:rgba(255,255,255,.8);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(230,226,216,.6);border-radius:999px;box-shadow:0 2px 20px rgba(9,9,11,.04);pointer-events:auto}
+.logo{font-size:18px;font-weight:500;letter-spacing:-0.04em;display:flex;align-items:center;gap:2px}
+.logo-dot{width:6px;height:6px;border-radius:50%;background:var(--sage);margin-left:4px;margin-bottom:2px;align-self:flex-end}
+.nav-links{display:flex;gap:28px;font-size:13px;color:var(--text2);font-weight:400}
+.nav-links a{transition:color .2s}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{padding:10px 22px;background:var(--ink);color:var(--bg);border-radius:999px;font-size:13px;font-weight:400;letter-spacing:0;transition:all .3s var(--ease);display:inline-flex;align-items:center;gap:8px}
+.nav-cta:hover{background:#27272A;transform:translateY(-1px)}
+.nav-cta svg{width:12px;height:12px}
+@media(max-width:820px){.nav-links{display:none}.nav-inner{padding:8px 8px 8px 20px}}
+
+/* ============ HERO ============ */
+.hero-wrap{padding:96px 16px 24px}
+@media(min-width:640px){.hero-wrap{padding:96px 24px 32px}}
+.hero-frame{position:relative;width:100%;max-width:1800px;margin:0 auto;height:86vh;min-height:620px;border-radius:var(--radius-xl);overflow:hidden;background:var(--ink);isolation:isolate;border:3px solid var(--ink)}
+.hero-bg{position:absolute;inset:-40px;z-index:0;background:
+  radial-gradient(ellipse 80% 60% at 20% 30%,rgba(118,146,104,.35) 0%,transparent 60%),
+  radial-gradient(ellipse 70% 50% at 80% 70%,rgba(232,188,89,.28) 0%,transparent 60%),
+  radial-gradient(ellipse 60% 40% at 50% 100%,rgba(44,4,5,.35) 0%,transparent 70%),
+  linear-gradient(135deg,#1a1a1a 0%,#0a0a0a 100%);
+  animation:slowDrift 18s ease-in-out infinite alternate;
+  filter:saturate(1.1);
+}
+@keyframes slowDrift{
+  0%{transform:scale(1.05) rotate(-0.3deg)}
+  100%{transform:scale(1.1) rotate(0.3deg)}
+}
+.hero-grain{position:absolute;inset:0;z-index:1;opacity:.08;mix-blend-mode:overlay;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.hero-vignette{position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse at center,transparent 40%,rgba(0,0,0,.35) 100%)}
+.hero-top-gradient{position:absolute;inset-inline:0;top:0;height:120px;z-index:3;pointer-events:none;background:linear-gradient(to bottom,rgba(0,0,0,.4),transparent)}
+
+.hero-badge-float{position:absolute;top:24px;right:24px;z-index:20;display:flex;align-items:center;gap:10px;padding:5px 16px 5px 5px;background:rgba(255,255,255,.12);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.18);border-radius:999px;color:#fff;font-size:11px;letter-spacing:.02em}
+.hero-badge-float .pill{background:var(--gold);color:var(--ink);font-size:9px;font-weight:600;padding:4px 10px;border-radius:999px;letter-spacing:.08em;text-transform:uppercase}
+@media(max-width:640px){.hero-badge-float{display:none}}
+
+.hero-content{position:relative;z-index:10;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 24px 40px;color:#fff}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:999px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.85);margin-bottom:32px;backdrop-filter:blur(8px);font-weight:400}
+.hero-eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--sage);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(118,146,104,.6)}50%{opacity:.5;box-shadow:0 0 0 6px rgba(118,146,104,0)}}
+
+.hero h1{font-size:clamp(40px,7vw,92px);font-weight:300;line-height:.98;letter-spacing:-0.055em;max-width:1000px;color:#fff}
+.hero h1 .accent{font-style:italic;font-weight:400;color:var(--gold)}
+.hero h1 .line{display:block;overflow:hidden}
+.hero h1 .line span{display:block;animation:reveal 1s var(--ease) both}
+.hero h1 .line:nth-child(1) span{animation-delay:.1s}
+.hero h1 .line:nth-child(2) span{animation-delay:.25s}
+.hero h1 .line:nth-child(3) span{animation-delay:.4s}
+@keyframes reveal{0%{transform:translateY(110%);filter:blur(8px);opacity:0}100%{transform:translateY(0);filter:blur(0);opacity:1}}
+
+.hero-sub{margin-top:32px;max-width:580px;font-size:15px;line-height:1.7;color:rgba(255,255,255,.78);font-weight:300;opacity:0;animation:fadeUp 1s var(--ease) .65s forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+.hero-actions{margin-top:40px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;opacity:0;animation:fadeUp 1s var(--ease) .8s forwards}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:999px;font-size:13px;font-weight:400;letter-spacing:.01em;transition:all .3s var(--ease);cursor:pointer;border:none;font-family:inherit}
+.btn svg{width:14px;height:14px;transition:transform .3s var(--ease)}
+.btn:hover svg{transform:translateX(3px)}
+.btn-light{background:#fff;color:var(--ink)}
+.btn-light:hover{background:rgba(255,255,255,.9);transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.3)}
+.btn-ghost:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.5)}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-dark:hover{background:#27272A;transform:translateY(-1px)}
+.btn-sage{background:var(--sage);color:#fff}
+.btn-sage:hover{background:#5e7a54;transform:translateY(-1px);box-shadow:0 10px 30px -8px rgba(118,146,104,.4)}
+
+.hero-trust{margin-top:48px;display:flex;align-items:center;gap:32px;flex-wrap:wrap;justify-content:center;opacity:0;animation:fadeUp 1s var(--ease) 1s forwards}
+.hero-trust-item{display:flex;align-items:center;gap:8px;font-size:11px;color:rgba(255,255,255,.6);letter-spacing:.06em;text-transform:uppercase}
+.hero-trust-item svg{width:14px;height:14px;color:var(--gold)}
+.hero-trust-stars{display:inline-flex;gap:2px;color:var(--gold)}
+
+/* ============ MARQUEE ============ */
+.marquee{padding:40px 0;border-bottom:1px solid var(--border);overflow:hidden;background:var(--bg)}
+.marquee-track{display:flex;gap:72px;animation:marquee 35s linear infinite;width:max-content}
+.marquee-item{font-size:13px;color:var(--text3);letter-spacing:.04em;display:flex;align-items:center;gap:72px;white-space:nowrap}
+.marquee-item::after{content:'';width:4px;height:4px;border-radius:50%;background:var(--border)}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ============ SECTION BASE ============ */
+section.content{padding:120px 24px;max-width:1400px;margin:0 auto}
+@media(max-width:768px){section.content{padding:80px 20px}}
+
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px;margin-bottom:20px}
+.eyebrow::before{content:'';width:20px;height:1px;background:var(--text3)}
+
+h2.section-title{font-size:clamp(32px,5vw,64px);font-weight:300;letter-spacing:-0.045em;line-height:1.04;max-width:900px}
+h2.section-title .accent{font-style:italic;color:var(--sage)}
+h2.section-title .accent-gold{font-style:italic;color:var(--gold)}
+
+.lead{font-size:17px;color:var(--text2);max-width:560px;line-height:1.65;font-weight:300;margin-top:24px}
+
+/* ============ PROBLEM / STORY ============ */
+.story{padding:100px 24px;max-width:1100px;margin:0 auto;text-align:center}
+.story-quote{font-size:clamp(26px,3.2vw,42px);font-weight:300;letter-spacing:-0.035em;line-height:1.25;color:var(--ink);max-width:880px;margin:0 auto}
+.story-quote .strike{color:var(--text3);text-decoration:line-through;text-decoration-thickness:1px;text-decoration-color:rgba(120,115,106,.5)}
+.story-quote .ink-highlight{background:linear-gradient(to right,rgba(232,188,89,.25),rgba(118,146,104,.15));padding:2px 10px;border-radius:4px}
+.story-sub{margin-top:28px;font-size:15px;color:var(--text3);max-width:560px;margin-left:auto;margin-right:auto}
+
+/* ============ PROOF BAR ============ */
+.proof-bar{padding:56px 24px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--muted)}
+.proof-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center}
+.proof-stat{display:flex;flex-direction:column;gap:6px}
+.proof-num{font-size:clamp(32px,4vw,54px);font-weight:300;letter-spacing:-0.04em;color:var(--ink);line-height:1}
+.proof-num sup{font-size:.4em;color:var(--sage);vertical-align:super;font-weight:400;margin-left:4px}
+.proof-label{font-size:11px;color:var(--text3);letter-spacing:.08em;text-transform:uppercase}
+@media(max-width:640px){.proof-inner{grid-template-columns:repeat(2,1fr);gap:40px 20px}}
+
+/* ============ VALUE GRID ============ */
+.value-header{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:64px}
+@media(max-width:820px){.value-header{grid-template-columns:1fr;gap:24px}}
+.value-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:var(--radius);overflow:hidden;border:1px solid var(--border)}
+@media(max-width:980px){.value-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.value-grid{grid-template-columns:1fr}}
+.value-card{background:var(--surface);padding:40px 32px;transition:all .5s var(--ease);position:relative;min-height:280px;display:flex;flex-direction:column;justify-content:space-between}
+.value-card:hover{background:var(--muted);transform:scale(1.01);z-index:2}
+.v-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--sage);letter-spacing:.12em}
+.v-icon{width:38px;height:38px;border-radius:10px;background:var(--muted);display:flex;align-items:center;justify-content:center;margin-bottom:24px;color:var(--ink);transition:all .4s var(--ease)}
+.value-card:hover .v-icon{background:var(--gold);transform:rotate(-6deg) scale(1.05)}
+.v-icon svg{width:18px;height:18px}
+.value-card h3{font-size:22px;font-weight:400;letter-spacing:-0.02em;margin-bottom:10px;line-height:1.2}
+.value-card p{font-size:14px;color:var(--text2);line-height:1.7;font-weight:300}
+
+/* ============ PORTFOLIO ============ */
+.portfolio-wrap{background:var(--muted);padding:120px 24px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.portfolio-inner{max-width:1400px;margin:0 auto}
+.portfolio-head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:56px;flex-wrap:wrap}
+.portfolio-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:20px}
+.port-card{position:relative;border-radius:var(--radius);overflow:hidden;background:var(--ink);aspect-ratio:4/3;cursor:pointer;transition:all .6s var(--ease)}
+.port-card:hover{transform:translateY(-4px);box-shadow:0 24px 60px -12px rgba(9,9,11,.15)}
+.port-card.wide{grid-column:span 8}
+.port-card.narrow{grid-column:span 4}
+.port-card.half{grid-column:span 6}
+@media(max-width:980px){.port-card.wide,.port-card.narrow,.port-card.half{grid-column:span 12;aspect-ratio:5/3}}
+
+.port-visual{position:absolute;inset:0;overflow:hidden}
+.port-visual .bg-img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
+.port-card:hover .bg-img{transform:scale(1.04)}
+.port-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(9,9,11,.85) 0%,rgba(9,9,11,.2) 50%,transparent 100%);z-index:2}
+
+.port-meta{position:absolute;inset:0;z-index:3;padding:28px;display:flex;flex-direction:column;justify-content:space-between;color:#fff}
+.port-tags{display:flex;gap:8px;flex-wrap:wrap}
+.port-tag{padding:5px 11px;background:rgba(255,255,255,.12);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);border-radius:999px;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.9);font-family:'JetBrains Mono',monospace}
+.port-bottom{display:flex;justify-content:space-between;align-items:end;gap:16px}
+.port-title{font-size:clamp(20px,2.4vw,30px);font-weight:400;letter-spacing:-0.03em;line-height:1.15;max-width:380px}
+.port-title .sub{display:block;font-size:12px;color:rgba(255,255,255,.65);margin-top:4px;letter-spacing:.02em;font-weight:300}
+.port-arrow{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.12);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s var(--ease)}
+.port-card:hover .port-arrow{background:var(--gold);color:var(--ink);transform:rotate(-45deg);border-color:var(--gold)}
+.port-arrow svg{width:16px;height:16px;transition:transform .3s var(--ease)}
+
+/* Visual fallback backgrounds for portfolio cards */
+.visual-1{background:linear-gradient(135deg,#769268 0%,#4a6541 100%)}
+.visual-2{background:linear-gradient(135deg,#09090B 0%,#27272A 60%,#E8BC59 120%)}
+.visual-3{background:linear-gradient(135deg,#2C0405 0%,#5c1d18 50%,#E8BC59 130%)}
+.visual-4{background:linear-gradient(135deg,#1a1a1a 0%,#3F3F46 100%);position:relative}
+.visual-4::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,rgba(232,188,89,.3),transparent 50%)}
+.visual-5{background:linear-gradient(135deg,#F5F2EB 0%,#E6E2D8 100%);color:var(--ink) !important}
+.visual-5::after{content:'';position:absolute;inset:0;background:
+  linear-gradient(90deg,transparent 49%,rgba(9,9,11,.08) 49%,rgba(9,9,11,.08) 51%,transparent 51%),
+  linear-gradient(0deg,transparent 49%,rgba(9,9,11,.08) 49%,rgba(9,9,11,.08) 51%,transparent 51%);
+  background-size:40px 40px;
+}
+.visual-6{background:linear-gradient(135deg,#1a2e1a 0%,#769268 100%)}
+
+.port-card.light .port-overlay{background:linear-gradient(to top,rgba(9,9,11,.6) 0%,transparent 70%)}
+.port-card.light .port-tag{background:rgba(9,9,11,.08);border-color:rgba(9,9,11,.12);color:var(--ink)}
+
+.portfolio-cta{margin-top:48px;text-align:center}
+
+/* ============ PROCESS ============ */
+.process{padding:120px 24px;max-width:1300px;margin:0 auto}
+.process-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+@media(max-width:900px){.process-grid{grid-template-columns:1fr;gap:48px}}
+.process-sticky{position:sticky;top:120px}
+.process-steps{display:flex;flex-direction:column;gap:0}
+.step{padding:32px 0;border-bottom:1px solid var(--border);display:grid;grid-template-columns:60px 1fr;gap:24px;align-items:start}
+.step:last-child{border-bottom:none}
+.step-num{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--sage);letter-spacing:.08em;padding-top:4px}
+.step h3{font-size:22px;font-weight:400;letter-spacing:-0.02em;margin-bottom:10px;line-height:1.2}
+.step p{font-size:14px;color:var(--text2);line-height:1.7;font-weight:300}
+.step-meta{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);margin-top:12px;letter-spacing:.04em}
+
+/* ============ COMPARE ============ */
+.compare-wrap{background:var(--ink);color:#fff;padding:120px 24px;position:relative;overflow:hidden}
+.compare-wrap::before{content:'';position:absolute;top:-200px;right:-200px;width:500px;height:500px;background:radial-gradient(circle,rgba(232,188,89,.15),transparent 70%);pointer-events:none}
+.compare-inner{max-width:1100px;margin:0 auto;position:relative;z-index:2}
+.compare-wrap .eyebrow{color:var(--gold)}
+.compare-wrap .eyebrow::before{background:var(--gold)}
+.compare-wrap h2.section-title{color:#fff;max-width:760px}
+.compare-wrap .lead{color:rgba(255,255,255,.6)}
+.compare-table{margin-top:56px;border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);overflow:hidden}
+.compare-row{display:grid;grid-template-columns:1.2fr 1fr 1fr;border-bottom:1px solid rgba(255,255,255,.08)}
+.compare-row:last-child{border-bottom:none}
+.compare-cell{padding:20px 28px;font-size:14px;color:rgba(255,255,255,.75);font-weight:300}
+.compare-cell.head{font-weight:500;color:#fff;letter-spacing:.02em;background:rgba(255,255,255,.03);font-size:13px;text-transform:uppercase}
+.compare-cell.head.livv{color:var(--gold);background:rgba(232,188,89,.06)}
+.compare-cell.label{color:rgba(255,255,255,.9);font-weight:400}
+.compare-cell.livv{background:rgba(232,188,89,.04);color:#fff}
+.compare-cell .check,.compare-cell .cross{display:inline-flex;width:18px;height:18px;border-radius:50%;align-items:center;justify-content:center;margin-right:10px;font-size:11px}
+.compare-cell .check{background:rgba(118,146,104,.2);color:var(--sage)}
+.compare-cell .cross{background:rgba(239,68,68,.15);color:#ef6666}
+@media(max-width:820px){
+  .compare-row{grid-template-columns:1fr 1fr}
+  .compare-cell:nth-child(3n+1):not(.head){display:none}
+  .compare-row:first-child .compare-cell:nth-child(1){display:none}
+}
+
+/* ============ SERVICES ============ */
+.services-inner{max-width:1200px;margin:0 auto;padding:120px 24px}
+.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:56px}
+@media(max-width:720px){.services-grid{grid-template-columns:1fr}}
+.svc{background:var(--surface);padding:36px 32px;display:flex;justify-content:space-between;align-items:center;gap:20px;transition:all .4s var(--ease);cursor:default;position:relative}
+.svc:hover{background:var(--muted)}
+.svc-left{flex:1}
+.svc h3{font-size:20px;font-weight:400;letter-spacing:-0.02em;margin-bottom:6px}
+.svc p{font-size:13px;color:var(--text3);font-weight:300;letter-spacing:0}
+.svc-arrow{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text2);transition:all .3s var(--ease);flex-shrink:0}
+.svc-arrow svg{width:14px;height:14px;transition:transform .3s var(--ease)}
+.svc:hover .svc-arrow{background:var(--ink);color:#fff;border-color:var(--ink);transform:rotate(-45deg)}
+
+/* ============ TESTIMONIALS ============ */
+.testi-wrap{padding:120px 24px;background:var(--muted);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.testi-inner{max-width:1300px;margin:0 auto}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px}
+@media(max-width:980px){.testi-grid{grid-template-columns:1fr}}
+.testi-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:36px 32px;display:flex;flex-direction:column;gap:24px;transition:all .4s var(--ease)}
+.testi-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px -8px rgba(9,9,11,.06)}
+.testi-stars{color:var(--gold);font-size:13px;letter-spacing:3px}
+.testi-card blockquote{font-size:16px;line-height:1.7;font-weight:400;color:var(--ink);letter-spacing:-0.01em;flex:1}
+.testi-card blockquote::before{content:'"';font-size:48px;color:var(--gold);opacity:.3;line-height:0;vertical-align:-20px;margin-right:4px;font-family:Georgia,serif}
+.testi-author{display:flex;align-items:center;gap:12px;padding-top:20px;border-top:1px solid var(--border)}
+.testi-avatar{width:42px;height:42px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;overflow:hidden;flex-shrink:0}
+.testi-avatar img{width:100%;height:100%;object-fit:cover}
+.testi-name{font-size:14px;font-weight:500;letter-spacing:-0.01em}
+.testi-role{font-size:12px;color:var(--text3);margin-top:2px}
+
+/* ============ FAQ ============ */
+.faq-wrap{padding:120px 24px;max-width:900px;margin:0 auto}
+.faq-head{text-align:center;margin-bottom:56px}
+.faq-head .eyebrow{justify-content:center}
+.faq-head .eyebrow::before{display:none}
+.faq-list{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--border)}
+.faq-item{border-bottom:1px solid var(--border);padding:24px 0;cursor:pointer}
+.faq-q{display:flex;justify-content:space-between;align-items:start;gap:24px;font-size:17px;font-weight:400;letter-spacing:-0.015em;line-height:1.4;transition:color .2s}
+.faq-item:hover .faq-q{color:var(--sage)}
+.faq-plus{flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--muted);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--text2);transition:all .3s var(--ease);line-height:1}
+.faq-item[open] .faq-plus{background:var(--ink);color:#fff;border-color:var(--ink);transform:rotate(45deg)}
+.faq-a{font-size:14px;color:var(--text2);line-height:1.75;margin-top:16px;font-weight:300;padding-right:52px}
+details summary{list-style:none}
+details summary::-webkit-details-marker{display:none}
+
+/* ============ CTA FORM ============ */
+.cta-wrap{padding:120px 24px;background:var(--bg);position:relative;overflow:hidden}
+.cta-wrap::before{content:'';position:absolute;top:50%;left:-200px;width:500px;height:500px;transform:translateY(-50%);background:radial-gradient(circle,rgba(118,146,104,.1),transparent 70%);pointer-events:none}
+.cta-wrap::after{content:'';position:absolute;top:50%;right:-200px;width:500px;height:500px;transform:translateY(-50%);background:radial-gradient(circle,rgba(232,188,89,.08),transparent 70%);pointer-events:none}
+.cta-inner{max-width:680px;margin:0 auto;position:relative;z-index:2}
+.cta-header{text-align:center;margin-bottom:56px}
+.cta-header h2{font-size:clamp(36px,5vw,64px);font-weight:300;letter-spacing:-0.045em;line-height:1.05}
+.cta-header h2 .accent{font-style:italic;color:var(--sage)}
+.cta-header p{margin-top:20px;font-size:16px;color:var(--text2);max-width:500px;margin-left:auto;margin-right:auto;line-height:1.65}
+
+.cta-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:40px;box-shadow:0 24px 60px -20px rgba(9,9,11,.08)}
+@media(max-width:640px){.cta-card{padding:28px}}
+form{display:flex;flex-direction:column;gap:20px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:560px){.form-row{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:11px;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;font-weight:500;font-family:'JetBrains Mono',monospace}
+.field input,.field select,.field textarea{background:transparent;border:none;border-bottom:1px solid var(--border);padding:10px 0;color:var(--ink);font-family:'Inter',sans-serif;font-size:15px;font-weight:400;outline:none;transition:border-color .3s}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--sage)}
+.field input::placeholder,.field textarea::placeholder{color:var(--text3);font-weight:300}
+.field select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2378736A' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 4px center;padding-right:24px}
+.field textarea{resize:vertical;min-height:80px;line-height:1.6}
+.form-submit{width:100%;padding:16px 24px;background:var(--ink);color:#fff;border:none;border-radius:999px;font-family:'Inter',sans-serif;font-size:14px;font-weight:400;letter-spacing:.01em;cursor:pointer;transition:all .3s var(--ease);display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-top:8px}
+.form-submit:hover{background:#27272A;transform:translateY(-1px);box-shadow:0 14px 40px -10px rgba(9,9,11,.2)}
+.form-submit svg{width:14px;height:14px;transition:transform .3s var(--ease)}
+.form-submit:hover svg{transform:translateX(3px)}
+.form-note{text-align:center;font-size:12px;color:var(--text3);margin-top:16px;display:flex;align-items:center;justify-content:center;gap:8px}
+.form-note svg{width:12px;height:12px;color:var(--sage)}
+
+.cta-trust{margin-top:40px;display:flex;justify-content:center;align-items:center;gap:24px;flex-wrap:wrap;font-size:12px;color:var(--text3)}
+.cta-trust-item{display:flex;align-items:center;gap:6px}
+.cta-trust-item svg{width:13px;height:13px;color:var(--sage)}
+
+/* ============ FOOTER ============ */
+footer{padding:56px 24px 32px;border-top:1px solid var(--border);background:var(--ink);color:rgba(255,255,255,.6)}
+.footer-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:56px}
+@media(max-width:820px){.footer-inner{grid-template-columns:1fr 1fr;gap:40px}}
+.footer-brand .logo{color:#fff;margin-bottom:16px}
+.footer-brand p{font-size:13px;color:rgba(255,255,255,.5);max-width:280px;line-height:1.6}
+.footer-col h4{font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px;font-weight:500;font-family:'JetBrains Mono',monospace}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-col a{font-size:14px;color:rgba(255,255,255,.65);transition:color .2s}
+.footer-col a:hover{color:var(--gold)}
+.footer-bottom{max-width:1400px;margin:48px auto 0;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;font-size:12px;color:rgba(255,255,255,.4)}
+</style>
 </head>
 <body>
 
-<nav class="livv-nav">
-  <div class="livv-nav-inner">
-    <a href="/" class="livv-logo"><img src="/assets/logo-new.png" alt="Livv Studio"></a>
-    <div class="livv-nav-links">
-      <a href="/for-agencies" class="livv-nav-link" data-nav-route="/for-agencies"><span class="n">01</span><span>Agencies</span></a>
-      <a href="/for-startups" class="livv-nav-link" data-nav-route="/for-startups"><span class="n">02</span><span>Startups</span></a>
-      <a href="/for-saas" class="livv-nav-link" data-nav-route="/for-saas"><span class="n">03</span><span>SaaS</span></a>
-      <a href="/for-ecommerce" class="livv-nav-link" data-nav-route="/for-ecommerce"><span class="n">04</span><span>E-commerce</span></a>
-      <a href="/work" class="livv-nav-link"><span class="n">05</span><span>Work</span></a>
+<!-- ============ NAV ============ -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">livv<span class="logo-dot"></span></a>
+    <div class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#faq">FAQ</a>
     </div>
-    <a href="/contact" class="livv-nav-cta"><span>Get in touch</span><span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
-    <button class="livv-nav-mobile" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    <a href="#contact" class="nav-cta">
+      Free estimate
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
   </div>
 </nav>
-<div class="livv-mobile-menu">
-  <div class="livv-mobile-menu-bg"></div>
-  <div class="livv-mobile-menu-panel">
-    <a href="/for-agencies" class="livv-mobile-menu-item"><div class="left"><span class="n">01</span><span class="label">Agencies</span></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-    <a href="/for-startups" class="livv-mobile-menu-item"><div class="left"><span class="n">02</span><span class="label">Startups</span></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-    <a href="/for-saas" class="livv-mobile-menu-item"><div class="left"><span class="n">03</span><span class="label">SaaS</span></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-    <a href="/for-ecommerce" class="livv-mobile-menu-item"><div class="left"><span class="n">04</span><span class="label">E-commerce</span></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-    <a href="/work" class="livv-mobile-menu-item"><div class="left"><span class="n">05</span><span class="label">Work</span></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-    <a href="/contact" class="livv-mobile-menu-cta">Get in touch <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+
+<!-- ============ HERO ============ -->
+<div class="hero-wrap">
+  <div class="hero-frame">
+    <div class="hero-bg"></div>
+    <div class="hero-grain"></div>
+    <div class="hero-vignette"></div>
+    <div class="hero-top-gradient"></div>
+
+    <div class="hero-badge-float">
+      <span class="pill">New</span>
+      <span>Client dashboard for live projects</span>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="dot"></span>
+        For founders. Built to ship.
+      </div>
+      <h1>
+        <span class="line"><span>Your <span class="accent">creative</span> & dev</span></span>
+        <span class="line"><span>partner for</span></span>
+        <span class="line"><span>the next chapter.</span></span>
+      </h1>
+      <p class="hero-sub">
+        LIVV is the white-label design & development studio for startups and ecommerce founders. We merge aesthetic design, motion storytelling and modern engineering to ship premium products — fast, and without the US price tag.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-light">
+          Get a free project estimate
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#work" class="btn btn-ghost">
+          See the work
+        </a>
+      </div>
+      <div class="hero-trust">
+        <div class="hero-trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+          48h avg. turnaround
+        </div>
+        <div class="hero-trust-item">
+          <span class="hero-trust-stars">★★★★★</span>
+          5.0 on Clutch & GoodFirms
+        </div>
+        <div class="hero-trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          150+ projects shipped
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<section class="hero">
-  <div class="hero-dots"></div>
-  <div class="hero-glow"></div>
-  <div class="hero-inner">
-    <div class="hero-badge"><span class="hero-badge-dot"></span>Product partner for founders</div>
-    <h1 class="hero-h">Ship your <em>MVP</em> in weeks. <span class="faded">Not months.</span></h1>
-    <p>You have the vision. We have the <em>senior</em> design and engineering team to get you from Figma to funded — without hiring a single person.</p>
-    <div class="hero-ctas">
-      <a href="#form" class="btn-primary">Book a founder call<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-      <a href="#pricing" class="btn-ghost">See MVP packages<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-    </div>
-    <div class="hero-logos-wrap">
-      <div class="hero-logos-label">Founders who trusted us with their v1</div>
-      <div class="hero-logos"><span>Y Combinator alumni</span><span>Payper</span><span>Mad Hatter AI</span><span>Registrar</span><span>+18 funded teams</span></div>
-    </div>
+<!-- ============ MARQUEE ============ -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="marquee-item">PAYPER</span>
+    <span class="marquee-item">AZQIRA</span>
+    <span class="marquee-item">COSMIC ROCK</span>
+    <span class="marquee-item">GIO BRANDING</span>
+    <span class="marquee-item">LIVV CREATIVE</span>
+    <span class="marquee-item">FIDAN ALIZADA</span>
+    <span class="marquee-item">PR TOOL</span>
+    <span class="marquee-item">PAYPER</span>
+    <span class="marquee-item">AZQIRA</span>
+    <span class="marquee-item">COSMIC ROCK</span>
+    <span class="marquee-item">GIO BRANDING</span>
+    <span class="marquee-item">LIVV CREATIVE</span>
+    <span class="marquee-item">FIDAN ALIZADA</span>
+    <span class="marquee-item">PR TOOL</span>
   </div>
+</div>
+
+<!-- ============ STORY / PROBLEM ============ -->
+<section class="story">
+  <div class="eyebrow" style="justify-content:center"><span style="width:20px;height:1px;background:var(--text3);display:inline-block"></span> The founder's dilemma</div>
+  <p class="story-quote">
+    You didn't quit your 9–5 to <span class="strike">wait six weeks on a freelancer</span>, <span class="strike">babysit junior designers</span>, or <span class="strike">burn $8k/month</span> on an in-house team. You quit to <span class="ink-highlight">build something real</span>.
+  </p>
+  <p class="story-sub">LIVV is the creative & engineering team you hire without the overhead. No contracts, no recruiters, no surprise invoices.</p>
 </section>
 
-<section class="stats-strip" data-reveal>
-  <div class="stats-grid">
-    <div class="stat-cell"><div class="stat-num">4<em>–6</em></div><div class="stat-lbl">Weeks to MVP</div></div>
-    <div class="stat-cell"><div class="stat-num">$<em>12k</em></div><div class="stat-lbl">Starting investment</div></div>
-    <div class="stat-cell"><div class="stat-num">18<em>+</em></div><div class="stat-lbl">Funded startups shipped</div></div>
-    <div class="stat-cell"><div class="stat-num">100<em>%</em></div><div class="stat-lbl">IP yours, always</div></div>
-  </div>
-</section>
-
-<section>
-  <div class="section-wrap">
-    <div class="section-head" data-reveal>
-      <span class="eyebrow">· Why most MVPs die</span>
-      <h2>The 3 ways first-time founders <em>burn the runway.</em></h2>
-      <p>After shipping 18 funded MVPs, we've seen the same three pitfalls kill 90% of early-stage products. Sound familiar?</p>
+<!-- ============ PROOF BAR ============ -->
+<div class="proof-bar">
+  <div class="proof-inner">
+    <div class="proof-stat">
+      <div class="proof-num">150<sup>+</sup></div>
+      <div class="proof-label">Projects Shipped</div>
     </div>
-    <div class="pain-grid">
-      <div class="pain-card" data-reveal data-reveal-delay="1"><div class="pain-num">— 01</div><h3>Hiring a CTO before you've validated anything</h3><p>$180k/year + equity, 3 months to ramp, and zero users to show. You need product velocity, not headcount.</p><span class="pain-tag">Runway killer</span></div>
-      <div class="pain-card" data-reveal data-reveal-delay="2"><div class="pain-num">— 02</div><h3>Agencies that build throwaway code</h3><p>Looks fine in the demo. Then you raise, bring in real engineers, and they quote $80k to rewrite the mess. Investors notice.</p><span class="pain-tag">Technical debt</span></div>
-      <div class="pain-card" data-reveal data-reveal-delay="3"><div class="pain-num">— 03</div><h3>Junior freelancers who need spec'd-out tickets</h3><p>You're a founder, not a PM. You shouldn't be writing Jira tickets at 2am — you should be talking to customers.</p><span class="pain-tag">Wrong abstraction</span></div>
+    <div class="proof-stat">
+      <div class="proof-num">48<sup>h</sup></div>
+      <div class="proof-label">Avg. Turnaround</div>
+    </div>
+    <div class="proof-stat">
+      <div class="proof-num">12</div>
+      <div class="proof-label">Countries Served</div>
+    </div>
+    <div class="proof-stat">
+      <div class="proof-num">100<sup>%</sup></div>
+      <div class="proof-label">IP Yours</div>
     </div>
   </div>
-</section>
+</div>
 
-<section class="how">
-  <div class="section-wrap">
-    <div class="section-head center" data-reveal>
-      <span class="eyebrow">· How we ship</span>
-      <h2>From <em>idea</em> to <em>first paying user</em> <span class="faded">— in 4 phases.</span></h2>
-      <p>No 30-page statements of work. No weekly status meetings. Just a senior team treating your product like their own.</p>
+<!-- ============ VALUE PROPS ============ -->
+<section class="content" id="why">
+  <div class="value-header">
+    <div>
+      <div class="eyebrow">Why founders choose LIVV</div>
+      <h2 class="section-title">Premium craft.<br><span class="accent">Startup-friendly pricing.</span></h2>
     </div>
-    <div class="steps cols-4">
-      <div class="step" data-reveal data-reveal-delay="1"><div class="step-num">01</div><div class="step-label">· Week 0</div><h3>Product sprint</h3><p>2-day discovery. We map the scope, kill the nice-to-haves, lock the v1.</p></div>
-      <div class="step" data-reveal data-reveal-delay="2"><div class="step-num">02</div><div class="step-label">· Week 1–2</div><h3>Design & architecture</h3><p>Full Figma flows + a typed, testable architecture your future CTO will thank us for.</p></div>
-      <div class="step" data-reveal data-reveal-delay="3"><div class="step-num">03</div><div class="step-label">· Week 3–5</div><h3>Build & iterate</h3><p>Daily commits. Staging URL from day 3. Weekly Looms you can show investors.</p></div>
-      <div class="step" data-reveal data-reveal-delay="4"><div class="step-num">04</div><div class="step-label">· Week 6</div><h3>Launch & handoff</h3><p>Production deploy, analytics, onboarding, docs. IP transfer. You own everything.</p></div>
-    </div>
+    <p class="lead">We're a LATAM-based creative studio that delivers NYC-level work at a fraction of the cost — because you're not paying for Manhattan rent, you're paying for the output.</p>
   </div>
-</section>
 
-<section class="portfolio" id="portfolio">
-  <div class="section-wrap">
-    <div class="section-head" data-reveal>
-      <div class="portfolio-head-text">
-        <span class="eyebrow">· MVPs we've shipped</span>
-        <h2>Real products. <em>Real founders.</em> <span class="faded">Real traction.</span></h2>
-        <p>A slice of the 0-to-1 products we've launched with founders. All still in production. Several raised after launch.</p>
+  <div class="value-grid">
+    <div class="value-card">
+      <div>
+        <div class="v-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <h3>Move fast, don't break things</h3>
+        <p>Design sprints + rapid prototyping. We validate visually before heavy code. Your MVP ships in days, not months.</p>
       </div>
-      <div class="portfolio-note">"LIVV was our team before we had a team."</div>
+      <div class="v-num">/ 01</div>
     </div>
-    <div class="portfolio-grid" data-reveal>
-      <a href="/projects/paper" class="portfolio-card"><img src="/images/portfolio-2.jpg" alt="Paper" class="portfolio-media" loading="lazy"><div class="portfolio-ring"></div><div class="portfolio-top-meta"><div class="portfolio-year"><span class="lbl">Year</span><span class="val">2024</span></div><div class="portfolio-tags"><span class="portfolio-tag">Founder-led</span><span class="portfolio-tag">SaaS</span></div></div><div class="portfolio-overlay"><div class="portfolio-overlay-inner"><span class="portfolio-subtitle">Hospitality · Founder-led</span><h3 class="portfolio-title">Paper</h3></div></div></a>
-      <a href="/projects/pr-tool" class="portfolio-card"><img src="/images/pr-tool.png" alt="PR Tool" class="portfolio-media" loading="lazy"><div class="portfolio-ring"></div><div class="portfolio-top-meta"><div class="portfolio-year"><span class="lbl">Year</span><span class="val">2024</span></div><div class="portfolio-tags"><span class="portfolio-tag">B2B</span><span class="portfolio-tag">Monetization</span></div></div><div class="portfolio-overlay"><div class="portfolio-overlay-inner"><span class="portfolio-subtitle">Creator economy · B2B</span><h3 class="portfolio-title">PR Tool</h3></div></div></a>
-      <a href="/projects/azqira" class="portfolio-card"><img src="/images/azqira-cover.jpg" alt="Azqira" class="portfolio-media" loading="lazy"><div class="portfolio-ring"></div><div class="portfolio-top-meta"><div class="portfolio-year"><span class="lbl">Year</span><span class="val">2024</span></div><div class="portfolio-tags"><span class="portfolio-tag">Consumer</span><span class="portfolio-tag">Mobile</span></div></div><div class="portfolio-overlay"><div class="portfolio-overlay-inner"><span class="portfolio-subtitle">Digital experience</span><h3 class="portfolio-title">Azqira</h3></div></div></a>
-      <a href="/projects/internal-management" class="portfolio-card"><img src="/images/internal-dashboard.png" alt="Internal Management Systems" class="portfolio-media" loading="lazy"><div class="portfolio-ring"></div><div class="portfolio-top-meta"><div class="portfolio-year"><span class="lbl">Year</span><span class="val">2024</span></div><div class="portfolio-tags"><span class="portfolio-tag">SaaS</span><span class="portfolio-tag">AI</span></div></div><div class="portfolio-overlay"><div class="portfolio-overlay-inner"><span class="portfolio-subtitle">Operations · SaaS</span><h3 class="portfolio-title">Internal Management Systems</h3></div></div></a>
-      <a href="/projects/sacoa" class="portfolio-card"><img src="/images/sacoa-cover-v2.png" alt="Sacoa Cashless" class="portfolio-media" loading="lazy"><div class="portfolio-ring"></div><div class="portfolio-top-meta"><div class="portfolio-year"><span class="lbl">Year</span><span class="val">2024</span></div><div class="portfolio-tags"><span class="portfolio-tag">Fintech</span><span class="portfolio-tag">Design</span></div></div><div class="portfolio-overlay"><div class="portfolio-overlay-inner"><span class="portfolio-subtitle">Fintech · Cashless</span><h3 class="portfolio-title">Sacoa Cashless</h3></div></div></a>
-      <a href="/projects/seo-blocks" class="portfolio-card"><img src="/images/portfolio-3.jpg" alt="SEO Blocks Generator" class="portfolio-media" loading="lazy"><div class="portfolio-ring"></div><div class="portfolio-top-meta"><div class="portfolio-year"><span class="lbl">Year</span><span class="val">2024</span></div><div class="portfolio-tags"><span class="portfolio-tag">Growth</span><span class="portfolio-tag">SEO</span></div></div><div class="portfolio-overlay"><div class="portfolio-overlay-inner"><span class="portfolio-subtitle">Growth · Programmatic SEO</span><h3 class="portfolio-title">SEO Blocks Generator</h3></div></div></a>
+    <div class="value-card">
+      <div>
+        <div class="v-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <h3>No contracts, no overhead</h3>
+        <p>Pay per project or per sprint. Scale up when you raise, pause when you pivot. Zero lock-in, maximum flexibility.</p>
+      </div>
+      <div class="v-num">/ 02</div>
     </div>
-  </div>
-</section>
-
-<section class="pricing" id="pricing">
-  <div class="section-wrap">
-    <div class="section-head" data-reveal>
-      <span class="eyebrow">· MVP packages</span>
-      <h2>Fixed price. <em>Fixed timeline.</em> <span class="faded">Zero surprises.</span></h2>
-      <p>We've shipped enough MVPs to know what they cost. Flat price, signed scope, ship date — before we write a single line of code.</p>
+    <div class="value-card">
+      <div>
+        <div class="v-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h20v14H2z"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <h3>Total transparency</h3>
+        <p>Direct access to our project board, staging envs and Figma. No black boxes — we're an extension of your team.</p>
+      </div>
+      <div class="v-num">/ 03</div>
     </div>
-    <div class="price-grid">
-      <div class="price-card" data-reveal data-reveal-delay="1">
-        <div class="price-name">Landing + Waitlist</div>
-        <p class="price-desc">Validate demand before you build the product.</p>
-        <div class="price-amount"><em>from</em> $3,900</div>
-        <div class="price-period">· 10 days delivery</div>
-        <ul><li>Conversion-optimized landing</li><li>Waitlist + Stripe pre-orders</li><li>Analytics & heatmaps wired</li><li>Hosted on Vercel / Webflow</li></ul>
-        <a href="#form" class="price-cta">Start validating</a>
+    <div class="value-card">
+      <div>
+        <div class="v-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3 7h7l-5.5 4.5 2 7.5L12 17l-6.5 4 2-7.5L2 9h7z"/></svg>
+        </div>
+        <h3>You own everything</h3>
+        <p>Full source code, Figma files, design systems, IP rights — it's all yours. Deploy anywhere, no vendor lock-in.</p>
       </div>
-      <div class="price-card featured" data-reveal data-reveal-delay="2">
-        <div class="price-badge">Most founders</div>
-        <div class="price-name">Full MVP</div>
-        <p class="price-desc">0-to-1 product. Auth, billing, core flows, production-ready.</p>
-        <div class="price-amount"><em>from</em> $14,900</div>
-        <div class="price-period">· 4–6 weeks delivery</div>
-        <ul><li>Full product design (Figma)</li><li>Next.js + Supabase/Postgres</li><li>Auth, payments, email, analytics</li><li>Production deploy + handoff</li><li>30-day bug-fix warranty</li></ul>
-        <a href="#form" class="price-cta">Book founder call</a>
-      </div>
-      <div class="price-card" data-reveal data-reveal-delay="3">
-        <div class="price-name">Fractional team</div>
-        <p class="price-desc">Already launched? Keep shipping without hiring yet.</p>
-        <div class="price-amount"><em>from</em> $4,900<em>/mo</em></div>
-        <div class="price-period">· Pause or cancel anytime</div>
-        <ul><li>~40h senior design + dev monthly</li><li>Dedicated Slack + weekly Looms</li><li>Product, design & engineering</li><li>Rolls over unused hours</li></ul>
-        <a href="#form" class="price-cta">Talk retainer</a>
-      </div>
+      <div class="v-num">/ 04</div>
     </div>
-  </div>
-</section>
-
-<section class="testi-section">
-  <div class="testi-inner">
-    <div class="testi-head" data-reveal>
-      <span class="eyebrow">· What founders say</span>
-      <h2>The team that ships <em>before the round closes.</em></h2>
+    <div class="value-card">
+      <div>
+        <div class="v-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+        </div>
+        <h3>One team, every skill</h3>
+        <p>Strategy, branding, UI/UX, motion, full-stack dev and AI integrations — under one roof, one point of contact.</p>
+      </div>
+      <div class="v-num">/ 05</div>
     </div>
-    <div class="testi-grid">
-      <div class="testi-card" data-reveal data-reveal-delay="1">
-        <blockquote>"I hired Eneas for a critical build during fundraising and was seriously impressed. Clean, responsive design, fast load times, and no drama. Exactly what I needed."</blockquote>
-        <div class="testi-author"><div class="testi-avatar" style="background-image:url('/images/sabrina-guler.jpg')"></div><div class="testi-meta"><strong>Sabrina Guler</strong><span>Advisor, Author & Founder</span></div></div>
+    <div class="value-card">
+      <div>
+        <div class="v-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l9 4.9v10.2L12 22l-9-4.9V6.9L12 2z"/><path d="M12 22V12M3 6.9l9 5.1 9-5.1"/></svg>
+        </div>
+        <h3>Built to convert</h3>
+        <p>We're not just designers — we're operators. Every page we ship is built to turn visitors into paying customers.</p>
       </div>
-      <div class="testi-card" data-reveal data-reveal-delay="2">
-        <blockquote>"Came prepared and delivered the product in the most efficient manner possible. We raised right after launch — the MVP held up under real usage."</blockquote>
-        <div class="testi-author"><div class="testi-avatar" style="background-image:url('/images/Chris.jpeg')"></div><div class="testi-meta"><strong>Chris Green</strong><span>Founder & CEO, Mad Hatter AI</span></div></div>
-      </div>
+      <div class="v-num">/ 06</div>
     </div>
   </div>
 </section>
 
-<section class="stack" data-reveal>
-  <div class="stack-inner">
-    <div class="stack-label">— Investor-friendly stack</div>
-    <div class="stack-tags"><span class="stack-tag">Next.js 15</span><span class="stack-tag">TypeScript</span><span class="stack-tag">Supabase</span><span class="stack-tag">Postgres</span><span class="stack-tag">Stripe</span><span class="stack-tag">Tailwind</span><span class="stack-tag">Vercel</span><span class="stack-tag">Flutter</span><span class="stack-tag">OpenAI</span><span class="stack-tag">Resend</span><span class="stack-tag">Segment</span></div>
-  </div>
-</section>
-
-<section>
-  <div class="faq-wrap">
-    <div class="section-head center" data-reveal>
-      <span class="eyebrow">· Founder questions</span>
-      <h2>Everything you want to ask <em>before the call.</em></h2>
+<!-- ============ PORTFOLIO ============ -->
+<section class="portfolio-wrap" id="work">
+  <div class="portfolio-inner">
+    <div class="portfolio-head">
+      <div>
+        <div class="eyebrow">Selected work · 2024—2026</div>
+        <h2 class="section-title">From first pitch to <span class="accent-gold">production-ready</span>.</h2>
+      </div>
+      <p class="lead" style="margin-top:0;max-width:380px">Real startups. Real launches. Each project shipped under a commercial NDA and validated in-market.</p>
     </div>
-    <div data-reveal>
-      <div class="faq-item open"><div class="faq-q"><h4>Do I own the code and the IP?</h4><div class="faq-toggle"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div></div><div class="faq-a"><p>100%. GitHub org is yours. All IP transfers on final payment. No revenue share, no equity strings, no hidden licenses. Your cap table stays clean.</p></div></div>
-      <div class="faq-item"><div class="faq-q"><h4>Will my future CTO hate the codebase?</h4><div class="faq-toggle"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div></div><div class="faq-a"><p>No — we write the code we'd want to inherit. TypeScript everywhere, proper migrations, tests on critical paths, clean folder structure, documented. 6 of our MVPs handed off to full-time teams with zero rewrite.</p></div></div>
-      <div class="faq-item"><div class="faq-q"><h4>What about after the MVP launches?</h4><div class="faq-toggle"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div></div><div class="faq-a"><p>30-day bug-fix warranty is included. After that, most founders slide into our fractional retainer ($4.9k/mo) until they raise and hire. Or we just do a clean handoff — your call.</p></div></div>
-      <div class="faq-item"><div class="faq-q"><h4>Do you take equity instead of cash?</h4><div class="faq-toggle"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div></div><div class="faq-a"><p>We don't recommend it — equity is your most expensive currency. We do offer deferred payment structures for founders raising within 60 days of launch, on a case-by-case basis.</p></div></div>
-      <div class="faq-item"><div class="faq-q"><h4>What if I don't know exactly what to build yet?</h4><div class="faq-toggle"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div></div><div class="faq-a"><p>That's what the product sprint is for. 2 days, $1,900, credited against your MVP if you move forward. You leave with a scoped v1, clickable prototype, and a shipping plan.</p></div></div>
-    </div>
-  </div>
-</section>
 
-<section class="form-section" id="form">
-  <div class="form-inner">
-    <span class="eyebrow with-dot" data-reveal>Q2 2026 · 4 founder slots open</span>
-    <h2 data-reveal>Let's build your <em>v1.</em></h2>
-    <p data-reveal>Book a free 30-min founder call. We'll pressure-test your idea, scope the MVP honestly, and tell you if we're the right partner — or if you're better off elsewhere.</p>
-    <form data-livv-form data-success-msg="We'll be in touch within 2h ·" data-reveal>
-      <div class="form-row">
-        <div class="form-group"><label>Your name</label><input type="text" name="name" placeholder="Jordan Liu" required></div>
-        <div class="form-group"><label>Email</label><input type="email" name="email" placeholder="jordan@startup.com" required></div>
-      </div>
-      <div class="form-row">
-        <div class="form-group"><label>Product / startup</label><input type="text" name="startup" placeholder="Your startup"></div>
-        <div class="form-group"><label>Stage</label><select name="stage" required><option value="" disabled selected>Select</option><option>Idea / validating</option><option>Pre-seed</option><option>Seed</option><option>Post-launch</option></select></div>
-      </div>
-      <div class="form-group full"><label>What are you looking to build?</label>
-        <select name="scope" required><option value="" disabled selected>Select</option><option>Landing + waitlist</option><option>Full MVP (0–1)</option><option>Post-MVP features / v2</option><option>Fractional team (ongoing)</option></select>
-      </div>
-      <div class="form-group full"><label>Briefly — what problem are you solving?</label>
-        <textarea name="message" placeholder="1–2 sentences is perfect."></textarea></div>
-      <button type="submit" class="form-submit">Book founder call<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
-      <div class="form-note">Reply within <strong>2 business hours</strong> — with a Loom reviewing your idea.</div>
-    </form>
-  </div>
-</section>
-
-<footer class="livv-footer">
-  <div class="livv-footer-top">
-    <div class="livv-footer-grid">
-      <div data-reveal>
-        <span class="livv-footer-label">Get in touch</span>
-        <h2 class="livv-footer-title">Let's work<br>together</h2>
-        <div class="livv-footer-next">
-          <span class="livv-footer-next-label">— Explore other landings</span>
-          <div class="livv-footer-next-grid">
-            <a href="/for-agencies" class="livv-footer-next-card"><div><div class="ttl">For Agencies</div><div class="sub">White-label partner</div></div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-            <a href="/for-saas" class="livv-footer-next-card"><div><div class="ttl">For SaaS</div><div class="sub">Fractional team</div></div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-            <a href="/for-ecommerce" class="livv-footer-next-card"><div><div class="ttl">For E-commerce</div><div class="sub">Shopify & DTC</div></div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
-            <a href="/work" class="livv-footer-next-card"><div><div class="ttl">Full case studies</div><div class="sub">Deep dive</div></div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+    <div class="portfolio-grid">
+      <!-- Card 1 · wide -->
+      <a href="#" class="port-card wide">
+        <div class="port-visual visual-2"></div>
+        <div class="port-overlay"></div>
+        <div class="port-meta">
+          <div class="port-tags">
+            <span class="port-tag">Product</span>
+            <span class="port-tag">Full-stack</span>
+            <span class="port-tag">2024</span>
+          </div>
+          <div class="port-bottom">
+            <div class="port-title">
+              Payper
+              <span class="sub">Nightlife & venue OS — POS, guestlist, menu, owner portal</span>
+            </div>
+            <div class="port-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+            </div>
           </div>
         </div>
+      </a>
+
+      <!-- Card 2 · narrow -->
+      <a href="#" class="port-card narrow">
+        <div class="port-visual visual-1"></div>
+        <div class="port-overlay"></div>
+        <div class="port-meta">
+          <div class="port-tags">
+            <span class="port-tag">Brand</span>
+            <span class="port-tag">Webflow</span>
+          </div>
+          <div class="port-bottom">
+            <div class="port-title">
+              Azqira
+              <span class="sub">Luxury hospitality brand</span>
+            </div>
+            <div class="port-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 3 · half -->
+      <a href="#" class="port-card half">
+        <div class="port-visual visual-3"></div>
+        <div class="port-overlay"></div>
+        <div class="port-meta">
+          <div class="port-tags">
+            <span class="port-tag">Ecommerce</span>
+            <span class="port-tag">Shopify</span>
+          </div>
+          <div class="port-bottom">
+            <div class="port-title">
+              Cosmic Rock
+              <span class="sub">DTC apparel brand · 2.4× conversion lift</span>
+            </div>
+            <div class="port-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 4 · half -->
+      <a href="#" class="port-card half light">
+        <div class="port-visual visual-5"></div>
+        <div class="port-overlay"></div>
+        <div class="port-meta">
+          <div class="port-tags">
+            <span class="port-tag">SaaS</span>
+            <span class="port-tag">Dashboard</span>
+          </div>
+          <div class="port-bottom">
+            <div class="port-title" style="color:#fff">
+              Internal Ops Dashboard
+              <span class="sub">Multi-tenant admin tool · Next.js + Supabase</span>
+            </div>
+            <div class="port-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 5 · narrow -->
+      <a href="#" class="port-card narrow">
+        <div class="port-visual visual-4"></div>
+        <div class="port-overlay"></div>
+        <div class="port-meta">
+          <div class="port-tags">
+            <span class="port-tag">AI</span>
+            <span class="port-tag">Automation</span>
+          </div>
+          <div class="port-bottom">
+            <div class="port-title">
+              PR Tool
+              <span class="sub">AI agent for press outreach</span>
+            </div>
+            <div class="port-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 6 · wide -->
+      <a href="#" class="port-card wide">
+        <div class="port-visual visual-6"></div>
+        <div class="port-overlay"></div>
+        <div class="port-meta">
+          <div class="port-tags">
+            <span class="port-tag">Brand</span>
+            <span class="port-tag">Motion</span>
+            <span class="port-tag">Campaign</span>
+          </div>
+          <div class="port-bottom">
+            <div class="port-title">
+              Gio — Rebrand & Launch Film
+              <span class="sub">Identity system + 60s launch film for D2C skincare</span>
+            </div>
+            <div class="port-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="portfolio-cta">
+      <a href="#contact" class="btn btn-dark">
+        Start your project
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section class="process" id="process">
+  <div class="process-grid">
+    <div class="process-sticky">
+      <div class="eyebrow">How we work</div>
+      <h2 class="section-title">From <span class="accent">kickoff</span> to launch in 4 steps.</h2>
+      <p class="lead">No lengthy discovery calls. No 40-page proposals. We start shipping in week one.</p>
+      <div style="margin-top:32px">
+        <a href="#contact" class="btn btn-sage">
+          Book a 15-min intro
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
       </div>
-      <div class="livv-footer-right" data-reveal data-reveal-delay="1">
-        <p class="livv-footer-desc">Have a project in mind? We'd love to hear about it.</p>
-        <a href="mailto:hola@livv.systems" class="livv-footer-email">hola@livv.systems<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+    </div>
+
+    <div class="process-steps">
+      <div class="step">
+        <div class="step-num">/ 01</div>
         <div>
-          <div class="livv-footer-socials-label">Socials</div>
-          <div class="livv-footer-socials">
-            <a href="https://www.instagram.com/p/C5-FziFN5zM/" target="_blank" rel="noopener" class="livv-footer-social" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8a4 4 0 0 1 3.37 3.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-            <a href="https://www.youtube.com/@livvagency5936" target="_blank" rel="noopener" class="livv-footer-social" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
-            <a href="https://www.linkedin.com/company/39648193/" target="_blank" rel="noopener" class="livv-footer-social" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-            <a href="https://github.com/livvstudio" target="_blank" rel="noopener" class="livv-footer-social" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></a>
+          <h3>Intro call · 15 min</h3>
+          <p>Free, zero-pressure call. We learn what you're building, what's blocking you, and what "done" looks like. No contracts yet.</p>
+          <div class="step-meta">— Usually booked within 24h</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">/ 02</div>
+        <div>
+          <h3>Scoped proposal + Loom</h3>
+          <p>Within 48 hours we send a scoped proposal, timeline, fixed price and a personalized Loom walking you through our plan.</p>
+          <div class="step-meta">— Fixed scope, fixed price</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">/ 03</div>
+        <div>
+          <h3>Design sprints · week 1</h3>
+          <p>First screens or visuals land in 5–7 days. Daily async updates on Slack or Notion. You review in your own time.</p>
+          <div class="step-meta">— Async-first, no stand-up fatigue</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">/ 04</div>
+        <div>
+          <h3>Build & ship</h3>
+          <p>We hand over working product, production code and Figma source. 30 days of post-launch support included.</p>
+          <div class="step-meta">— Full IP transfer + 30 days support</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPARE ============ -->
+<section class="compare-wrap">
+  <div class="compare-inner">
+    <div class="eyebrow">The math</div>
+    <h2 class="section-title">LIVV vs. hiring in-house <span class="accent-gold">(vs. agencies)</span>.</h2>
+    <p class="lead">You're stretching every dollar. Here's exactly why outsourcing to us beats the alternative.</p>
+
+    <div class="compare-table">
+      <div class="compare-row">
+        <div class="compare-cell head"></div>
+        <div class="compare-cell head">In-house / Freelancer</div>
+        <div class="compare-cell head livv">LIVV Studio</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell label">Monthly cost</div>
+        <div class="compare-cell">$5K – $12K + benefits</div>
+        <div class="compare-cell livv">From $1.5K per project</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell label">Time to start</div>
+        <div class="compare-cell">4 – 8 weeks of hiring</div>
+        <div class="compare-cell livv">48 hours</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell label">Skill coverage</div>
+        <div class="compare-cell">1 person · 1–2 skills</div>
+        <div class="compare-cell livv">Design + dev + motion + AI</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell label">Risk if it doesn't work</div>
+        <div class="compare-cell">Severance, lost months</div>
+        <div class="compare-cell livv">No contracts. Walk away anytime.</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell label">Scalability</div>
+        <div class="compare-cell">Hire more humans</div>
+        <div class="compare-cell livv">Scale team on demand</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell label">IP ownership</div>
+        <div class="compare-cell">Depends on contract</div>
+        <div class="compare-cell livv">100% yours from day 1</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section class="services-inner" id="services">
+  <div style="text-align:center;max-width:720px;margin:0 auto">
+    <div class="eyebrow" style="justify-content:center"><span style="width:20px;height:1px;background:var(--text3);display:inline-block"></span> What we build</div>
+    <h2 class="section-title" style="margin:0 auto">From landing page to <span class="accent">full product.</span></h2>
+    <p class="lead" style="margin-left:auto;margin-right:auto">Six specialties, one studio. Pick what you need today — add the rest when you're ready.</p>
+  </div>
+
+  <div class="services-grid">
+    <div class="svc">
+      <div class="svc-left">
+        <h3>Landing & marketing sites</h3>
+        <p>Webflow · Framer · Next.js</p>
+      </div>
+      <div class="svc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
+    </div>
+    <div class="svc">
+      <div class="svc-left">
+        <h3>Ecommerce stores</h3>
+        <p>Shopify · Custom headless builds</p>
+      </div>
+      <div class="svc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
+    </div>
+    <div class="svc">
+      <div class="svc-left">
+        <h3>SaaS interfaces & dashboards</h3>
+        <p>React · Figma · Full-stack + Supabase</p>
+      </div>
+      <div class="svc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
+    </div>
+    <div class="svc">
+      <div class="svc-left">
+        <h3>Mobile apps</h3>
+        <p>Flutter · React Native · Expo</p>
+      </div>
+      <div class="svc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
+    </div>
+    <div class="svc">
+      <div class="svc-left">
+        <h3>Brand, UI/UX & motion</h3>
+        <p>Identity · Figma systems · 3D · film</p>
+      </div>
+      <div class="svc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
+    </div>
+    <div class="svc">
+      <div class="svc-left">
+        <h3>AI agents & automations</h3>
+        <p>Claude · Custom APIs · Integrations</p>
+      </div>
+      <div class="svc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="testi-wrap">
+  <div class="testi-inner">
+    <div style="text-align:center;max-width:640px;margin:0 auto">
+      <div class="eyebrow" style="justify-content:center"><span style="width:20px;height:1px;background:var(--text3);display:inline-block"></span> What founders say</div>
+      <h2 class="section-title" style="margin:0 auto">Trusted by operators <span class="accent">who ship.</span></h2>
+    </div>
+
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★ ★ ★ ★ ★</div>
+        <blockquote>It was great working with the LIVV team. Understanding, patient, and they followed through on every revision. Excellent work delivered fast — we launched a week early.</blockquote>
+        <div class="testi-author">
+          <div class="testi-avatar">FA</div>
+          <div>
+            <div class="testi-name">Fidan Alizada</div>
+            <div class="testi-role">Creator · Marketer & Storyteller</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★ ★ ★ ★ ★</div>
+        <blockquote>I was quoted $38k by a NYC studio. LIVV shipped the same product, same level of polish, in 5 weeks — for a fraction. They think like founders, not like vendors.</blockquote>
+        <div class="testi-author">
+          <div class="testi-avatar">CS</div>
+          <div>
+            <div class="testi-name">Chris S.</div>
+            <div class="testi-role">Founder · DTC Apparel</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★ ★ ★ ★ ★</div>
+        <blockquote>We've rebuilt our checkout three times with three different agencies. LIVV is the only one that actually moved our conversion numbers. Up 42% in the first month.</blockquote>
+        <div class="testi-author">
+          <div class="testi-avatar">SE</div>
+          <div>
+            <div class="testi-name">Sergio E.</div>
+            <div class="testi-role">Co-founder · Payper</div>
           </div>
         </div>
       </div>
     </div>
-    <div class="livv-footer-meta">
-      <div class="livv-footer-meta-col"><span>Designed by Livv</span><span>© 2026 · Built worldwide</span></div>
-      <div><a href="#" style="color:inherit;text-decoration:none">Privacy policy</a></div>
-      <span class="livv-footer-meta-status">Current status: online</span>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq-wrap" id="faq">
+  <div class="faq-head">
+    <div class="eyebrow">Still deciding?</div>
+    <h2 class="section-title" style="margin:0 auto">The <span class="accent-gold">honest</span> answers.</h2>
+  </div>
+
+  <div class="faq-list">
+    <details class="faq-item">
+      <summary class="faq-q">How much does a typical project cost?<span class="faq-plus">+</span></summary>
+      <div class="faq-a">Landing pages start around $1.5K. A full marketing site lands between $3K–$8K. Full products (MVP SaaS, ecommerce rebuilds, mobile apps) range from $8K–$35K. We price per scope, not per hour — and the quote we give you is the quote you pay.</div>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">How is your pricing so much lower than a US agency?<span class="faq-plus">+</span></summary>
+      <div class="faq-a">We're based in LATAM. Our operating costs are a fraction of Manhattan or SF — but our design leads trained in and ship for US/EU brands. You're not paying for a downtown office, you're paying for the output.</div>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">Do you work with non-technical founders?<span class="faq-plus">+</span></summary>
+      <div class="faq-a">Yes — most of our clients are. We translate your vision into design, design into code, and code into something you can actually explain to an investor. No jargon, no black boxes.</div>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">What happens after we launch?<span class="faq-plus">+</span></summary>
+      <div class="faq-a">Every project includes 30 days of post-launch support at no extra cost. After that you can hire us on a monthly retainer, project-by-project, or walk away with full IP and handle it yourself. No lock-in.</div>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">Can you work with my existing team?<span class="faq-plus">+</span></summary>
+      <div class="faq-a">Absolutely. We integrate with your Slack, Linear, Notion or whatever you already use. Many of our clients use us as their extended design/dev team alongside a junior in-house hire.</div>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">What if I don't love the first round?<span class="faq-plus">+</span></summary>
+      <div class="faq-a">Every project includes 2 revision rounds, and we don't move to the next phase until you approve. If after round 1 it's not clicking, we restart — no extra charge. Our goal is work you're proud to show off.</div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ CTA FORM ============ -->
+<section class="cta-wrap" id="contact">
+  <div class="cta-inner">
+    <div class="cta-header">
+      <div class="eyebrow" style="justify-content:center;margin-bottom:24px"><span style="width:20px;height:1px;background:var(--text3);display:inline-block"></span> Let's build</div>
+      <h2>Your <span class="accent">free estimate</span>, in 2 hours.</h2>
+      <p>Tell us what you're building. We'll reply with a timeline, a fixed price, and a short Loom walking you through our approach. No sales call required.</p>
+    </div>
+
+    <div class="cta-card">
+      <form onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="field">
+            <label>Your name</label>
+            <input type="text" name="name" placeholder="Alex Johnson" required>
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="alex@startup.com" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label>Website or Instagram</label>
+            <input type="text" name="website" placeholder="@yourstartup or yoursite.com">
+          </div>
+          <div class="field">
+            <label>Budget range</label>
+            <select name="budget" required>
+              <option value="" disabled selected>Select a range</option>
+              <option>Under $3K</option>
+              <option>$3K – $8K</option>
+              <option>$8K – $20K</option>
+              <option>$20K – $50K</option>
+              <option>$50K+</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>What are you building?</label>
+          <textarea name="project" placeholder="E.g. I'm launching a DTC skincare brand next month and need a Shopify store with a bold brand + a launch film…" required></textarea>
+        </div>
+        <button type="submit" class="form-submit">
+          Get my free estimate
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <div class="form-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+          We reply within 2 business hours. Zero sales pressure.
+        </div>
+      </form>
+    </div>
+
+    <div class="cta-trust">
+      <div class="cta-trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+        No commitment
+      </div>
+      <div class="cta-trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+        Fixed pricing, no surprises
+      </div>
+      <div class="cta-trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+        NDA available on request
+      </div>
     </div>
   </div>
-  <div class="livv-footer-gradient"><img src="/images/footer-gradient.png" alt=""></div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">livv<span class="logo-dot" style="background:var(--gold)"></span></div>
+      <p>The white-label creative & engineering studio for founders who ship. Premium work, startup-friendly pricing.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Studio</h4>
+      <ul>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#">Landing pages</a></li>
+        <li><a href="#">Ecommerce</a></li>
+        <li><a href="#">SaaS / Dashboards</a></li>
+        <li><a href="#">AI & automation</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="mailto:hello@livvvv.com">hello@livvvv.com</a></li>
+        <li><a href="https://livvvv.com" target="_blank">livvvv.com</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 LIVV Studio — Built in LATAM. Shipped worldwide.</div>
+    <div>Privacy · Terms</div>
+  </div>
 </footer>
 
-<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
-<script src="/lp/shared.js"></script>
+<script>
+function handleSubmit(e){
+  e.preventDefault();
+  const btn = e.target.querySelector('.form-submit');
+  const original = btn.innerHTML;
+  btn.innerHTML = 'Sending…';
+  btn.style.opacity = '.7';
+  setTimeout(() => {
+    btn.innerHTML = '✓  We\'ll reach out within 2 hours';
+    btn.style.background = 'var(--sage)';
+    btn.style.opacity = '1';
+  }, 1400);
+}
+
+// Progressive reveal on scroll
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+      io.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.value-card, .port-card, .testi-card, .step, .svc, .faq-item').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(16px)';
+  el.style.transition = 'opacity .7s cubic-bezier(0.16,1,0.3,1), transform .7s cubic-bezier(0.16,1,0.3,1)';
+  io.observe(el);
+});
+</script>
+
 </body>
 </html>
