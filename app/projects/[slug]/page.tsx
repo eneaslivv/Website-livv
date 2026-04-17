@@ -78,7 +78,7 @@ export default function ProjectPage() {
                         <>
                             <ProjectHeader item={item} />
                             {blocks.map((block, i) => (
-                                <BlockRenderer key={i} block={block} />
+                                <BlockRenderer key={i} block={block} poster={item.thumbnail} />
                             ))}
                         </>
                     )}

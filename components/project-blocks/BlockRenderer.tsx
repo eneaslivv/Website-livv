@@ -9,10 +9,10 @@ import { Playfair_Display } from "next/font/google"
 
 const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400", "500", "600"] })
 
-export function BlockRenderer({ block }: { block: ContentBlock }) {
+export function BlockRenderer({ block, poster }: { block: ContentBlock; poster?: string }) {
     switch (block.type) {
         case 'hero_image':
-            return <HeroImageSection image_url={block.image_url} alt={block.alt} />
+            return <HeroImageSection image_url={block.image_url} alt={block.alt} poster={poster} />
 
         case 'challenge':
             return (
