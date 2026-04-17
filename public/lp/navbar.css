@@ -1,0 +1,58 @@
+/* ============================================================
+   LIVV · Real site navbar — dark floating pill with logo-new.png
+   ============================================================ */
+.livv-nav{position:fixed;left:50%;top:40px;transform:translateX(-50%);z-index:100;transition:all .5s cubic-bezier(.2,.8,.2,1);max-width:calc(100% - 32px);width:auto}
+.livv-nav.scrolled{top:24px;transform:translateX(-50%) scale(.95)}
+.livv-nav-inner{display:flex;align-items:center;gap:40px;padding:6px 6px 6px 16px;border-radius:999px;background:rgba(10,10,10,.18);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border:1px solid rgba(255,255,255,.2);box-shadow:0 10px 40px rgba(0,0,0,.12);transition:all .5s}
+.livv-nav.scrolled .livv-nav-inner{background:rgba(10,10,10,.42);border-color:rgba(255,255,255,.1);box-shadow:0 12px 36px rgba(0,0,0,.22)}
+.livv-logo{display:flex;align-items:center;flex-shrink:0;text-decoration:none}
+.livv-logo img{height:28px;width:auto;filter:brightness(0) invert(1);opacity:.95;display:block}
+.livv-nav-links{display:flex;align-items:center;gap:32px}
+.livv-nav-link{position:relative;color:rgba(255,255,255,.82);font-size:13px;font-weight:500;letter-spacing:-.005em;display:flex;align-items:center;gap:6px;padding:6px 2px;transition:color .3s;cursor:pointer;text-decoration:none;font-family:'Inter',sans-serif}
+.livv-nav-link:hover{color:#fff}
+.livv-nav-link .n{font-size:10px;opacity:.5;font-weight:400}
+.livv-nav-link::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:rgba(255,255,255,.8);transition:width .35s ease}
+.livv-nav-link:hover::after{width:100%}
+.livv-nav-link svg{opacity:.6;transition:transform .3s}
+.livv-nav-services{position:relative}
+.livv-nav-services:hover .livv-nav-link svg{transform:rotate(180deg)}
+.livv-nav-dropdown{position:absolute;top:calc(100% + 18px);left:50%;transform:translateX(-50%) translateY(4px);width:280px;padding:6px;border-radius:16px;background:rgba(26,26,26,.92);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);box-shadow:0 20px 40px rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:all .25s}
+.livv-nav-services:hover .livv-nav-dropdown{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.livv-nav-dropdown a{display:block;padding:12px;border-radius:10px;color:#fff;text-decoration:none;transition:background .3s}
+.livv-nav-dropdown a:hover{background:rgba(255,255,255,.06)}
+.livv-nav-dropdown .ttl{font-size:13px;font-weight:500;color:#fff;letter-spacing:-.005em}
+.livv-nav-dropdown .desc{font-size:10px;color:rgba(255,255,255,.5);margin-top:2px}
+.livv-nav-cta{display:inline-flex;align-items:center;padding:4px 4px 4px 18px;border-radius:999px;background:#fff;color:#0a0a0a;font-size:13px;font-weight:500;border:1px solid rgba(255,255,255,.4);overflow:hidden;flex-shrink:0;transition:all .4s;text-decoration:none;font-family:'Inter',sans-serif}
+.livv-nav-cta:hover{background:rgba(255,255,255,.92);letter-spacing:.01em}
+.livv-nav-cta .txt{white-space:nowrap;position:relative;z-index:2}
+.livv-nav-cta .arrow{position:relative;width:28px;height:28px;margin-left:10px;border-radius:50%;background:#0a0a0a;color:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:all .4s;flex-shrink:0}
+.livv-nav-cta:hover .arrow{transform:scale(1.1)}
+.livv-nav-cta .arrow-spin{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,#E8BC59,#769268,#6DBEDC,#E8BC59);opacity:0;transition:opacity .4s;z-index:0}
+.livv-nav-cta:hover .arrow-spin{opacity:1;animation:livvSpin 2s linear infinite}
+.livv-nav-cta .arrow-inner{position:absolute;inset:2px;border-radius:50%;background:#0a0a0a;z-index:1;transition:background .3s}
+.livv-nav-cta:hover .arrow-inner{background:rgba(255,255,255,.1)}
+.livv-nav-cta .arrow svg{position:relative;z-index:2;width:13px;height:13px;color:#fff;transition:transform .3s}
+.livv-nav-cta:hover .arrow svg{animation:livvArrow .6s ease-in-out infinite}
+@keyframes livvSpin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes livvArrow{0%,100%{transform:translateX(0)}50%{transform:translateX(2px)}}
+.livv-nav-mobile{display:none;width:36px;height:36px;border-radius:50%;background:transparent;border:none;color:#fff;cursor:pointer;align-items:center;justify-content:center}
+.livv-nav-mobile svg{width:18px;height:18px}
+.livv-mobile-menu{position:fixed;inset:0;z-index:99;pointer-events:none;opacity:0;transition:opacity .5s;font-family:'Inter',sans-serif}
+.livv-mobile-menu.open{opacity:1;pointer-events:auto}
+.livv-mobile-menu-bg{position:absolute;inset:0;background:rgba(10,10,10,.65);backdrop-filter:blur(6px);height:100vh}
+.livv-mobile-menu-panel{position:relative;margin:80px 16px 0;padding:20px;border-radius:20px;background:#0a0a0a;border:1px solid rgba(255,255,255,.1);box-shadow:0 30px 60px rgba(0,0,0,.45);transform:translateY(-24px);opacity:0;transition:all .5s cubic-bezier(.2,.8,.2,1)}
+.livv-mobile-menu.open .livv-mobile-menu-panel{transform:translateY(0);opacity:1}
+.livv-mobile-menu-item{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-radius:12px;color:#fff;text-decoration:none;transition:background .3s}
+.livv-mobile-menu-item:hover{background:rgba(255,255,255,.06)}
+.livv-mobile-menu-item .lft{display:flex;align-items:center;gap:16px}
+.livv-mobile-menu-item .n{font-size:10px;color:rgba(255,255,255,.4);font-family:monospace}
+.livv-mobile-menu-item .label{font-size:17px;font-weight:500}
+.livv-mobile-menu-item svg{width:14px;height:14px;opacity:.4;color:#fff}
+.livv-mobile-menu-cta{display:flex;align-items:center;justify-content:center;gap:10px;padding:16px;margin-top:12px;border-radius:12px;background:#fff;color:#0a0a0a;text-decoration:none;font-weight:500;font-size:14px}
+@media(max-width:960px){
+  .livv-nav{top:20px;left:16px;right:16px;transform:none;max-width:none;width:auto}
+  .livv-nav.scrolled{top:12px;transform:scale(.97)}
+  .livv-nav-inner{gap:0;justify-content:space-between;padding:6px 6px 6px 14px}
+  .livv-nav-links,.livv-nav-cta{display:none}
+  .livv-nav-mobile{display:flex}
+}
