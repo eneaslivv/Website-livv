@@ -34,12 +34,16 @@ const CreateEditModal = ({
         initialData?.content_blocks?.length ? JSON.stringify(initialData.content_blocks, null, 2) : ''
     );
     const [blocksError, setBlocksError] = useState<string | null>(null);
+    const [galleryText, setGalleryText] = useState<string>(
+        (initialData?.gallery || []).join('\n')
+    );
 
     // Update form data when initialData changes (for edit mode)
     React.useEffect(() => {
         if (initialData) {
             setFormData(initialData);
             setBlocksText(initialData.content_blocks?.length ? JSON.stringify(initialData.content_blocks, null, 2) : '');
+            setGalleryText((initialData.gallery || []).join('\n'));
         } else {
             setFormData({
                 title: '',
@@ -54,6 +58,7 @@ const CreateEditModal = ({
                 description: ''
             });
             setBlocksText('');
+            setGalleryText('');
         }
         setBlocksError(null);
     }, [initialData, isOpen]);
@@ -146,18 +151,51 @@ const CreateEditModal = ({
                     </div>
 
                     <div className="md:col-span-2">
-                        <label className="block text-xs font-bold text-zinc-400 uppercase mb-1">Image URL</label>
+                        <label className="block text-xs font-bold text-zinc-400 uppercase mb-1">Cover Image / Video URL</label>
                         <input
                             name="image"
                             type="text"
-                            placeholder="/images/portfolio-1.jpg or https://..."
+                            placeholder="/images/portfolio-1.jpg, https://... (.mp4 también funciona)"
                             className="w-full p-2 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-lg text-sm"
                             value={formData.image || ''}
                             onChange={handleChange}
                         />
-                        {formData.image && (
+                        {formData.image && !/\.(mp4|webm|mov)(\?|$)/i.test(formData.image) && (
                             <div className="mt-2 relative w-full h-32 rounded overflow-hidden border border-zinc-200">
                                 <Image src={formData.image} alt="Preview" fill className="object-cover" />
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="md:col-span-2">
+                        <label className="block text-xs font-bold text-zinc-400 uppercase mb-1">Gallery URLs (one per line)</label>
+                        <textarea
+                            rows={4}
+                            spellCheck={false}
+                            placeholder="https://.../img-1.jpg&#10;https://.../img-2.jpg&#10;(also supports .mp4)"
+                            className="w-full p-2 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-lg text-xs font-mono"
+                            value={galleryText}
+                            onChange={(e) => {
+                                const raw = e.target.value;
+                                setGalleryText(raw);
+                                const urls = raw.split(/\r?\n/).map((u) => u.trim()).filter(Boolean);
+                                setFormData((prev) => ({ ...prev, gallery: urls }));
+                            }}
+                        />
+                        <p className="text-[10px] text-zinc-400 mt-1">
+                            Every URL becomes a showcase block on the project page (paired side-by-side).
+                        </p>
+                        {formData.gallery && formData.gallery.length > 0 && (
+                            <div className="mt-2 grid grid-cols-4 gap-2">
+                                {formData.gallery.map((url, i) => (
+                                    <div key={i} className="relative aspect-square rounded overflow-hidden border border-zinc-200 bg-zinc-50">
+                                        {/\.(mp4|webm|mov)(\?|$)/i.test(url) ? (
+                                            <video src={url} muted className="w-full h-full object-cover" />
+                                        ) : (
+                                            <Image src={url} alt={`Gallery ${i + 1}`} fill className="object-cover" />
+                                        )}
+                                    </div>
+                                ))}
                             </div>
                         )}
                     </div>

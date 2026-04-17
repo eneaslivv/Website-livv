@@ -8,12 +8,15 @@ function pickCover(item: PortfolioItem): string | undefined {
 }
 
 function pickGalleryImages(item: PortfolioItem, excludeUrl?: string): string[] {
-    const fromMedia = (item.media || [])
-        .filter((m) => m.type !== "video")
-        .map((m) => m.url)
+    const fromMedia = (item.media || []).map((m) => m.url)
     const fromGallery = item.gallery || []
     const all = [...fromMedia, ...fromGallery]
-    return all.filter((url) => !!url && url !== excludeUrl)
+    const seen = new Set<string>()
+    return all.filter((url) => {
+        if (!url || url === excludeUrl || seen.has(url)) return false
+        seen.add(url)
+        return true
+    })
 }
 
 function splitServices(services?: string): string[] {
@@ -86,18 +89,19 @@ export function generateDefaultBlocks(item: PortfolioItem): ContentBlock[] {
         })
     }
 
-    if (gallery.length >= 2) {
+    // Pair remaining gallery items into side_by_side showcases so every uploaded
+    // media renders on the detail page.
+    for (let i = 1; i < gallery.length; i += 2) {
+        const a = gallery[i]
+        const b = gallery[i + 1]
+        if (!a) break
         blocks.push({
             type: "image_showcase",
-            label: "High Fidelity Interface",
+            label: i === 1 ? "High Fidelity Interface" : "Details",
             layout: "side_by_side",
             images: [
-                { url: gallery[1], alt: `${item.title} interface A`, theme: "light" },
-                {
-                    url: gallery[2] || gallery[1],
-                    alt: `${item.title} interface B`,
-                    theme: "dark",
-                },
+                { url: a, alt: `${item.title} interface ${i}`, theme: "light" },
+                ...(b ? [{ url: b, alt: `${item.title} interface ${i + 1}`, theme: "dark" as const }] : []),
             ],
             sort_order: order++,
         })
@@ -158,7 +162,16 @@ export function withPatternDefaults(
 
     const filled: ContentBlock[] = [...clean]
     for (const type of BLOCK_PATTERN_ORDER) {
-        if (type === "image_showcase") continue
+        if (type === "image_showcase") {
+            // If the author didn't include any showcase and there are gallery/media
+            // items available, append all auto-generated showcase blocks so uploaded
+            // images actually render on the page.
+            if (!authoredTypes.has("image_showcase")) {
+                const showcases = defaults.filter((b) => b.type === "image_showcase")
+                filled.push(...showcases)
+            }
+            continue
+        }
         if (!authoredTypes.has(type)) {
             const fallback = defaults.find((b) => b.type === type)
             if (fallback) filled.push(fallback)

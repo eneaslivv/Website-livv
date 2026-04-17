@@ -14,6 +14,25 @@ interface Props {
     images: ShowcaseImage[]
 }
 
+const isVideoUrl = (url: string) => /\.(mp4|webm|mov)(\?|$)/i.test(url)
+
+function Media({ url, alt, className, fit = 'cover' }: { url: string; alt?: string; className?: string; fit?: 'cover' | 'contain' }) {
+    if (isVideoUrl(url)) {
+        return (
+            <video
+                src={url}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                className={`${className ?? ''} ${fit === 'contain' ? 'object-contain' : 'object-cover'} w-full h-full`}
+            />
+        )
+    }
+    return <Image src={url} alt={alt || "Showcase"} fill className={`${className ?? ''} ${fit === 'contain' ? 'object-contain' : 'object-cover'}`} />
+}
+
 export function ImageShowcaseSection({ label, layout, images }: Props) {
     if (!images?.length) return null
     // Skip if all image URLs are empty
@@ -27,7 +46,7 @@ export function ImageShowcaseSection({ label, layout, images }: Props) {
                 <div className="bg-[#E6E2D6]/30 border border-[#D6D1C5] rounded-xl p-6 md:p-12">
                     {images[0]?.url ? (
                         <div className="relative aspect-[16/9] rounded-lg overflow-hidden">
-                            <Image src={images[0].url} alt={images[0].alt || "Wireframe"} fill className="object-contain" />
+                            <Media url={images[0].url} alt={images[0].alt || "Wireframe"} fit="contain" />
                         </div>
                     ) : (
                         <div className="bg-[#FAF8F3] rounded-lg shadow-sm border border-[#D6D1C5] p-4 aspect-[16/9] flex flex-col gap-4">
@@ -73,7 +92,7 @@ export function ImageShowcaseSection({ label, layout, images }: Props) {
                         >
                             {img.url ? (
                                 <div className="relative w-full h-full">
-                                    <Image src={img.url} alt={img.alt || `Interface ${i + 1}`} fill className="object-contain" />
+                                    <Media url={img.url} alt={img.alt || `Interface ${i + 1}`} fit="contain" />
                                 </div>
                             ) : (
                                 <div className={`w-[200px] h-[380px] rounded-[2rem] border-4 shadow-2xl ${
@@ -96,7 +115,7 @@ export function ImageShowcaseSection({ label, layout, images }: Props) {
             <div className="rounded-xl overflow-hidden border border-[#D6D1C5]">
                 {images[0]?.url && (
                     <div className="relative aspect-video">
-                        <Image src={images[0].url} alt={images[0].alt || "Showcase"} fill className="object-cover" />
+                        <Media url={images[0].url} alt={images[0].alt || "Showcase"} fit="cover" />
                     </div>
                 )}
             </div>
