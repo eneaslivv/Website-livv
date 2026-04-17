@@ -178,7 +178,7 @@ export function ProjectArchive() {
     const projects = (dbProjects && dbProjects.length > 0) ? dbProjects : FALLBACK_PROJECTS;
 
     const [viewMode, setViewMode] = useState<ViewMode>("featured")
-    const [hoveredProject, setHoveredProject] = useState<string | null>(null)
+    const [hoveredProject, setHoveredProject] = useState<PortfolioItem | null>(null)
     const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 })
 
     const handleMouseMove = (e: React.MouseEvent) => {
@@ -325,7 +325,7 @@ export function ProjectArchive() {
                                 <motion.div
                                     key={project.id}
                                     variants={itemVariants}
-                                    onMouseEnter={() => setHoveredProject(getCoverUrl(project))}
+                                    onMouseEnter={() => setHoveredProject(project)}
                                     onMouseLeave={() => setHoveredProject(null)}
                                 >
                                     <Link
@@ -374,42 +374,58 @@ export function ProjectArchive() {
 
             {/* FLOATING IMAGE PREVIEW FOR LIST VIEW */}
             <AnimatePresence>
-                {viewMode === "all" && hoveredProject && (
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{
-                            opacity: 1,
-                            scale: 1,
-                            x: cursorPos.x - 200,
-                            y: cursorPos.y - 150
-                        }}
-                        exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
-                        // Important: Use spring for fluid following, but make it snappier than the default
-                        transition={{ type: "spring", stiffness: 120, damping: 15, mass: 0.1 }}
-                        className="fixed z-50 pointer-events-none w-[400px] h-[250px] rounded-lg overflow-hidden shadow-2xl hidden md:block"
-                        style={{ left: 0, top: 0 }} // Positioning managed by animate transform
-                    >
-                        <div className="relative w-full h-full bg-[#1a1a1a]">
-                            {isVideoUrl(hoveredProject) ? (
-                                <video
-                                    src={hoveredProject}
-                                    autoPlay
-                                    muted
-                                    loop
-                                    playsInline
-                                    className="absolute inset-0 w-full h-full object-cover"
-                                />
-                            ) : (
-                                <Image
-                                    src={hoveredProject}
-                                    alt="Preview"
-                                    fill
-                                    className="object-cover"
-                                />
-                            )}
-                        </div>
-                    </motion.div>
-                )}
+                {viewMode === "all" && hoveredProject && (() => {
+                    const coverUrl = getCoverUrl(hoveredProject)
+                    const coverIsVideo = !!coverUrl && isVideoUrl(coverUrl)
+                    const staticImage =
+                        hoveredProject.thumbnail ||
+                        (!coverIsVideo ? coverUrl : null) ||
+                        (hoveredProject.image && !isVideoUrl(hoveredProject.image) ? hoveredProject.image : null)
+                    return (
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{
+                                opacity: 1,
+                                scale: 1,
+                                x: cursorPos.x - 200,
+                                y: cursorPos.y - 150
+                            }}
+                            exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
+                            transition={{ type: "spring", stiffness: 120, damping: 15, mass: 0.1 }}
+                            className="fixed z-50 pointer-events-none w-[400px] h-[250px] rounded-lg overflow-hidden shadow-2xl hidden md:block"
+                            style={{ left: 0, top: 0, backgroundColor: hoveredProject.color || '#1a1a1a' }}
+                        >
+                            <div className="relative w-full h-full">
+                                {staticImage ? (
+                                    <Image
+                                        src={staticImage}
+                                        alt={hoveredProject.title || 'Preview'}
+                                        fill
+                                        sizes="400px"
+                                        className="object-cover"
+                                        priority
+                                    />
+                                ) : coverIsVideo && coverUrl ? (
+                                    <video
+                                        src={coverUrl}
+                                        autoPlay
+                                        muted
+                                        loop
+                                        playsInline
+                                        preload="auto"
+                                        className="absolute inset-0 w-full h-full object-cover"
+                                    />
+                                ) : (
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <span className="text-5xl font-light text-white/40">
+                                            {hoveredProject.title?.[0]}
+                                        </span>
+                                    </div>
+                                )}
+                            </div>
+                        </motion.div>
+                    )
+                })()}
             </AnimatePresence>
 
         </section>

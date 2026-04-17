@@ -8,6 +8,7 @@ import { RecommendedProjects } from "@/components/sections/recommended-projects"
 import { usePortfolioItem } from "@/hooks/usePortfolioItem"
 import { ProjectHeader } from "@/components/project-blocks/ProjectHeader"
 import { BlockRenderer } from "@/components/project-blocks/BlockRenderer"
+import { withPatternDefaults } from "@/lib/default-project-blocks"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -55,9 +56,7 @@ export default function ProjectPage() {
     const slug = params?.slug as string
     const { item, loading, isPreview } = usePortfolioItem(slug)
 
-    const blocks = (item?.content_blocks || [])
-        .slice()
-        .sort((a, b) => (a.sort_order || 0) - (b.sort_order || 0))
+    const blocks = item ? withPatternDefaults(item, item.content_blocks) : []
 
     return (
         <main className={`bg-[#FAF8F3] text-[#2A1818] selection:bg-[#E6E2D6] min-h-screen ${inter.className}`}>

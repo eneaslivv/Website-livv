@@ -51,6 +51,8 @@ export function BlockRenderer({ block }: { block: ContentBlock }) {
                     heading={block.heading}
                     subtext={block.subtext}
                     background_color={block.background_color}
+                    cta_label={block.cta_label}
+                    cta_href={block.cta_href}
                 />
             )
 

@@ -2,9 +2,10 @@
 
 import React, { useState } from 'react';
 import { Icons } from '@/components/admin/Icons';
-import { PortfolioItem } from '@/types/livv-os';
+import { PortfolioItem, ContentBlock } from '@/types/livv-os';
 import { useSupabase } from '@/hooks/useSupabase';
 import Image from 'next/image';
+import { generateDefaultBlocks } from '@/lib/default-project-blocks';
 
 const CreateEditModal = ({
     isOpen,
@@ -29,11 +30,16 @@ const CreateEditModal = ({
         color: '#000000',
         description: ''
     });
+    const [blocksText, setBlocksText] = useState<string>(
+        initialData?.content_blocks?.length ? JSON.stringify(initialData.content_blocks, null, 2) : ''
+    );
+    const [blocksError, setBlocksError] = useState<string | null>(null);
 
     // Update form data when initialData changes (for edit mode)
     React.useEffect(() => {
         if (initialData) {
             setFormData(initialData);
+            setBlocksText(initialData.content_blocks?.length ? JSON.stringify(initialData.content_blocks, null, 2) : '');
         } else {
             setFormData({
                 title: '',
@@ -47,7 +53,9 @@ const CreateEditModal = ({
                 color: '#000000',
                 description: ''
             });
+            setBlocksText('');
         }
+        setBlocksError(null);
     }, [initialData, isOpen]);
 
     if (!isOpen) return null;
@@ -196,11 +204,76 @@ const CreateEditModal = ({
                         />
                     </div>
 
+                    <div className="md:col-span-2">
+                        <div className="flex justify-between items-center mb-1">
+                            <label className="block text-xs font-bold text-zinc-400 uppercase">Content Blocks (JSON)</label>
+                            <div className="flex gap-2">
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        const defaults = generateDefaultBlocks(formData as PortfolioItem);
+                                        setBlocksText(JSON.stringify(defaults, null, 2));
+                                        setBlocksError(null);
+                                        setFormData(prev => ({ ...prev, content_blocks: defaults }));
+                                    }}
+                                    className="text-[10px] px-2 py-1 bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 rounded hover:bg-zinc-200 dark:hover:bg-zinc-700"
+                                >
+                                    Generate from defaults
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setBlocksText('');
+                                        setBlocksError(null);
+                                        setFormData(prev => ({ ...prev, content_blocks: [] }));
+                                    }}
+                                    className="text-[10px] px-2 py-1 bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 rounded hover:bg-zinc-200 dark:hover:bg-zinc-700"
+                                >
+                                    Clear (use pattern fallback)
+                                </button>
+                            </div>
+                        </div>
+                        <textarea
+                            rows={10}
+                            spellCheck={false}
+                            placeholder='[{"type":"hero_image","image_url":"...","sort_order":0}, ...]  — leave empty to auto-render the case-study pattern from base fields.'
+                            className="w-full p-2 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-lg text-xs font-mono"
+                            value={blocksText}
+                            onChange={(e) => {
+                                const raw = e.target.value;
+                                setBlocksText(raw);
+                                if (!raw.trim()) {
+                                    setBlocksError(null);
+                                    setFormData(prev => ({ ...prev, content_blocks: [] }));
+                                    return;
+                                }
+                                try {
+                                    const parsed = JSON.parse(raw) as ContentBlock[];
+                                    if (!Array.isArray(parsed)) throw new Error('Must be an array of blocks');
+                                    setBlocksError(null);
+                                    setFormData(prev => ({ ...prev, content_blocks: parsed }));
+                                } catch (err: any) {
+                                    setBlocksError(err?.message || 'Invalid JSON');
+                                }
+                            }}
+                        />
+                        <p className="text-[10px] text-zinc-400 mt-1">
+                            Pattern: hero_image → challenge → image_showcase (wireframe / side_by_side) → design_system → banner. Empty = auto-generated from base fields.
+                        </p>
+                        {blocksError && (
+                            <p className="text-[10px] text-red-500 mt-1">JSON error: {blocksError}</p>
+                        )}
+                    </div>
+
                 </div>
 
                 <div className="flex justify-end gap-2 mt-6 border-t border-zinc-100 dark:border-zinc-800 pt-4">
                     <button onClick={onClose} className="px-4 py-2 text-sm font-medium text-zinc-500 hover:text-zinc-700">Cancel</button>
-                    <button onClick={() => onSave(formData)} className="px-6 py-2 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-xl text-sm font-bold">
+                    <button
+                        onClick={() => onSave(formData)}
+                        disabled={!!blocksError}
+                        className="px-6 py-2 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-xl text-sm font-bold disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
                         {initialData ? 'Save Changes' : 'Create Project'}
                     </button>
                 </div>
