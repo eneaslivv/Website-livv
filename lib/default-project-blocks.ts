@@ -150,6 +150,52 @@ const BLOCK_PATTERN_ORDER: ContentBlock["type"][] = [
  * Author blocks win when the same "slot" exists; otherwise defaults fill the gap.
  * A "slot" is a block type, except `image_showcase` which we allow to repeat.
  */
+/**
+ * Hydrate an authored block that was saved with empty placeholder fields.
+ * Returns null if the block is still empty and has no data to recover from the item.
+ */
+function hydrateBlock(block: ContentBlock, item: PortfolioItem): ContentBlock | null {
+    const cover = pickCover(item)
+    const gallery = pickGalleryImages(item, cover)
+
+    switch (block.type) {
+        case "hero_image": {
+            if (!block.image_url || block.image_url.trim() === "") {
+                if (!cover) return null
+                return { ...block, image_url: cover, alt: block.alt || `${item.title} hero` }
+            }
+            return block
+        }
+        case "image_showcase": {
+            const realImages = (block.images || []).filter((img) => img.url && img.url.trim() !== "")
+            if (realImages.length > 0) return { ...block, images: realImages }
+            if (gallery.length === 0) return null
+            const layout = block.layout || "side_by_side"
+            const max = layout === "single" ? 1 : 2
+            return {
+                ...block,
+                images: gallery.slice(0, max).map((url, i) => ({
+                    url,
+                    alt: `${item.title} ${block.label || "interface"} ${i + 1}`,
+                    theme: (i % 2 === 0 ? "light" : "dark") as "light" | "dark",
+                })),
+            }
+        }
+        case "design_system": {
+            if (block.colors && block.colors.length > 0) return block
+            const palette = (item.colors || []).filter(Boolean)
+            if (palette.length === 0 && !item.color) return block
+            const colors = (palette.length ? palette : [item.color!]).slice(0, 4).map((hex, i) => ({
+                name: i === 0 ? "Primary" : i === 1 ? "Accent" : `Color ${i + 1}`,
+                hex,
+            }))
+            return { ...block, colors }
+        }
+        default:
+            return block
+    }
+}
+
 export function withPatternDefaults(
     item: PortfolioItem,
     authored: ContentBlock[] | undefined | null,
@@ -158,17 +204,47 @@ export function withPatternDefaults(
     if (clean.length === 0) return generateDefaultBlocks(item)
 
     const defaults = generateDefaultBlocks(item)
-    const authoredTypes = new Set(clean.map((b) => b.type))
+    const hydrated = clean
+        .map((b) => hydrateBlock(b, item))
+        .filter((b): b is ContentBlock => b !== null)
 
-    const filled: ContentBlock[] = [...clean]
+    const authoredTypes = new Set(hydrated.map((b) => b.type))
+
+    // How many usable gallery items does the author currently show?
+    const cover = pickCover(item)
+    const gallery = pickGalleryImages(item, cover)
+    const authoredShowcaseUrls = new Set(
+        hydrated
+            .filter((b): b is Extract<ContentBlock, { type: "image_showcase" }> => b.type === "image_showcase")
+            .flatMap((b) => b.images.map((img) => img.url))
+            .filter(Boolean),
+    )
+    const unusedGallery = gallery.filter((url) => !authoredShowcaseUrls.has(url))
+
+    const filled: ContentBlock[] = [...hydrated]
     for (const type of BLOCK_PATTERN_ORDER) {
         if (type === "image_showcase") {
-            // If the author didn't include any showcase and there are gallery/media
-            // items available, append all auto-generated showcase blocks so uploaded
-            // images actually render on the page.
             if (!authoredTypes.has("image_showcase")) {
-                const showcases = defaults.filter((b) => b.type === "image_showcase")
-                filled.push(...showcases)
+                filled.push(...defaults.filter((b) => b.type === "image_showcase"))
+            } else if (unusedGallery.length > 0) {
+                // Author had showcases but there are still gallery items not rendered —
+                // append side_by_side blocks for the leftovers.
+                for (let i = 0; i < unusedGallery.length; i += 2) {
+                    const a = unusedGallery[i]
+                    const b = unusedGallery[i + 1]
+                    filled.push({
+                        type: "image_showcase",
+                        label: "More",
+                        layout: "side_by_side",
+                        images: [
+                            { url: a, alt: `${item.title} extra ${i + 1}`, theme: "light" },
+                            ...(b
+                                ? [{ url: b, alt: `${item.title} extra ${i + 2}`, theme: "dark" as const }]
+                                : []),
+                        ],
+                        sort_order: 999 + i,
+                    })
+                }
             }
             continue
         }
