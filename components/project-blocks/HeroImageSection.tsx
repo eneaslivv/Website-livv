@@ -3,10 +3,15 @@ import Image from "next/image"
 interface Props {
     image_url: string
     alt?: string
+    poster?: string
 }
 
-export function HeroImageSection({ image_url, alt }: Props) {
+const isVideoUrl = (url: string) => /\.(mp4|webm|mov)(\?|$)/i.test(url)
+
+export function HeroImageSection({ image_url, alt, poster }: Props) {
     if (!image_url || image_url.trim() === '') return null
+
+    const isVideo = isVideoUrl(image_url)
 
     return (
         <div className="relative w-full rounded-2xl overflow-hidden mb-24 md:mb-32 shadow-2xl shadow-[#2A1818]/5">
@@ -19,12 +24,25 @@ export function HeroImageSection({ image_url, alt }: Props) {
                         <div className="w-2.5 h-2.5 rounded-full bg-[#E6E2D6] border border-[#D6D1C5]" />
                     </div>
                     <div className="bg-[#2A1818] aspect-video w-full relative group overflow-hidden">
-                        <Image
-                            src={image_url}
-                            alt={alt || "Project screenshot"}
-                            fill
-                            className="object-cover opacity-90 transition-transform duration-700 group-hover:scale-105"
-                        />
+                        {isVideo ? (
+                            <video
+                                src={image_url}
+                                autoPlay
+                                muted
+                                loop
+                                playsInline
+                                preload="auto"
+                                poster={poster || undefined}
+                                className="absolute inset-0 w-full h-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105"
+                            />
+                        ) : (
+                            <Image
+                                src={image_url}
+                                alt={alt || "Project screenshot"}
+                                fill
+                                className="object-cover opacity-90 transition-transform duration-700 group-hover:scale-105"
+                            />
+                        )}
                     </div>
                 </div>
             </div>
