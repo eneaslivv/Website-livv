@@ -317,7 +317,18 @@ export type ContentBlock =
     | { type: 'hero_image'; image_url: string; alt?: string; sort_order: number }
     | { type: 'challenge'; label: string; heading: string; paragraphs: string[]; tools: string[]; kpis: { text: string }[]; sort_order: number }
     | { type: 'image_showcase'; label?: string; layout: 'single' | 'side_by_side' | 'wireframe'; images: { url: string; alt?: string; theme?: 'light' | 'dark'; caption?: string }[]; sort_order: number }
-    | { type: 'design_system'; label: string; heading: string; description?: string; typeface?: { name: string; weights: { value: string; label: string }[] }; colors: { name: string; hex: string }[]; sort_order: number }
+    | {
+          type: 'design_system';
+          label: string;
+          heading: string;
+          description?: string;
+          typeface?: { name: string; weights: { value: string; label: string }[] };
+          colors: ({ name: string; hex: string } | string)[];
+          spacing?: { label: string; scale: { value: string; token?: string }[]; grid?: string };
+          components?: { label: string; items: { name: string; kind: 'button' | 'input' | 'chip'; text?: string }[] };
+          download_url?: string;
+          sort_order: number;
+      }
     | { type: 'banner'; heading: string; subtext?: string; background_color?: string; cta_label?: string; cta_href?: string; sort_order: number };
 
 export interface PortfolioItem {

@@ -13,13 +13,14 @@ const nextConfig = {
   },
   async rewrites() {
     return [
+      { source: '/for',          destination: '/lp/index.html' },
       { source: '/for-agencies', destination: '/lp/agencies.html' },
       { source: '/for-startups', destination: '/lp/startups.html' },
-      { source: '/for-founders',  destination: '/lp/startups.html' },
-      { source: '/for-saas',      destination: '/lp/saas.html' },
-      { source: '/for-ecommerce', destination: '/lp/ecommerce.html' },
-      { source: '/for-dtc',       destination: '/lp/ecommerce.html' },
-      { source: '/for-shopify',   destination: '/lp/ecommerce.html' },
+      { source: '/for-founders', destination: '/lp/startups.html' },
+      { source: '/for-saas',     destination: '/lp/saas.html' },
+      { source: '/for-ecommerce',destination: '/lp/ecommerce.html' },
+      { source: '/for-dtc',      destination: '/lp/ecommerce.html' },
+      { source: '/for-shopify',  destination: '/lp/ecommerce.html' },
     ]
   },
   async redirects() {

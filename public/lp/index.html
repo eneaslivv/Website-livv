@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LIVV Studio — Choose Your Path</title>
+<meta name="description" content="LIVV is the white-label creative & engineering studio. Pick the experience that fits: founders, SaaS, ecommerce, or agencies.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/lp/navbar.css">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#FDFBF7;--surface:#FFFFFF;--muted:#F5F2EB;--border:#E6E2D8;
+  --ink:#09090B;--text2:#52525B;--text3:#78736A;
+  --gold:#E8BC59;--sage:#769268;--blush:#2C0405;
+  --radius:1.5rem;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;font-weight:300;line-height:1.6;min-height:100vh;display:flex;flex-direction:column;letter-spacing:-0.01em;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+.wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:120px 24px 64px;position:relative}
+.wrap::before{content:'';position:absolute;top:10%;left:-200px;width:500px;height:500px;background:radial-gradient(circle,rgba(118,146,104,.12),transparent 70%);pointer-events:none;z-index:0}
+.wrap::after{content:'';position:absolute;bottom:10%;right:-200px;width:500px;height:500px;background:radial-gradient(circle,rgba(232,188,89,.1),transparent 70%);pointer-events:none;z-index:0}
+
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:24px;position:relative;z-index:2;display:inline-flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';width:20px;height:1px;background:var(--text3)}
+
+h1{font-size:clamp(36px,6vw,80px);font-weight:300;letter-spacing:-0.055em;line-height:1;text-align:center;max-width:860px;position:relative;z-index:2}
+h1 .accent{font-style:italic;color:var(--sage)}
+.sub{margin-top:24px;font-size:17px;color:var(--text2);max-width:560px;text-align:center;line-height:1.6;position:relative;z-index:2}
+
+.cards{margin-top:56px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:1400px;width:100%;position:relative;z-index:2}
+@media(max-width:1100px){.cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.cards{grid-template-columns:1fr}}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:32px 28px;transition:all .5s var(--ease);display:flex;flex-direction:column;gap:18px;position:relative;overflow:hidden;min-height:300px}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.card:hover{transform:translateY(-4px);box-shadow:0 20px 50px -12px rgba(9,9,11,.08);border-color:var(--accent)}
+.card:hover::before{transform:scaleX(1)}
+.card.sage{--accent:var(--sage)}
+.card.gold{--accent:var(--gold)}
+.card.blush{--accent:var(--blush)}
+.card.ink{--accent:var(--ink)}
+
+.card-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.card h2{font-size:26px;font-weight:400;letter-spacing:-0.03em;line-height:1.1}
+.card h2 .italic{font-style:italic;color:var(--accent)}
+.card p{font-size:14px;color:var(--text2);line-height:1.65;flex:1}
+
+.card-arrow{display:inline-flex;align-items:center;gap:10px;font-size:13px;color:var(--ink);font-weight:500}
+.card-arrow svg{width:16px;height:16px;transition:transform .3s var(--ease)}
+.card:hover .card-arrow svg{transform:translateX(4px)}
+.card-meta{display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid var(--border)}
+.card-stat{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);letter-spacing:.04em}
+
+footer{padding:32px 24px;text-align:center;font-size:12px;color:var(--text3);border-top:1px solid var(--border);background:var(--bg);position:relative;z-index:2}
+footer a{color:var(--sage)}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="eyebrow">Choose your path</div>
+  <h1>One studio. <span class="accent">Four ways</span> to work together.</h1>
+  <p class="sub">We build premium digital products for founders, SaaS teams, DTC brands and agencies. Pick the experience that fits what you're building.</p>
+
+  <div class="cards">
+    <a href="/for-startups" class="card sage">
+      <div class="card-label">/ 01 · Founders</div>
+      <h2>For <span class="italic">startups</span></h2>
+      <p>You quit your 9–5 to build something real. We're your on-demand design & dev team — ship faster without an in-house team.</p>
+      <div class="card-meta">
+        <span class="card-stat">Ship in 48h</span>
+        <span class="card-arrow">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </div>
+    </a>
+
+    <a href="/for-saas" class="card gold">
+      <div class="card-label">/ 02 · SaaS</div>
+      <h2>For <span class="italic">SaaS</span> teams</h2>
+      <p>Your fractional senior product team. We plug in, embed into your Slack, and ship features every week.</p>
+      <div class="card-meta">
+        <span class="card-stat">From $6K/mo</span>
+        <span class="card-arrow">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </div>
+    </a>
+
+    <a href="/for-ecommerce" class="card blush">
+      <div class="card-label">/ 03 · Ecommerce</div>
+      <h2>For <span class="italic">ecommerce</span></h2>
+      <p>High-converting Shopify stores, brand systems and launch films. Avg +42% conversion lift, 2.4× AOV.</p>
+      <div class="card-meta">
+        <span class="card-stat">Free audit</span>
+        <span class="card-arrow">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </div>
+    </a>
+
+    <a href="/for-agencies" class="card ink">
+      <div class="card-label">/ 04 · Agencies</div>
+      <h2>For <span class="italic">agencies</span></h2>
+      <p>100% white-label creative team. Your brand, our output, your margin. Senior craft without senior payroll.</p>
+      <div class="card-meta">
+        <span class="card-stat">NDA-first</span>
+        <span class="card-arrow">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </div>
+    </a>
+  </div>
+</div>
+
+<footer>
+  © 2026 LIVV Studio — <a href="https://livvvv.com">livvvv.com</a> · Built in LATAM. Shipped worldwide.
+</footer>
+
+<script src="/lp/navbar.js"></script>
+</body>
+</html>

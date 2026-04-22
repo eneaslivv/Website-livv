@@ -67,62 +67,83 @@ export function generateDefaultBlocks(item: PortfolioItem): ContentBlock[] {
         })
     }
 
+    // First 1-2 paragraphs anchor the challenge block with the sidebar (tools + kpis);
+    // the rest get interleaved with gallery images below.
+    const INTRO_PARAGRAPHS = paragraphs.length > 3 ? 2 : 1
+    const intro = paragraphs.slice(0, INTRO_PARAGRAPHS)
+    const rest = paragraphs.slice(INTRO_PARAGRAPHS)
+
     blocks.push({
         type: "challenge",
-        label: "The Challenge",
-        heading: item.subtitle || `${item.title} — a focused case study.`,
-        paragraphs: paragraphs.length
-            ? paragraphs
+        label: "Overview",
+        heading: item.subtitle || `Case Study — ${item.title}`,
+        paragraphs: intro.length
+            ? intro
             : [item.description || `An overview of the ${item.title} project.`],
         tools: tools.slice(0, 8),
         kpis: [],
         sort_order: order++,
     })
 
-    if (gallery[0]) {
-        blocks.push({
-            type: "image_showcase",
-            label: "Interface",
-            layout: "single",
-            images: [{ url: gallery[0], alt: `${item.title} interface` }],
-            sort_order: order++,
-        })
-    }
+    // Interleave remaining paragraphs with gallery images so long writeups
+    // get broken up visually. When images outnumber paragraphs, pair extras
+    // side-by-side; when paragraphs outnumber images, the leftover text
+    // blocks stack after the last image.
+    let imgIdx = 0
+    let pIdx = 0
+    let showcaseCount = 0
 
-    // Pair remaining gallery items into side_by_side showcases so every uploaded
-    // media renders on the detail page.
-    for (let i = 1; i < gallery.length; i += 2) {
-        const a = gallery[i]
-        const b = gallery[i + 1]
-        if (!a) break
-        blocks.push({
-            type: "image_showcase",
-            label: i === 1 ? "High Fidelity Interface" : "Details",
-            layout: "side_by_side",
-            images: [
-                { url: a, alt: `${item.title} interface ${i}`, theme: "light" },
-                ...(b ? [{ url: b, alt: `${item.title} interface ${i + 1}`, theme: "dark" as const }] : []),
-            ],
-            sort_order: order++,
-        })
+    const totalSteps = Math.max(gallery.length, rest.length)
+    for (let step = 0; step < totalSteps; step++) {
+        if (imgIdx < gallery.length) {
+            const isFirst = showcaseCount === 0
+            // First showcase stands alone; subsequent ones pair when possible
+            const pairs = isFirst ? 1 : Math.min(2, gallery.length - imgIdx)
+            const a = gallery[imgIdx]
+            const b = pairs === 2 ? gallery[imgIdx + 1] : undefined
+            blocks.push({
+                type: "image_showcase",
+                label: isFirst ? "Interface" : showcaseCount === 1 ? "High Fidelity Interface" : "Details",
+                layout: pairs === 1 ? "single" : "side_by_side",
+                images: [
+                    { url: a, alt: `${item.title} interface ${imgIdx + 1}`, theme: "light" },
+                    ...(b
+                        ? [{ url: b, alt: `${item.title} interface ${imgIdx + 2}`, theme: "dark" as const }]
+                        : []),
+                ],
+                sort_order: order++,
+            })
+            imgIdx += pairs
+            showcaseCount++
+        }
+
+        if (pIdx < rest.length) {
+            blocks.push({
+                type: "text",
+                content: rest[pIdx],
+                sort_order: order++,
+            })
+            pIdx++
+        }
     }
 
     const palette = (item.colors || []).filter(Boolean)
-    if (palette.length > 0 || item.color) {
-        const colors = (palette.length ? palette : [item.color!]).slice(0, 4).map((hex, i) => ({
-            name: i === 0 ? "Primary" : i === 1 ? "Accent" : `Color ${i + 1}`,
-            hex,
-        }))
-        blocks.push({
-            type: "design_system",
-            label: "Design Language",
-            heading: "System & Assets",
-            description:
-                "Foundational elements defining the visual hierarchy and interaction patterns used across the project.",
-            colors,
-            sort_order: order++,
-        })
-    }
+    const hasPalette = palette.length > 0 || !!item.color
+    const colors = hasPalette
+        ? (palette.length ? palette : [item.color!]).slice(0, 6).map((hex, i) => ({
+              name: i === 0 ? "Primary" : i === 1 ? "Accent" : i === 2 ? "Surface" : `Color ${i + 1}`,
+              hex,
+          }))
+        : []
+    blocks.push({
+        type: "design_system",
+        label: "Design Language",
+        heading: "System & Assets",
+        description:
+            "A comprehensive set of foundational elements defining the visual hierarchy and interaction patterns.",
+        colors,
+        sort_order: order++,
+    })
 
     blocks.push({
         type: "banner",
@@ -137,19 +158,6 @@ export function generateDefaultBlocks(item: PortfolioItem): ContentBlock[] {
     return blocks
 }
 
-const BLOCK_PATTERN_ORDER: ContentBlock["type"][] = [
-    "hero_image",
-    "challenge",
-    "image_showcase",
-    "design_system",
-    "banner",
-]
-
-/**
- * Merge author-provided blocks with defaults so the canonical pattern is always present.
- * Author blocks win when the same "slot" exists; otherwise defaults fill the gap.
- * A "slot" is a block type, except `image_showcase` which we allow to repeat.
- */
 /**
  * Hydrate an authored block that was saved with empty placeholder fields.
  * Returns null if the block is still empty and has no data to recover from the item.
@@ -182,11 +190,12 @@ function hydrateBlock(block: ContentBlock, item: PortfolioItem): ContentBlock | 
             }
         }
         case "design_system": {
-            if (block.colors && block.colors.length > 0) return block
+            const authored = Array.isArray(block.colors) ? block.colors.filter(Boolean) : []
+            if (authored.length > 0) return { ...block, colors: authored }
             const palette = (item.colors || []).filter(Boolean)
             if (palette.length === 0 && !item.color) return block
-            const colors = (palette.length ? palette : [item.color!]).slice(0, 4).map((hex, i) => ({
-                name: i === 0 ? "Primary" : i === 1 ? "Accent" : `Color ${i + 1}`,
+            const colors = (palette.length ? palette : [item.color!]).slice(0, 6).map((hex, i) => ({
+                name: i === 0 ? "Primary" : i === 1 ? "Accent" : i === 2 ? "Surface" : `Color ${i + 1}`,
                 hex,
             }))
             return { ...block, colors }
@@ -207,59 +216,119 @@ export function withPatternDefaults(
     const hydrated = clean
         .map((b) => hydrateBlock(b, item))
         .filter((b): b is ContentBlock => b !== null)
+        .sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0))
 
     const authoredTypes = new Set(hydrated.map((b) => b.type))
+    const authorHasBody = authoredTypes.has("image_showcase") || authoredTypes.has("text")
 
-    // How many usable gallery items does the author currently show?
-    const cover = pickCover(item)
-    const gallery = pickGalleryImages(item, cover)
-    const authoredShowcaseUrls = new Set(
-        hydrated
-            .filter((b): b is Extract<ContentBlock, { type: "image_showcase" }> => b.type === "image_showcase")
-            .flatMap((b) => b.images.map((img) => img.url))
-            .filter(Boolean),
-    )
-    const unusedGallery = gallery.filter((url) => !authoredShowcaseUrls.has(url))
+    const pickAuthored = (type: ContentBlock["type"]) => hydrated.filter((b) => b.type === type)
+    const pickDefault = (type: ContentBlock["type"]) => defaults.find((b) => b.type === type)
 
-    const filled: ContentBlock[] = [...hydrated]
-    for (const type of BLOCK_PATTERN_ORDER) {
-        if (type === "image_showcase") {
-            if (!authoredTypes.has("image_showcase")) {
-                filled.push(...defaults.filter((b) => b.type === "image_showcase"))
-            } else if (unusedGallery.length > 0) {
-                // Author had showcases but there are still gallery items not rendered —
-                // append side_by_side blocks for the leftovers.
-                for (let i = 0; i < unusedGallery.length; i += 2) {
-                    const a = unusedGallery[i]
-                    const b = unusedGallery[i + 1]
-                    filled.push({
-                        type: "image_showcase",
-                        label: "More",
-                        layout: "side_by_side",
-                        images: [
-                            { url: a, alt: `${item.title} extra ${i + 1}`, theme: "light" },
-                            ...(b
-                                ? [{ url: b, alt: `${item.title} extra ${i + 2}`, theme: "dark" as const }]
-                                : []),
-                        ],
-                        sort_order: 999 + i,
-                    })
-                }
-            }
-            continue
-        }
-        if (!authoredTypes.has(type)) {
-            const fallback = defaults.find((b) => b.type === type)
-            if (fallback) filled.push(fallback)
-        }
+    const result: ContentBlock[] = []
+
+    // Hero
+    if (authoredTypes.has("hero_image")) result.push(...pickAuthored("hero_image"))
+    else {
+        const hero = pickDefault("hero_image")
+        if (hero) result.push(hero)
     }
 
-    return filled
-        .map((b, i) => ({ ...b, sort_order: b.sort_order ?? i }))
-        .sort((a, b) => {
-            const pa = BLOCK_PATTERN_ORDER.indexOf(a.type)
-            const pb = BLOCK_PATTERN_ORDER.indexOf(b.type)
-            if (pa !== pb && pa !== -1 && pb !== -1) return pa - pb
-            return (a.sort_order || 0) - (b.sort_order || 0)
+    // Challenge — keep max 2 paragraphs in the sidebar block; overflow becomes
+    // interleavable text blocks so long writeups don't stack into a wall.
+    const challengeOverflow: ContentBlock[] = []
+    if (authoredTypes.has("challenge")) {
+        const authoredChallenges = pickAuthored("challenge") as Extract<ContentBlock, { type: "challenge" }>[]
+        authoredChallenges.forEach((ch) => {
+            const paras = ch.paragraphs || []
+            if (paras.length > 2) {
+                result.push({ ...ch, paragraphs: paras.slice(0, 2) })
+                paras.slice(2).forEach((p) =>
+                    challengeOverflow.push({ type: "text", content: p, sort_order: 0 }),
+                )
+            } else {
+                result.push(ch)
+            }
         })
+    } else {
+        const ch = pickDefault("challenge")
+        if (ch) result.push(ch)
+    }
+
+    // Body — interleaved image_showcase + text
+    if (authorHasBody || challengeOverflow.length > 0) {
+        // Author controls the body: emit their blocks in authored order plus any
+        // challenge overflow text, then weave unused gallery images between
+        // consecutive text blocks so the page reads as text → image → text → image.
+        const authoredBody = hydrated.filter(
+            (b) => b.type === "image_showcase" || b.type === "text" || b.type === "heading" || b.type === "quote",
+        )
+        const bodyBlocks: ContentBlock[] = [...challengeOverflow, ...authoredBody]
+
+        const cover = pickCover(item)
+        const gallery = pickGalleryImages(item, cover)
+        const authoredUrls = new Set(
+            hydrated
+                .filter((b): b is Extract<ContentBlock, { type: "image_showcase" }> => b.type === "image_showcase")
+                .flatMap((b) => b.images.map((i) => i.url))
+                .filter(Boolean),
+        )
+        const unused = gallery.filter((url) => !authoredUrls.has(url))
+
+        // Build a queue of showcase blocks from unused gallery (pairs when possible).
+        const extraShowcases: ContentBlock[] = []
+        for (let i = 0; i < unused.length; i += 2) {
+            const a = unused[i]
+            const b = unused[i + 1]
+            extraShowcases.push({
+                type: "image_showcase",
+                label: "More",
+                layout: b ? "side_by_side" : "single",
+                images: [
+                    { url: a, alt: `${item.title} extra ${i + 1}`, theme: "light" },
+                    ...(b ? [{ url: b, alt: `${item.title} extra ${i + 2}`, theme: "dark" as const }] : []),
+                ],
+                sort_order: 0,
+            })
+        }
+
+        const isTextish = (b: ContentBlock | undefined) =>
+            !!b && (b.type === "text" || b.type === "quote" || b.type === "heading")
+
+        let extraIdx = 0
+        for (let i = 0; i < bodyBlocks.length; i++) {
+            const current = bodyBlocks[i]
+            result.push(current)
+            // Inject an extra showcase after a text block whenever the next block
+            // is also text (or the body ends), to avoid stacked text walls.
+            const next = bodyBlocks[i + 1]
+            if (isTextish(current) && extraIdx < extraShowcases.length && (!next || isTextish(next))) {
+                result.push(extraShowcases[extraIdx++])
+            }
+        }
+        // Append any remaining extras at the end.
+        while (extraIdx < extraShowcases.length) {
+            result.push(extraShowcases[extraIdx++])
+        }
+    } else {
+        // No authored body → use the interleaved default image+text flow.
+        result.push(
+            ...defaults.filter((b) => b.type === "image_showcase" || b.type === "text"),
+        )
+    }
+
+    // Design system
+    if (authoredTypes.has("design_system")) result.push(...pickAuthored("design_system"))
+    else {
+        const ds = pickDefault("design_system")
+        if (ds) result.push(ds)
+    }
+
+    // Banner
+    if (authoredTypes.has("banner")) result.push(...pickAuthored("banner"))
+    else {
+        const bn = pickDefault("banner")
+        if (bn) result.push(bn)
+    }
+
+    return result.map((b, i) => ({ ...b, sort_order: i }))
 }
