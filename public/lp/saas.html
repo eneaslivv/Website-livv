@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/lp/navbar.css">
+<link rel="stylesheet" href="/lp/toc.css">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -517,7 +518,7 @@ footer{padding:56px 24px 32px;background:var(--ink);color:rgba(255,255,255,.6)}
       <p>Tell us what you're building. We'll reply within 4 business hours with a pod proposal, a rate, and a slot for a 15-min intro.</p>
     </div>
     <div class="cta-card">
-      <form onsubmit="handleSubmit(event)">
+      <form onsubmit="handleSubmit(event, 'SaaS Landing', 'saas-lp')">
         <div class="form-row">
           <div class="field"><label>Your name</label><input type="text" name="name" placeholder="Alex Johnson" required></div>
           <div class="field"><label>Work email</label><input type="email" name="email" placeholder="alex@company.com" required></div>
@@ -562,16 +563,12 @@ footer{padding:56px 24px 32px;background:var(--ink);color:rgba(255,255,255,.6)}
   </div>
 </footer>
 
+<script src="/lp/lead-ingest.js"></script>
 <script>
-function handleSubmit(e){
-  e.preventDefault();
-  const btn=e.target.querySelector('.form-submit');
-  btn.innerHTML='Sending…';btn.style.opacity='.7';
-  setTimeout(()=>{btn.innerHTML='✓  Check your inbox';btn.style.background='var(--sage)';btn.style.opacity='1'},1400);
-}
 const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';io.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.v-card,.metric-cell,.pricing-card,.fstep,.faq-item').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(16px)';el.style.transition='opacity .7s cubic-bezier(0.16,1,0.3,1), transform .7s cubic-bezier(0.16,1,0.3,1)';io.observe(el)});
 </script>
 <script src="/lp/navbar.js"></script>
+<script defer src="/lp/toc.js"></script>
 </body>
 </html>

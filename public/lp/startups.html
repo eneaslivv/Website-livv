@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/lp/navbar.css">
+<link rel="stylesheet" href="/lp/toc.css">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 
@@ -558,7 +559,7 @@ footer{padding:56px 24px 32px;border-top:1px solid var(--border);background:var(
 
     <div class="portfolio-grid">
       <!-- Card 1 · wide -->
-      <a href="https://livvvv.com/work" class="port-card wide">
+      <a href="https://livvvv.com/work" class="port-card wide" data-portfolio-slug="paper">
         <div class="port-visual"><img class="bg-img" src="https://livvvv.com/images/portfolio-2.jpg" alt="Payper cover" loading="lazy"></div>
         <div class="port-overlay"></div>
         <div class="port-meta">
@@ -580,7 +581,7 @@ footer{padding:56px 24px 32px;border-top:1px solid var(--border);background:var(
       </a>
 
       <!-- Card 2 · narrow -->
-      <a href="https://livvvv.com/work" class="port-card narrow">
+      <a href="https://livvvv.com/work" class="port-card narrow" data-portfolio-slug="azqira">
         <div class="port-visual"><img class="bg-img" src="https://livvvv.com/images/azqira-cover.jpg" alt="Azqira cover" loading="lazy"></div>
         <div class="port-overlay"></div>
         <div class="port-meta">
@@ -622,7 +623,7 @@ footer{padding:56px 24px 32px;border-top:1px solid var(--border);background:var(
       </a>
 
       <!-- Card 4 · half -->
-      <a href="https://livvvv.com/work" class="port-card half">
+      <a href="https://livvvv.com/work" class="port-card half" data-portfolio-slug="internal-management">
         <div class="port-visual"><img class="bg-img" src="https://livvvv.com/images/internal-dashboard.png" alt="Internal Ops Dashboard cover" loading="lazy"></div>
         <div class="port-overlay"></div>
         <div class="port-meta">
@@ -643,7 +644,7 @@ footer{padding:56px 24px 32px;border-top:1px solid var(--border);background:var(
       </a>
 
       <!-- Card 5 · narrow -->
-      <a href="https://livvvv.com/work" class="port-card narrow">
+      <a href="https://livvvv.com/work" class="port-card narrow" data-portfolio-slug="pr-tool">
         <div class="port-visual"><img class="bg-img" src="https://livvvv.com/images/pr-tool.png" alt="PR Tool cover" loading="lazy"></div>
         <div class="port-overlay"></div>
         <div class="port-meta">
@@ -939,7 +940,7 @@ footer{padding:56px 24px 32px;border-top:1px solid var(--border);background:var(
     </div>
 
     <div class="cta-card">
-      <form onsubmit="handleSubmit(event)">
+      <form onsubmit="handleSubmit(event, 'Startups Landing', 'startups-lp')">
         <div class="form-row">
           <div class="field">
             <label>Your name</label>
@@ -1041,20 +1042,8 @@ footer{padding:56px 24px 32px;border-top:1px solid var(--border);background:var(
   </div>
 </footer>
 
+<script src="/lp/lead-ingest.js"></script>
 <script>
-function handleSubmit(e){
-  e.preventDefault();
-  const btn = e.target.querySelector('.form-submit');
-  const original = btn.innerHTML;
-  btn.innerHTML = 'Sending…';
-  btn.style.opacity = '.7';
-  setTimeout(() => {
-    btn.innerHTML = '✓  We\'ll reach out within 2 hours';
-    btn.style.background = 'var(--sage)';
-    btn.style.opacity = '1';
-  }, 1400);
-}
-
 // Progressive reveal on scroll
 const io = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -1074,5 +1063,7 @@ document.querySelectorAll('.value-card, .port-card, .testi-card, .step, .svc, .f
 });
 </script>
 <script src="/lp/navbar.js"></script>
+<script defer src="/lp/portfolio-covers.js"></script>
+<script defer src="/lp/toc.js"></script>
 </body>
 </html>
