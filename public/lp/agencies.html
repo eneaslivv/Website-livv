@@ -83,10 +83,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 24px;display:fl
 .hero-trust-item svg{width:14px;height:14px;color:var(--sage)}
 
 /* AGENCIES LOGO BAR */
-.logos{padding:56px 24px;background:var(--bg);border-bottom:1px solid var(--border);text-align:center}
-.logos-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:28px}
-.logos-row{display:flex;justify-content:center;align-items:center;gap:56px;flex-wrap:wrap;opacity:.7}
-.logo-item{font-size:20px;font-weight:500;color:var(--ink);letter-spacing:-.02em;font-style:italic;font-family:Georgia,serif}
+/* Client logos marquee — same component as home */
+.livv-client-logos{padding:48px 24px;background:var(--bg);border-bottom:1px solid var(--border);text-align:center}
+.livv-client-logos-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:24px}
+.livv-client-logos-viewport{position:relative;width:100%;max-width:1100px;margin:0 auto;overflow:hidden;-webkit-mask-image:linear-gradient(to right,transparent,#000 15%,#000 85%,transparent);mask-image:linear-gradient(to right,transparent,#000 15%,#000 85%,transparent)}
+.livv-client-logos-track{display:flex;align-items:center;width:max-content;animation:livv-client-logos-scroll 40s linear infinite}
+.livv-client-logos-track:hover{animation-play-state:paused}
+.livv-client-logos-item{flex:0 0 auto;margin:0 32px;display:block;line-height:0}
+.livv-client-logos-mask{display:block;width:112px;height:48px;background:#2C0405;-webkit-mask-image:var(--logo);mask-image:var(--logo);-webkit-mask-size:contain;mask-size:contain;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center;transition:background-color .3s ease}
+.livv-client-logos-item:hover .livv-client-logos-mask{background:#9ca3af}
+.livv-client-logos-img{width:112px;height:48px;object-fit:contain;transition:opacity .3s ease}
+.livv-client-logos-item:hover .livv-client-logos-img{opacity:.5}
+@keyframes livv-client-logos-scroll{0%{transform:translateX(0)}100%{transform:translateX(-33.333%)}}
 
 /* SECTION BASE */
 .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px;margin-bottom:20px}
@@ -155,6 +163,8 @@ h2.section-title .accent-gold{font-style:italic;color:var(--gold)}
 .visual-3{background:linear-gradient(135deg,#2C0405 0%,#5c1d18 100%)}
 .visual-4{background:linear-gradient(135deg,#1a1a1a 0%,#3F3F46 100%);position:relative}
 .visual-4::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,rgba(118,146,104,.35),transparent 50%)}
+.port-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;transition:transform .9s var(--ease)}
+.port-card:hover .port-img{transform:scale(1.04)}
 
 /* PRICING / MODELS */
 .pricing-wrap{padding:120px 24px;background:var(--ink);color:#fff;position:relative;overflow:hidden}
@@ -181,6 +191,8 @@ h2.section-title .accent-gold{font-style:italic;color:var(--gold)}
 .pricing-cta:hover{background:rgba(255,255,255,.12)}
 .pricing-card.featured .pricing-cta{background:var(--sage);border-color:var(--sage)}
 .pricing-card.featured .pricing-cta:hover{background:#5e7a54}
+.quote-embed-frame{display:block;width:100%;max-width:560px;height:540px;margin:56px auto 0;border:0;background:transparent;color-scheme:light}
+@media(max-width:640px){.quote-embed-frame{height:600px;max-width:100%}}
 
 /* TESTIMONIAL */
 .testi-wrap{padding:120px 24px;background:var(--muted);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
@@ -194,8 +206,12 @@ h2.section-title .accent-gold{font-style:italic;color:var(--gold)}
 .testi-card blockquote::before{content:'"';font-size:48px;color:var(--sage);opacity:.3;line-height:0;vertical-align:-20px;margin-right:4px;font-family:Georgia,serif}
 .testi-author{display:flex;align-items:center;gap:14px;padding-top:20px;border-top:1px solid var(--border)}
 .testi-avatar{width:42px;height:42px;border-radius:50%;background:var(--sage);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500}
-.testi-name{font-size:14px;font-weight:500}
+.testi-name{font-size:14px;font-weight:500;color:var(--ink);text-decoration:none}
+.testi-name:hover{text-decoration:underline}
 .testi-role{font-size:12px;color:var(--text3);margin-top:2px}
+.testi-avatar-img{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid var(--surface);box-shadow:0 2px 8px -2px rgba(9,9,11,.12)}
+.testi-grid-3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:980px){.testi-grid-3{grid-template-columns:1fr}}
 
 /* FAQ */
 .faq-wrap{padding:120px 24px;max-width:900px;margin:0 auto}
@@ -318,18 +334,44 @@ footer{padding:56px 24px 32px;background:var(--ink);color:rgba(255,255,255,.6)}
   </div>
 </div>
 
-<!-- AGENCY LOGOS -->
-<div class="logos">
-  <div class="logos-label">Agencies who quietly ship with LIVV</div>
-  <div class="logos-row">
-    <div class="logo-item">Studio Norte</div>
-    <div class="logo-item">Form&Flow</div>
-    <div class="logo-item">Compañía</div>
-    <div class="logo-item">After Atlas</div>
-    <div class="logo-item">House of Build</div>
-    <div class="logo-item">Common Ground</div>
+<!-- CLIENT LOGOS (matches home component) -->
+<section class="livv-client-logos">
+  <div class="livv-client-logos-label">Some of our clients</div>
+  <div class="livv-client-logos-viewport">
+    <div class="livv-client-logos-track">
+      <a class="livv-client-logos-item" href="https://www.blackbox.ai/" target="_blank" rel="noopener" aria-label="Blackbox AI"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/blackbox.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.buda.com/argentina" target="_blank" rel="noopener" aria-label="Buda.com"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/buda.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.heygen.com/" target="_blank" rel="noopener" aria-label="HeyGen"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/heygen.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://viewfi.live/" target="_blank" rel="noopener" aria-label="ViewFi"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/logo-6.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.remax.com.ar/" target="_blank" rel="noopener" aria-label="RE/MAX"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/logo-7.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://sacoa.com/" target="_blank" rel="noopener" aria-label="Sacoa"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/sacoa.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://wortise.com/es" target="_blank" rel="noopener" aria-label="Wortise"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/wortise.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://sunbird.com/" target="_blank" rel="noopener" aria-label="Sunbird"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/sunbird.png')"></span></a>
+      <a class="livv-client-logos-item" href="#" aria-label="Gio"><img class="livv-client-logos-img" src="/logos-header/gio.png" alt="Gio"></a>
+      <a class="livv-client-logos-item" href="#" aria-label="S.Rpro Marketing"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/srpro.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.blackbox.ai/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/blackbox.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.buda.com/argentina" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/buda.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.heygen.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/heygen.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://viewfi.live/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/logo-6.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.remax.com.ar/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/logo-7.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://sacoa.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/sacoa.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://wortise.com/es" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/wortise.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://sunbird.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/sunbird.png')"></span></a>
+      <a class="livv-client-logos-item" href="#" aria-hidden="true" tabindex="-1"><img class="livv-client-logos-img" src="/logos-header/gio.png" alt=""></a>
+      <a class="livv-client-logos-item" href="#" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/srpro.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.blackbox.ai/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/blackbox.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.buda.com/argentina" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/buda.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.heygen.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/heygen.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://viewfi.live/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/logo-6.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.remax.com.ar/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/logo-7.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://sacoa.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/sacoa.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://wortise.com/es" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/wortise.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://sunbird.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/sunbird.png')"></span></a>
+      <a class="livv-client-logos-item" href="#" aria-hidden="true" tabindex="-1"><img class="livv-client-logos-img" src="/logos-header/gio.png" alt=""></a>
+      <a class="livv-client-logos-item" href="#" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/srpro.png')"></span></a>
+    </div>
   </div>
-</div>
+</section>
 
 <!-- STORY -->
 <section class="story">
@@ -444,63 +486,67 @@ footer{padding:56px 24px 32px;background:var(--ink);color:rgba(255,255,255,.6)}
         <div class="eyebrow">Selected partner work · shared with permission</div>
         <h2 class="section-title">Shipped <span class="accent">for agencies.</span></h2>
       </div>
-      <p class="lead" style="margin-top:0;max-width:380px">All work shown under NDA clearance. Logos and client details available under signed NDA.</p>
+      <p class="lead" style="margin-top:0;max-width:380px">Selected public work from the studio. Additional NDA case studies available on request under signed NDA.</p>
     </div>
     <div class="portfolio-grid">
-      <a href="#" class="port-card wide">
-        <div class="visual-1" style="position:absolute;inset:0"></div>
+      <a href="/projects/sacoa" class="port-card wide">
+        <div class="visual-3" style="position:absolute;inset:0"></div>
+        <img src="/images/sacoa-cover-v2.png" alt="Sacoa Cashless" class="port-img" loading="lazy" />
         <div class="port-overlay"></div>
         <div class="port-meta">
           <div class="port-tags">
-            <span class="port-tag">Brand system</span>
-            <span class="port-tag">Web</span>
-            <span class="port-tag nda">NDA</span>
+            <span class="port-tag">Brand</span>
+            <span class="port-tag">Motion</span>
+            <span class="port-tag">Design</span>
           </div>
           <div class="port-bottom">
-            <div class="port-title">Fortune 500 rebrand<span class="sub">Shipped for a NYC branding studio · 6-week engagement</span></div>
+            <div class="port-title">Sacoa Cashless<span class="sub">Design system + custom animations · cashless payments platform</span></div>
             <div class="port-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
           </div>
         </div>
       </a>
-      <a href="#" class="port-card narrow">
+      <a href="/projects/paper" class="port-card narrow">
         <div class="visual-2" style="position:absolute;inset:0"></div>
+        <img src="/images/portfolio-2.jpg" alt="Paper" class="port-img" loading="lazy" />
         <div class="port-overlay"></div>
         <div class="port-meta">
           <div class="port-tags">
             <span class="port-tag">SaaS</span>
-            <span class="port-tag nda">NDA</span>
+            <span class="port-tag">Product</span>
           </div>
           <div class="port-bottom">
-            <div class="port-title">Dashboard UX<span class="sub">For a London product agency</span></div>
+            <div class="port-title">Paper<span class="sub">Venue & nightlife OS · product strategy, UI/UX, full-stack</span></div>
             <div class="port-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
           </div>
         </div>
       </a>
-      <a href="#" class="port-card half">
-        <div class="visual-4" style="position:absolute;inset:0"></div>
+      <a href="/projects/azqira" class="port-card half">
+        <div class="visual-1" style="position:absolute;inset:0"></div>
+        <img src="/images/azqira-cover.jpg" alt="Azqira" class="port-img" loading="lazy" />
         <div class="port-overlay"></div>
         <div class="port-meta">
           <div class="port-tags">
-            <span class="port-tag">Motion</span>
-            <span class="port-tag nda">NDA</span>
+            <span class="port-tag">Product</span>
+            <span class="port-tag">UX</span>
           </div>
           <div class="port-bottom">
-            <div class="port-title">Launch film series<span class="sub">3× 30s cutdowns · D2C beauty</span></div>
+            <div class="port-title">Azqira<span class="sub">Digital product experience · UI/UX + development</span></div>
             <div class="port-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
           </div>
         </div>
       </a>
-      <a href="#" class="port-card half">
-        <div class="visual-3" style="position:absolute;inset:0"></div>
+      <a href="/projects/internal-management" class="port-card half">
+        <div class="visual-4" style="position:absolute;inset:0"></div>
+        <img src="/images/internal-dashboard.png" alt="Internal Management Systems" class="port-img" loading="lazy" />
         <div class="port-overlay"></div>
         <div class="port-meta">
           <div class="port-tags">
             <span class="port-tag">Full-stack</span>
+            <span class="port-tag">Internal tools</span>
             <span class="port-tag">AI</span>
-            <span class="port-tag nda">NDA</span>
           </div>
           <div class="port-bottom">
-            <div class="port-title">AI automation suite<span class="sub">Internal ops tool · Berlin agency</span></div>
+            <div class="port-title">Internal Management Systems<span class="sub">Custom operational tools · multi-tenant admin, ops & automation</span></div>
             <div class="port-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
           </div>
         </div>
@@ -509,82 +555,61 @@ footer{padding:56px 24px 32px;background:var(--ink);color:rgba(255,255,255,.6)}
   </div>
 </section>
 
-<!-- PRICING / MODELS -->
+<!-- INSTANT QUOTE -->
 <section class="pricing-wrap" id="pricing">
   <div class="pricing-inner">
     <div style="max-width:720px">
-      <div class="eyebrow">Engagement models</div>
-      <h2 class="section-title">Pay how <span class="accent-gold">you need to.</span></h2>
-      <p class="lead">Project, retainer or dedicated pod. Most partners start with a pilot project, then move to a retainer within 60 days.</p>
+      <div class="eyebrow">Instant quote</div>
+      <h2 class="section-title">Scope it in <span class="accent-gold">seconds.</span></h2>
+      <p class="lead">Pick what you need, get a real-time estimate. The same cotizador the rest of our clients use to kick off partnerships in under 60 seconds.</p>
     </div>
-    <div class="pricing-grid">
-      <div class="pricing-card">
-        <div class="pricing-num">/ 01 · Pilot</div>
-        <h3>Project-based</h3>
-        <div class="price">from $3K<span class="price-unit"> / scope</span></div>
-        <ul class="pricing-list">
-          <li>Fixed scope, fixed price</li>
-          <li>NDA + MSA signed</li>
-          <li>Ship in 2–5 weeks</li>
-          <li>No long-term commitment</li>
-        </ul>
-        <a href="#contact" class="pricing-cta">Start a pilot</a>
-      </div>
-      <div class="pricing-card featured">
-        <div class="pricing-num" style="color:var(--sage)">/ 02 · Retainer · Most popular</div>
-        <h3>Monthly retainer</h3>
-        <div class="price">from $8K<span class="price-unit"> / month</span></div>
-        <ul class="pricing-list">
-          <li>Dedicated capacity block</li>
-          <li>Priority queue</li>
-          <li>Shared Slack + Figma</li>
-          <li>Pause or scale anytime</li>
-        </ul>
-        <a href="#contact" class="pricing-cta">Lock in a retainer</a>
-      </div>
-      <div class="pricing-card">
-        <div class="pricing-num">/ 03 · Pod</div>
-        <h3>Dedicated pod</h3>
-        <div class="price">from $18K<span class="price-unit"> / month</span></div>
-        <ul class="pricing-list">
-          <li>Named team (2–4 FTEs)</li>
-          <li>Fully embedded in your studio</li>
-          <li>Client-facing with your email</li>
-          <li>Quarterly roadmap reviews</li>
-        </ul>
-        <a href="#contact" class="pricing-cta">Build your pod</a>
-      </div>
-    </div>
+    <iframe
+      src="/embed/quote"
+      title="Instant quote calculator"
+      loading="lazy"
+      class="quote-embed-frame"
+    ></iframe>
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
+<!-- TESTIMONIALS — real clients (same component as home) -->
 <section class="testi-wrap">
   <div class="testi-inner">
     <div style="max-width:640px">
-      <div class="eyebrow">From agency founders</div>
-      <h2 class="section-title">"They're the <span class="accent">reason</span> we said yes to the pitch."</h2>
+      <div class="eyebrow">Clients on record</div>
+      <h2 class="section-title">Senior partners, <span class="accent">five-star</span> handoffs.</h2>
     </div>
-    <div class="testi-grid">
+    <div class="testi-grid testi-grid-3">
       <div class="testi-card">
         <div class="testi-stars">★ ★ ★ ★ ★</div>
-        <blockquote>LIVV lets us take on 2× the pitches without hiring. Our clients think we have a 20-person studio. Honestly? It's 6 of us — and LIVV.</blockquote>
+        <blockquote>Was great working together, we will work together again in the future.</blockquote>
         <div class="testi-author">
-          <div class="testi-avatar">AM</div>
+          <img class="testi-avatar-img" src="/images/ronen-wasserman.jpg" alt="Ronen Wasserman" loading="lazy" />
           <div>
-            <div class="testi-name">A. M.</div>
-            <div class="testi-role">Founder · NYC brand studio</div>
+            <a class="testi-name" href="https://srpro.marketing" target="_blank" rel="noopener">Ronen Wasserman</a>
+            <div class="testi-role">Founder &amp; President</div>
           </div>
         </div>
       </div>
       <div class="testi-card">
         <div class="testi-stars">★ ★ ★ ★ ★</div>
-        <blockquote>Honestly, we kept them a secret for the first year. It's our unfair advantage. Senior craft, no hiring headaches, margin we actually feel.</blockquote>
+        <blockquote>It was great working with Eneas! He was so understanding and also very patient. He followed through all the revisions, communicated via looms and delivered excellent work!</blockquote>
         <div class="testi-author">
-          <div class="testi-avatar">JR</div>
+          <img class="testi-avatar-img" src="/images/fidan-alizada.jpg" alt="Fidan Alizada" loading="lazy" />
           <div>
-            <div class="testi-name">J. R.</div>
-            <div class="testi-role">Creative director · London product agency</div>
+            <a class="testi-name" href="https://www.instagram.com/thealizada/" target="_blank" rel="noopener">Fidan Alizada</a>
+            <div class="testi-role">Creator · Marketer · Storyteller</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★ ★ ★ ★ ★</div>
+        <blockquote>I hired Eneas for a critical Webflow build and was seriously impressed. He brought my vision to life with clean, responsive design, fast load times, and no drama. Communication was sharp, turnaround was quick, and the end result was exactly what I needed. Highly recommend.</blockquote>
+        <div class="testi-author">
+          <img class="testi-avatar-img" src="/images/sabrina-guler.jpg" alt="Sabrina Guler" loading="lazy" />
+          <div>
+            <a class="testi-name" href="https://sabrinaguler.com/" target="_blank" rel="noopener">Sabrina Guler</a>
+            <div class="testi-role">Advisor, Author &amp; Founder of Intuitive CEO</div>
           </div>
         </div>
       </div>
