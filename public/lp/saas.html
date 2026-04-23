@@ -70,10 +70,18 @@ a{color:inherit;text-decoration:none}
 .hero-trust-item{display:flex;align-items:center;gap:8px;font-size:11px;color:rgba(255,255,255,.6);letter-spacing:.06em;text-transform:uppercase}
 .hero-trust-item svg{width:14px;height:14px;color:var(--gold)}
 
-.logos{padding:56px 24px;background:var(--bg);border-bottom:1px solid var(--border);text-align:center}
-.logos-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:28px}
-.logos-row{display:flex;justify-content:center;align-items:center;gap:56px;flex-wrap:wrap;opacity:.7}
-.logo-item{font-size:20px;font-weight:500;color:var(--ink);letter-spacing:-.02em;font-style:italic;font-family:Georgia,serif}
+/* Client logos — matches home ClientLogoSlider */
+.livv-client-logos{padding:48px 24px;background:var(--bg);border-bottom:1px solid var(--border);text-align:center}
+.livv-client-logos-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:24px}
+.livv-client-logos-viewport{position:relative;width:100%;max-width:1100px;margin:0 auto;overflow:hidden;-webkit-mask-image:linear-gradient(to right,transparent,#000 15%,#000 85%,transparent);mask-image:linear-gradient(to right,transparent,#000 15%,#000 85%,transparent)}
+.livv-client-logos-track{display:flex;align-items:center;width:max-content;animation:livv-client-logos-scroll 40s linear infinite}
+.livv-client-logos-track:hover{animation-play-state:paused}
+.livv-client-logos-item{flex:0 0 auto;margin:0 32px;display:block;line-height:0}
+.livv-client-logos-mask{display:block;width:112px;height:48px;background:#2C0405;-webkit-mask-image:var(--logo);mask-image:var(--logo);-webkit-mask-size:contain;mask-size:contain;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center;transition:background-color .3s ease}
+.livv-client-logos-item:hover .livv-client-logos-mask{background:#9ca3af}
+.livv-client-logos-img{width:112px;height:48px;object-fit:contain;transition:opacity .3s ease}
+.livv-client-logos-item:hover .livv-client-logos-img{opacity:.5}
+@keyframes livv-client-logos-scroll{0%{transform:translateX(0)}100%{transform:translateX(-33.333%)}}
 
 .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px;margin-bottom:20px}
 .eyebrow::before{content:'';width:20px;height:1px;background:var(--text3)}
@@ -173,8 +181,19 @@ h2.section-title .accent-sage{font-style:italic;color:var(--sage)}
 .testi-featured blockquote::before{content:'"';font-size:80px;color:var(--gold);line-height:0;vertical-align:-30px;margin-right:8px;font-family:Georgia,serif;opacity:.4}
 .testi-author-row{display:flex;align-items:center;gap:14px;margin-top:28px;padding-top:24px;border-top:1px solid var(--border)}
 .testi-avatar{width:48px;height:48px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500}
-.testi-name{font-size:15px;font-weight:500}
+.testi-name{font-size:15px;font-weight:500;color:var(--ink);text-decoration:none;display:block}
+.testi-name:hover{text-decoration:underline}
 .testi-role{font-size:12px;color:var(--text3);margin-top:2px}
+.testi-avatar-img{width:48px;height:48px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--surface);box-shadow:0 2px 8px -2px rgba(9,9,11,.1)}
+.testi-grid{display:grid;gap:20px;margin-top:56px}
+.testi-grid-3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:980px){.testi-grid-3{grid-template-columns:1fr}}
+.testi-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:36px 32px;display:flex;flex-direction:column;gap:24px;transition:all .4s var(--ease)}
+.testi-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px -8px rgba(9,9,11,.06)}
+.testi-card .testi-stars{color:var(--gold);font-size:13px;letter-spacing:3px}
+.testi-card blockquote{font-size:17px;line-height:1.65;color:var(--ink);letter-spacing:-0.01em;flex:1}
+.testi-card blockquote::before{content:'"';font-size:48px;color:var(--gold);opacity:.3;line-height:0;vertical-align:-20px;margin-right:4px;font-family:Georgia,serif}
+.testi-card .testi-author-row{margin-top:0;padding-top:20px}
 .testi-kpi{background:var(--muted);border-radius:var(--radius);padding:32px;text-align:center}
 .testi-kpi-num{font-size:56px;font-weight:300;letter-spacing:-0.04em;color:var(--gold);line-height:1}
 .testi-kpi-label{font-size:12px;color:var(--text3);margin-top:8px;text-transform:uppercase;letter-spacing:.06em;font-family:'JetBrains Mono',monospace}
@@ -298,16 +317,44 @@ footer{padding:56px 24px 32px;background:var(--ink);color:rgba(255,255,255,.6)}
   </div>
 </div>
 
-<div class="logos">
-  <div class="logos-label">SaaS teams who ship with LIVV</div>
-  <div class="logos-row">
-    <div class="logo-item">Payper</div>
-    <div class="logo-item">PR Tool</div>
-    <div class="logo-item">Azqira OS</div>
-    <div class="logo-item">Internal Admin</div>
-    <div class="logo-item">LIVV Portal</div>
+<!-- CLIENT LOGOS — matches home ClientLogoSlider -->
+<section class="livv-client-logos">
+  <div class="livv-client-logos-label">Some of our clients</div>
+  <div class="livv-client-logos-viewport">
+    <div class="livv-client-logos-track">
+      <a class="livv-client-logos-item" href="https://www.blackbox.ai/" target="_blank" rel="noopener" aria-label="Blackbox AI"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/blackbox.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.buda.com/argentina" target="_blank" rel="noopener" aria-label="Buda.com"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/buda.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.heygen.com/" target="_blank" rel="noopener" aria-label="HeyGen"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/heygen.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://viewfi.live/" target="_blank" rel="noopener" aria-label="ViewFi"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/logo-6.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.remax.com.ar/" target="_blank" rel="noopener" aria-label="RE/MAX"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/logo-7.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://sacoa.com/" target="_blank" rel="noopener" aria-label="Sacoa"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/sacoa.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://wortise.com/es" target="_blank" rel="noopener" aria-label="Wortise"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/wortise.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://sunbird.com/" target="_blank" rel="noopener" aria-label="Sunbird"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/sunbird.png')"></span></a>
+      <a class="livv-client-logos-item" href="#" aria-label="Gio"><img class="livv-client-logos-img" src="/logos-header/gio.png" alt="Gio"></a>
+      <a class="livv-client-logos-item" href="#" aria-label="S.Rpro Marketing"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/srpro.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.blackbox.ai/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/blackbox.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.buda.com/argentina" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/buda.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.heygen.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/heygen.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://viewfi.live/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/logo-6.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.remax.com.ar/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/logo-7.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://sacoa.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/sacoa.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://wortise.com/es" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/wortise.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://sunbird.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/sunbird.png')"></span></a>
+      <a class="livv-client-logos-item" href="#" aria-hidden="true" tabindex="-1"><img class="livv-client-logos-img" src="/logos-header/gio.png" alt=""></a>
+      <a class="livv-client-logos-item" href="#" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/srpro.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.blackbox.ai/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/blackbox.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.buda.com/argentina" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/buda.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.heygen.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/heygen.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://viewfi.live/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/logo-6.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.remax.com.ar/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/logo-7.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://sacoa.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/sacoa.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://wortise.com/es" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/wortise.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://sunbird.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/sunbird.png')"></span></a>
+      <a class="livv-client-logos-item" href="#" aria-hidden="true" tabindex="-1"><img class="livv-client-logos-img" src="/logos-header/gio.png" alt=""></a>
+      <a class="livv-client-logos-item" href="#" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/srpro.png')"></span></a>
+    </div>
   </div>
-</div>
+</section>
 
 <section class="story">
   <div class="eyebrow" style="justify-content:center"><span style="width:20px;height:1px;background:var(--text3);display:inline-block"></span>The SaaS paradox</div>
@@ -477,23 +524,151 @@ footer{padding:56px 24px 32px;background:var(--ink);color:rgba(255,255,255,.6)}
   </div>
 </section>
 
+<style>
+/* Portfolio (same 12-col grid as other landings) */
+.portfolio-wrap{padding:120px 24px;background:var(--bg)}
+.portfolio-inner{max-width:1400px;margin:0 auto}
+.portfolio-head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:56px;flex-wrap:wrap}
+.portfolio-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:20px}
+.port-card{position:relative;border-radius:1.25rem;overflow:hidden;background:var(--ink);aspect-ratio:4/3;cursor:pointer;transition:all .6s cubic-bezier(0.16,1,0.3,1);text-decoration:none}
+.port-card:hover{transform:translateY(-4px);box-shadow:0 24px 60px -12px rgba(9,9,11,.15)}
+.port-card.wide{grid-column:span 8}
+.port-card.narrow{grid-column:span 4}
+.port-card.half{grid-column:span 6}
+@media(max-width:980px){.port-card.wide,.port-card.narrow,.port-card.half{grid-column:span 12;aspect-ratio:5/3}}
+.port-card .bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(0.16,1,0.3,1)}
+.port-card:hover .bg-img{transform:scale(1.04)}
+.port-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(9,9,11,.85) 0%,rgba(9,9,11,.1) 60%,transparent 100%)}
+.port-meta{position:absolute;inset:0;padding:24px 28px;display:flex;flex-direction:column;justify-content:space-between;color:#fff}
+.port-tags{display:flex;gap:6px;flex-wrap:wrap}
+.port-tag{font-size:10px;font-family:'JetBrains Mono',monospace;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.92)}
+.port-bottom{display:flex;justify-content:space-between;align-items:end;gap:16px}
+.port-title{font-size:22px;font-weight:400;letter-spacing:-0.03em;line-height:1.1;max-width:80%}
+.port-title .sub{display:block;font-size:12px;color:rgba(255,255,255,.55);margin-top:6px;font-weight:300;letter-spacing:-0.005em}
+.port-arrow{flex-shrink:0;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;color:#fff;transition:all .3s ease}
+.port-card:hover .port-arrow{background:var(--gold);color:var(--ink);transform:rotate(-45deg);border-color:var(--gold)}
+</style>
+
+<!-- PORTFOLIO — real home projects -->
+<section class="portfolio-wrap" id="work">
+  <div class="portfolio-inner">
+    <div class="portfolio-head">
+      <div>
+        <div class="eyebrow">Shipped into live SaaS products · NDA where needed</div>
+        <h2 class="section-title">What we've <span class="accent">shipped.</span></h2>
+      </div>
+      <p class="lead" style="margin-top:0;max-width:380px">Features, modules and full products we've built inside SaaS teams — from pre-PMF to post-Series A.</p>
+    </div>
+    <div class="portfolio-grid">
+      <a href="/projects/internal-management" class="port-card wide">
+        <img class="bg-img" src="/images/internal-dashboard.png" alt="Internal Management Systems cover" loading="lazy">
+        <div class="port-overlay"></div>
+        <div class="port-meta">
+          <div class="port-tags"><span class="port-tag">SaaS</span><span class="port-tag">Ops</span><span class="port-tag">AI</span></div>
+          <div class="port-bottom">
+            <div class="port-title">Internal Management Systems<span class="sub">Vertical SaaS · multi-tenant admin, ops &amp; automation</span></div>
+            <div class="port-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
+          </div>
+        </div>
+      </a>
+      <a href="/projects/pr-tool" class="port-card narrow">
+        <img class="bg-img" src="/images/pr-tool.png" alt="PR Tool cover" loading="lazy">
+        <div class="port-overlay"></div>
+        <div class="port-meta">
+          <div class="port-tags"><span class="port-tag">B2B SaaS</span><span class="port-tag">Payouts</span></div>
+          <div class="port-bottom">
+            <div class="port-title">PR Tool<span class="sub">Creator economy · affiliate + integrations</span></div>
+            <div class="port-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
+          </div>
+        </div>
+      </a>
+      <a href="/projects/paper" class="port-card half">
+        <img class="bg-img" src="/images/portfolio-2.jpg" alt="Paper cover" loading="lazy">
+        <div class="port-overlay"></div>
+        <div class="port-meta">
+          <div class="port-tags"><span class="port-tag">SaaS</span><span class="port-tag">Realtime</span></div>
+          <div class="port-bottom">
+            <div class="port-title">Paper<span class="sub">Operations SaaS · realtime</span></div>
+            <div class="port-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
+          </div>
+        </div>
+      </a>
+      <a href="/projects/azqira" class="port-card half">
+        <img class="bg-img" src="/images/azqira-cover.jpg" alt="Azqira cover" loading="lazy">
+        <div class="port-overlay"></div>
+        <div class="port-meta">
+          <div class="port-tags"><span class="port-tag">Product</span><span class="port-tag">UX</span></div>
+          <div class="port-bottom">
+            <div class="port-title">Azqira<span class="sub">Digital product · UI/UX + development</span></div>
+            <div class="port-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
+          </div>
+        </div>
+      </a>
+      <a href="/projects/seo-blocks" class="port-card narrow">
+        <img class="bg-img" src="/images/portfolio-3.jpg" alt="SEO Blocks Generator cover" loading="lazy">
+        <div class="port-overlay"></div>
+        <div class="port-meta">
+          <div class="port-tags"><span class="port-tag">Growth</span><span class="port-tag">CMS</span></div>
+          <div class="port-bottom">
+            <div class="port-title">SEO Blocks Generator<span class="sub">Programmatic SEO · template engine</span></div>
+            <div class="port-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
+          </div>
+        </div>
+      </a>
+      <a href="/projects/sacoa" class="port-card wide">
+        <img class="bg-img" src="/images/sacoa-cover-v2.png" alt="Sacoa Cashless cover" loading="lazy">
+        <div class="port-overlay"></div>
+        <div class="port-meta">
+          <div class="port-tags"><span class="port-tag">Fintech</span><span class="port-tag">Design</span></div>
+          <div class="port-bottom">
+            <div class="port-title">Sacoa Cashless<span class="sub">Cashless payments · design system + animations</span></div>
+            <div class="port-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
 <section class="testi-wrap">
   <div class="testi-inner">
     <div style="max-width:640px">
-      <div class="eyebrow">Founder story</div>
-      <h2 class="section-title">"They <span class="accent">outshipped</span> our in-house team."</h2>
+      <div class="eyebrow">Clients on record</div>
+      <h2 class="section-title">Senior partners, <span class="accent">five-star</span> handoffs.</h2>
     </div>
-    <div class="testi-featured">
-      <div>
-        <blockquote>We added a LIVV pod for "temporary extra hands" during a launch. Three months in, they were outshipping our full-time team. We restructured around them. Best hire decision we didn't technically have to make.</blockquote>
+    <div class="testi-grid testi-grid-3">
+      <div class="testi-card">
+        <div class="testi-stars">★ ★ ★ ★ ★</div>
+        <blockquote>Was great working together, we will work together again in the future.</blockquote>
         <div class="testi-author-row">
-          <div class="testi-avatar">MR</div>
-          <div><div class="testi-name">M. R.</div><div class="testi-role">CTO · Series B SaaS</div></div>
+          <img class="testi-avatar-img" src="/images/ronen-wasserman.jpg" alt="Ronen Wasserman" loading="lazy" />
+          <div>
+            <a class="testi-name" href="https://srpro.marketing" target="_blank" rel="noopener">Ronen Wasserman</a>
+            <div class="testi-role">Founder &amp; President</div>
+          </div>
         </div>
       </div>
-      <div class="testi-kpi">
-        <div class="testi-kpi-num">3.2×</div>
-        <div class="testi-kpi-label">Ship velocity</div>
+      <div class="testi-card">
+        <div class="testi-stars">★ ★ ★ ★ ★</div>
+        <blockquote>It was great working with Eneas! He was so understanding and also very patient. He followed through all the revisions, communicated via looms and delivered excellent work!</blockquote>
+        <div class="testi-author-row">
+          <img class="testi-avatar-img" src="/images/fidan-alizada.jpg" alt="Fidan Alizada" loading="lazy" />
+          <div>
+            <a class="testi-name" href="https://www.instagram.com/thealizada/" target="_blank" rel="noopener">Fidan Alizada</a>
+            <div class="testi-role">Creator · Marketer · Storyteller</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★ ★ ★ ★ ★</div>
+        <blockquote>I hired Eneas for a critical Webflow build and was seriously impressed. He brought my vision to life with clean, responsive design, fast load times, and no drama. Communication was sharp, turnaround was quick, and the end result was exactly what I needed. Highly recommend.</blockquote>
+        <div class="testi-author-row">
+          <img class="testi-avatar-img" src="/images/sabrina-guler.jpg" alt="Sabrina Guler" loading="lazy" />
+          <div>
+            <a class="testi-name" href="https://sabrinaguler.com/" target="_blank" rel="noopener">Sabrina Guler</a>
+            <div class="testi-role">Advisor, Author &amp; Founder of Intuitive CEO</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
