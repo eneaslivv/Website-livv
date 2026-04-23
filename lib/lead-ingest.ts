@@ -4,7 +4,7 @@ const LEAD_INGEST_URL = 'https://ngswutcpsgdgmmjnfddi.supabase.co/functions/v1/l
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5nc3d1dGNwc2dkZ21tam5mZGRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc1NzY3NDUsImV4cCI6MjA4MzE1Mjc0NX0.fd_OLVMTOMqN1EF-Ca1EV0MeclzM24kY0rOFDihvzd8';
 const TENANT_SLUG = 'livvv';
 
-const LEAD_CURRENCY = 'EUR';
+const LEAD_CURRENCY = 'USD';
 const LEAD_VALUE_BY_CATEGORY: Record<string, number> = {
     contact: 500,
     quote: 800,
@@ -14,11 +14,12 @@ const LEAD_VALUE_BY_CATEGORY: Record<string, number> = {
 };
 
 const GOOGLE_ADS_CONVERSION_ID = 'AW-18096615687';
+const GOOGLE_ADS_LEAD_LABEL = 'fwDOCLb99KAcEIfikbVD';
 const GOOGLE_ADS_LABELS: Record<string, string | undefined> = {
-    contact: process.env.NEXT_PUBLIC_GADS_LABEL_LEAD,
-    quote: process.env.NEXT_PUBLIC_GADS_LABEL_LEAD,
-    partner: process.env.NEXT_PUBLIC_GADS_LABEL_LEAD,
-    lead: process.env.NEXT_PUBLIC_GADS_LABEL_LEAD,
+    contact: GOOGLE_ADS_LEAD_LABEL,
+    quote: GOOGLE_ADS_LEAD_LABEL,
+    partner: GOOGLE_ADS_LEAD_LABEL,
+    lead: GOOGLE_ADS_LEAD_LABEL,
     newsletter: process.env.NEXT_PUBLIC_GADS_LABEL_NEWSLETTER,
 };
 
