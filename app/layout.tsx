@@ -4,7 +4,6 @@ import Script from "next/script"
 import { inter, mondwest, playground } from "./fonts"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics"
 import { AttributionTracker } from "@/components/analytics/AttributionTracker"
 import { CookieBanner } from "@/components/analytics/CookieBanner"
 import { EngagementTracker } from "@/components/analytics/EngagementTracker"
@@ -221,7 +220,6 @@ export default function RootLayout({
             <CustomCursor />
             <Analytics />
             <SpeedInsights />
-            <GoogleAnalytics />
             <AttributionTracker />
             <EngagementTracker />
             <CookieBanner />
