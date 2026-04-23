@@ -21,6 +21,7 @@ export function ContactForm() {
       await submitLead({
         name: formData.name,
         email: formData.email,
+        phone: formData.phone || undefined,
         message: formData.phone
           ? `${formData.message}\n\nPhone: ${formData.phone}`
           : formData.message,

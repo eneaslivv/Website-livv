@@ -5,6 +5,9 @@ import { inter, mondwest, playground } from "./fonts"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics"
+import { AttributionTracker } from "@/components/analytics/AttributionTracker"
+import { CookieBanner } from "@/components/analytics/CookieBanner"
+import { EngagementTracker } from "@/components/analytics/EngagementTracker"
 import { SmoothScroll } from "@/components/ui/smooth-scroll"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -111,6 +114,28 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <Script
+          id="consent-default"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('consent', 'default', {
+                ad_storage: 'denied',
+                ad_user_data: 'denied',
+                ad_personalization: 'denied',
+                analytics_storage: 'denied',
+                personalization_storage: 'denied',
+                functionality_storage: 'granted',
+                security_storage: 'granted',
+                wait_for_update: 2000,
+              });
+              gtag('set', 'ads_data_redaction', true);
+              gtag('set', 'url_passthrough', true);
+            `,
+          }}
+        />
+        <Script
           id="gtm"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
@@ -120,6 +145,25 @@ export default function RootLayout({
               j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
               })(window,document,'script','dataLayer','GTM-NC96QG65');
+            `,
+          }}
+        />
+        <Script
+          id="google-ads-tag-src"
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=AW-18096615687"
+        />
+        <Script
+          id="google-ads-tag-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'AW-18096615687', {
+                allow_enhanced_conversions: true,
+              });
             `,
           }}
         />
@@ -136,6 +180,7 @@ export default function RootLayout({
               t.src=v;s=b.getElementsByTagName(e)[0];
               s.parentNode.insertBefore(t,s)}(window, document,'script',
               'https://connect.facebook.net/en_US/fbevents.js');
+              fbq('consent', 'revoke');
               fbq('init', '1495620938814274');
               fbq('track', 'PageView');
             `,
@@ -176,6 +221,9 @@ export default function RootLayout({
             <Analytics />
             <SpeedInsights />
             <GoogleAnalytics />
+            <AttributionTracker />
+            <EngagementTracker />
+            <CookieBanner />
             <DeferredChatWidget />
           </AuthProvider>
         </ThemeProvider>
