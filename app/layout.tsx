@@ -24,15 +24,6 @@ export const metadata: Metadata = {
   creator: "Livv Studio",
   publisher: "Livv Studio",
   metadataBase: new URL("https://livvvv.com"),
-  icons: {
-    icon: [
-      { url: "/assets/logo-new.png", type: "image/png" },
-    ],
-    apple: [
-      { url: "/assets/logo-new.png", type: "image/png" },
-    ],
-    shortcut: "/assets/logo-new.png",
-  },
   alternates: {
     canonical: "/",
   },
