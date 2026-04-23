@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react"
 import Image from "next/image"
 import { X, ArrowRight, Send, ChevronLeft, Phone, Calendar, Sparkles, Check, MessageCircle } from "lucide-react"
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion"
-import { submitLead } from "@/lib/lead-ingest"
+import { submitLead, trackMicroConversion } from "@/lib/lead-ingest"
 
 /* ─────────────────────── GUIDED FLOW DATA ─────────────────────── */
 
@@ -283,6 +283,9 @@ export function ChatWidget() {
     const openPanel = useCallback(() => {
         setIsPanelOpen(true)
         setIsMinimized(true)
+        trackMicroConversion('chat_widget_open', {
+            widget_location: typeof window !== 'undefined' ? window.location.pathname : undefined,
+        })
     }, [])
 
     const handleSelectOption = useCallback((stepId: string, value: string) => {
