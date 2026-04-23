@@ -81,10 +81,18 @@ a{color:inherit;text-decoration:none}
 .hero-trust-item svg{width:14px;height:14px;color:var(--sage)}
 
 /* AGENCIES LOGO BAR */
-.logos{padding:56px 24px;background:var(--bg);border-bottom:1px solid var(--border);text-align:center}
-.logos-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:28px}
-.logos-row{display:flex;justify-content:center;align-items:center;gap:56px;flex-wrap:wrap;opacity:.7}
-.logo-item{font-size:20px;font-weight:500;color:var(--ink);letter-spacing:-.02em;font-style:italic;font-family:Georgia,serif}
+/* Client logos — matches home ClientLogoSlider */
+.livv-client-logos{padding:48px 24px;background:var(--bg);border-bottom:1px solid var(--border);text-align:center}
+.livv-client-logos-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:24px}
+.livv-client-logos-viewport{position:relative;width:100%;max-width:1100px;margin:0 auto;overflow:hidden;-webkit-mask-image:linear-gradient(to right,transparent,#000 15%,#000 85%,transparent);mask-image:linear-gradient(to right,transparent,#000 15%,#000 85%,transparent)}
+.livv-client-logos-track{display:flex;align-items:center;width:max-content;animation:livv-client-logos-scroll 40s linear infinite}
+.livv-client-logos-track:hover{animation-play-state:paused}
+.livv-client-logos-item{flex:0 0 auto;margin:0 32px;display:block;line-height:0}
+.livv-client-logos-mask{display:block;width:112px;height:48px;background:#2C0405;-webkit-mask-image:var(--logo);mask-image:var(--logo);-webkit-mask-size:contain;mask-size:contain;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center;transition:background-color .3s ease}
+.livv-client-logos-item:hover .livv-client-logos-mask{background:#9ca3af}
+.livv-client-logos-img{width:112px;height:48px;object-fit:contain;transition:opacity .3s ease}
+.livv-client-logos-item:hover .livv-client-logos-img{opacity:.5}
+@keyframes livv-client-logos-scroll{0%{transform:translateX(0)}100%{transform:translateX(-33.333%)}}
 
 /* SECTION BASE */
 .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px;margin-bottom:20px}
@@ -192,8 +200,12 @@ h2.section-title .accent-gold{font-style:italic;color:var(--gold)}
 .testi-card blockquote::before{content:'"';font-size:48px;color:var(--sage);opacity:.3;line-height:0;vertical-align:-20px;margin-right:4px;font-family:Georgia,serif}
 .testi-author{display:flex;align-items:center;gap:14px;padding-top:20px;border-top:1px solid var(--border)}
 .testi-avatar{width:42px;height:42px;border-radius:50%;background:var(--sage);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500}
-.testi-name{font-size:14px;font-weight:500}
+.testi-avatar-img{width:42px;height:42px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--surface);box-shadow:0 2px 8px -2px rgba(9,9,11,.12)}
+.testi-name{font-size:14px;font-weight:500;color:var(--ink);text-decoration:none;display:block}
+.testi-name:hover{text-decoration:underline}
 .testi-role{font-size:12px;color:var(--text3);margin-top:2px}
+.testi-grid-3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:980px){.testi-grid-3{grid-template-columns:1fr}}
 
 /* FAQ */
 .faq-wrap{padding:120px 24px;max-width:900px;margin:0 auto}
@@ -339,18 +351,44 @@ footer{padding:56px 24px 32px;background:var(--ink);color:rgba(255,255,255,.6)}
   </div>
 </div>
 
-<!-- AGENCY LOGOS -->
-<div class="logos">
-  <div class="logos-label">Agencies who quietly ship with LIVV</div>
-  <div class="logos-row">
-    <div class="logo-item">Studio Norte</div>
-    <div class="logo-item">Form&Flow</div>
-    <div class="logo-item">Compañía</div>
-    <div class="logo-item">After Atlas</div>
-    <div class="logo-item">House of Build</div>
-    <div class="logo-item">Common Ground</div>
+<!-- CLIENT LOGOS — matches home ClientLogoSlider -->
+<section class="livv-client-logos">
+  <div class="livv-client-logos-label">Some of our clients</div>
+  <div class="livv-client-logos-viewport">
+    <div class="livv-client-logos-track">
+      <a class="livv-client-logos-item" href="https://www.blackbox.ai/" target="_blank" rel="noopener" aria-label="Blackbox AI"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/blackbox.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.buda.com/argentina" target="_blank" rel="noopener" aria-label="Buda.com"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/buda.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.heygen.com/" target="_blank" rel="noopener" aria-label="HeyGen"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/heygen.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://viewfi.live/" target="_blank" rel="noopener" aria-label="ViewFi"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/logo-6.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.remax.com.ar/" target="_blank" rel="noopener" aria-label="RE/MAX"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/logo-7.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://sacoa.com/" target="_blank" rel="noopener" aria-label="Sacoa"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/sacoa.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://wortise.com/es" target="_blank" rel="noopener" aria-label="Wortise"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/wortise.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://sunbird.com/" target="_blank" rel="noopener" aria-label="Sunbird"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/sunbird.png')"></span></a>
+      <a class="livv-client-logos-item" href="#" aria-label="Gio"><img class="livv-client-logos-img" src="/logos-header/gio.png" alt="Gio"></a>
+      <a class="livv-client-logos-item" href="#" aria-label="S.Rpro Marketing"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/srpro.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.blackbox.ai/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/blackbox.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.buda.com/argentina" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/buda.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.heygen.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/heygen.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://viewfi.live/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/logo-6.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.remax.com.ar/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/logo-7.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://sacoa.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/sacoa.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://wortise.com/es" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/wortise.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://sunbird.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/sunbird.png')"></span></a>
+      <a class="livv-client-logos-item" href="#" aria-hidden="true" tabindex="-1"><img class="livv-client-logos-img" src="/logos-header/gio.png" alt=""></a>
+      <a class="livv-client-logos-item" href="#" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/srpro.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.blackbox.ai/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/blackbox.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.buda.com/argentina" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/buda.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.heygen.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/heygen.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://viewfi.live/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/logo-6.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://www.remax.com.ar/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/logo-7.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://sacoa.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/sacoa.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://wortise.com/es" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/wortise.png')"></span></a>
+      <a class="livv-client-logos-item" href="https://sunbird.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/sunbird.png')"></span></a>
+      <a class="livv-client-logos-item" href="#" aria-hidden="true" tabindex="-1"><img class="livv-client-logos-img" src="/logos-header/gio.png" alt=""></a>
+      <a class="livv-client-logos-item" href="#" aria-hidden="true" tabindex="-1"><span class="livv-client-logos-mask" style="--logo:url('/logos-header/srpro.png')"></span></a>
+    </div>
   </div>
-</div>
+</section>
 
 <!-- STORY -->
 <section class="story">
@@ -468,60 +506,89 @@ footer{padding:56px 24px 32px;background:var(--ink);color:rgba(255,255,255,.6)}
       <p class="lead" style="margin-top:0;max-width:380px">All work shown under NDA clearance. Logos and client details available under signed NDA.</p>
     </div>
     <div class="portfolio-grid">
-      <a href="https://livvvv.com/work" class="port-card wide">
-        <div class="visual-1" style="position:absolute;inset:0"></div>
+      <a href="/projects/sacoa" class="port-card wide">
+        <img src="/images/sacoa-cover-v2.png" alt="Sacoa Cashless" class="port-img" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" />
         <div class="port-overlay"></div>
         <div class="port-meta">
           <div class="port-tags">
-            <span class="port-tag">Brand system</span>
-            <span class="port-tag">Web</span>
-            <span class="port-tag nda">NDA</span>
+            <span class="port-tag">Brand</span>
+            <span class="port-tag">Motion</span>
+            <span class="port-tag">Design</span>
           </div>
           <div class="port-bottom">
-            <div class="port-title">Fortune 500 rebrand<span class="sub">Shipped for a NYC branding studio · 6-week engagement</span></div>
+            <div class="port-title">Sacoa Cashless<span class="sub">Design system + custom animations · cashless payments platform</span></div>
             <div class="port-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
           </div>
         </div>
       </a>
-      <a href="https://livvvv.com/work" class="port-card narrow">
-        <div class="visual-2" style="position:absolute;inset:0"></div>
+      <a href="/projects/paper" class="port-card narrow">
+        <img src="/images/portfolio-2.jpg" alt="Paper" class="port-img" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" />
         <div class="port-overlay"></div>
         <div class="port-meta">
           <div class="port-tags">
             <span class="port-tag">SaaS</span>
-            <span class="port-tag nda">NDA</span>
+            <span class="port-tag">Product</span>
           </div>
           <div class="port-bottom">
-            <div class="port-title">Dashboard UX<span class="sub">For a London product agency</span></div>
+            <div class="port-title">Paper<span class="sub">Venue &amp; nightlife OS · product strategy, UI/UX, full-stack</span></div>
             <div class="port-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
           </div>
         </div>
       </a>
-      <a href="https://livvvv.com/work" class="port-card half">
-        <div class="visual-4" style="position:absolute;inset:0"></div>
+      <a href="/projects/azqira" class="port-card half">
+        <img src="/images/azqira-cover.jpg" alt="Azqira" class="port-img" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" />
         <div class="port-overlay"></div>
         <div class="port-meta">
           <div class="port-tags">
-            <span class="port-tag">Motion</span>
-            <span class="port-tag nda">NDA</span>
+            <span class="port-tag">Product</span>
+            <span class="port-tag">UX</span>
           </div>
           <div class="port-bottom">
-            <div class="port-title">Launch film series<span class="sub">3× 30s cutdowns · D2C beauty</span></div>
+            <div class="port-title">Azqira<span class="sub">Digital product experience · UI/UX + development</span></div>
             <div class="port-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
           </div>
         </div>
       </a>
-      <a href="https://livvvv.com/work" class="port-card half">
-        <div class="visual-3" style="position:absolute;inset:0"></div>
+      <a href="/projects/internal-management" class="port-card half">
+        <img src="/images/internal-dashboard.png" alt="Internal Management Systems" class="port-img" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" />
         <div class="port-overlay"></div>
         <div class="port-meta">
           <div class="port-tags">
             <span class="port-tag">Full-stack</span>
+            <span class="port-tag">Internal tools</span>
             <span class="port-tag">AI</span>
-            <span class="port-tag nda">NDA</span>
           </div>
           <div class="port-bottom">
-            <div class="port-title">AI automation suite<span class="sub">Internal ops tool · Berlin agency</span></div>
+            <div class="port-title">Internal Management Systems<span class="sub">Custom operational tools · multi-tenant admin, ops &amp; automation</span></div>
+            <div class="port-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
+          </div>
+        </div>
+      </a>
+      <a href="/projects/pr-tool" class="port-card narrow">
+        <img src="/images/pr-tool.png" alt="PR Tool" class="port-img" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" />
+        <div class="port-overlay"></div>
+        <div class="port-meta">
+          <div class="port-tags">
+            <span class="port-tag">Creator</span>
+            <span class="port-tag">Affiliate</span>
+          </div>
+          <div class="port-bottom">
+            <div class="port-title">PR Tool<span class="sub">Creator commerce · affiliate payouts + Tienda Nube integrations</span></div>
+            <div class="port-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
+          </div>
+        </div>
+      </a>
+      <a href="/projects/seo-blocks" class="port-card wide">
+        <img src="/images/portfolio-3.jpg" alt="SEO Blocks Generator" class="port-img" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" />
+        <div class="port-overlay"></div>
+        <div class="port-meta">
+          <div class="port-tags">
+            <span class="port-tag">Growth</span>
+            <span class="port-tag">Webflow</span>
+            <span class="port-tag">SEO</span>
+          </div>
+          <div class="port-bottom">
+            <div class="port-title">SEO Blocks Generator<span class="sub">Programmatic SEO for Webflow · template engine + CMS sync</span></div>
             <div class="port-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
           </div>
         </div>
@@ -579,33 +646,44 @@ footer{padding:56px 24px 32px;background:var(--ink);color:rgba(255,255,255,.6)}
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
+<!-- TESTIMONIALS — real clients (same as home) -->
 <section class="testi-wrap">
   <div class="testi-inner">
     <div style="max-width:640px">
-      <div class="eyebrow">From agency founders</div>
-      <h2 class="section-title">"They're the <span class="accent">reason</span> we said yes to the pitch."</h2>
+      <div class="eyebrow">Clients on record</div>
+      <h2 class="section-title">Senior partners, <span class="accent">five-star</span> handoffs.</h2>
     </div>
-    <div class="testi-grid">
+    <div class="testi-grid testi-grid-3">
       <div class="testi-card">
         <div class="testi-stars">★ ★ ★ ★ ★</div>
-        <blockquote>LIVV lets us take on 2× the pitches without hiring. Our clients think we have a 20-person studio. Honestly? It's 6 of us — and LIVV.</blockquote>
+        <blockquote>Was great working together, we will work together again in the future.</blockquote>
         <div class="testi-author">
-          <div class="testi-avatar">AM</div>
+          <img class="testi-avatar-img" src="/images/ronen-wasserman.jpg" alt="Ronen Wasserman" loading="lazy" />
           <div>
-            <div class="testi-name">A. M.</div>
-            <div class="testi-role">Founder · NYC brand studio</div>
+            <a class="testi-name" href="https://srpro.marketing" target="_blank" rel="noopener">Ronen Wasserman</a>
+            <div class="testi-role">Founder &amp; President</div>
           </div>
         </div>
       </div>
       <div class="testi-card">
         <div class="testi-stars">★ ★ ★ ★ ★</div>
-        <blockquote>Honestly, we kept them a secret for the first year. It's our unfair advantage. Senior craft, no hiring headaches, margin we actually feel.</blockquote>
+        <blockquote>It was great working with Eneas! He was so understanding and also very patient. He followed through all the revisions, communicated via looms and delivered excellent work!</blockquote>
         <div class="testi-author">
-          <div class="testi-avatar">JR</div>
+          <img class="testi-avatar-img" src="/images/fidan-alizada.jpg" alt="Fidan Alizada" loading="lazy" />
           <div>
-            <div class="testi-name">J. R.</div>
-            <div class="testi-role">Creative director · London product agency</div>
+            <a class="testi-name" href="https://www.instagram.com/thealizada/" target="_blank" rel="noopener">Fidan Alizada</a>
+            <div class="testi-role">Creator · Marketer · Storyteller</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★ ★ ★ ★ ★</div>
+        <blockquote>I hired Eneas for a critical Webflow build and was seriously impressed. He brought my vision to life with clean, responsive design, fast load times, and no drama. Communication was sharp, turnaround was quick, and the end result was exactly what I needed. Highly recommend.</blockquote>
+        <div class="testi-author">
+          <img class="testi-avatar-img" src="/images/sabrina-guler.jpg" alt="Sabrina Guler" loading="lazy" />
+          <div>
+            <a class="testi-name" href="https://sabrinaguler.com/" target="_blank" rel="noopener">Sabrina Guler</a>
+            <div class="testi-role">Advisor, Author &amp; Founder of Intuitive CEO</div>
           </div>
         </div>
       </div>
