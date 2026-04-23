@@ -2,13 +2,11 @@
 
 import Script from 'next/script';
 
-export const GoogleAnalytics = ({ measurementId }: { measurementId?: string }) => {
-    const GA_ID = measurementId || process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+const DEFAULT_GA_ID = 'G-N2BMLKVJJJ';
+const GOOGLE_ADS_CONVERSION_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_ID;
 
-    if (!GA_ID) {
-        console.warn('Google Analytics Measurement ID not found');
-        return null;
-    }
+export const GoogleAnalytics = ({ measurementId }: { measurementId?: string }) => {
+    const GA_ID = measurementId || process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || DEFAULT_GA_ID;
 
     return (
         <>
@@ -27,6 +25,7 @@ export const GoogleAnalytics = ({ measurementId }: { measurementId?: string }) =
                         gtag('config', '${GA_ID}', {
                             page_path: window.location.pathname,
                         });
+                        ${GOOGLE_ADS_CONVERSION_ID ? `gtag('config', '${GOOGLE_ADS_CONVERSION_ID}');` : ''}
                     `,
                 }}
             />
@@ -58,8 +57,17 @@ export const trackButtonClick = (buttonName: string, location?: string) => {
 
 export const trackPageView = (url: string) => {
     if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('config', process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID, {
+        (window as any).gtag('config', process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || DEFAULT_GA_ID, {
             page_path: url,
         });
     }
+};
+
+export const trackGoogleAdsConversion = (value?: number, currency: string = 'EUR') => {
+    const sendTo = process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_SEND_TO;
+    if (typeof window === 'undefined' || !(window as any).gtag || !sendTo) return;
+    (window as any).gtag('event', 'conversion', {
+        send_to: sendTo,
+        ...(value !== undefined ? { value, currency } : {}),
+    });
 };

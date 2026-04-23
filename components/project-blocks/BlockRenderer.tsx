@@ -42,6 +42,9 @@ export function BlockRenderer({ block, poster }: { block: ContentBlock; poster?:
                     description={block.description}
                     typeface={block.typeface}
                     colors={block.colors}
+                    spacing={block.spacing}
+                    components={block.components}
+                    download_url={block.download_url}
                 />
             )
 
@@ -65,8 +68,10 @@ export function BlockRenderer({ block, poster }: { block: ContentBlock; poster?:
 
         case 'text':
             return (
-                <div className="text-lg text-[#5A3E3E]/70 leading-relaxed mb-8">
-                    <RichText content={block.content} />
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 mb-24 md:mb-32">
+                    <div className="md:col-span-8 md:col-start-1 text-lg text-[#5A3E3E]/70 leading-relaxed">
+                        <RichText content={block.content} />
+                    </div>
                 </div>
             )
 
