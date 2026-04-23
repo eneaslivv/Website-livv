@@ -164,6 +164,7 @@ export default function RootLayout({
               gtag('config', 'AW-18096615687', {
                 allow_enhanced_conversions: true,
               });
+              gtag('config', 'G-7W3NCQGZLB');
             `,
           }}
         />
