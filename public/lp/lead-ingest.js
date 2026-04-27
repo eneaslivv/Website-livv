@@ -177,6 +177,12 @@
         email: normalizedEmail,
         phone_number: normalizedPhone,
       });
+      w.gtag('event', 'conversion', {
+        send_to: 'AW-18096615687/fwDOCLb99KAcEIfikbVD',
+        value: value,
+        currency: LEAD_CURRENCY,
+        transaction_id: eventId,
+      });
     }
 
     if (typeof w.fbq === 'function') {
