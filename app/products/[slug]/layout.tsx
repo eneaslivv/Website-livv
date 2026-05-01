@@ -1,21 +1,48 @@
 import type { Metadata } from "next"
+import { buildSoftwareApplicationJsonLd } from "@/lib/seo/structured-data"
 
-const productMeta: Record<string, { title: string; description: string }> = {
+const productMeta: Record<
+  string,
+  {
+    title: string
+    description: string
+    name: string
+    shortDescription: string
+    category: string
+    priceFromUSD?: number
+  }
+> = {
   payper: {
-    title: "Payper — The Operating System for Modern Hospitality | Livv Studio",
+    name: "Payper",
+    title:
+      "Payper — The Operating System for Modern Hospitality | Livv Studio",
     description:
-      "A unified platform for restaurants and hotels — QR ordering, kitchen management, and payments. White-label ready, deployed under your brand in days.",
+      "Unified hospitality platform — QR ordering, kitchen management, and payments. White-label ready, deployed under your brand in days. Built by Livv Studio in Buenos Aires, Argentina.",
+    shortDescription:
+      "Unified hospitality platform — QR ordering, kitchen management, and payments. White-label SaaS by Livv Studio.",
+    category: "Hospitality SaaS",
+    priceFromUSD: 49,
   },
   prtool: {
+    name: "PRTool",
     title:
       "PRTool — The Platform for Creator Partnerships | Livv Studio",
     description:
-      "Manage creator campaigns from briefing to payment — all in one branded platform built for PR agencies and talent managers.",
+      "Manage creator campaigns from briefing to payment in one branded platform. Built for PR agencies and talent managers by Livv Studio (Argentina).",
+    shortDescription:
+      "Creator partnerships platform — briefings, campaigns, payments. White-label SaaS by Livv Studio.",
+    category: "Creator Economy SaaS",
+    priceFromUSD: 29,
   },
   legalflow: {
+    name: "LegalFlow",
     title: "LegalFlow — Case Management, Automated | Livv Studio",
     description:
-      "Secure case management, document automation, and client collaboration — built for law firms that want to move faster.",
+      "Secure case management, document automation, and client collaboration for law firms that want to move faster. Built by Livv Studio (Buenos Aires, Argentina).",
+    shortDescription:
+      "Case management and document automation for modern law firms. White-label SaaS by Livv Studio.",
+    category: "Legal Tech SaaS",
+    priceFromUSD: 59,
   },
 }
 
@@ -40,19 +67,51 @@ export async function generateMetadata({
     description: meta.description,
     alternates: {
       canonical: `/products/${slug}`,
+      languages: {
+        "en-US": `/products/${slug}`,
+        "es-AR": `/products/${slug}`,
+        "x-default": `/products/${slug}`,
+      },
     },
     openGraph: {
       title: meta.title,
       description: meta.description,
       url: `https://livvvv.com/products/${slug}`,
+      locale: "en_US",
+      alternateLocale: ["es_AR"],
     },
   }
 }
 
-export default function ProductLayout({
+export default async function ProductLayout({
   children,
+  params,
 }: {
   children: React.ReactNode
+  params: Promise<{ slug: string }>
 }) {
-  return children
+  const { slug } = await params
+  const meta = productMeta[slug]
+
+  const jsonLd = meta
+    ? buildSoftwareApplicationJsonLd({
+        name: meta.name,
+        description: meta.shortDescription,
+        slug,
+        category: meta.category,
+        priceFromUSD: meta.priceFromUSD,
+      })
+    : null
+
+  return (
+    <>
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
+      {children}
+    </>
+  )
 }

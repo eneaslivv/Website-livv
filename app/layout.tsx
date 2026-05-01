@@ -14,18 +14,42 @@ import { AuthProvider } from "@/context/AuthContext"
 import { LazyMotion, domAnimation } from "framer-motion"
 import { CustomCursor } from "@/components/custom-cursor"
 import { DeferredChatWidget } from "@/components/ui/deferred-chat-widget"
+import { buildOrganizationGraph } from "@/lib/seo/structured-data"
+
+const SITE_TITLE =
+  "Livv Studio | Diseño y desarrollo digital — Buenos Aires, Argentina"
+const SITE_DESCRIPTION =
+  "Livv Studio is a boutique design & engineering studio in Buenos Aires, Argentina. We combine art and business to ship brands, websites, and white-label web apps for ambitious teams across LATAM and the US. Estudio boutique de diseño y desarrollo donde el arte se encuentra con el negocio."
 
 export const metadata: Metadata = {
   title: {
-    default: "Livv Studio | Creative Design & Technical Excellence",
+    default: SITE_TITLE,
     template: "%s",
   },
-  description: "Livv Studio crafts exceptional digital products, brand identities, and high-performance web experiences with technical excellence and cinematic motion.",
-  keywords: ["Design Studio", "Web Development", "Digital Products", "Brand Identity", "UI/UX Design", "Product Strategy", "White-Label Development", "Next.js", "Creative Engineering"],
+  description: SITE_DESCRIPTION,
+  keywords: [
+    "design studio Argentina",
+    "estudio de diseño Argentina",
+    "estudio de diseño Buenos Aires",
+    "diseño y desarrollo web Argentina",
+    "boutique design studio Latin America",
+    "art and business design studio",
+    "arte y negocios estudio digital",
+    "desarrollo de aplicaciones a medida Argentina",
+    "white-label web apps",
+    "Next.js development studio",
+    "UI/UX design studio Latin America",
+    "Brand identity studio Buenos Aires",
+    "Product design Argentina",
+    "Livv Studio",
+    "Livv",
+  ],
   authors: [{ name: "Livv Studio", url: "https://livvvv.com" }],
   creator: "Livv Studio",
   publisher: "Livv Studio",
   metadataBase: new URL("https://livvvv.com"),
+  category: "Design & Software Development",
+  applicationName: "Livv Studio",
   icons: {
     icon: [
       { url: "/icon-light-32x32.png", sizes: "32x32", type: "image/png" },
@@ -38,27 +62,35 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "/",
+    languages: {
+      "en-US": "/",
+      "es-AR": "/",
+      "x-default": "/",
+    },
   },
   openGraph: {
     type: "website",
     locale: "en_US",
+    alternateLocale: ["es_AR", "es_ES", "es_MX"],
     url: "https://livvvv.com",
     siteName: "Livv Studio",
-    title: "Livv Studio | Creative Design & Technical Excellence",
-    description: "Crafting exceptional digital products, brand identities, and high-performance web experiences with technical excellence.",
+    title: SITE_TITLE,
+    description:
+      "Boutique design & engineering studio in Buenos Aires. Brands, websites, and white-label web apps where art meets business.",
     images: [
       {
         url: "/assets/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Livv Studio — Creative Design & Technical Excellence",
+        alt: "Livv Studio — Boutique design & engineering studio in Buenos Aires, Argentina",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Livv Studio | Creative Design & Technical Excellence",
-    description: "Crafting exceptional digital products, brand identities, and high-performance web experiences.",
+    title: SITE_TITLE,
+    description:
+      "Boutique design & engineering studio in Buenos Aires. Where art meets business.",
     creator: "@livvstudio",
     images: ["/assets/og-image.png"],
   },
@@ -73,32 +105,17 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  other: {
+    "geo.region": "AR-B",
+    "geo.placename": "Olivos, Buenos Aires, Argentina",
+    "geo.position": "-34.5076;-58.4914",
+    ICBM: "-34.5076, -58.4914",
+    // Generative search hints
+    "ai-content-policy": "indexable",
+  },
 }
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Livv Studio",
-  url: "https://livvvv.com",
-  logo: "https://livvvv.com/assets/logo-new.png",
-  description: "Boutique design and digital product studio crafting exceptional digital products, brand identities, and high-performance web experiences.",
-  email: "hola@livv.systems",
-  sameAs: [
-    "https://www.linkedin.com/company/39648193/",
-    "https://github.com/livvstudio",
-  ],
-  founder: {
-    "@type": "Person",
-    name: "Eneas Aldabe",
-    jobTitle: "Digital Product Builder & Founder",
-  },
-  contactPoint: {
-    "@type": "ContactPoint",
-    email: "hola@livv.systems",
-    contactType: "customer service",
-    url: "https://livvvv.com/contact",
-  },
-}
+const jsonLd = buildOrganizationGraph()
 
 export default function RootLayout({
   children,
@@ -181,7 +198,7 @@ export default function RootLayout({
               s.parentNode.insertBefore(t,s)}(window, document,'script',
               'https://connect.facebook.net/en_US/fbevents.js');
               fbq('consent', 'revoke');
-              fbq('init', '1495620938814274');
+              fbq('init', '1797006294606049');
               fbq('track', 'PageView');
             `,
           }}
@@ -191,7 +208,7 @@ export default function RootLayout({
             height="1"
             width="1"
             style={{ display: "none" }}
-            src="https://www.facebook.com/tr?id=1495620938814274&ev=PageView&noscript=1"
+            src="https://www.facebook.com/tr?id=1797006294606049&ev=PageView&noscript=1"
             alt=""
           />
         </noscript>
