@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { supabase } from '@/lib/supabase/client';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -232,7 +233,7 @@ export default function PortalPage() {
                                         animate={{ x: 0, opacity: 1 }}
                                         className="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center overflow-hidden border-2 border-[#ede5d8] shadow-xl z-20"
                                     >
-                                        <img src={clientLogo} alt="Client Logo" className="w-full h-full object-cover" />
+                                        <Image src={clientLogo} alt="Client Logo" width={40} height={40} className="w-full h-full object-cover" unoptimized />
                                     </motion.div>
                                 )}
                             </div>

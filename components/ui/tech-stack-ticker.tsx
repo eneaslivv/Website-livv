@@ -21,9 +21,12 @@ export const TechStackTicker = () => {
                     <div className="flex items-center gap-16 pr-16">
                         {logos.map((logo, i) => (
                             <div key={i} className="flex-shrink-0" style={{ filter: "brightness(0) saturate(100%) invert(96%) sepia(21%) saturate(220%) hue-rotate(345deg) brightness(101%) contrast(93%)" }}>
-                                <img
+                                <Image
                                     src={logo.src}
                                     alt={logo.alt}
+                                    width={logo.isLarge ? 160 : 80}
+                                    height={logo.isLarge ? 112 : 24}
+                                    loading="lazy"
                                     className={`${logo.isLarge ? 'h-20 md:h-28' : 'h-5 md:h-6'} w-auto object-contain`}
                                 />
                             </div>
@@ -33,9 +36,12 @@ export const TechStackTicker = () => {
                     <div className="flex items-center gap-16 pr-16" aria-hidden="true">
                         {logos.map((logo, i) => (
                             <div key={`clone-${i}`} className="flex-shrink-0" style={{ filter: "brightness(0) saturate(100%) invert(96%) sepia(21%) saturate(220%) hue-rotate(345deg) brightness(101%) contrast(93%)" }}>
-                                <img
+                                <Image
                                     src={logo.src}
                                     alt={logo.alt}
+                                    width={logo.isLarge ? 160 : 80}
+                                    height={logo.isLarge ? 112 : 24}
+                                    loading="lazy"
                                     className={`${logo.isLarge ? 'h-20 md:h-28' : 'h-5 md:h-6'} w-auto object-contain`}
                                 />
                             </div>

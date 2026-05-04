@@ -1,6 +1,7 @@
 "use client"
 
 import { useRef, useEffect, useState } from "react"
+import Image from "next/image"
 import { Play } from "lucide-react"
 import { AnimatedBorders } from "@/components/ui/animated-borders"
 import { TechStackTicker } from "@/components/ui/tech-stack-ticker"
@@ -77,10 +78,14 @@ export function ShowcaseSection() {
 
                         {/* Content Area - Background Blur Image */}
                         <div className="relative aspect-[16/10] mt-8 md:mt-10 overflow-hidden group">
-                            <img
+                            <Image
                                 src="/images/showcase-blur.png"
-                                alt="Background"
-                                className="absolute inset-0 w-full h-full object-cover opacity-80"
+                                alt=""
+                                aria-hidden="true"
+                                fill
+                                sizes="(max-width: 768px) 100vw, 1024px"
+                                loading="lazy"
+                                className="object-cover opacity-80"
                             />
 
                             {/* Overlay Gradient */}

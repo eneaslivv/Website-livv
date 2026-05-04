@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { Layers, ArrowRight, CheckCircle2 } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
 import { useParams, useRouter } from "next/navigation"
 import { LiquidMetalButton } from "@/components/button-styling/liquid-metal-button"
@@ -363,10 +364,13 @@ export default function ServiceDetailPage() {
                     <p className="text-[10px] font-semibold tracking-widest text-stone-400 uppercase">Trusted by engineering teams at</p>
                     <div className="flex items-center justify-center gap-8 flex-wrap">
                         {clientLogos.map((logo) => (
-                            <img
+                            <Image
                                 key={logo.alt}
                                 src={logo.src}
                                 alt={logo.alt}
+                                width={120}
+                                height={24}
+                                loading="lazy"
                                 className="h-6 w-auto object-contain grayscale opacity-40 hover:opacity-60 transition-opacity duration-300"
                             />
                         ))}

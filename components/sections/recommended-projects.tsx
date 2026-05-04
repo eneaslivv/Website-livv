@@ -2,6 +2,7 @@
 
 import { useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
+import Image from "next/image"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 import { usePortfolioItems } from "@/hooks/usePublicData"
@@ -54,7 +55,7 @@ export function RecommendedProjects() {
                         <Link key={project.id || i} href={`/projects/${project.slug}`} className="group relative w-[85vw] md:w-[600px] aspect-[4/3] md:aspect-[16/9] rounded-[2rem] overflow-hidden shadow-lg">
                             <div className="absolute inset-0 bg-[#09090B] transition-transform duration-700 group-hover:scale-105">
                                 {project.image && (
-                                    <img src={project.image} alt={project.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
+                                    <Image src={project.image} alt={project.title} fill sizes="(max-width: 768px) 85vw, 600px" loading="lazy" unoptimized className="object-cover opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
                                 )}
                             </div>
 

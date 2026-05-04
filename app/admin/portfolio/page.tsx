@@ -162,7 +162,7 @@ const CreateEditModal = ({
                         />
                         {formData.image && !/\.(mp4|webm|mov)(\?|$)/i.test(formData.image) && (
                             <div className="mt-2 relative w-full h-32 rounded overflow-hidden border border-zinc-200">
-                                <Image src={formData.image} alt="Preview" fill className="object-cover" />
+                                <Image src={formData.image} alt="Preview" fill sizes="(max-width: 768px) 100vw, 600px" className="object-cover" />
                             </div>
                         )}
                     </div>
@@ -192,7 +192,7 @@ const CreateEditModal = ({
                                         {/\.(mp4|webm|mov)(\?|$)/i.test(url) ? (
                                             <video src={url} muted className="w-full h-full object-cover" />
                                         ) : (
-                                            <Image src={url} alt={`Gallery ${i + 1}`} fill className="object-cover" />
+                                            <Image src={url} alt={`Gallery ${i + 1}`} fill sizes="(max-width: 768px) 50vw, 200px" className="object-cover" />
                                         )}
                                     </div>
                                 ))}
@@ -377,7 +377,7 @@ export default function PortfolioAdminPage() {
                         <div key={item.id} className="group bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
                             <div className="aspect-video relative bg-zinc-100 dark:bg-zinc-800">
                                 {item.image ? (
-                                    <Image src={item.image} alt={item.title} fill className="object-cover" />
+                                    <Image src={item.image} alt={item.title} fill sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw" className="object-cover" />
                                 ) : (
                                     <div className="flex items-center justify-center h-full text-zinc-300">No Image</div>
                                 )}

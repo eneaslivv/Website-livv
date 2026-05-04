@@ -1,6 +1,7 @@
 "use client"
 
 import { useRef, useEffect, useState } from "react"
+import Image from "next/image"
 import { ArrowRight } from "lucide-react"
 import { AnimatedBorders } from "@/components/ui/animated-borders"
 import { submitLead } from "@/lib/lead-ingest"
@@ -75,10 +76,13 @@ export function VisionSection() {
 
                         {/* Inline Image */}
                         <div className="inline-block mx-2 md:mx-4 w-16 h-10 md:w-24 md:h-16 rounded-lg overflow-hidden align-middle relative top-[-4px] md:top-[-8px] shadow-sm transform rotate-3 hover:rotate-0 transition-transform duration-300">
-                            <img
+                            <Image
                                 src="/images/vision-hands.jpg"
                                 alt="Hands framing vision"
-                                className="w-full h-full object-cover"
+                                fill
+                                sizes="(max-width: 768px) 64px, 96px"
+                                loading="lazy"
+                                className="object-cover"
                             />
                         </div>
 

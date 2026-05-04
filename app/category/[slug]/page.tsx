@@ -190,7 +190,7 @@ export default function CategoryPage() {
                                         >
                                             <div className="aspect-video relative bg-stone-100">
                                                 {product.featured_image ? (
-                                                    <Image src={product.featured_image} alt={product.title} fill className="object-cover" />
+                                                    <Image src={product.featured_image} alt={product.title} fill sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw" className="object-cover" />
                                                 ) : (
                                                     <div className="flex items-center justify-center h-full text-stone-300 text-sm">No image</div>
                                                 )}

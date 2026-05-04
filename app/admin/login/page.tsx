@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { supabase } from '@/lib/supabase/client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Lock, Mail, ArrowRight, Loader2, ShieldCheck, LayoutDashboard, Wallet, Users } from 'lucide-react';
@@ -66,9 +67,12 @@ export default function AdminLoginPage() {
                 {/* Content */}
                 <div className="relative z-10">
                     <div className="mb-12">
-                        <img
+                        <Image
                             src="/assets/logo-new.png"
                             alt="Livv Studio"
+                            width={125}
+                            height={58}
+                            priority
                             className="h-9 w-auto brightness-0 invert opacity-90 object-contain"
                         />
                     </div>

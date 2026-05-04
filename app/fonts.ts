@@ -5,6 +5,9 @@ export const inter = Inter({
     subsets: ['latin'],
     weight: ['300', '400', '500'],
     variable: '--font-inter',
+    display: 'swap',
+    preload: true,
+    fallback: ['system-ui', 'arial'],
 })
 
 export const mondwest = localFont({

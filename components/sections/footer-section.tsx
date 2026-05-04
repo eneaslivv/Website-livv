@@ -1,6 +1,7 @@
 "use client"
 
 import { useRef, useEffect } from "react"
+import Image from "next/image"
 import { useScroll, useTransform, useSpring, motion } from "framer-motion"
 import { Instagram, Linkedin, Github, ArrowUpRight } from "lucide-react"
 import { AnimatedBorders } from "@/components/ui/animated-borders"
@@ -135,9 +136,14 @@ export function FooterSection({ id }: { id?: string }) {
                 >
                     {/* Stepped Gradient Image - User Provided Asset */}
                     <div className="relative w-full h-auto flex items-end justify-center">
-                        <img
+                        <Image
                             src="/images/footer-gradient.png"
-                            alt="Footer Gradient"
+                            alt=""
+                            width={1024}
+                            height={426}
+                            sizes="100vw"
+                            loading="lazy"
+                            aria-hidden="true"
                             className="w-full h-auto object-cover object-bottom"
                         />
                     </div>

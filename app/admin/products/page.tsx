@@ -174,7 +174,7 @@ const ProductFormModal = ({
                             <input name="featured_image" type="text" placeholder="https://..." className="w-full p-2 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-lg text-sm" value={formData.featured_image} onChange={handleChange} />
                             {formData.featured_image && (
                                 <div className="mt-2 relative w-full h-32 rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-800">
-                                    <Image src={formData.featured_image} alt="Preview" fill className="object-cover" />
+                                    <Image src={formData.featured_image} alt="Preview" fill sizes="(max-width: 768px) 100vw, 600px" className="object-cover" />
                                 </div>
                             )}
                         </div>
@@ -386,7 +386,7 @@ export default function ProductsPage() {
                         <div key={product.id} className="group bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
                             <div className="aspect-video relative bg-zinc-100 dark:bg-zinc-800">
                                 {product.featuredImage ? (
-                                    <Image src={product.featuredImage} alt={product.title} fill className="object-cover" />
+                                    <Image src={product.featuredImage} alt={product.title} fill sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw" className="object-cover" />
                                 ) : (
                                     <div className="flex items-center justify-center h-full text-zinc-300 dark:text-zinc-600">
                                         <Icons.Package size={32} />

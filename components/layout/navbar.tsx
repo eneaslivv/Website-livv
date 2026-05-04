@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { ArrowRight, Menu, X, ChevronDown } from "lucide-react"
 import { usePathname } from "next/navigation"
+import Image from "next/image"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 
@@ -77,9 +78,13 @@ export function Navbar({ isLoaded = true }: NavbarProps) {
                     {/* Logo Area */}
                     <div className={`transition-all duration-800 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}>
                         <Link href="/" className="flex items-center">
-                            <img
+                            <Image
                                 src="/assets/logo-new.png"
                                 alt="Livv Logo"
+                                width={125}
+                                height={58}
+                                priority
+                                fetchPriority="high"
                                 className={`h-7 md:h-9 w-auto object-contain ${!isLightPage ? "brightness-0 invert" : ""}`}
                             />
                         </Link>

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useRef } from 'react';
+import Image from 'next/image';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { FlowerCanvas } from '@/components/ui/flower-canvas';
 
@@ -178,11 +179,12 @@ export default function KrufoodPresentation() {
                                 ]).flat()
                             ].map((logo, i) => (
                                 <div key={i} className="relative w-28 h-12 flex-shrink-0 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-pointer">
-                                    {/* Using standard img for simplicity in this file context, consistent with previous blocks */}
-                                    <img
+                                    <Image
                                         src={logo.src}
                                         alt={logo.alt}
-                                        className="w-full h-full object-contain"
+                                        fill
+                                        sizes="112px"
+                                        className="object-contain"
                                     />
                                 </div>
                             ))}
@@ -288,9 +290,11 @@ export default function KrufoodPresentation() {
                                     key={i}
                                     className="min-w-[300px] md:min-w-[400px] h-[500px] mx-2 rounded-[10px] overflow-hidden relative group cursor-pointer bg-gray-100 flex-shrink-0"
                                 >
-                                    <img
+                                    <Image
                                         src={style.src}
                                         alt={style.title}
+                                        fill
+                                        sizes="(max-width: 768px) 300px, 400px"
                                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
@@ -645,10 +649,12 @@ export default function KrufoodPresentation() {
                         <motion.div whileHover={{ y: -5 }} className="group cursor-pointer">
                             <a href="https://www.drinkmedly.com/" target="_blank" rel="noopener noreferrer" className="block">
                                 <div className="aspect-video bg-[#2c0405]/5 rounded-lg mb-4 overflow-hidden relative">
-                                    <img
+                                    <Image
                                         src="/presentation/krufood/cases/medly.jpg"
                                         alt="Drink Medly E-Commerce"
-                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                        fill
+                                        sizes="(max-width: 768px) 100vw, 50vw"
+                                        className="object-cover transition-transform duration-700 group-hover:scale-105"
                                     />
                                     <div className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-mono uppercase tracking-wider text-[#2c0405]">
                                         E-COMMERCE • UX
@@ -663,10 +669,12 @@ export default function KrufoodPresentation() {
                         <motion.div whileHover={{ y: -5 }} className="group cursor-pointer">
                             <a href="https://www.bocadeagua.com/es" target="_blank" rel="noopener noreferrer" className="block">
                                 <div className="aspect-video bg-[#2c0405]/5 rounded-lg mb-4 overflow-hidden relative">
-                                    <img
+                                    <Image
                                         src="/presentation/krufood/cases/bocadeagua.jpg"
                                         alt="Boca De Agua - Eco Luxury Hotel"
-                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                        fill
+                                        sizes="(max-width: 768px) 100vw, 50vw"
+                                        className="object-cover transition-transform duration-700 group-hover:scale-105"
                                     />
                                     <div className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-mono uppercase tracking-wider text-[#2c0405]">
                                         BRANDING • HOSPITALITY
@@ -681,10 +689,12 @@ export default function KrufoodPresentation() {
                         <motion.div whileHover={{ y: -5 }} className="group cursor-pointer">
                             <a href="https://wortise.com/es" target="_blank" rel="noopener noreferrer" className="block">
                                 <div className="aspect-video bg-[#2c0405]/5 rounded-lg mb-4 overflow-hidden relative">
-                                    <img
+                                    <Image
                                         src="/presentation/krufood/cases/wortise.jpg"
                                         alt="Wortise Tech Dashboard"
-                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                        fill
+                                        sizes="(max-width: 768px) 100vw, 50vw"
+                                        className="object-cover transition-transform duration-700 group-hover:scale-105"
                                     />
                                     <div className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-mono uppercase tracking-wider text-[#2c0405]">
                                         TECH • DASHBOARD

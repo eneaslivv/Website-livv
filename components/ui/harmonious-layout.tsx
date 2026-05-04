@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import Image from "next/image"
 import { motion } from "framer-motion"
 import { Cloud } from "lucide-react"
 
@@ -22,10 +23,13 @@ export function HarmoniousLayout() {
                     repeat: Infinity,
                 }}
             >
-                <img
+                <Image
                     src="/images/cosmic-rock.png"
                     alt="Cosmic Energy centerpiece"
-                    className="w-full h-full object-contain drop-shadow-[0_20px_50px_rgba(44,4,5,0.15)] filter brightness-[1.05]"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 600px"
+                    loading="lazy"
+                    className="object-contain drop-shadow-[0_20px_50px_rgba(44,4,5,0.15)] filter brightness-[1.05]"
                 />
             </motion.div>
 
