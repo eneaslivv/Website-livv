@@ -50,16 +50,6 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://livvvv.com"),
   category: "Design & Software Development",
   applicationName: "Livv Studio",
-  icons: {
-    icon: [
-      { url: "/icon-light-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
-    ],
-    apple: [
-      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
-    ],
-    shortcut: "/icon-light-32x32.png",
-  },
   alternates: {
     canonical: "/",
     languages: {

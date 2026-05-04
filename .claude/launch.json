@@ -1,0 +1,35 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "main-next",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000
+    },
+    {
+      "name": "button-styling-next",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "button-styling", "run", "dev", "--", "-p", "3001"],
+      "port": 3001
+    },
+    {
+      "name": "image-preview-setup-next",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "image-preview-setup", "run", "dev", "--", "-p", "3002"],
+      "port": 3002
+    },
+    {
+      "name": "livv-os-vite",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "LIVV-os", "run", "dev", "--", "--port", "5173"],
+      "port": 5173
+    },
+    {
+      "name": "livv-os2-vite",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "LIVV-os2", "run", "dev", "--", "--port", "5174"],
+      "port": 5174
+    }
+  ]
+}
