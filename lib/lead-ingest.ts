@@ -14,12 +14,12 @@ const LEAD_VALUE_BY_CATEGORY: Record<string, number> = {
 };
 
 const GOOGLE_ADS_CONVERSION_ID = 'AW-18096615687';
-const GOOGLE_ADS_LEAD_LABEL = 'fwDOCLb99KAcEIfikbVD';
+const GADS_LABEL_LEAD = process.env.NEXT_PUBLIC_GADS_LABEL_LEAD || 'fwDOCLb99KAcEIfikbVD';
 const GOOGLE_ADS_LABELS: Record<string, string | undefined> = {
-    contact: GOOGLE_ADS_LEAD_LABEL,
-    quote: GOOGLE_ADS_LEAD_LABEL,
-    partner: GOOGLE_ADS_LEAD_LABEL,
-    lead: GOOGLE_ADS_LEAD_LABEL,
+    contact: GADS_LABEL_LEAD,
+    quote: GADS_LABEL_LEAD,
+    partner: GADS_LABEL_LEAD,
+    lead: GADS_LABEL_LEAD,
     newsletter: process.env.NEXT_PUBLIC_GADS_LABEL_NEWSLETTER,
 };
 
