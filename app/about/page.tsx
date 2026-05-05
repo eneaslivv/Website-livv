@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { ArrowRight, Check, ChevronDown, } from "lucide-react"
 import { Navbar } from "@/components/layout/navbar"
+import { trackContactClick } from "@/lib/analytics"
 import Image from "next/image"
 import { AnimatedBorders } from "@/components/ui/animated-borders"
 import { PixelCanvas } from "@/components/ui/pixel-canvas"
@@ -199,7 +200,11 @@ export default function AboutPage() {
                             Let's see if we're the right fit. No commitment.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-5 justify-center items-center mb-24">
-                            <a href="mailto:hola@livv.systems" className="group h-14 px-10 rounded-full bg-white text-[#1a1a1a] font-medium flex items-center justify-center hover:bg-white/90 transition-all w-full sm:w-auto hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] duration-300">
+                            <a
+                                href="mailto:hola@livv.systems"
+                                onClick={() => trackContactClick("email", "about_page")}
+                                className="group h-14 px-10 rounded-full bg-white text-[#1a1a1a] font-medium flex items-center justify-center hover:bg-white/90 transition-all w-full sm:w-auto hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] duration-300"
+                            >
                                 Send an email
                                 <ArrowRight className="w-5 h-5 ml-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
                             </a>

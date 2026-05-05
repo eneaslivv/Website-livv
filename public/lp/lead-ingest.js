@@ -127,6 +127,10 @@
     var effectiveGclid = attribution.gclid || attribution.first_gclid;
     var effectiveFbclid = attribution.fbclid || attribution.first_fbclid;
 
+    // NOTE: This file is loaded by static /lp/*.html pages and CANNOT import
+    // lib/analytics.ts (TS / module system unavailable here). The dataLayer.push
+    // calls below are intentional duplicates of the events emitted by
+    // lib/lead-ingest.ts. Keep the event names and payload shape in sync.
     w.dataLayer = w.dataLayer || [];
 
     w.dataLayer.push({
@@ -171,20 +175,13 @@
       lead_origin: payload.origin,
     });
 
-    if (typeof w.gtag === 'function') {
-      // Enhanced Conversions user data (hashed by Google automatically when sent via gtag)
-      w.gtag('set', 'user_data', {
-        email: normalizedEmail,
-        phone_number: normalizedPhone,
-      });
-      w.gtag('event', 'conversion', {
-        send_to: 'AW-18096615687/fwDOCLb99KAcEIfikbVD',
-        value: value,
-        currency: LEAD_CURRENCY,
-        transaction_id: eventId,
-      });
-    }
+    // Google Ads conversion is fired by GTM, listening for the
+    // `lead_form_submit` / `generate_lead` events pushed above.
+    // For Enhanced Conversions, GTM reads lead_email_hash / lead_phone_hash
+    // from the dataLayer.
 
+    // TODO(tracking): unify Meta Pixel — currently 2 different IDs across routes
+    // (app/layout.tsx uses 1797006294606049, this file uses 1495620938814274).
     if (typeof w.fbq === 'function') {
       w.fbq('track', 'Lead', {
         content_name: payload.origin,

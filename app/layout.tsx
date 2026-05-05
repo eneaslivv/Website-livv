@@ -21,6 +21,8 @@ const SITE_TITLE =
 const SITE_DESCRIPTION =
   "Livv Studio is a boutique design & engineering studio in Buenos Aires, Argentina. We combine art and business to ship brands, websites, and white-label web apps for ambitious teams across LATAM and the US. Estudio boutique de diseño y desarrollo donde el arte se encuentra con el negocio."
 
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || "GTM-NC96QG65"
+
 export const metadata: Metadata = {
   title: {
     default: SITE_TITLE,
@@ -119,6 +121,12 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        {/*
+          Consent Mode v2 default — must run BEFORE GTM so every downstream tag
+          inherits "denied" until the user accepts. The inline gtag() shim here
+          is the official Google pattern; it's separate from lib/analytics.ts
+          (which pushes event-shaped objects, not consent commands).
+        */}
         <Script
           id="consent-default"
           strategy="beforeInteractive"
@@ -150,30 +158,11 @@ export default function RootLayout({
               new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
               j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer','GTM-NC96QG65');
+              })(window,document,'script','dataLayer','${GTM_ID}');
             `,
           }}
         />
-        <Script
-          id="google-ads-tag-src"
-          strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=AW-18096615687"
-        />
-        <Script
-          id="google-ads-tag-init"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'AW-18096615687', {
-                allow_enhanced_conversions: true,
-              });
-              gtag('config', 'G-7W3NCQGZLB');
-            `,
-          }}
-        />
+        {/* TODO(tracking): unify Meta Pixel — currently 2 different IDs across routes (this layout uses 1797006294606049, public/lp/tracking-init.js uses 1495620938814274). Decide which one to keep and consolidate. */}
         <Script
           id="meta-pixel"
           strategy="afterInteractive"
@@ -193,6 +182,7 @@ export default function RootLayout({
             `,
           }}
         />
+        {/* TODO(tracking): unify Meta Pixel — currently 2 different IDs across routes (this fallback uses 1797006294606049, public/lp/tracking-init.js uses 1495620938814274). */}
         <noscript>
           <img
             height="1"
@@ -206,7 +196,7 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased`} suppressHydrationWarning>
         <noscript>
           <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-NC96QG65"
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
             height="0"
             width="0"
             style={{ display: "none", visibility: "hidden" }}

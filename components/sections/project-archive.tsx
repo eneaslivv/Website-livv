@@ -12,6 +12,7 @@ const inter = Inter({ subsets: ["latin"] })
 
 import { usePortfolioItems } from "@/hooks/usePublicData"
 import { PortfolioItem } from "@/types/livv-os"
+import { trackPortfolioItemClick } from "@/lib/analytics"
 
 const isVideoUrl = (url: string) => /\.(mp4|webm|mov)(\?|$)/i.test(url)
 
@@ -244,7 +245,11 @@ export function ProjectArchive() {
                         >
                             {featuredProjects.map((project, i) => (
                                 <motion.div key={project.id} variants={itemVariants}>
-                                    <Link href={`/projects/${project.slug || '#'}`} className="group block relative">
+                                    <Link
+                                        href={`/projects/${project.slug || '#'}`}
+                                        onClick={() => trackPortfolioItemClick(project.slug || project.title || 'unknown', 'project_archive_grid')}
+                                        className="group block relative"
+                                    >
                                         <div
                                             className="aspect-[16/10] overflow-hidden rounded-[4px] mb-6 relative"
                                             onMouseEnter={(e) => { const v = e.currentTarget.querySelector('video'); v?.play().catch(() => {}) }}
@@ -330,6 +335,7 @@ export function ProjectArchive() {
                                 >
                                     <Link
                                         href={`/projects/${project.slug || '#'}`}
+                                        onClick={() => trackPortfolioItemClick(project.slug || project.title || 'unknown', 'project_archive_list')}
                                         className="group relative block border-b border-[#1a1a1a]/10 py-8 md:py-12 cursor-pointer transition-colors duration-300 hover:bg-[#1a1a1a]/[0.02]"
                                     >
                                         <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0 relative z-20">

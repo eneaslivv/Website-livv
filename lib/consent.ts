@@ -26,6 +26,10 @@ function pushGtagConsent(record: ConsentRecord) {
     if (typeof window === 'undefined') return
     const w = window as any
     w.dataLayer = w.dataLayer || []
+    // Consent Mode v2 commands use the array form `dataLayer.push(['consent','update',...])`.
+    // This is intentionally NOT routed through lib/analytics.ts because that helper
+    // pushes object-shaped events (`{ event: name, ... }`); consent commands are a
+    // separate gtag protocol consumed by GTM at the container level.
     function gtag(...args: any[]) { w.dataLayer.push(args) }
     gtag('consent', 'update', {
         ad_storage: record.marketing,
@@ -36,6 +40,8 @@ function pushGtagConsent(record: ConsentRecord) {
     })
 }
 
+// TODO(tracking): unify Meta Pixel — currently 2 different IDs across routes
+// (app/layout.tsx uses 1797006294606049, public/lp/tracking-init.js uses 1495620938814274).
 function applyMetaConsent(record: ConsentRecord) {
     if (typeof window === 'undefined') return
     const w = window as any

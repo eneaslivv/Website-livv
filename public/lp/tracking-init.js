@@ -5,10 +5,10 @@
 
    Loads (in this order):
      1. Consent Mode v2 defaults (everything denied until granted)
-     2. GTM (GTM-NC96QG65)
-     3. Google Ads Global Site Tag (AW-18096615687, Enhanced Conversions)
-     4. Meta Pixel (1495620938814274) with consent revoke before init
-     5. First/last-touch attribution capture (90-day cookie)
+     2. GTM (GTM-NC96QG65) — single source of truth, all downstream
+        tags (GA4, Google Ads, etc.) are configured INSIDE GTM.
+     3. Meta Pixel (consent revoke before init)
+     4. First/last-touch attribution capture (90-day cookie)
 
    Include this as the FIRST script in <head> of each landing:
      <script src="/lp/tracking-init.js"></script>
@@ -18,11 +18,18 @@
   if (window.__livvTrackingInit) return;
   window.__livvTrackingInit = true;
 
+  // GTM ID is hardcoded here (static .html pages can't read Next.js env vars).
+  // If you ever rotate the container, update this string and app/layout.tsx.
   var GTM_ID = 'GTM-NC96QG65';
-  var GOOGLE_ADS_ID = 'AW-18096615687';
+  // TODO(tracking): unify Meta Pixel — this LP uses 1495620938814274,
+  // app/layout.tsx uses 1797006294606049. Pick one.
   var META_PIXEL_ID = '1495620938814274';
 
-  /* ---- Consent Mode v2 defaults (must run before any tracking) ---- */
+  /* ---- Consent Mode v2 defaults (must run before any tracking) ----
+     This file lives in /public and is loaded by static .html landings that
+     don't go through the Next.js layout, so it can't import the
+     lib/analytics.ts helper. The gtag() shim and the dataLayer.push usage
+     here are intentional duplicates of app/layout.tsx for that reason. */
   window.dataLayer = window.dataLayer || [];
   function gtag() { window.dataLayer.push(arguments); }
   window.gtag = window.gtag || gtag;
@@ -50,14 +57,6 @@
     j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
     f.parentNode.insertBefore(j, f);
   })(window, document, 'script', 'dataLayer', GTM_ID);
-
-  /* ---- Google Ads Global Site Tag ---- */
-  var adsTag = document.createElement('script');
-  adsTag.async = true;
-  adsTag.src = 'https://www.googletagmanager.com/gtag/js?id=' + GOOGLE_ADS_ID;
-  document.head.appendChild(adsTag);
-  gtag('js', new Date());
-  gtag('config', GOOGLE_ADS_ID, { allow_enhanced_conversions: true });
 
   /* ---- Meta Pixel (consent revoked before init; CAPI fires server-side) ---- */
   (function (f, b, e, v, n, t, s) {

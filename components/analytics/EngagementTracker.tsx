@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { trackMicroConversion } from '@/lib/lead-ingest'
+import { trackEvent } from '@/lib/analytics'
 
 const SCROLL_THRESHOLDS = [25, 50, 75, 90] as const
 const TIME_THRESHOLDS_MS = [15_000, 30_000, 60_000, 120_000] as const
@@ -27,7 +27,7 @@ export function EngagementTracker() {
             for (const threshold of SCROLL_THRESHOLDS) {
                 if (pct >= threshold && !firedScroll.has(threshold)) {
                     firedScroll.add(threshold)
-                    trackMicroConversion('scroll_depth', {
+                    trackEvent('scroll_depth', {
                         percent_scrolled: threshold,
                         page_path: window.location.pathname,
                     })
@@ -47,10 +47,12 @@ export function EngagementTracker() {
             for (const threshold of TIME_THRESHOLDS_MS) {
                 if (totalMs >= threshold && !firedTime.has(threshold)) {
                     firedTime.add(threshold)
-                    trackMicroConversion('engagement_time', {
+                    trackEvent('engagement_time', {
                         engagement_seconds: Math.round(threshold / 1000),
                         page_path: window.location.pathname,
                     })
+                    // TODO(tracking): unify Meta Pixel — currently 2 different IDs across routes
+                    // (app/layout.tsx uses 1797006294606049, public/lp/tracking-init.js uses 1495620938814274).
                     if (threshold === 30_000 && typeof (window as any).fbq === 'function') {
                         ;(window as any).fbq('trackCustom', 'EngagedVisitor', {
                             page_path: window.location.pathname,

@@ -5,6 +5,7 @@ import Image from "next/image"
 import { ArrowRight } from "lucide-react"
 import { AnimatedBorders } from "@/components/ui/animated-borders"
 import { submitLead } from "@/lib/lead-ingest"
+import { trackNewsletterSignup } from "@/lib/analytics"
 
 export function VisionSection() {
     const sectionRef = useRef<HTMLDivElement>(null)
@@ -45,6 +46,8 @@ export function VisionSection() {
                 source: "website",
                 category: "newsletter",
             })
+
+            trackNewsletterSignup("vision_section")
 
             setIsSuccess(true)
             setEmail("")

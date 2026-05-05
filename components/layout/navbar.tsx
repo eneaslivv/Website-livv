@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
+import { trackCTAClick } from "@/lib/analytics"
 
 interface NavbarProps {
     isLoaded?: boolean
@@ -146,6 +147,7 @@ export function Navbar({ isLoaded = true }: NavbarProps) {
                     {/* CTA Button */}
                     <Link
                         href={getLink({ id: "contact" })}
+                        onClick={() => trackCTAClick("get_in_touch", "navbar")}
                         className={`hidden md:flex relative rounded-full pl-4 pr-0.5 py-0.5 items-center gap-2 transition-all duration-500 ease-out group ml-1 overflow-hidden shadow-md shrink-0 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-5"} ${isLightPage ? "bg-black text-white hover:bg-black/90 border border-black/40" : "bg-white text-[#1a1a1a] hover:bg-white/90 border border-white/40"
                             }`}
                         style={{ transitionDelay: "500ms", transitionDuration: "800ms" }}

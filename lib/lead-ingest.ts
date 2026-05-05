@@ -1,4 +1,5 @@
 import { getAttribution, type Attribution } from './click-attribution';
+import { trackEvent, trackLeadFormSubmit, trackGenerateLead } from './analytics';
 
 const LEAD_INGEST_URL = 'https://ngswutcpsgdgmmjnfddi.supabase.co/functions/v1/lead-ingest';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5nc3d1dGNwc2dkZ21tam5mZGRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc1NzY3NDUsImV4cCI6MjA4MzE1Mjc0NX0.fd_OLVMTOMqN1EF-Ca1EV0MeclzM24kY0rOFDihvzd8';
@@ -11,16 +12,6 @@ const LEAD_VALUE_BY_CATEGORY: Record<string, number> = {
     partner: 1000,
     lead: 400,
     newsletter: 50,
-};
-
-const GOOGLE_ADS_CONVERSION_ID = 'AW-18096615687';
-const GADS_LABEL_LEAD = process.env.NEXT_PUBLIC_GADS_LABEL_LEAD || 'fwDOCLb99KAcEIfikbVD';
-const GOOGLE_ADS_LABELS: Record<string, string | undefined> = {
-    contact: GADS_LABEL_LEAD,
-    quote: GADS_LABEL_LEAD,
-    partner: GADS_LABEL_LEAD,
-    lead: GADS_LABEL_LEAD,
-    newsletter: process.env.NEXT_PUBLIC_GADS_LABEL_NEWSLETTER,
 };
 
 interface LeadPayload {
@@ -85,7 +76,6 @@ function getLeadValue(category?: string): number {
 
 async function trackLeadConversion(payload: LeadPayload, attribution: Attribution, eventId: string) {
     if (typeof window === 'undefined') return;
-    const w = window as any;
 
     const normalizedEmail = payload.email.trim().toLowerCase();
     const normalizedPhone = normalizePhone(payload.phone);
@@ -99,11 +89,16 @@ async function trackLeadConversion(payload: LeadPayload, attribution: Attributio
     const effectiveGclid = attribution.gclid || attribution.first_gclid;
     const effectiveFbclid = attribution.fbclid || attribution.first_fbclid;
 
-    w.dataLayer = w.dataLayer || [];
-
-    w.dataLayer.push({
-        event: 'lead_form_submit',
-        event_id: eventId,
+    const sharedParams = {
+        form_name: payload.origin,
+        transaction_id: eventId,
+        value,
+        currency: LEAD_CURRENCY,
+        user_data: {
+            email: emailHash,
+            phone: phoneHash,
+        },
+        // Lead-specific context (consumed by GTM tags downstream)
         lead_origin: payload.origin,
         lead_category: category,
         lead_source: payload.source || 'website',
@@ -113,8 +108,7 @@ async function trackLeadConversion(payload: LeadPayload, attribution: Attributio
         lead_name: payload.name,
         lead_company: payload.company,
         lead_project_type: payload.project_type,
-        value,
-        currency: LEAD_CURRENCY,
+        // Attribution (gclid/fbclid/utm) so GTM can pass it through to Ads / Meta
         gclid: effectiveGclid,
         gbraid: attribution.gbraid,
         wbraid: attribution.wbraid,
@@ -133,31 +127,25 @@ async function trackLeadConversion(payload: LeadPayload, attribution: Attributio
         first_landing_page: attribution.first_landing_page,
         first_referrer: attribution.first_referrer,
         visit_count: attribution.visit_count,
-    });
+    };
 
-    w.dataLayer.push({
-        event: 'generate_lead',
-        event_id: eventId,
-        currency: LEAD_CURRENCY,
+    trackLeadFormSubmit(sharedParams);
+    trackGenerateLead({
+        form_name: payload.origin,
+        transaction_id: eventId,
         value,
+        currency: LEAD_CURRENCY,
         lead_category: category,
         lead_origin: payload.origin,
     });
 
-    const gadsLabel = GOOGLE_ADS_LABELS[category];
-    if (typeof w.gtag === 'function' && gadsLabel) {
-        w.gtag('set', 'user_data', {
-            email: normalizedEmail,
-            phone_number: normalizedPhone,
-        });
-        w.gtag('event', 'conversion', {
-            send_to: `${GOOGLE_ADS_CONVERSION_ID}/${gadsLabel}`,
-            value,
-            currency: LEAD_CURRENCY,
-            transaction_id: eventId,
-        });
-    }
+    // Google Ads conversion is fired by GTM, listening for the
+    // `lead_form_submit` / `generate_lead` events above. The hashed user_data
+    // for Enhanced Conversions is included in the lead_form_submit payload.
 
+    // TODO(tracking): unify Meta Pixel — currently 2 different IDs across routes
+    // (app/layout.tsx uses 1797006294606049, public/lp/tracking-init.js uses 1495620938814274).
+    const w = window as { fbq?: (...args: unknown[]) => void };
     if (typeof w.fbq === 'function') {
         w.fbq(
             'track',
@@ -214,13 +202,11 @@ export async function submitLead(payload: LeadPayload): Promise<void> {
     await trackLeadConversion(payload, attribution, eventId);
 }
 
-export function trackMicroConversion(name: string, params?: Record<string, any>) {
-    if (typeof window === 'undefined') return;
-    const w = window as any;
-    w.dataLayer = w.dataLayer || [];
-    w.dataLayer.push({
-        event: name,
-        event_id: generateEventId(),
-        ...params,
-    });
+/**
+ * Micro-conversion shim. Prefer importing `trackEvent` directly from
+ * `lib/analytics.ts`; this wrapper exists only so legacy callers keep
+ * compiling. It auto-stamps an `event_id` for dedup parity with lead events.
+ */
+export function trackMicroConversion(name: string, params?: Record<string, unknown>) {
+    trackEvent(name, { event_id: generateEventId(), ...params });
 }

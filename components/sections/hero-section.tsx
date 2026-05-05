@@ -5,6 +5,7 @@ import { CSSProperties, useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { Navbar } from "@/components/layout/navbar"
 import { GoodfirmsBadge } from "@/components/ui/goodfirms-badge"
+import { trackCTAClick } from "@/lib/analytics"
 
 const Shader = dynamic(() => import("shaders/react").then((mod) => mod.Shader), { ssr: false })
 const Swirl = dynamic(() => import("shaders/react").then((mod) => mod.Swirl), { ssr: false })
@@ -205,13 +206,21 @@ export function HeroSection() {
               className={`mt-10 flex flex-wrap justify-center gap-3 transition-all duration-800 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
               style={{ transitionDelay: "500ms" }}
             >
-              <a href="#work" className="group px-6 py-2.5 rounded-full bg-white text-[#1a1a1a] text-sm font-medium tracking-wide hover:bg-white/90 transition-all duration-300 flex items-center gap-2">
+              <a
+                href="#work"
+                onClick={() => trackCTAClick("see_the_work", "hero")}
+                className="group px-6 py-2.5 rounded-full bg-white text-[#1a1a1a] text-sm font-medium tracking-wide hover:bg-white/90 transition-all duration-300 flex items-center gap-2"
+              >
                 See the Work
                 <svg className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </a>
-              <a href="/contact" className="px-6 py-2.5 rounded-full bg-transparent text-white text-sm font-medium tracking-wide border border-white/30 hover:bg-white/10 hover:border-white/50 transition-all duration-300">
+              <a
+                href="/contact"
+                onClick={() => trackCTAClick("get_in_touch", "hero")}
+                className="px-6 py-2.5 rounded-full bg-transparent text-white text-sm font-medium tracking-wide border border-white/30 hover:bg-white/10 hover:border-white/50 transition-all duration-300"
+              >
                 Get in Touch
               </a>
             </div>

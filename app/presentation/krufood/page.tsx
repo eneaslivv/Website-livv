@@ -3,6 +3,7 @@
 import React, { useRef } from 'react';
 import Image from 'next/image';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { trackContactClick } from '@/lib/analytics';
 import { FlowerCanvas } from '@/components/ui/flower-canvas';
 
 // Mock Icon component since we don't have lucide-react integration verified in this file context,
@@ -806,7 +807,11 @@ export default function KrufoodPresentation() {
                         transition={{ delay: 0.4 }}
                         className="flex flex-col md:flex-row gap-4 justify-center items-center"
                     >
-                        <a href="mailto:hola@livv.systems" className="text-2xl md:text-3xl font-medium text-[#2c0405] hover:text-[#822b2e] transition-colors border-b-2 border-[#2c0405]/10 hover:border-[#822b2e] pb-1">
+                        <a
+                            href="mailto:hola@livv.systems"
+                            onClick={() => trackContactClick("email", "krufood_presentation")}
+                            className="text-2xl md:text-3xl font-medium text-[#2c0405] hover:text-[#822b2e] transition-colors border-b-2 border-[#2c0405]/10 hover:border-[#822b2e] pb-1"
+                        >
                             hola@livv.systems
                         </a>
                     </motion.div>

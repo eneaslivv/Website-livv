@@ -4,6 +4,7 @@ import { useRef, useEffect } from "react"
 import Image from "next/image"
 import { useScroll, useTransform, useSpring, motion } from "framer-motion"
 import { Instagram, Linkedin, Github, ArrowUpRight } from "lucide-react"
+import { trackContactClick } from "@/lib/analytics"
 import { AnimatedBorders } from "@/components/ui/animated-borders"
 import { GoodfirmsBadge } from "@/components/ui/goodfirms-badge"
 
@@ -77,6 +78,7 @@ export function FooterSection({ id }: { id?: string }) {
                             <div>
                                 <a
                                     href="mailto:hola@livv.systems"
+                                    onClick={() => trackContactClick("email", "footer")}
                                     className="group inline-flex items-center gap-2 text-2xl md:text-4xl font-light text-[#1a1a1a] hover:text-[#C4A35A] transition-colors duration-300"
                                 >
                                     hola@livv.systems

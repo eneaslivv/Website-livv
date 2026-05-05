@@ -4,7 +4,8 @@ import { useState, useEffect, useRef, useCallback } from "react"
 import Image from "next/image"
 import { X, ArrowRight, Send, ChevronLeft, Phone, Calendar, Sparkles, Check, MessageCircle } from "lucide-react"
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion"
-import { submitLead, trackMicroConversion } from "@/lib/lead-ingest"
+import { submitLead } from "@/lib/lead-ingest"
+import { trackChatOpen, trackContactClick } from "@/lib/analytics"
 
 /* ─────────────────────── GUIDED FLOW DATA ─────────────────────── */
 
@@ -283,7 +284,7 @@ export function ChatWidget() {
     const openPanel = useCallback(() => {
         setIsPanelOpen(true)
         setIsMinimized(true)
-        trackMicroConversion('chat_widget_open', {
+        trackChatOpen('livv_custom', {
             widget_location: typeof window !== 'undefined' ? window.location.pathname : undefined,
         })
     }, [])
@@ -801,6 +802,7 @@ export function ChatWidget() {
                                         <span className="w-px h-3 bg-white/[0.04]" />
                                         <a
                                             href="mailto:hola@livv.systems"
+                                            onClick={() => trackContactClick("email", "chat_widget")}
                                             className="text-[11px] text-white/15 hover:text-white/40 transition-colors duration-200"
                                         >
                                             hola@livv.systems
