@@ -94,18 +94,21 @@ async function trackLeadConversion(payload: LeadPayload, attribution: Attributio
         transaction_id: eventId,
         value,
         currency: LEAD_CURRENCY,
+        // Hashed user data for Google Ads Enhanced Conversions. ONLY hashes
+        // are exposed to the dataLayer; the plain email/name/phone live in
+        // the Supabase POST body (server-side) and never reach GTM.
         user_data: {
             email: emailHash,
             phone: phoneHash,
         },
-        // Lead-specific context (consumed by GTM tags downstream)
+        // Lead-specific context (consumed by GTM tags downstream).
+        // Intentionally NO `lead_email`, `lead_phone`, `lead_name` plain — the
+        // dataLayer is browser-visible; only hashed values live here.
         lead_origin: payload.origin,
         lead_category: category,
         lead_source: payload.source || 'website',
-        lead_email: normalizedEmail,
         lead_email_hash: emailHash,
         lead_phone_hash: phoneHash,
-        lead_name: payload.name,
         lead_company: payload.company,
         lead_project_type: payload.project_type,
         // Attribution (gclid/fbclid/utm) so GTM can pass it through to Ads / Meta

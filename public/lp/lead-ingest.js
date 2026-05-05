@@ -133,16 +133,24 @@
     // lib/lead-ingest.ts. Keep the event names and payload shape in sync.
     w.dataLayer = w.dataLayer || [];
 
+    // PII safety: NO `lead_email`, `lead_phone`, or `lead_name` plain in the
+    // dataLayer. Only hashes (`*_hash`) plus the canonical `user_data` object
+    // for Google Ads Enhanced Conversions. The plain values live in the
+    // Supabase POST body server-side.
     w.dataLayer.push({
       event: 'lead_form_submit',
       event_id: eventId,
+      transaction_id: eventId,
+      form_name: payload.origin,
+      user_data: {
+        email: emailHash,
+        phone: phoneHash,
+      },
       lead_origin: payload.origin,
       lead_category: category,
       lead_source: payload.source || 'landing-page',
-      lead_email: normalizedEmail,
       lead_email_hash: emailHash,
       lead_phone_hash: phoneHash,
-      lead_name: payload.name,
       lead_company: payload.company,
       lead_project_type: payload.project_type,
       value: value,
