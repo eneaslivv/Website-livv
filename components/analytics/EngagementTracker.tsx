@@ -3,16 +3,26 @@
 import { useEffect } from 'react'
 import { trackEvent } from '@/lib/analytics'
 
-const SCROLL_THRESHOLDS = [25, 50, 75, 90] as const
-const TIME_THRESHOLDS_MS = [15_000, 30_000, 60_000, 120_000] as const
+/**
+ * EngagementTracker — fires `scroll_depth` events as the user scrolls past
+ * each threshold. Once per page view per threshold.
+ *
+ * Why no `engagement_time` event here:
+ *   GA4 already records `engagement_time_msec` as a parameter on every hit,
+ *   so a custom event would be redundant noise in reports. If you ever need
+ *   an explicit "user has been active for N seconds" trigger (e.g. for an
+ *   audience), build it inside GTM with a Timer trigger instead of in code.
+ *
+ * Why no 90% threshold here:
+ *   GA4 Enhanced Measurement covers the 90% scroll automatically. Custom
+ *   thresholds focus on early/mid-funnel (25/50/75) so the GA4 default and
+ *   our custom events don't double-fire at 90%.
+ */
+const SCROLL_THRESHOLDS = [25, 50, 75] as const
 
 export function EngagementTracker() {
     useEffect(() => {
-        const firedScroll = new Set<number>()
-        const firedTime = new Set<number>()
-        let activeSeconds = 0
-        let isActive = true
-        let startedAt = Date.now()
+        const fired = new Set<number>()
 
         const computeScroll = () => {
             const doc = document.documentElement
@@ -25,8 +35,8 @@ export function EngagementTracker() {
         const onScroll = () => {
             const pct = computeScroll()
             for (const threshold of SCROLL_THRESHOLDS) {
-                if (pct >= threshold && !firedScroll.has(threshold)) {
-                    firedScroll.add(threshold)
+                if (pct >= threshold && !fired.has(threshold)) {
+                    fired.add(threshold)
                     trackEvent('scroll_depth', {
                         percent_scrolled: threshold,
                         page_path: window.location.pathname,
@@ -35,42 +45,11 @@ export function EngagementTracker() {
             }
         }
 
-        const onVisibility = () => {
-            isActive = document.visibilityState === 'visible'
-            if (isActive) startedAt = Date.now()
-        }
-
-        const tick = () => {
-            if (!isActive) return
-            activeSeconds += 1
-            const totalMs = activeSeconds * 1000
-            for (const threshold of TIME_THRESHOLDS_MS) {
-                if (totalMs >= threshold && !firedTime.has(threshold)) {
-                    firedTime.add(threshold)
-                    trackEvent('engagement_time', {
-                        engagement_seconds: Math.round(threshold / 1000),
-                        page_path: window.location.pathname,
-                    })
-                    // TODO(tracking): unify Meta Pixel — currently 2 different IDs across routes
-                    // (app/layout.tsx uses 1797006294606049, public/lp/tracking-init.js uses 1495620938814274).
-                    if (threshold === 30_000 && typeof (window as any).fbq === 'function') {
-                        ;(window as any).fbq('trackCustom', 'EngagedVisitor', {
-                            page_path: window.location.pathname,
-                        })
-                    }
-                }
-            }
-        }
-
         window.addEventListener('scroll', onScroll, { passive: true })
-        document.addEventListener('visibilitychange', onVisibility)
-        const interval = window.setInterval(tick, 1000)
         onScroll()
 
         return () => {
             window.removeEventListener('scroll', onScroll)
-            document.removeEventListener('visibilitychange', onVisibility)
-            window.clearInterval(interval)
         }
     }, [])
 

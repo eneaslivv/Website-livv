@@ -26,14 +26,14 @@
   var META_PIXEL_ID = '1495620938814274';
 
   /* ---- Consent Mode v2 defaults (must run before any tracking) ----
-     This file lives in /public and is loaded by static .html landings that
-     don't go through the Next.js layout, so it can't import the
-     lib/analytics.ts helper. The gtag() shim and the dataLayer.push usage
-     here are intentional duplicates of app/layout.tsx for that reason. */
+     Regional split: deny-by-default for EEA + UK + CH (regulated), grant-
+     by-default everywhere else. Same logic as app/layout.tsx. This file
+     can't import the TS helper because it loads from static /public LPs. */
   window.dataLayer = window.dataLayer || [];
   function gtag() { window.dataLayer.push(arguments); }
   window.gtag = window.gtag || gtag;
   gtag('consent', 'default', {
+    region: ['AT','BE','BG','CY','CZ','DE','DK','EE','ES','FI','FR','GR','HR','HU','IE','IT','LT','LU','LV','MT','NL','PL','PT','RO','SE','SI','SK','GB','CH','IS','LI','NO'],
     ad_storage: 'denied',
     ad_user_data: 'denied',
     ad_personalization: 'denied',
@@ -42,6 +42,15 @@
     functionality_storage: 'granted',
     security_storage: 'granted',
     wait_for_update: 2000,
+  });
+  gtag('consent', 'default', {
+    ad_storage: 'granted',
+    ad_user_data: 'granted',
+    ad_personalization: 'granted',
+    analytics_storage: 'granted',
+    personalization_storage: 'granted',
+    functionality_storage: 'granted',
+    security_storage: 'granted',
   });
   gtag('set', 'ads_data_redaction', true);
   gtag('set', 'url_passthrough', true);

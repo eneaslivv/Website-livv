@@ -123,9 +123,18 @@ export default function RootLayout({
         />
         {/*
           Consent Mode v2 default — must run BEFORE GTM so every downstream tag
-          inherits "denied" until the user accepts. The inline gtag() shim here
-          is the official Google pattern; it's separate from lib/analytics.ts
-          (which pushes event-shaped objects, not consent commands).
+          inherits the right state for the user's region.
+
+          Pattern: deny-by-default for EEA + UK + Switzerland (regulated juris-
+          dictions where explicit consent is legally required), grant-by-default
+          everywhere else. Without this split, GTM Container Quality reports a
+          "0% consent rate" because every visitor (including non-EU traffic
+          that doesn't legally need a banner) sits in 'denied' state, which
+          breaks ads remarketing audiences and zeroes attribution.
+
+          The inline gtag() shim is the official Google pattern; it's separate
+          from lib/analytics.ts (which pushes event-shaped objects, not consent
+          commands).
         */}
         <Script
           id="consent-default"
@@ -134,7 +143,10 @@ export default function RootLayout({
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
+              // Regulated regions (EEA + UK + CH + EFTA): deny everything
+              // marketing/analytics until the cookie banner updates consent.
               gtag('consent', 'default', {
+                region: ['AT','BE','BG','CY','CZ','DE','DK','EE','ES','FI','FR','GR','HR','HU','IE','IT','LT','LU','LV','MT','NL','PL','PT','RO','SE','SI','SK','GB','CH','IS','LI','NO'],
                 ad_storage: 'denied',
                 ad_user_data: 'denied',
                 ad_personalization: 'denied',
@@ -143,6 +155,18 @@ export default function RootLayout({
                 functionality_storage: 'granted',
                 security_storage: 'granted',
                 wait_for_update: 2000,
+              });
+              // Everywhere else: grant by default (LATAM, US, etc. — no
+              // legal requirement for prior consent). The cookie banner can
+              // still downgrade to 'denied' if the user opts out.
+              gtag('consent', 'default', {
+                ad_storage: 'granted',
+                ad_user_data: 'granted',
+                ad_personalization: 'granted',
+                analytics_storage: 'granted',
+                personalization_storage: 'granted',
+                functionality_storage: 'granted',
+                security_storage: 'granted',
               });
               gtag('set', 'ads_data_redaction', true);
               gtag('set', 'url_passthrough', true);

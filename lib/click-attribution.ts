@@ -105,7 +105,9 @@ export function captureClickAttribution(): Attribution {
 
     if (!stored.first_visit_at) {
         next.first_visit_at = now
-        next.first_landing_page = window.location.href
+        // Path + search only (no origin) — origin is always livvvv.com and
+        // strips cleanly in GA4 Explorations without an extra transformation.
+        next.first_landing_page = window.location.pathname + window.location.search
         next.first_referrer = document.referrer || undefined
         const firstGclid = params.get('gclid')
         const firstFbclid = params.get('fbclid')
@@ -134,7 +136,7 @@ export function captureClickAttribution(): Attribution {
             const val = params.get(key)
             if (val) next[key as UtmKey] = val
         }
-        next.last_landing_page = window.location.href
+        next.last_landing_page = window.location.pathname + window.location.search
         next.last_referrer = document.referrer || undefined
         next.last_visit_at = now
     }
