@@ -22,24 +22,39 @@ export function CookieBanner() {
         <div
             role="dialog"
             aria-label="Cookie consent"
-            // Mobile: stacked ABOVE the chat widget (which sits at bottom-right with ~120px height when expanded).
-            // Desktop: pinned to the bottom-LEFT corner, so it never collides with the chat in the bottom-right.
-            className="fixed bottom-[132px] left-3 right-3 max-w-[280px] sm:bottom-5 sm:left-5 sm:right-auto sm:max-w-[280px] z-[100] p-3 rounded-xl bg-black/95 backdrop-blur-xl border border-white/10 text-white shadow-2xl"
+            // Mobile: a slim card pinned to the bottom, full-width with margins.
+            // Desktop: pinned to the bottom-LEFT corner, max 280px so it never
+            // collides with the chat widget in the bottom-right.
+            className="fixed bottom-3 left-3 right-3 sm:bottom-5 sm:left-5 sm:right-auto sm:max-w-[280px] z-[100] p-3 sm:p-3 rounded-xl bg-black/95 backdrop-blur-xl border border-white/10 text-white shadow-2xl"
         >
-            <p className="text-[10px] uppercase tracking-widest text-white/40 mb-1">Cookies</p>
-            <p className="text-[11px] sm:text-xs text-white/75 leading-snug mb-2.5">
-                Usamos cookies para medir tráfico y mejorar el sitio.
-            </p>
+            <div className="flex items-start gap-3 sm:block">
+                <div className="flex-1 min-w-0">
+                    <p className="text-[9px] sm:text-[10px] uppercase tracking-widest text-white/40 mb-0.5 sm:mb-1">
+                        Cookies
+                    </p>
+                    <p className="text-[11px] sm:text-xs text-white/75 leading-snug sm:mb-2.5">
+                        Usamos cookies para medir tráfico y mejorar el sitio.
+                    </p>
+                </div>
+
+                <button
+                    onClick={() => setShowDetails(v => !v)}
+                    aria-label={showDetails ? 'Ocultar detalles' : 'Ver detalles'}
+                    className="sm:hidden text-white/35 hover:text-white/70 transition-colors text-base leading-none px-1 shrink-0"
+                >
+                    {showDetails ? '−' : '+'}
+                </button>
+            </div>
 
             {showDetails && (
-                <ul className="text-[10px] text-white/55 mb-2.5 space-y-1 border-l border-white/10 pl-2">
+                <ul className="text-[10px] text-white/55 mt-2 mb-2.5 space-y-1 border-l border-white/10 pl-2">
                     <li><span className="text-white/90">Esenciales</span> — siempre activas.</li>
                     <li><span className="text-white/90">Analítica</span> — Google Analytics anónimo.</li>
                     <li><span className="text-white/90">Marketing</span> — Ads y Meta Pixel.</li>
                 </ul>
             )}
 
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-1.5 mt-2 sm:mt-0">
                 <button
                     onClick={() => { acceptAll(); setVisible(false) }}
                     className="flex-1 py-1.5 px-3 bg-white text-black rounded-full text-[10px] uppercase tracking-wider font-medium hover:bg-[#C4A35A] transition-colors"
@@ -55,7 +70,7 @@ export function CookieBanner() {
                 <button
                     onClick={() => setShowDetails(v => !v)}
                     aria-label={showDetails ? 'Ocultar detalles' : 'Ver detalles'}
-                    className="text-white/35 hover:text-white/70 transition-colors text-base leading-none px-1"
+                    className="hidden sm:inline text-white/35 hover:text-white/70 transition-colors text-base leading-none px-1"
                 >
                     {showDetails ? '−' : '+'}
                 </button>
