@@ -174,13 +174,17 @@ export default function RootLayout({
           }}
         />
         {/*
-          GTM and Meta Pixel are SKIPPED on /embed/* routes.
-          /embed/quote is a transparent-background widget designed to be loaded
-          inside an iframe on third-party sites — loading our GTM container
-          there would record fake pageviews from host sites in our GA4
-          property and potentially conflict with the host's own tracking.
+          GTM and Meta Pixel are SKIPPED on:
+            1. /embed/* routes — transparent-background widgets meant to be
+               loaded inside iframes on third-party sites. Loading our GTM
+               there would record fake pageviews from host sites in our GA4
+               property.
+            2. The 404 page (app/not-found.tsx) — that page sets
+               window.__livv_no_track = true via an inline <script> during
+               HTML parsing, BEFORE these afterInteractive Scripts run, so
+               error pageviews never get measured.
           The dataLayer + consent defaults still initialize (harmless and
-          isolated to the iframe's JS context).
+          isolated even inside an iframe's JS context).
         */}
         <Script
           id="gtm"
@@ -188,6 +192,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               (function(w,d,s,l,i){
+                if (w.__livv_no_track) return;
                 if (w.location.pathname.indexOf('/embed/') === 0) return;
                 w[l]=w[l]||[];w[l].push({'gtm.start':
                 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -204,6 +209,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               (function(){
+                if (window.__livv_no_track) return;
                 if (window.location.pathname.indexOf('/embed/') === 0) return;
                 !function(f,b,e,v,n,t,s)
                 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
