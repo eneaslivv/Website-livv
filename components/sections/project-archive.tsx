@@ -13,16 +13,18 @@ const inter = Inter({ subsets: ["latin"] })
 import { usePortfolioItems } from "@/hooks/usePublicData"
 import { PortfolioItem } from "@/types/livv-os"
 import { trackPortfolioItemClick } from "@/lib/analytics"
+import { pickDisplayCover } from "@/lib/default-project-blocks"
 
 const isVideoUrl = (url: string) => /\.(mp4|webm|mov)(\?|$)/i.test(url)
 
-/** Derive the cover URL from media[] (if available) or fallback to image field */
+/**
+ * Listing thumbnail = same image the project detail page paints as hero.
+ * Delegates to the shared `pickDisplayCover` so the two never diverge,
+ * regardless of whether the author used the legacy `image` field or
+ * authored a custom `hero_image` content block.
+ */
 function getCoverUrl(item: PortfolioItem): string | null {
-    const cover = (item as any).media?.find((m: any) => m.is_cover)
-    if (cover?.url) return cover.url
-    if (item.image) return item.image
-    const firstMedia = (item as any).media?.[0]
-    return firstMedia?.url || null
+    return pickDisplayCover(item) ?? null
 }
 
 const FALLBACK_PROJECTS: PortfolioItem[] = [

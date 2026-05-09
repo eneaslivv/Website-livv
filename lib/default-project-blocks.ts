@@ -7,6 +7,28 @@ function pickCover(item: PortfolioItem): string | undefined {
     return item.media?.[0]?.url || item.thumbnail || undefined
 }
 
+/**
+ * Source of truth for the cover image shown to visitors.
+ *
+ * Priority:
+ *   1. The first `hero_image` block authored in content_blocks (if any) — this
+ *      is what BlockRenderer paints at the top of the project detail page, so
+ *      the listing thumbnail must match it.
+ *   2. Fall back to pickCover (media[is_cover] → item.image → media[0] → thumbnail).
+ *
+ * Use this instead of pickCover anywhere a visitor sees the cover (listing
+ * thumbnails, recommended cards, OG images, sitemaps) so the listing and the
+ * detail page never diverge.
+ */
+export function pickDisplayCover(item: PortfolioItem): string | undefined {
+    const heroBlock = (item.content_blocks || []).find(
+        (b): b is Extract<ContentBlock, { type: "hero_image" }> =>
+            b?.type === "hero_image" && Boolean((b as { image_url?: string }).image_url),
+    )
+    if (heroBlock?.image_url) return heroBlock.image_url
+    return pickCover(item)
+}
+
 function pickGalleryImages(item: PortfolioItem, excludeUrl?: string): string[] {
     const fromMedia = (item.media || []).map((m) => m.url)
     const fromGallery = item.gallery || []

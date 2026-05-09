@@ -8,16 +8,14 @@ import { RevealText } from "@/components/ui/reveal-text"
 import Image from "next/image"
 import { useFeaturedPortfolioItems } from "@/hooks/usePublicData"
 import { PortfolioItem } from "@/types/livv-os"
+import { pickDisplayCover } from "@/lib/default-project-blocks"
 
 const isVideoUrl = (url: string) => /\.(mp4|webm|mov)(\?|$)/i.test(url)
 
-/** Derive the cover URL from media[] (if available) or fallback to image field */
+/** Single source of truth for the visitor-facing cover image — keeps the
+ *  listing thumbnail aligned with the project detail page hero. */
 function getCoverUrl(item: PortfolioItem): string | null {
-    const cover = (item as any).media?.find((m: any) => m.is_cover)
-    if (cover?.url) return cover.url
-    if (item.image) return item.image
-    const firstMedia = (item as any).media?.[0]
-    return firstMedia?.url || null
+    return pickDisplayCover(item) ?? null
 }
 
 const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400", "500", "600"] })
