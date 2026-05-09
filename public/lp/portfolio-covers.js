@@ -39,7 +39,13 @@
   }
 
   async function fetchItems() {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/get_featured_portfolio_items`, {
+    // NOTE: we call the PUBLIC RPC (returns every published item) instead of
+    // the FEATURED one. Reason: the landings hardcode cards for projects that
+    // aren't necessarily flagged `featured = true` in the CMS (e.g.
+    // "SEO Blocks Generator", "Paper", "Internal Management Systems").
+    // Using the featured RPC meant those cards never got matched and the
+    // script silently no-op'd, leaving stale hardcoded images on /for-*.
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/get_public_portfolio_items`, {
       method: 'POST',
       headers: {
         apikey: SUPABASE_ANON,
