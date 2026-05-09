@@ -2,8 +2,10 @@
    LIVV · Landing portfolio covers
    Mirrors home behavior: fetches featured items from Supabase and
    replaces static placeholders with real covers (video or image).
-   Uses the same RPC (get_featured_portfolio_items) and cover logic
-   (getCoverUrl + isVideoUrl) as components/sections/portfolio-section.tsx.
+   Cover-resolution logic must stay in lockstep with
+   `pickDisplayCover` in lib/default-project-blocks.ts so listings
+   on /for-* landings, on /work, and on the project detail page
+   never diverge.
    ============================================================ */
 (function () {
   const SUPABASE_URL = 'https://ngswutcpsgdgmmjnfddi.supabase.co';
@@ -13,12 +15,23 @@
 
   const isVideoUrl = (url) => /\.(mp4|webm|mov)(\?|$)/i.test(url || '');
 
+  // Visitor-facing cover priority — keeps these landings in sync with
+  // /work and /projects/[slug]. If the author wrote a `hero_image` block
+  // in content_blocks, that wins (same image the project detail page
+  // paints as hero). Otherwise fall back to media[is_cover] → image →
+  // media[0] → thumbnail.
   function getCoverUrl(item) {
+    const blocks = (item && item.content_blocks) || [];
+    for (let i = 0; i < blocks.length; i++) {
+      const b = blocks[i];
+      if (b && b.type === 'hero_image' && b.image_url) return b.image_url;
+    }
     const cover = item.media && item.media.find((m) => m.is_cover);
     if (cover && cover.url) return cover.url;
     if (item.image) return item.image;
     const first = item.media && item.media[0];
-    return (first && first.url) || null;
+    if (first && first.url) return first.url;
+    return item.thumbnail || null;
   }
 
   function norm(str) {
