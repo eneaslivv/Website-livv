@@ -1,4 +1,20 @@
+import type { Metadata } from "next"
 import Link from "next/link"
+
+// Tell crawlers not to index 404 pages — they have no content of value and
+// indexing them dilutes the site's signal in search results.
+export const metadata: Metadata = {
+    title: "Page not found | Livv Studio",
+    robots: {
+        index: false,
+        follow: false,
+        nocache: true,
+        googleBot: {
+            index: false,
+            follow: false,
+        },
+    },
+}
 
 /**
  * Global 404 page.
