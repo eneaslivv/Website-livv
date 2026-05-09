@@ -1,6 +1,17 @@
 import { ContentBlock, PortfolioItem } from "@/types/livv-os"
 
 /**
+ * Single source of truth for "is this cover URL a video?". Imported by every
+ * surface that renders a project cover (listing cards, recommended carousels,
+ * project page hero) so a CMS row with a video set as its cover (mp4/webm/mov)
+ * renders consistently as a <video> element across the entire site.
+ */
+export function isVideoCoverUrl(url: string | undefined | null): boolean {
+    if (!url) return false
+    return /\.(mp4|webm|mov)(\?|$)/i.test(url)
+}
+
+/**
  * Some legacy CMS rows still reference Vercel preview URLs from before
  * livvvv.com became the canonical domain. Rewriting them to a relative path
  * keeps the image stable even if the preview deploy is rotated.

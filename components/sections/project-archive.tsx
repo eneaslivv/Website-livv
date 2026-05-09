@@ -13,9 +13,10 @@ const inter = Inter({ subsets: ["latin"] })
 import { usePortfolioItems } from "@/hooks/usePublicData"
 import { PortfolioItem } from "@/types/livv-os"
 import { trackPortfolioItemClick } from "@/lib/analytics"
-import { pickDisplayCover } from "@/lib/default-project-blocks"
+import { pickDisplayCover, isVideoCoverUrl } from "@/lib/default-project-blocks"
 
-const isVideoUrl = (url: string) => /\.(mp4|webm|mov)(\?|$)/i.test(url)
+// Shared with portfolio-section.tsx and recommended-projects.tsx via the helper.
+const isVideoUrl = (url: string) => isVideoCoverUrl(url)
 
 /**
  * Listing thumbnail = same image the project detail page paints as hero.

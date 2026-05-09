@@ -8,9 +8,10 @@ import { RevealText } from "@/components/ui/reveal-text"
 import Image from "next/image"
 import { useFeaturedPortfolioItems } from "@/hooks/usePublicData"
 import { PortfolioItem } from "@/types/livv-os"
-import { pickDisplayCover } from "@/lib/default-project-blocks"
+import { pickDisplayCover, isVideoCoverUrl } from "@/lib/default-project-blocks"
 
-const isVideoUrl = (url: string) => /\.(mp4|webm|mov)(\?|$)/i.test(url)
+// Shared with project-archive.tsx and recommended-projects.tsx via the helper.
+const isVideoUrl = (url: string) => isVideoCoverUrl(url)
 
 /** Single source of truth for the visitor-facing cover image — keeps the
  *  listing thumbnail aligned with the project detail page hero. */
