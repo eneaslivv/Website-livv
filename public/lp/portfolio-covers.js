@@ -15,6 +15,18 @@
 
   const isVideoUrl = (url) => /\.(mp4|webm|mov)(\?|$)/i.test(url || '');
 
+  // Some legacy CMS rows still reference Vercel preview URLs from before
+  // livvvv.com became the canonical domain. Rewriting them to a relative
+  // path keeps the image stable even if the preview deploy disappears,
+  // and lets the browser cache it under the canonical host.
+  function normalizeUrl(url) {
+    if (!url) return url;
+    return url.replace(
+      /^https?:\/\/heade-livv-page(?:-[a-z0-9-]+)?\.vercel\.app/i,
+      '',
+    );
+  }
+
   // Visitor-facing cover priority — keeps these landings in sync with
   // /work and /projects/[slug]. If the author wrote a `hero_image` block
   // in content_blocks, that wins (same image the project detail page
@@ -24,14 +36,14 @@
     const blocks = (item && item.content_blocks) || [];
     for (let i = 0; i < blocks.length; i++) {
       const b = blocks[i];
-      if (b && b.type === 'hero_image' && b.image_url) return b.image_url;
+      if (b && b.type === 'hero_image' && b.image_url) return normalizeUrl(b.image_url);
     }
     const cover = item.media && item.media.find((m) => m.is_cover);
-    if (cover && cover.url) return cover.url;
-    if (item.image) return item.image;
+    if (cover && cover.url) return normalizeUrl(cover.url);
+    if (item.image) return normalizeUrl(item.image);
     const first = item.media && item.media[0];
-    if (first && first.url) return first.url;
-    return item.thumbnail || null;
+    if (first && first.url) return normalizeUrl(first.url);
+    return normalizeUrl(item.thumbnail) || null;
   }
 
   function norm(str) {

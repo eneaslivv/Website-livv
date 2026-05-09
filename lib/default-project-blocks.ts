@@ -1,10 +1,23 @@
 import { ContentBlock, PortfolioItem } from "@/types/livv-os"
 
+/**
+ * Some legacy CMS rows still reference Vercel preview URLs from before
+ * livvvv.com became the canonical domain. Rewriting them to a relative path
+ * keeps the image stable even if the preview deploy is rotated.
+ */
+function normalizeCoverUrl(url: string | undefined | null): string | undefined {
+    if (!url) return undefined
+    return url.replace(
+        /^https?:\/\/heade-livv-page(?:-[a-z0-9-]+)?\.vercel\.app/i,
+        "",
+    )
+}
+
 function pickCover(item: PortfolioItem): string | undefined {
     const coverMedia = item.media?.find((m) => m.is_cover)
-    if (coverMedia?.url) return coverMedia.url
-    if (item.image) return item.image
-    return item.media?.[0]?.url || item.thumbnail || undefined
+    if (coverMedia?.url) return normalizeCoverUrl(coverMedia.url)
+    if (item.image) return normalizeCoverUrl(item.image)
+    return normalizeCoverUrl(item.media?.[0]?.url || item.thumbnail) || undefined
 }
 
 /**
@@ -25,7 +38,7 @@ export function pickDisplayCover(item: PortfolioItem): string | undefined {
         (b): b is Extract<ContentBlock, { type: "hero_image" }> =>
             b?.type === "hero_image" && Boolean((b as { image_url?: string }).image_url),
     )
-    if (heroBlock?.image_url) return heroBlock.image_url
+    if (heroBlock?.image_url) return normalizeCoverUrl(heroBlock.image_url)
     return pickCover(item)
 }
 
