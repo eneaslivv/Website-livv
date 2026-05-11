@@ -1,63 +1,13 @@
-import type { Metadata } from "next"
+import type { ReactNode } from "react"
 
-export const metadata: Metadata = {
-  title: "About Livv Studio | Boutique Design & Digital Product Studio",
-  description:
-    "Meet Livv — a boutique design studio obsessed with the intersection of flawless aesthetics and business logic. Senior team, global reach, scalable systems.",
-  alternates: {
-    canonical: "/about",
-  },
-  openGraph: {
-    title: "About Livv Studio | Boutique Design & Digital Product Studio",
-    description:
-      "Meet Livv — a boutique design studio obsessed with the intersection of flawless aesthetics and business logic.",
-    url: "https://livvvv.com/about",
-  },
-}
-
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: [
-    {
-      "@type": "Question",
-      name: "How much does a typical project cost?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Depends on scope. Landing pages from $2k, full Web Apps from $8k. We always work with fixed price or retainer. Total transparency before starting.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "How long do projects take?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Speed is key. Corporate sites in 3-4 weeks. MVP products in 6-8 weeks. We move fast because we eliminate bureaucracy.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "What tech stack do you use?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "We design in Figma. We develop sites in Webflow or Framer. For complex apps we use React/Next.js and Node.",
-      },
-    },
-  ],
-}
-
-export default function AboutLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
-      {children}
-    </>
-  )
+/**
+ * /about layout. Page-level metadata + JSON-LD (Person, BreadcrumbList)
+ * live in app/about/page.tsx so they evolve with the manifesto. Previous
+ * versions of this layout emitted a FAQPage schema, but the About is
+ * now a manifesto (LIVV editorial brief 6.1) with no FAQ on the page,
+ * so emitting that schema would be a misleading signal to LLM / search
+ * crawlers ("here is a FAQ on this URL" when there is not). Cleared.
+ */
+export default function AboutLayout({ children }: { children: ReactNode }) {
+  return <>{children}</>
 }
