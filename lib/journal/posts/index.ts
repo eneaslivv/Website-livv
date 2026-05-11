@@ -9,7 +9,7 @@
  *   03 Boken case study                              -> work
  *
  * Phase 3:
- *   04 Webflow vs Framer in 2026                     -> journal
+ *   04 Webflow vs Framer in 2026                     -> journal  [shipped]
  *   05 The White-Label Playbook                      -> journal
  *   06 Twin Oceans case study                        -> work
  *
@@ -21,5 +21,6 @@
  */
 
 import "./argentine-creative-engineering"
+import "./webflow-vs-framer-2026"
 
 export {}
