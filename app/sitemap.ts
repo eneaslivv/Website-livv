@@ -117,6 +117,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // ── Resources (free downloads, Phase 4 editorial brief content) ────
     const resourcesIndex: MetadataRoute.Sitemap = [
         { url: `${BASE_URL}/resources`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+        { url: `${BASE_URL}/resources/schema-aeo-library`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     ]
 
     return [

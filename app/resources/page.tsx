@@ -51,14 +51,27 @@ export default function ResourcesIndexPage() {
         </header>
 
         <section className="max-w-6xl mx-auto px-6 pb-24">
-          <div className="max-w-2xl border-t border-[#2A1818]/10 pt-12">
-            <p className="text-base text-[#2A1818]/70 leading-relaxed">
-              The first resource publishes in 2026: a JSON-LD and AEO snippet
-              library covering Organization, Person, Article, FAQPage,
-              BreadcrumbList, and CreativeWork schemas. Free, MIT-licensed,
-              with attribution requested.
-            </p>
-          </div>
+          <ul className="grid gap-12 md:gap-16 border-t border-[#2A1818]/10 pt-12 list-none pl-0">
+            <li className="border-b border-[#2A1818]/10 pb-12 last:border-b-0">
+              <a
+                href="/resources/schema-aeo-library"
+                className="block group"
+              >
+                <div className="text-[10px] uppercase tracking-widest text-[#C4A35A] mb-3 font-semibold">
+                  JSON-LD · MIT-licensed
+                </div>
+                <h2 className="text-2xl md:text-3xl font-semibold tracking-tight leading-tight mb-3 text-[#2A1818] group-hover:text-[#C4A35A] transition-colors">
+                  Schema + AEO Snippet Library
+                </h2>
+                <p className="text-base text-[#5A3E3E]/70 leading-relaxed max-w-2xl">
+                  Nine copy-paste-ready Schema.org JSON-LD templates for
+                  creative studios, agencies, and founders. The same ones we
+                  ship on LIVV. Organization, Person, Article, FAQPage,
+                  BreadcrumbList, CreativeWork, Service, SoftwareApplication.
+                </p>
+              </a>
+            </li>
+          </ul>
         </section>
       </div>
 
