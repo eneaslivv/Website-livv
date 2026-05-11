@@ -5,7 +5,7 @@
  * imports each piece module so the registry is populated on first access.
  *
  * Phase 2 (LIVV editorial brief section 9):
- *   02 The Argentine Creative Engineering Tradition  -> journal
+ *   02 The Argentine Creative Engineering Tradition  -> journal  [shipped]
  *   03 Boken case study                              -> work
  *
  * Phase 3:
@@ -19,5 +19,7 @@
  *
  * Add new pieces as `import "./<slug>"` statements below as they ship.
  */
+
+import "./argentine-creative-engineering"
 
 export {}
