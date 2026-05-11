@@ -60,7 +60,12 @@ export function Navbar({ isLoaded = true }: NavbarProps) {
         { id: "work", label: "Work", num: "03", link: "/work" },
         { id: "services", label: "Services", num: "04", hasDropdown: true },
         { id: "products", label: "Products", num: "05", link: "/products" },
-        { id: "blog", label: "Blog", num: "06", link: "/blog" },
+        // Journal sits above Blog because it is the primary editorial
+        // surface per LIVV editorial brief section 4.2. /blog stays in
+        // the nav as the SEO-cluster surface (155 posts), but Journal
+        // is what the studio brand points readers to.
+        { id: "journal", label: "Journal", num: "06", link: "/journal" },
+        { id: "blog", label: "Blog", num: "07", link: "/blog" },
     ]
 
     const serviceItems = [

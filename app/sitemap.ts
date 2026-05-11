@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next"
 import { getAllPosts, getAllCategories } from "@/lib/blog/utils"
+import { getAllPieces, getPieceUrl } from "@/lib/journal/utils"
+import { JOURNAL_VERTICALS } from "@/lib/journal/verticals"
 
 const BASE_URL = "https://livvvv.com"
 const SUPABASE_URL = "https://ngswutcpsgdgmmjnfddi.supabase.co"
@@ -114,6 +116,37 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.6,
     }))
 
+    // ── Journal (editorial surface — see lib/journal/*) ─────────────────
+    // Authority-tier content per LIVV editorial brief. Higher priorities than
+    // the SEO blog because these are the citation-driving pieces. Case-study
+    // pieces resolve via getPieceUrl() to /work/[slug], so they don't double
+    // up here with /projects/[slug] which lists the project CMS records.
+    const journalIndex: MetadataRoute.Sitemap = [
+        { url: `${BASE_URL}/journal`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
+    ]
+    const journalCategoryPages: MetadataRoute.Sitemap = JOURNAL_VERTICALS.map((v) => ({
+        url: `${BASE_URL}/journal/category/${v.slug}`,
+        lastModified: new Date(),
+        changeFrequency: "weekly" as const,
+        priority: 0.75,
+    }))
+    const journalPiecePages: MetadataRoute.Sitemap = getAllPieces()
+        // Filter out case-study pieces — they live under /work/[slug] and
+        // /projects/[slug] (Supabase CMS), already included via projectPages
+        // above. Listing them here would create duplicate URLs in the index.
+        .filter((piece) => piece.vertical !== "case-study")
+        .map((piece) => ({
+            url: `${BASE_URL}${getPieceUrl(piece)}`,
+            lastModified: new Date(piece.updatedAt),
+            changeFrequency: "monthly" as const,
+            priority: 0.8,
+        }))
+
+    // ── Resources (free downloads, Phase 4 content) ─────────────────────
+    const resourcesIndex: MetadataRoute.Sitemap = [
+        { url: `${BASE_URL}/resources`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    ]
+
     return [
         ...staticPages,
         ...landingPages,
@@ -123,5 +156,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         ...blogIndex,
         ...blogPostPages,
         ...blogCategoryPages,
+        ...journalIndex,
+        ...journalCategoryPages,
+        ...journalPiecePages,
+        ...resourcesIndex,
     ]
 }
