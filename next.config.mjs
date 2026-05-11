@@ -44,7 +44,7 @@ const nextConfig = {
       { source: '/journal/category/industry',                        destination: '/blog/category/creative-engineering',            permanent: true },
       { source: '/journal/category/case-study',                      destination: '/work',                                          permanent: true },
       { source: '/journal/argentine-creative-engineering-tradition', destination: '/blog/argentine-creative-engineering-tradition', permanent: true },
-      { source: '/journal/webflow-vs-framer-2026',                   destination: '/blog/webflow-vs-framer-2026',                   permanent: true },
+      { source: '/journal/webflow-vs-framer-2026',                   destination: '/blog/webflow-vs-framer-in-2026',                permanent: true },
       // Catch-all for any other /journal/<slug> URLs. Sends them to
       // /blog index so the reader still lands somewhere useful.
       { source: '/journal/:slug*',                                   destination: '/blog',                                          permanent: true },

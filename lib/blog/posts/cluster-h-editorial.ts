@@ -342,7 +342,7 @@ export const clusterHEditorial: BlogPost[] = [
     ],
     internalLinks: [],
     cta,
-    relatedPostSlugs: ["webflow-vs-framer-2026"],
+    relatedPostSlugs: ["webflow-vs-framer-in-2026"],
     createdAt: "2026-05-11T09:00:00.000Z",
     updatedAt: "2026-05-11T09:00:00.000Z",
   },
@@ -352,7 +352,7 @@ export const clusterHEditorial: BlogPost[] = [
    * ──────────────────────────────────────────────────────────── */
   {
     id: "h-002",
-    slug: "webflow-vs-framer-2026",
+    slug: "webflow-vs-framer-in-2026",
     title: "Webflow vs Framer in 2026: A Practitioner's View",
     excerpt:
       "Both tools are excellent. They are not interchangeable. The honest comparison is about defaults and second-order trade-offs, and most writing online avoids both.",
