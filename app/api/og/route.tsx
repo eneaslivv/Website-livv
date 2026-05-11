@@ -170,7 +170,7 @@ export async function GET(request: NextRequest) {
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
               <span style={{ color: "#ffffff", fontSize: "18px", fontWeight: 600 }}>
-                Livv Studio
+                LIVV Creative Studio
               </span>
               <span style={{ color: "#ffffff70", fontSize: "13px" }}>
                 livvvv.com

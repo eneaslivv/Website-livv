@@ -45,6 +45,15 @@ export async function generateMetadata({
   const piece = getPieceBySlug(slug)
   if (!piece) return { title: "Not found" }
 
+  // Fallback to the dynamic OG generator when the piece does not ship its
+  // own ogImage. Determined by query string alone so it caches well at the
+  // CDN — every reader of a given piece sees the same OG without us
+  // pre-rendering one. Top-tier pieces still override by setting
+  // piece.ogImage to a hand-designed asset.
+  const ogImageUrl = piece.ogImage
+    ? piece.ogImage
+    : `${SITE_URL}/api/og/journal?title=${encodeURIComponent(piece.title)}&vertical=${piece.vertical}&date=${piece.publishedAt}&readTime=${piece.readingTimeMinutes}`
+
   return {
     title: piece.seoTitle || piece.title,
     description: piece.seoDescription || piece.dek,
@@ -58,15 +67,13 @@ export async function generateMetadata({
       publishedTime: piece.publishedAt,
       modifiedTime: piece.updatedAt,
       authors: [piece.author.name],
-      images: piece.ogImage
-        ? [{ url: piece.ogImage, width: 1200, height: 630 }]
-        : undefined,
+      images: [{ url: ogImageUrl, width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
       title: piece.title,
       description: piece.dek,
-      images: piece.ogImage ? [piece.ogImage] : undefined,
+      images: [ogImageUrl],
     },
   }
 }
