@@ -32,6 +32,39 @@ function pickCover(item: PortfolioItem): string | undefined {
 }
 
 /**
+ * Static-image fallback for use as a video poster, or as the cover itself
+ * when the resolved cover would be a video and the consuming surface wants
+ * a still image (e.g., listing cards on mobile where autoplay is blocked
+ * by iOS Low Power Mode, Data Saver, or simply not yet user-gestured).
+ *
+ * Priority:
+ *   1. `item.thumbnail` if it is a static image (not a video URL).
+ *   2. The first non-video URL in `item.media[]`.
+ *   3. `item.image` if it itself is a static image.
+ *   4. Site OG default (`/assets/og-image.png`) — ships in /public, always
+ *      resolvable, branded.
+ *
+ * This guarantees every visible card has SOMETHING to show instead of a
+ * blank white box while a video element fails to autoplay or while a
+ * cover URL fails to load.
+ */
+export function pickPosterCover(item: PortfolioItem): string {
+    const thumb = normalizeCoverUrl(item.thumbnail)
+    if (thumb && !isVideoCoverUrl(thumb)) return thumb
+
+    const firstStatic = item.media?.find(
+        (m) => m.url && !isVideoCoverUrl(m.url),
+    )?.url
+    const firstStaticNormalized = normalizeCoverUrl(firstStatic)
+    if (firstStaticNormalized) return firstStaticNormalized
+
+    const image = normalizeCoverUrl(item.image)
+    if (image && !isVideoCoverUrl(image)) return image
+
+    return "/assets/og-image.png"
+}
+
+/**
  * Source of truth for the cover image shown to visitors.
  *
  * Priority:

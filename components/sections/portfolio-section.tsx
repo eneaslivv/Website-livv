@@ -8,7 +8,11 @@ import { RevealText } from "@/components/ui/reveal-text"
 import Image from "next/image"
 import { useFeaturedPortfolioItems } from "@/hooks/usePublicData"
 import { PortfolioItem } from "@/types/livv-os"
-import { pickDisplayCover, isVideoCoverUrl } from "@/lib/default-project-blocks"
+import {
+    pickDisplayCover,
+    pickPosterCover,
+    isVideoCoverUrl,
+} from "@/lib/default-project-blocks"
 
 // Shared with project-archive.tsx and recommended-projects.tsx via the helper.
 const isVideoUrl = (url: string) => isVideoCoverUrl(url)
@@ -110,22 +114,70 @@ function PortfolioGrid() {
                         onClick={() => handleCardClick(`/projects/${item.slug}`)}
                         onMouseEnter={(e) => { const v = e.currentTarget.querySelector('video'); v?.play().catch(() => {}) }}
                         onMouseLeave={(e) => { const v = e.currentTarget.querySelector('video'); if (v) { v.pause(); v.currentTime = 0 } }}
-                        className="group/card relative w-full aspect-[3/2] rounded-[10px] overflow-hidden cursor-pointer border border-[#1a1a1a]/10 hover:border-[#F2D696]/50 transition-all duration-500"
+                        className="group/card relative w-full aspect-[3/2] rounded-[10px] overflow-hidden cursor-pointer bg-[#1a1a1a] border border-[#1a1a1a]/10 hover:border-[#F2D696]/50 transition-all duration-500"
                     >
-                        {/* Cover Media */}
+                        {/* Cover Media
+                         *
+                         * Mobile reality: iOS Low Power Mode, Data Saver, and
+                         * the default no-user-gesture autoplay block all stop
+                         * <video autoplay> from rendering. The card has a dark
+                         * background (bg-[#1a1a1a]) so any failure mode reads
+                         * as intentional brand surface instead of a blank
+                         * white rectangle. The poster is sourced via
+                         * pickPosterCover — it returns the first non-video
+                         * media URL or the studio's OG default, so the still
+                         * frame is always defined even when the cover itself
+                         * is a video.
+                         *
+                         * On listing cards (this surface and recommended-
+                         * projects.tsx) we render the static poster Image
+                         * UNDER the video on mobile (768px and below) so it
+                         * shows immediately, and let the video play on top
+                         * once it's ready and the user has hovered (desktop)
+                         * or scrolled into view (mobile, if autoplay grants).
+                         */}
                         {(() => {
-                            const coverUrl = getCoverUrl(item) || '/images/placeholder.jpg'
+                            const coverUrl = getCoverUrl(item)
+                            const posterUrl = pickPosterCover(item)
+
+                            if (!coverUrl) {
+                                return (
+                                    <Image
+                                        src={posterUrl}
+                                        alt={item.title}
+                                        fill
+                                        sizes="(max-width: 768px) 100vw, 50vw"
+                                        className="object-cover transition-transform duration-1000 group-hover/card:scale-110"
+                                    />
+                                )
+                            }
                             if (isVideoUrl(coverUrl)) {
                                 return (
-                                    <video
-                                        src={coverUrl}
-                                        muted
-                                        loop
-                                        playsInline
-                                        preload="auto"
-                                        poster={item.thumbnail || undefined}
-                                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover/card:scale-110"
-                                    />
+                                    <>
+                                        {/* Static poster layer — always
+                                         *   visible underneath the video, so
+                                         *   if the video element fails to
+                                         *   autoplay (mobile data saver, low
+                                         *   power mode) the user still sees a
+                                         *   real cover. */}
+                                        <Image
+                                            src={posterUrl}
+                                            alt={item.title}
+                                            fill
+                                            sizes="(max-width: 768px) 100vw, 50vw"
+                                            className="object-cover transition-transform duration-1000 group-hover/card:scale-110"
+                                            priority={false}
+                                        />
+                                        <video
+                                            src={coverUrl}
+                                            muted
+                                            loop
+                                            playsInline
+                                            preload="metadata"
+                                            poster={posterUrl}
+                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover/card:scale-110"
+                                        />
+                                    </>
                                 )
                             }
                             return (
