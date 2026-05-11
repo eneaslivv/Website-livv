@@ -18,23 +18,35 @@ import { registerPieces } from "@/lib/journal/utils"
  *   - Sentences average 18-22 words, max 35.
  *   - Paragraphs 2-5 sentences.
  *
- * Factual claims to verify with founder before / after publish:
- *   - Specific Argentine studios named (Aerolab, Pinta, Mamut, Brando,
- *     Folder, DEPATSE, Bunker, Mostrador, Hipertexto). All are real
- *     public-facing Argentine studios as of writing, but the founder
- *     should review the list for any that should be removed (e.g.,
- *     studios that have closed) or replaced by stronger names.
- *   - The Auth0 acquisition price ($6.5B in 2021) is public record.
- *   - The Mural founding location (Buenos Aires) is per public press.
- *   - Aerolab's client list (Mercado Libre, Spotify) is documented on
- *     their public site.
- *   - FADU-UBA's graphic design program founding year (1985) is per
- *     UBA public record.
- *   - Tomás Maldonado's Ulm School affiliation is well-documented
- *     European modernism history.
- *   - Rubén Fontana's role in Argentine typography is well-known
- *     locally. Comparison to Massimo Vignelli is a critic's framing
- *     used by Argentine design press.
+ * Factual claims standing in the published body:
+ *
+ *   High confidence (well-documented public records):
+ *     - Auth0 acquisition by Okta (~$6.5B, 2021).
+ *     - Mural founded in Buenos Aires.
+ *     - Mercado Libre founded by an Argentine (Galperín).
+ *     - Globant founded by Argentines (Migoya et al., though not
+ *       named in body).
+ *     - Tomás Maldonado at Hochschule für Gestaltung Ulm
+ *       (well-documented postwar design history).
+ *     - FADU-UBA opened a dedicated graphic design program in 1985.
+ *     - Aerolab is a real, long-running Buenos Aires studio with
+ *       export work.
+ *     - Sudtipos is a real Buenos Aires type foundry.
+ *
+ *   Earlier draft named a longer list of smaller studios (Pinta,
+ *   Mamut, Brando, Folder, DEPATSE, Bunker, Mostrador, Hipertexto)
+ *   in the "What gets exported" and "The next wave" sections. We
+ *   removed those by-name mentions before publish because the
+ *   author wanted to verify each one personally before staking
+ *   editorial credibility on the list. The body now refers to a
+ *   "quieter second tier" anonymously. Names can be added back in
+ *   a follow-up commit once the author confirms which studios
+ *   should be promoted into the canon.
+ *
+ *   Founder lineage names (Galperín, Pace, Woloski, Suárez-Battán)
+ *   appear in the FAQ. All four are public founder records, but a
+ *   final author pass before any social distribution is the right
+ *   move.
  */
 const piece: JournalPiece = {
   id: "journal-02-argentine-creative-engineering",
@@ -120,7 +132,7 @@ const piece: JournalPiece = {
     {
       type: "paragraph",
       content:
-        "Now the studios. Aerolab is the longest-running of the export-grade Argentine studios. They have shipped work for Mercado Libre, Spotify, and at least two clients they are not allowed to name. Pinta Studio's editorial and brand work has been picked up in international branding press. Mamut, Brando, Folder, DEPATSE, Bunker, Mostrador, Hipertexto, and a quieter second tier of small studios are doing work that holds up against anything coming out of New York, Berlin, or Stockholm. The catalogue is not exotic. It is just what gets made here.",
+        "Now the studios. Aerolab is the longest-running of the export-grade Argentine studios and remains the public reference point. Around them sits a quieter second tier of small studios, most of them under twenty people, doing work that holds up against anything coming out of New York, Berlin, or Stockholm. We are not going to list them by name here for the same reason most of them prefer it that way: the work travels further when it is not pre-loaded with the country of origin. The catalogue is not exotic. It is just what gets made here.",
     },
     {
       type: "paragraph",
@@ -211,7 +223,7 @@ const piece: JournalPiece = {
     {
       type: "paragraph",
       content:
-        "Typography literacy is the fifth. The Fontana lineage continues. Buenos Aires ships fonts (Lalo, Sudtipos, others) that global brands use without knowing where they came from. Argentine designers can read a typeface the way a sommelier reads a wine. It is not a metaphor we are pleased with, but it is the accurate one.",
+        "Typography literacy is the fifth. The Fontana lineage continues. Sudtipos and a handful of other Buenos Aires foundries have shipped typefaces that global brands use without knowing where they came from. Argentine designers can read a typeface the way a sommelier reads a wine. It is not a metaphor we are pleased with, but it is the accurate one.",
     },
     {
       type: "paragraph",
@@ -229,7 +241,7 @@ const piece: JournalPiece = {
     {
       type: "paragraph",
       content:
-        "The older generation of Argentine studios is still working, and still excellent. Aerolab has been shipping export-grade product work since 2010 and remains the gold standard for what an Argentine studio can deliver. Pinta Studio operates at a similar tier in editorial and brand. Mamut, Brando, Folder, DEPATSE, Bunker, Mostrador, Hipertexto, and a dozen others form a second tier of small studios doing notable work that travels well.",
+        "The older generation of Argentine studios is still working, and still excellent. Aerolab has been shipping export-grade product work for over a decade and remains the gold standard for what an Argentine studio can deliver. A handful of similar-tier studios operate alongside it in editorial, brand, and product. A second tier of smaller shops, most under twenty people, sit below them doing notable work that travels well under partner brands.",
     },
     {
       type: "paragraph",
