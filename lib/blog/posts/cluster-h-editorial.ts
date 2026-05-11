@@ -54,6 +54,14 @@ const platformComparisonsCategory = {
   clusterId: "B",
 }
 
+const hiringAgenciesCategory = {
+  slug: "hiring-agencies",
+  name: "Hiring & Agencies",
+  description:
+    "Guides for hiring web developers, agencies, and freelancers — including pricing, red flags, and what to expect.",
+  clusterId: "D",
+}
+
 export const clusterHEditorial: BlogPost[] = [
   /* ────────────────────────────────────────────────────────────
    *   Piece 02 — The Argentine Creative Engineering Tradition
@@ -764,5 +772,374 @@ export const clusterHEditorial: BlogPost[] = [
     relatedPostSlugs: ["argentine-creative-engineering-tradition"],
     createdAt: "2026-05-11T10:00:00.000Z",
     updatedAt: "2026-05-11T10:00:00.000Z",
+  },
+
+  /* ────────────────────────────────────────────────────────────
+   *   Piece 05 — The White-Label Playbook
+   * ──────────────────────────────────────────────────────────── */
+  {
+    id: "h-003",
+    slug: "white-label-playbook",
+    title: "The White-Label Playbook",
+    excerpt:
+      "The white-label model is misunderstood by everyone except the studios that do it well and the agencies that buy it from them. This is the explanation neither side has had a reason to write down.",
+    content: "",
+    contentBlocks: [
+      {
+        type: "heading",
+        level: 2,
+        id: "key-takeaways",
+        content: "Key takeaways",
+      },
+      {
+        type: "list",
+        ordered: true,
+        items: [
+          "White-label is not freelance, not outsourcing, and not labor arbitrage. It is a structural arrangement where one studio ships work under another agency's brand, with the client never knowing.",
+          "The commodity tier (Flowout, Minute Creative, Always Fresh) has trained the market to think of white-label as cheap, async, section-priced subscription work. That is one version of the model, not the model itself.",
+          "Good white-label has six recognizable characteristics: senior-only delivery, embedded process, clear ownership lines, transparent pricing on the studio side, brand discipline, and a long enough engagement to build judgement.",
+          "From the agency's side, white-label converts variable internal cost into a fixed, predictable line. From the studio's side, it converts high-acquisition-cost direct work into recurring revenue with a known partner.",
+          "When white-label fails, it almost always fails in the same place: the relationship was built on price, not on partnership. The pricing models that survive are the ones designed around shared interest, not around per-section minimums.",
+        ],
+      },
+      {
+        type: "paragraph",
+        content:
+          "The white-label model is misunderstood by everyone except the studios that do it well and the agencies that buy it from them. The misunderstanding is structural. The model is invisible by definition, the people doing it have no incentive to write about it, and most public writing on the topic comes from the commodity tier (which is the smallest and least interesting version of what white-label can be).",
+      },
+      {
+        type: "paragraph",
+        content:
+          "This essay is the version that nobody on either side had a reason to write. We do white-label work as a meaningful share of our practice. We have built and lost engagements. We have priced badly and corrected. We have figured out what good looks like by failing at the early versions.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "If you are an agency owner considering bringing a white-label partner in, this is the document that explains what good looks like. If you are a studio considering offering white-label work, this is the document that explains where the model breaks and how to design engagements that hold up.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "what-white-label-actually-is",
+        content: "What white-label actually is",
+      },
+      {
+        type: "paragraph",
+        content:
+          "White-label is a structural arrangement. A studio (the white-label partner) ships design and development work under another agency's brand. The end client (the buyer of the agency's services) does not know the white-label partner exists. The agency presents the work, owns the relationship, and bills the client. The white-label partner does the work and bills the agency.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "This is not freelance. A freelancer typically has their own brand visible, their own client list, and a transactional relationship with each engagement. White-label studios deliberately suppress their own brand on the work they ship through partner channels. The names of the agencies they work with are usually under NDA, and the names of the clients are sometimes never disclosed even to the studio's internal team.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "It is also not outsourcing in the conventional sense. Outsourcing implies a vendor relationship with a clear handoff, a defined scope, and a generic delivery model. White-label studios behave more like an extended internal team. They sit in the agency's Slack. They join the agency's standups. They use the agency's project management tools. The boundary between the agency staff and the white-label staff is opaque to the client and intentionally porous internally.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "And it is not labor arbitrage, though the commodity tier of the market has trained people to think of it that way. Labor arbitrage is a pricing strategy where the buyer extracts margin by sourcing the cheapest competent labor available. The serious white-label tier prices on craft, not on labor cost, and partners with the same set of agencies for years.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "why-most-white-label-is-bad",
+        content: "Why most white-label is bad",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The visible version of white-label, the one most people encounter when they search for it, is the commodity tier. Subscription-priced. Section-priced. Async. Built on Webflow templates with light customization. Sold to agencies as a fast way to ship a client landing page without internal staff.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Flowout, Minute Creative, and Always Fresh are the recognizable names in this tier. They are competent companies with real customers and real engineering behind them. They are not what we mean when we talk about white-label as a serious model, because the structural design of those engagements is built for volume and not for partnership.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The commodity tier's model is: an agency owner buys a monthly subscription. They send in design briefs through a form. A pool of designers and developers picks up tasks. The work ships in two-week turnarounds. The agency owner presents the output to their client under their own brand. Price per agency: roughly two to six thousand dollars per month, depending on volume. Price per finished landing page from this model: roughly one to three thousand dollars in pure delivery cost.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "This model works for a narrow slice of use cases. Agencies that need to ship a high volume of relatively simple marketing pages, with limited craft expectations, on a predictable monthly budget, find real value here. The output is usually fine. It is rarely memorable.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The reason the commodity tier dominates the public conversation about white-label is the same reason commodity Webflow shops dominate the Webflow Twitter discourse. They have the marketing budget, the SEO surface, and the easy pricing page. The serious tier, by contrast, has no Twitter presence, charges by engagement instead of by section, and sells through referrals to a small set of partner agencies. The serious tier exists. It just does not advertise.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "what-good-white-label-looks-like",
+        content: "What good white-label looks like",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Good white-label has six recognizable characteristics. Where these are present, the engagement tends to last years and produce work the agency can show off internally. Where they are absent, the engagement tends to break inside the first three projects.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Senior-only delivery is the first. The work is done by people who can sit in a call with a senior agency strategist or a creative director and hold their own. They have shipped comparable work before. They can push back on a brief. They can suggest design directions the agency had not considered. They are not graduate freelancers picking up tasks from a queue.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Embedded process is the second. The white-label studio operates inside the agency's process, not parallel to it. They use the agency's Slack channels. They attend the agency's standups. They surface blockers in the agency's project management tool. The structural goal is for the client to never feel the seam between the agency and the studio.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Clear ownership lines are the third. Even though the brand is invisible, the decisions are not. Both sides know who owns design direction, who owns engineering quality, who owns the client relationship, who can say no to a scope expansion. The lines are written down. When they are not, the engagement breaks at the first ambiguous decision.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Transparent pricing on the studio side is the fourth. The studio shares full cost breakdowns with the agency, including the gross margin they are targeting. The agency knows what they are buying and what is left over for their own margin. This sounds counterintuitive (why would the studio reveal its margin?), but the alternative is a relationship of suspicion, and suspicion does not survive a hard project.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Brand discipline is the fifth. The studio does not advertise the agency partnerships. The studio does not post the work in its own portfolio without explicit permission. The studio does not approach the agency's clients directly for years after the engagement ends. These are written into the contract. They are not optional. The agencies that work with serious white-label partners do so because they trust the discipline.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A long enough engagement to build judgement is the sixth. Single-project white-label work is not the model. The judgement that makes the model valuable is built over multiple projects with the same agency, where the studio learns the agency's design language, its decision patterns, its client mix. The first three projects are an investment. The model pays off in projects four through forty.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "agency-economics",
+        content: "The economics from the agency's side",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Agencies buy white-label for one structural reason and several tactical ones. The structural reason: hiring senior designers and engineers full-time has a fixed-cost profile that does not match the variable revenue profile of agency work. An agency that hires a senior product designer at one hundred and eighty thousand dollars a year, fully loaded, is paying that designer whether the agency landed three big briefs this quarter or zero. White-label converts that fixed cost into a variable cost. When the agency wins a brief, they pay the studio. When they do not, they do not.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The tactical reasons are subordinate but real. White-label studios fill capability gaps the agency cannot afford to staff internally (a senior Webflow developer, a motion designer, a React Native engineer). White-label studios absorb peak overload during quarter-end ship cycles. White-label studios provide a fresh design eye on briefs the internal team has been staring at too long.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The economics work for the agency when the studio's hourly cost is below the agency's blended rate on that project type, AND the studio's quality is at or above what the agency could deliver internally. Most agency owners assume only the first condition needs to hold. The serious white-label market exists because the second condition usually does too.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A representative example. An agency bills a client one hundred and twenty thousand dollars for a marketing site engagement. Internal cost to deliver the same work in-house: roughly eighty thousand dollars (senior designer time, engineer time, project management). External cost to deliver through a senior white-label partner: roughly fifty thousand dollars. The agency's margin per project goes from forty thousand dollars to seventy thousand dollars, and the studio still makes its own healthy margin on the fifty.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "studio-economics",
+        content: "The economics from the studio's side",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Studios do white-label for the opposite reason. Direct client work has a high acquisition cost (the time spent on sales calls, proposals, RFPs, scope negotiation) and a high variance in project quality (some direct clients are excellent, some are nightmares). A partner agency pipeline removes most of that variance.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A studio that signs a serious partner agency typically gets between one and four projects per quarter from that agency, indefinitely. The studio does not have to acquire those projects. They land. The agency has done the qualification, the sales, and the contracting. The studio shows up to a kickoff that already has a brief, a budget, and a timeline.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The cost of partner work is the discount on the studio's rate. A studio that bills direct clients at two hundred dollars per hour will typically bill partner agencies at one hundred and twenty to one hundred and fifty dollars per hour. The discount is the price of predictable revenue. For the serious tier, it is worth it.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "When white-label becomes a trap for studios, it is because the partner mix becomes too concentrated. A studio with one partner agency providing seventy percent of revenue has effectively become an internal team of that agency without the equity. The serious version of the model has three to six partner agencies in rotation, with no single partner exceeding thirty percent of revenue. Below that concentration, white-label is a moat. Above it, white-label is a captive subcontractor relationship.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "when-white-label-fails",
+        content: "When white-label fails",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Almost every failed white-label engagement we have seen, ours and others, broke in one of three places.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Failure mode one: the relationship was priced like commodity work but expected to deliver like partner work. The agency negotiated the studio's rate down to commodity-tier numbers and then expected senior craft, embedded process, and project ownership. The studio quietly downgraded the work to match the price, and the agency was upset when the output did not match their internal benchmarks. This failure is the most common and the easiest to avoid: pay for what you want.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Failure mode two: the ownership lines were not written down at the start. Six weeks into a project, the agency creative director made a design decision the studio's senior designer disagreed with. Neither side knew who had final call. The conflict escalated to the agency owner, who took the agency's side by default because the studio was an outside vendor. The studio shipped the version they did not believe in. The engagement died two projects later.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Failure mode three: the engagement was too short to build judgement. The agency hired the studio for one project, the project went fine, the agency assumed the next project would also go fine, and never invested in building the shared language that makes long engagements work. The second project hit a complex decision that needed shared context, the studio did not have that context yet, and the agency concluded the studio was not as good as they thought. They were. The engagement was just structured to fail.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "pricing-models",
+        content: "Pricing models that work",
+      },
+      {
+        type: "paragraph",
+        content:
+          "There are four pricing models white-label engagements use. Two of them survive long-term partnerships. Two of them do not.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Pure hourly works only for very early relationships, where neither side knows the other's pace yet. The agency pays the studio's hourly rate, the studio tracks time, the agency pays monthly. This is honest but creates a constant negotiation about hours, which erodes the partnership over time.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Per-project fixed-fee is the most common model and works well for engagements that are clearly bounded. The studio quotes a fixed fee for a defined scope. The agency pays that fee on a milestone schedule. Both sides know what they are paying for. Typical fixed-fee ranges in 2026: marketing site from twenty thousand to seventy-five thousand dollars depending on scope, product MVP from sixty thousand to two hundred thousand dollars, full design system from forty thousand to one hundred twenty thousand dollars. These are the partner rates, roughly a thirty to forty percent discount on direct-client rates.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Monthly retainer is the model that produces the strongest partnerships and pays the studio the best risk-adjusted return. The agency pays the studio a fixed monthly amount for a guaranteed allocation of senior time (e.g., one senior designer plus one senior engineer for forty hours per week each). The studio commits the team. The agency uses the time across whatever projects they have running. Typical retainer ranges: fifteen thousand to thirty thousand dollars per month for a one-person allocation, thirty thousand to sixty thousand dollars for a two-person allocation. This is the model the longest-running partner relationships use.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Hybrid models combine the above. A monthly retainer covering ongoing work, with project-fee surcharges for large discrete engagements. This is what mature partnerships eventually evolve into. The retainer provides the baseline stability for both sides. The project fees absorb the unpredictable peaks. We use a hybrid model with most of our partner agencies.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "We do not use the commodity-tier subscription model, where the agency pays a flat monthly fee for unlimited landings, and the studio rotates designers through a queue. The model trades partnership depth for volume, which is the opposite of what makes white-label valuable in the serious tier.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The white-label work we ship is invisible by design, durable by structure, and priced by partnership rather than by section. We sign strict NDAs. We operate inside the agency's process. We never bring up our partner agencies' names in our own marketing. We have been doing this long enough to know what works and what breaks. This essay is the version of that knowledge we are comfortable sharing in public.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The model is real. The serious tier exists. If you are looking for a partner and the commodity tier has not given you what you need, the playbook above is roughly what to ask for.",
+      },
+      {
+        type: "faq",
+        items: [
+          {
+            question:
+              "Are Flowout, Minute Creative, and Always Fresh bad companies?",
+            answer:
+              "No. They are competent companies serving the commodity tier of the white-label market, and they are good at what they sell. The point of this essay is not that they are bad. It is that the commodity tier is one slice of the model, and that a different tier exists with different structural design and different output. If your agency needs predictable, async, section-priced landing pages on a monthly subscription, those companies are a reasonable fit. If you need senior craft with embedded process, you need a different tier of partner.",
+          },
+          {
+            question:
+              "How much does serious white-label work cost compared to a freelancer or an in-house hire?",
+            answer:
+              "Serious white-label work is typically billed at a thirty to forty percent discount on direct-client rates. Freelancers vary wildly (senior product designers freelance at two hundred to four hundred dollars per hour in the US in 2026, with overseas senior rates ranging eighty to one hundred eighty). A fully-loaded internal senior costs one hundred and fifty to two hundred and fifty thousand dollars annually. The economics favor white-label when the agency's project volume is irregular, when the capability needed is too specialized to keep full-time, or when the agency wants predictable variable cost rather than fixed cost.",
+          },
+          {
+            question:
+              "How long does a serious white-label engagement take to be worth the investment?",
+            answer:
+              "Roughly three to four projects in. The first project is mostly about both sides learning each other's process. The second project is when the studio starts pre-empting agency preferences. By the third project, the seam between agency and studio becomes opaque to the client. Anything shorter than three projects is a one-off transaction, not a partnership, and should be priced and structured as a transaction.",
+          },
+          {
+            question:
+              "Can a white-label engagement become exclusive (the studio works only for that one agency)?",
+            answer:
+              "It can, and it is usually a bad idea for both sides. An exclusive arrangement lets the agency push rates down over time and concentrates the studio's risk on a single agency's pipeline. The serious tier of the market maintains three to six partner agencies in rotation precisely to avoid the trap. Exclusivity is the structure of an internal team without the equity protections.",
+          },
+          {
+            question:
+              "Should the white-label studio attend the end client's meetings?",
+            answer:
+              "Sometimes. The standard arrangement is that the studio does not. The agency is the client-facing surface and absorbs all client communication. But in long-running engagements with sophisticated clients, the agency sometimes brings the studio's senior designer or engineer into specific technical meetings, presented as part of the agency's extended team. The decision is the agency's. The studio should not push for visibility. Brand discipline is the fifth characteristic of good white-label for a reason.",
+          },
+          {
+            question:
+              "How do we find a serious white-label studio if they do not advertise?",
+            answer:
+              "Through referrals, mostly. Ask senior designers and engineers you trust who they would partner with for overflow work. Ask agency owners who have been in business for more than five years. The serious tier of the market is small enough that the same names come up. If a studio shows up first in a Google search for 'white-label web design', it is the commodity tier. The serious tier is two or three referrals deep from someone who has worked with them.",
+          },
+        ],
+      },
+    ],
+    coverImage: "/images/blog/hiring-agencies.webp",
+    author,
+    category: hiringAgenciesCategory,
+    tags: [
+      "White-label",
+      "Agency partnerships",
+      "Studio economics",
+      "Pricing",
+      "Flowout",
+      "Subcontracting",
+      "Retainer model",
+    ],
+    readingTimeMinutes: 14,
+    published: true,
+    featured: true,
+    displayOrder: 3,
+    seoTitle:
+      "The White-Label Playbook · LIVV Creative Studio",
+    seoDescription:
+      "The white-label model is misunderstood by everyone except the studios that do it well and the agencies that buy it from them. Six characteristics of good white-label, three failure modes, four pricing models, and real ranges.",
+    faqSchema: [
+      {
+        question:
+          "Are Flowout, Minute Creative, and Always Fresh bad companies?",
+        answer:
+          "No. They are competent companies serving the commodity tier of the white-label market. The point is not that they are bad. A different tier exists with different structural design and different output. If you need predictable, async, section-priced landing pages, those companies are a reasonable fit. If you need senior craft with embedded process, you need a different tier of partner.",
+      },
+      {
+        question:
+          "How much does serious white-label work cost?",
+        answer:
+          "Serious white-label work is typically billed at a thirty to forty percent discount on direct-client rates. Fixed-fee marketing sites run twenty to seventy-five thousand dollars depending on scope. Retainers run fifteen to thirty thousand dollars per month for a one-person allocation, thirty to sixty thousand dollars for a two-person allocation.",
+      },
+      {
+        question:
+          "How long until a white-label engagement is worth the investment?",
+        answer:
+          "Roughly three to four projects in. The first project is mostly about learning each other's process. The second is when the studio starts pre-empting agency preferences. By the third, the seam between agency and studio is opaque to the client. Anything shorter than three projects is a transaction, not a partnership.",
+      },
+      {
+        question:
+          "Can a white-label engagement become exclusive?",
+        answer:
+          "It can, but it is usually a bad idea for both sides. Exclusivity lets the agency push rates down and concentrates the studio's risk on a single pipeline. The serious tier maintains three to six partner agencies in rotation. Exclusivity is the structure of an internal team without the equity protections.",
+      },
+      {
+        question:
+          "How do we find a serious white-label studio?",
+        answer:
+          "Through referrals. Ask senior designers and engineers you trust who they would partner with for overflow. Ask agency owners with more than five years in business. The serious tier is small enough that the same names come up. If a studio shows up first in a Google search for 'white-label web design', it is the commodity tier.",
+      },
+    ],
+    internalLinks: [],
+    cta,
+    relatedPostSlugs: [
+      "argentine-creative-engineering-tradition",
+      "webflow-vs-framer-in-2026",
+    ],
+    createdAt: "2026-05-11T20:30:00.000Z",
+    updatedAt: "2026-05-11T20:30:00.000Z",
   },
 ]
