@@ -17,9 +17,9 @@ import { DeferredChatWidget } from "@/components/ui/deferred-chat-widget"
 import { buildOrganizationGraph } from "@/lib/seo/structured-data"
 
 const SITE_TITLE =
-  "Livv Studio | Diseño y desarrollo digital — Buenos Aires, Argentina"
+  "LIVV Creative Studio · Buenos Aires, Argentina"
 const SITE_DESCRIPTION =
-  "Livv Studio is a boutique design & engineering studio in Buenos Aires, Argentina. We combine art and business to ship brands, websites, and white-label web apps for ambitious teams across LATAM and the US. Estudio boutique de diseño y desarrollo donde el arte se encuentra con el negocio."
+  "LIVV Creative Studio builds digital products for founders and agencies. Webflow, Framer, Next.js, React Native, Flutter, Shopify. Based in Buenos Aires, with clients across the US, UK, Latin America, and Europe."
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || "GTM-NC96QG65"
 
@@ -30,28 +30,29 @@ export const metadata: Metadata = {
   },
   description: SITE_DESCRIPTION,
   keywords: [
+    "LIVV Creative Studio",
+    "LIVV",
+    "creative engineering studio",
+    "white-label design and development",
+    "Webflow studio",
+    "Framer studio",
+    "Next.js development studio",
+    "React Native studio",
+    "design and development partner for agencies",
+    "boutique design studio Buenos Aires",
     "design studio Argentina",
-    "estudio de diseño Argentina",
+    "estudio de ingeniería creativa",
     "estudio de diseño Buenos Aires",
     "diseño y desarrollo web Argentina",
-    "boutique design studio Latin America",
-    "art and business design studio",
-    "arte y negocios estudio digital",
-    "desarrollo de aplicaciones a medida Argentina",
-    "white-label web apps",
-    "Next.js development studio",
-    "UI/UX design studio Latin America",
-    "Brand identity studio Buenos Aires",
-    "Product design Argentina",
     "Livv Studio",
     "Livv",
   ],
-  authors: [{ name: "Livv Studio", url: "https://livvvv.com" }],
-  creator: "Livv Studio",
-  publisher: "Livv Studio",
+  authors: [{ name: "LIVV Creative Studio", url: "https://livvvv.com" }],
+  creator: "LIVV Creative Studio",
+  publisher: "LIVV Creative Studio",
   metadataBase: new URL("https://livvvv.com"),
   category: "Design & Software Development",
-  applicationName: "Livv Studio",
+  applicationName: "LIVV Creative Studio",
   alternates: {
     canonical: "/",
     languages: {
@@ -65,16 +66,16 @@ export const metadata: Metadata = {
     locale: "en_US",
     alternateLocale: ["es_AR", "es_ES", "es_MX"],
     url: "https://livvvv.com",
-    siteName: "Livv Studio",
+    siteName: "LIVV Creative Studio",
     title: SITE_TITLE,
     description:
-      "Boutique design & engineering studio in Buenos Aires. Brands, websites, and white-label web apps where art meets business.",
+      "Creative engineering studio building digital products for founders and agencies. Webflow, Framer, Next.js, React Native, Flutter. Based in Buenos Aires.",
     images: [
       {
         url: "/assets/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Livv Studio — Boutique design & engineering studio in Buenos Aires, Argentina",
+        alt: "LIVV Creative Studio. Creative engineering studio in Buenos Aires, Argentina.",
       },
     ],
   },
@@ -82,7 +83,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SITE_TITLE,
     description:
-      "Boutique design & engineering studio in Buenos Aires. Where art meets business.",
+      "Creative engineering studio building digital products for founders and agencies. Webflow, Framer, Next.js. Based in Buenos Aires.",
     creator: "@livvstudio",
     images: ["/assets/og-image.png"],
   },

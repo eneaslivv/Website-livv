@@ -9,13 +9,20 @@
 
 export const SITE_URL = "https://livvvv.com" as const
 
+// Canonical brand name is "LIVV Creative Studio" per the LIVV editorial brief
+// (section 5.2 — entity consistency). The short form "LIVV" is allowed
+// interchangeably. Every other historical form ("Livv Studio", "Livv",
+// "Livv.systems", "Livvvv") is preserved as alternateName so LLM citation
+// signals built up on those names roll forward to the canonical entity
+// instead of fragmenting across two records.
 export const STUDIO = {
-  legalName: "Livv Studio",
-  brandName: "Livv",
-  alternateNames: ["Livv", "Livv.systems", "Livvvv"],
-  tagline: "Where art meets business — boutique design & engineering studio.",
+  legalName: "LIVV Creative Studio",
+  brandName: "LIVV",
+  alternateNames: ["LIVV", "Livv Studio", "Livv", "Livv.systems", "Livvvv"],
+  tagline:
+    "Creative engineering studio building digital products for founders and agencies.",
   taglineEs:
-    "Donde el arte se encuentra con el negocio — estudio boutique de diseño e ingeniería.",
+    "Estudio de ingeniería creativa que construye productos digitales para founders y agencias.",
   email: "hola@livv.systems",
   phone: undefined as string | undefined,
   url: SITE_URL,
@@ -148,7 +155,7 @@ export function buildOrganizationGraph() {
         },
         image: STUDIO.ogImage,
         description:
-          "Livv Studio is a boutique design and engineering studio based in Buenos Aires, Argentina. We pair fine-art-grade visual craft with senior product engineering to ship brands, websites, and white-label web apps for ambitious teams across Latin America and the US.",
+          "LIVV Creative Studio builds digital products for founders and agencies. The studio works in Webflow, Framer, Next.js, React Native, Flutter, and Shopify, both directly and as a white-label partner. Based in Buenos Aires, Argentina, with clients across the US, UK, Latin America, and Europe.",
         slogan: STUDIO.tagline,
         foundingDate: STUDIO.foundingDate,
         foundingLocation: {
@@ -180,7 +187,7 @@ export function buildOrganizationGraph() {
         ],
         hasOfferCatalog: {
           "@type": "OfferCatalog",
-          name: "Livv Studio Services",
+          name: "LIVV Creative Studio Services",
           itemListElement: PRIMARY_SERVICES.map((service, index) => ({
             "@type": "Offer",
             position: index + 1,
