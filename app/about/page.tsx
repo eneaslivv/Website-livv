@@ -95,49 +95,114 @@ export default function AboutPage() {
                     no em dashes, no rule-of-three. Aligned with the LIVV
                     editorial brief 6.1 voice rules. */}
                 <SectionReveal>
-                    <section id="manifesto" className="py-20 md:py-32 px-6 bg-white border-b border-[#1a1a1a]/5 relative">
+                    <section id="manifesto" className="py-24 md:py-40 px-6 bg-white border-b border-[#1a1a1a]/5 relative overflow-hidden">
                         <AnimatedBorders className="hidden md:block pointer-events-none opacity-15 absolute inset-0 z-0" />
+
+                        {/* Number marker in the corner, editorial print feel */}
+                        <span className="hidden md:block absolute top-12 right-12 text-[10px] font-mono uppercase tracking-[0.3em] text-[#1a1a1a]/30 z-10">
+                            01 / Manifesto
+                        </span>
+
                         <div className="max-w-3xl mx-auto relative z-10">
-                            <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#1a1a1a]/40 mb-6 block text-center">
-                                The Manifesto
+                            <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-[#1a1a1a]/40 mb-8 block text-center">
+                                ✦  The Manifesto  ✦
                             </span>
 
-                            <h2 className="section-heading text-[#1a1a1a] mb-12 text-center">
-                                LIVV is a <span className="text-gradient-gold">creative engineering</span> studio.
-                            </h2>
+                            <ScrollTypewriter as="h2" className="section-heading text-[#1a1a1a] mb-16 text-center block">
+                                LIVV is a <span className="font-light tracking-[-0.08em] text-gradient-gold">creative engineering</span> studio.
+                            </ScrollTypewriter>
 
-                            <div className="space-y-6 text-lg md:text-xl text-[#1a1a1a]/70 leading-[1.75] font-light">
-                                <p>
-                                    The phrase is more specific than it sounds. We are not a marketing agency, and we are not a development shop in the conventional sense. We do not sit comfortably in the commodity tier of subscription-based, section-priced Webflow shops, and we do not pretend to be the kind of awards-led, direct-only studio whose pricing puts them out of reach for most of the work that needs doing. The work is the same hands from first wireframe to deployed product. That is the only honest way we know to ship things at the level we want them shipped.
-                                </p>
-                                <p>
-                                    Most of our work is white-label, behind agencies in the US and UK. We sign strict NDAs. We operate inside the agency's process, in the agency's tools, on the agency's calls. The end client never knows we exist. The work that does ship with our name on it sits closer to what you see from a studio in Berlin or Quebec than from a typical Buenos Aires shop, and we try not to make that the point.
-                                </p>
-                                <p>
-                                    The fact that we do both modes, direct and invisible, is the architecture of the studio, not a side product of the model. White-label is not what we do between direct clients. It is the reason the studio runs at the scale it runs. Agencies in our partnership tier ship under our quiet support. They keep the recurring client relationship and the credit. We get the technical work, and the moments when the project lives or dies on a deploy. That is the trade we like.
-                                </p>
-                                <p>
-                                    We work in whatever the project needs. Webflow when the client will own the CMS. Framer when the motion is part of the argument. Next.js with Supabase when the product is real. React Native or Flutter when the product has to live in a pocket. Shopify when there is inventory. Anthropic and OpenAI when the product wants to think. The tools are not the brand. The judgement about which tool to pick is closer to what the brand is.
-                                </p>
-                                <p>
-                                    Buenos Aires is a deliberate choice, not a cost play. The city has produced an unusual amount of the design and engineering work that quietly powers the global product layer over the last fifteen years. There is a tradition here, even if it does not name itself. The conditions that created it do not replicate easily anywhere else. We are part of that tradition. We are also of the generation that intends to name it.
-                                </p>
-                                <p>
-                                    Editorial taste runs through everything we ship. Not as decoration. Editorial taste is how you decide what to leave out. It is how a homepage stops feeling cluttered without losing any of its content. It is how a dashboard makes a CFO feel competent at her job instead of confused by her own data. It is how a brand identity does not look like every other identity that was made this year. The cuts are the work.
-                                </p>
-                                <p>
-                                    We are small on purpose. The founder is on every project. There are no juniors handing off to other juniors. There is no agency layer between you and the people writing the code. The work begins with a quote and ends with a deploy. Most of the conversation in between is about the work, not about the process.
-                                </p>
-                                <p>
-                                    The kind of client who finds us, finds us. Founders past their first fundraise who got burned once by a cheap shop. Design leads at scale-ups who need a partner that will not embarrass them in front of their CEO. And, increasingly, creative directors at agencies who need someone they can trust to ship under their name without their name showing up anywhere. We have not advertised any of this until now.
-                                </p>
+                            {/* Beat 1 — Position. Drop cap on the first paragraph
+                                for editorial-print feel. Inline gold accents on
+                                the phrases that carry the most positioning
+                                weight. */}
+                            <SectionReveal>
+                                <div className="space-y-6 text-lg md:text-xl text-[#1a1a1a]/75 leading-[1.8] font-light">
+                                    <p className="manifesto-paragraph first-letter:float-left first-letter:text-7xl md:first-letter:text-8xl first-letter:font-light first-letter:leading-[0.9] first-letter:mr-3 first-letter:mt-1 first-letter:text-[#1a1a1a] first-letter:tracking-[-0.05em]">
+                                        The phrase is more specific than it sounds. We are not a marketing agency, and we are not a development shop in the conventional sense. We do not sit comfortably in the commodity tier of subscription-based, section-priced Webflow shops, and we do not pretend to be the kind of awards-led, direct-only studio whose pricing puts them out of reach for most of the work that needs doing. The work is the same hands from first wireframe to deployed product. That is the only honest way we know to ship things at the level we want them shipped.
+                                    </p>
+                                    <p>
+                                        Most of our work is <span className="text-[#1a1a1a] font-normal">white-label</span>, behind agencies in the US and UK. We sign strict NDAs. We operate inside the agency's process, in the agency's tools, on the agency's calls. The end client never knows we exist. The work that does ship with our name on it sits closer to what you see from a studio in Berlin or Quebec than from a typical Buenos Aires shop, and we try not to make that the point.
+                                    </p>
+                                </div>
+                            </SectionReveal>
+
+                            {/* First pullquote — the most quotable line of the
+                                white-label paragraphs, surfaced as a typographic
+                                statement so a skimmer registers it. */}
+                            <SectionReveal>
+                                <blockquote className="my-16 md:my-20 relative">
+                                    <div className="absolute left-0 top-0 w-1 h-full bg-gradient-to-b from-[#E8BC59] via-[#E8BC59]/40 to-transparent" />
+                                    <p className="pl-8 md:pl-10 text-2xl md:text-4xl font-light tracking-[-0.03em] leading-[1.2] text-[#1a1a1a]">
+                                        White-label is not what we do between direct clients. It is the <span className="text-gradient-gold italic">reason</span> the studio runs at the scale it runs.
+                                    </p>
+                                </blockquote>
+                            </SectionReveal>
+
+                            {/* Beat 2 — Structure + Stack */}
+                            <SectionReveal>
+                                <div className="space-y-6 text-lg md:text-xl text-[#1a1a1a]/75 leading-[1.8] font-light">
+                                    <p>
+                                        The fact that we do both modes, direct and invisible, is the architecture of the studio, not a side product of the model. Agencies in our partnership tier ship under our quiet support. They keep the recurring client relationship and the credit. We get the technical work, and the moments when the project lives or dies on a deploy. That is the trade we like.
+                                    </p>
+                                    <p>
+                                        We work in whatever the project needs. Webflow when the client will own the CMS. Framer when the motion is part of the argument. Next.js with Supabase when the product is real. React Native or Flutter when the product has to live in a pocket. Shopify when there is inventory. Anthropic and OpenAI when the product wants to think. The tools are not the brand. The judgement about which tool to pick is closer to what the brand is.
+                                    </p>
+                                </div>
+                            </SectionReveal>
+
+                            {/* Hairline divider with a small gold mark in the
+                                middle — punctuates the shift from "what we do"
+                                to "where and how". */}
+                            <div className="flex items-center gap-4 my-16 md:my-20" aria-hidden="true">
+                                <div className="h-px flex-1 bg-[#1a1a1a]/10" />
+                                <span className="text-[#E8BC59]/60 text-xs">✦</span>
+                                <div className="h-px flex-1 bg-[#1a1a1a]/10" />
                             </div>
 
-                            <h3 className="section-heading text-[#1a1a1a] mt-16 mb-2 text-center">
-                                The work is <span className="text-gradient-gold">the work</span>, and we like making it.
-                            </h3>
-                            <p className="text-center text-xs uppercase tracking-[0.2em] text-[#1a1a1a]/40 mt-8">
-                                Founded 2022 · Olivos, Buenos Aires, Argentina
+                            {/* Beat 3 — Place + Taste */}
+                            <SectionReveal>
+                                <div className="space-y-6 text-lg md:text-xl text-[#1a1a1a]/75 leading-[1.8] font-light">
+                                    <p>
+                                        <span className="text-[#1a1a1a] font-normal">Buenos Aires</span> is a deliberate choice, not a cost play. The city has produced an unusual amount of the design and engineering work that quietly powers the global product layer over the last fifteen years. There is a tradition here, even if it does not name itself. The conditions that created it do not replicate easily anywhere else. We are part of that tradition. We are also of the generation that intends to name it.
+                                    </p>
+                                    <p>
+                                        <span className="text-[#1a1a1a] font-normal">Editorial taste</span> runs through everything we ship. Not as decoration. Editorial taste is how you decide what to leave out. It is how a homepage stops feeling cluttered without losing any of its content. It is how a dashboard makes a CFO feel competent at her job instead of confused by her own data. It is how a brand identity does not look like every other identity that was made this year.
+                                    </p>
+                                </div>
+                            </SectionReveal>
+
+                            {/* Second pullquote — the most quotable single line
+                                of the entire manifesto, placed where it can
+                                stand alone. */}
+                            <SectionReveal>
+                                <blockquote className="my-16 md:my-20 text-center">
+                                    <p className="text-3xl md:text-5xl font-light tracking-[-0.04em] leading-[1.1] text-[#1a1a1a]">
+                                        The <span className="text-gradient-gold italic">cuts</span> are the work.
+                                    </p>
+                                </blockquote>
+                            </SectionReveal>
+
+                            {/* Beat 4 — Team + Client */}
+                            <SectionReveal>
+                                <div className="space-y-6 text-lg md:text-xl text-[#1a1a1a]/75 leading-[1.8] font-light">
+                                    <p>
+                                        We are <span className="text-[#1a1a1a] font-normal">small on purpose</span>. The founder is on every project. There are no juniors handing off to other juniors. There is no agency layer between you and the people writing the code. The work begins with a quote and ends with a deploy. Most of the conversation in between is about the work, not about the process.
+                                    </p>
+                                    <p>
+                                        The kind of client who finds us, finds us. Founders past their first fundraise who got burned once by a cheap shop. Design leads at scale-ups who need a partner that will not embarrass them in front of their CEO. And, increasingly, creative directors at agencies who need someone they can trust to ship under their name without their name showing up anywhere. We have not advertised any of this until now.
+                                    </p>
+                                </div>
+                            </SectionReveal>
+
+                            {/* Closing line, ScrollTypewriter at the same tier
+                                as the opening so the two bracket the essay. */}
+                            <ScrollTypewriter as="h3" className="section-heading text-[#1a1a1a] mt-20 md:mt-28 text-center block">
+                                The work is <span className="font-light tracking-[-0.08em] text-gradient-gold">the work</span>, and we like making it.
+                            </ScrollTypewriter>
+
+                            <p className="text-center text-[10px] font-mono uppercase tracking-[0.3em] text-[#1a1a1a]/40 mt-10">
+                                Founded 2022  ·  Olivos, Buenos Aires, Argentina
                             </p>
                         </div>
                     </section>
