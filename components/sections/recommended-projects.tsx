@@ -59,7 +59,6 @@ export function RecommendedProjects() {
                     {projects.map((project: any, i: number) => {
                         const cover = pickDisplayCover(project)
                         const coverIsVideo = isVideoCoverUrl(cover)
-                        const poster = pickPosterCover(project)
                         return (
                         <Link
                             key={project.id || i}
@@ -69,38 +68,28 @@ export function RecommendedProjects() {
                             onMouseLeave={(e) => { const v = e.currentTarget.querySelector('video'); if (v) { v.pause(); v.currentTime = 0 } }}
                         >
                             <div className="absolute inset-0 bg-[#09090B] transition-transform duration-700 group-hover:scale-105">
-                                {/* Static poster always rendered first so the
-                                 *   card has a visible cover even when the
-                                 *   <video> below it can't autoplay on
-                                 *   mobile (iOS Low Power / Data Saver). */}
+                                {/* preload="auto" lets <video> render the
+                                 *   first frame natively on mobile even
+                                 *   without autoplay. The dark bg
+                                 *   (#09090B) is the visible surface
+                                 *   while the frame loads. */}
                                 {cover && coverIsVideo && (
-                                    <>
-                                        <Image
-                                            src={poster}
-                                            alt={project.title}
-                                            fill
-                                            sizes="(max-width: 768px) 85vw, 600px"
-                                            loading="lazy"
-                                            unoptimized
-                                            className="object-cover opacity-80 group-hover:opacity-60 transition-opacity duration-500"
-                                        />
-                                        <video
-                                            src={cover}
-                                            muted
-                                            loop
-                                            playsInline
-                                            preload="metadata"
-                                            poster={poster}
-                                            className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-opacity duration-500"
-                                        />
-                                    </>
+                                    <video
+                                        src={cover}
+                                        muted
+                                        loop
+                                        playsInline
+                                        preload="auto"
+                                        poster={project.thumbnail || project.image || undefined}
+                                        className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-opacity duration-500"
+                                    />
                                 )}
                                 {cover && !coverIsVideo && (
                                     <Image src={cover} alt={project.title} fill sizes="(max-width: 768px) 85vw, 600px" loading="lazy" unoptimized className="object-cover opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
                                 )}
                                 {!cover && (
                                     <Image
-                                        src={poster}
+                                        src={pickPosterCover(project)}
                                         alt={project.title}
                                         fill
                                         sizes="(max-width: 768px) 85vw, 600px"

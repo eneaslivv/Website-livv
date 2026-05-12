@@ -118,32 +118,33 @@ function PortfolioGrid() {
                     >
                         {/* Cover Media
                          *
-                         * Mobile reality: iOS Low Power Mode, Data Saver, and
-                         * the default no-user-gesture autoplay block all stop
-                         * <video autoplay> from rendering. The card has a dark
-                         * background (bg-[#1a1a1a]) so any failure mode reads
-                         * as intentional brand surface instead of a blank
-                         * white rectangle. The poster is sourced via
-                         * pickPosterCover — it returns the first non-video
-                         * media URL or the studio's OG default, so the still
-                         * frame is always defined even when the cover itself
-                         * is a video.
+                         * Card bg is dark (bg-[#1a1a1a]) so any moment the
+                         * cover has not yet loaded reads as intentional
+                         * brand surface, not a broken white rectangle.
                          *
-                         * On listing cards (this surface and recommended-
-                         * projects.tsx) we render the static poster Image
-                         * UNDER the video on mobile (768px and below) so it
-                         * shows immediately, and let the video play on top
-                         * once it's ready and the user has hovered (desktop)
-                         * or scrolled into view (mobile, if autoplay grants).
+                         * For video covers: <video preload="auto"> makes
+                         * HTML5 fetch and render the first frame natively
+                         * on every browser including iOS Safari, even
+                         * without autoplay. That's the still frame the
+                         * user sees on mobile until hover (desktop) or
+                         * a tap triggers play. We do not stack a separate
+                         * Image poster underneath because for items whose
+                         * only media is video, pickPosterCover would have
+                         * to fall through to the brand OG default, which
+                         * would obscure the actual video first frame.
+                         *
+                         * For items with no cover URL at all (a real edge
+                         * case, almost never hits production), fall back
+                         * to pickPosterCover which always returns a real
+                         * static URL ending in og-image.png at worst.
                          */}
                         {(() => {
                             const coverUrl = getCoverUrl(item)
-                            const posterUrl = pickPosterCover(item)
 
                             if (!coverUrl) {
                                 return (
                                     <Image
-                                        src={posterUrl}
+                                        src={pickPosterCover(item)}
                                         alt={item.title}
                                         fill
                                         sizes="(max-width: 768px) 100vw, 50vw"
@@ -153,31 +154,15 @@ function PortfolioGrid() {
                             }
                             if (isVideoUrl(coverUrl)) {
                                 return (
-                                    <>
-                                        {/* Static poster layer — always
-                                         *   visible underneath the video, so
-                                         *   if the video element fails to
-                                         *   autoplay (mobile data saver, low
-                                         *   power mode) the user still sees a
-                                         *   real cover. */}
-                                        <Image
-                                            src={posterUrl}
-                                            alt={item.title}
-                                            fill
-                                            sizes="(max-width: 768px) 100vw, 50vw"
-                                            className="object-cover transition-transform duration-1000 group-hover/card:scale-110"
-                                            priority={false}
-                                        />
-                                        <video
-                                            src={coverUrl}
-                                            muted
-                                            loop
-                                            playsInline
-                                            preload="metadata"
-                                            poster={posterUrl}
-                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover/card:scale-110"
-                                        />
-                                    </>
+                                    <video
+                                        src={coverUrl}
+                                        muted
+                                        loop
+                                        playsInline
+                                        preload="auto"
+                                        poster={item.thumbnail || undefined}
+                                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover/card:scale-110"
+                                    />
                                 )
                             }
                             return (
