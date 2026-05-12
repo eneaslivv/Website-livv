@@ -1142,4 +1142,525 @@ export const clusterHEditorial: BlogPost[] = [
     createdAt: "2026-05-11T20:30:00.000Z",
     updatedAt: "2026-05-11T20:30:00.000Z",
   },
+
+  /* ────────────────────────────────────────────────────────────
+   *   Piece 07 — Hiring a Creative Engineering Studio: A Buyer's Guide
+   * ──────────────────────────────────────────────────────────── */
+  {
+    id: "h-004",
+    slug: "hiring-creative-engineering-studio",
+    title: "Hiring a Creative Engineering Studio: A Buyer's Guide",
+    excerpt:
+      "Practical guidance for founders and heads of design choosing a creative engineering studio. What to look for, what to ignore, real pricing ranges, and the questions to ask before signing.",
+    content: "",
+    contentBlocks: [
+      {
+        type: "heading",
+        level: 2,
+        id: "key-takeaways",
+        content: "Key takeaways",
+      },
+      {
+        type: "list",
+        ordered: true,
+        items: [
+          "Creative engineering studios sit between marketing agencies (which design but rarely build at production grade) and pure development shops (which build but rarely design at brand grade). Hiring one when you need both saves you the handoff loss between two vendors.",
+          "You probably need one if your project requires both visual craft and production engineering, your budget is between roughly $30k and $300k, and you do not have senior in-house design and engineering already.",
+          "You probably do not need one if you have a sub-$15k budget (hire a senior freelancer), if your project is pure backend or pure brand (hire a specialist), or if you are an enterprise that requires a 100-person agency for procurement reasons.",
+          "Real pricing ranges for boutique studios in 2026: marketing site $20k-80k, product MVP $50k-200k, design system $30k-100k, mobile app $60k-200k. Mid-tier agencies charge 2-3x. Big agencies charge 5-10x.",
+          "The biggest red flags during the sales process: the founder is on the sales call but not the project, the pricing is hourly with no cap, the portfolio is older than 18 months, and the studio cannot explain a single decision in detail.",
+        ],
+      },
+      {
+        type: "paragraph",
+        content:
+          "Most writing about how to hire a design studio is written from the buying side, by people who have hired one or two studios in their career and assume their experience generalizes. The piece you are reading is written from the other side. We are a studio. We have been hired, rejected, asked to bid on projects we should not have bid on, and asked to skip the bid by clients who already trusted us.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "What follows is the document we would send to a founder before they sign with us, or with one of our competitors, so the engagement starts with the right expectations on both sides. It names the signals we look for in clients, the red flags we know to flag, and the pricing ranges that are accurate in 2026.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "This is also the piece we have wanted to link to in client conversations and have never found a version of online that we trusted. So we wrote it.",
+      },
+
+      {
+        type: "heading",
+        level: 2,
+        id: "what-creative-engineering-means",
+        content: "What creative engineering means (and what it does not)",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The phrase confuses people because it is new enough that the category boundary is fuzzy and old enough that the practitioners no longer think the boundary needs explaining. A creative engineering studio ships design and development through the same team. The designer who decides the typography is the same person, or a direct collaborator, of the engineer who writes the CSS that renders it. There is no handoff document. There is no Figma-to-Webflow translation step that loses fidelity. The work that arrives in the browser is the work the designer drew.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "It is not a marketing agency. A marketing agency designs, plans campaigns, and hires development out. The designer at a marketing agency rarely sees the final implementation. The implementation is fine, or it is mediocre, but the designer is on to the next deck.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "It is not a pure development shop. A development shop builds what the designer drew, faithfully, but does not push back when the design is wrong, does not have an opinion on the typography, and does not catch the spacing decision that breaks at the third breakpoint.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "And it is not a brand studio with engineering bolted on. A brand studio that recently added a junior front-end developer to its team to ship the Webflow build is not creative engineering. The engineer is downstream of the design, treated as an executor, and rarely senior enough to push back on bad design decisions. The work usually ships and usually looks fine. It rarely feels finished.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The output of a real creative engineering studio is recognizable. The site or product or system feels coherent from the first paint to the deepest interaction. The motion is part of the design language, not added at the end. The performance is part of the design language too. The handoff loss that costs other vendors fifteen percent of the brief is absent here, because there is no handoff.",
+      },
+
+      {
+        type: "heading",
+        level: 2,
+        id: "when-you-need-one",
+        content: "When you need a creative engineering studio",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Three project shapes call for this kind of partner reliably.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Project shape one: you are launching a product (or relaunching one) and the marketing surface has to do a lot of work. You need a marketing site that introduces the product, explains the value, and converts cold visitors. The site needs editorial-grade typography, real motion, and an opinion. Most marketing agencies cannot ship the engineering at this craft level. Most development shops cannot ship the design at this craft level. A creative engineering studio is what the project needs.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Project shape two: you have a working product but the design has fallen behind the substance. The interface is competent but unloved. The brand was acceptable two years ago but does not reflect what the company has become. You need a design system, a refreshed interface, and an engineering team that can implement both without dropping the existing product on the floor while they work. Mid-stage scale-ups hit this every twelve to eighteen months.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Project shape three: you are an agency or in-house team that needs overflow capacity for senior craft work. You have the strategy. You have the relationships. What you lack is the cycle time to ship the actual design and engineering at the cadence the client needs. White-label creative engineering studios exist precisely for this case. The economics are explained in the White-Label Playbook on this site.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Across all three shapes, the stage signals look similar: post-seed founder past their first hire round, scale-up between Series A and C, agency owner with consistent inbound but inconsistent capacity. The budget is between roughly thirty thousand and three hundred thousand dollars per engagement. The timeline is between four and sixteen weeks. The team is small enough that senior people are still on the work.",
+      },
+
+      {
+        type: "heading",
+        level: 2,
+        id: "when-a-freelancer-is-enough",
+        content: "When a freelancer is enough",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Not every project needs a studio. The freelancer market in 2026 has senior designers and senior engineers who, working solo, ship work that a small studio would charge twice as much to produce. If your project fits the following profile, a freelancer is the correct call: budget under fifteen thousand dollars, scope under ten pages or a single feature, design decisions mostly already made, and timeline under four weeks.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The cost of a studio over a freelancer in this size range is the overhead the studio carries (project management, design review, code review, account handling) that a single freelancer does not have to bill against. For a project that does not need any of that overhead, you are paying for capacity you will not use. Hire the freelancer.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The signal that you have outgrown freelancer territory is when the project starts to need coordination across disciplines (a designer plus an engineer plus a motion person), or when the work has to ship under a brand identity decision your freelancer cannot make alone. At that point a studio is the structurally correct unit.",
+      },
+
+      {
+        type: "heading",
+        level: 2,
+        id: "when-you-need-a-big-agency",
+        content: "When you need a big agency instead",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Three cases push the project to a large agency rather than a boutique creative engineering studio.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Case one: your procurement requires it. Enterprise procurement at a Fortune 500 company will not approve a vendor under fifty people, regardless of craft level. The procurement constraint is real and you cannot litigate it. Hire the large agency. They are set up for this case.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Case two: the project genuinely requires twenty or more people working simultaneously. A global brand launch with TV, print, OOH, social, web, motion, packaging, retail experience, and translation across fifteen markets is not a boutique studio shape. It is an agency shape. Hire the agency.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Case three: the brand needs to be identified with the studio. If you are pitching a board on the work, and the board needs to recognize the studio name to approve the spend, you need a household-name agency. That is what you are buying. The craft difference between the top boutiques and the top agencies is sometimes negligible. The board-recognition difference is not.",
+      },
+
+      {
+        type: "heading",
+        level: 2,
+        id: "what-to-look-for",
+        content: "What to look for",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The signals that separate a serious creative engineering studio from a competent-but-not-extraordinary one are mostly visible during the sales process, if you know what to look for.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Senior people on every project. Ask who specifically will work on your project. By name. If the answer is vague, or if the names are unfamiliar to you and to the studio's portfolio, the seniors are doing sales and the juniors are doing the work. Move on.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The same team shipped multiple recent projects. A studio with a portfolio of ten projects across ten different teams is a project-marketplace, not a studio. A studio with five projects shipped by the same three or four people in the last year is a studio.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "They can articulate decisions, not just show results. When you walk through their portfolio, the studio should be able to explain why a particular typographic choice was made, why a particular interaction was simpler than the alternative they considered, why they cut a feature. If they can only describe what shipped without describing the decisions that produced it, you are looking at decoration, not design.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "They speak the language of your stack. If you are shipping in Next.js with Supabase, the studio should be able to talk about edge runtime, RSC, Postgres row-level security, and Stripe webhook idempotency without notes. If you are in Webflow, they should know Webflow Cloud, the localization model, and the limits of the Data API. A studio that cannot speak the stack you need to ship in is going to learn it on your project, which is fine if you priced it as a learning engagement and not fine if you priced it as senior craft.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Their own surfaces do not violate anything they preach. The studio's own site, the studio's own social, the studio's own newsletter: each of these is a continuous craft demonstration. If their site is bad, their work for you will probably also be bad. The exception is studios that explicitly position as service-not-self-promotion, but even then the substance should hold up.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "They have a process, and the process bends to your project. Studios with no process drift. Studios with rigid process force every project into the same shape. The good studios have a process that is recognizable across engagements but is adjusted on each one to fit what the project actually needs.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "They can name studios they admire and studios they think are overrated. A studio with no taste for the work of other studios is a studio with no taste. The answer should be specific. Vague admiration is a sign of either inexperience or media-trained sales talk.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "They have shipped under pressure and will tell you about it. Ask about a project that almost did not ship. The studio should have a story. The story should include what they cut, what they kept, and what they would do differently. If every project they describe was smooth, they are either lying or they have not shipped enough work yet.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "They have at least one recent client willing to give a real reference. Not a quote on the site. An actual conversation. The studio should be able to set up a fifteen-minute call with a recent client who will speak candidly about the engagement. If they cannot, the relationships are not what they claim.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Pricing is fixed-fee or retainer, not hourly-with-mystery. Studios that price hourly without a cap are selling time, not outcomes. Studios that price fixed-fee or retainer are selling outcomes. The pricing model itself is a signal about who they want as clients and what they want to be accountable for.",
+      },
+
+      {
+        type: "heading",
+        level: 2,
+        id: "red-flags",
+        content: "Red flags",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The opposite signals are equally informative.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The founder is on the sales call but not the project. The founder pitches you. The founder writes the proposal. The founder negotiates the rate. Then on the kickoff, someone you have never met runs the meeting and the founder is mysteriously busy. This is the bait-and-switch pattern. The studio's craft level is the founder's craft level. The studio's delivery is the team's delivery. They are not the same. If the founder is not on your project, the project is not at the studio's top tier.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Pricing is per-section, per-page, or quoted as a vague hourly range with no cap. The first two are commodity-tier pricing models, designed for volume rather than craft. The third is a way for the studio to over-bill predictable scope without taking accountability for what was delivered against the price. Insist on fixed-fee with a defined scope, or a retainer with a defined senior allocation.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "They say yes to everything. Senior studios push back. They tell you the wrong thing to do is wrong. They tell you the scope is too big for the timeline you proposed. They tell you the brand strategy is unclear and that no execution will save it. A studio that agrees to everything in the first call is selling, not partnering.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The portfolio is mostly older than eighteen months. Studios that depended on a particular client mix three years ago and have not updated the portfolio have usually had a quiet year. The reasons vary, but the result is the same: the team you are about to hire is not the team that shipped the work in the portfolio.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The studio's own site is mediocre. The site is the most public artifact the studio controls. If it is not at the level of the work in the portfolio, either the work in the portfolio is not theirs, or the team that shipped it is no longer at the studio.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "They cannot explain a single decision in detail. The portfolio is a list of clients, screenshots, and decorative copy. When pressed for the why, the studio talks about the brief and the brand but not about the actual decisions. The studio either did not make those decisions (the client did, and they executed), or they cannot articulate decisions they did make, both of which are bad.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "They reference vague metrics. The case study says \"3x growth\" without specifying what tripled, over what period, or against what baseline. A serious studio either has the specific numbers or knows they did not measure rigorously and says so. Vague metrics signal that the studio has been trained on agency-marketing patterns rather than substance.",
+      },
+
+      {
+        type: "heading",
+        level: 2,
+        id: "how-to-read-a-portfolio",
+        content: "How to read a portfolio",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Portfolios are usually misread. Most buyers look at the visible work and assume the studio can do similar work for them. Sometimes that is true. Often it is not, because what you are seeing is the polished end-state, not the project shape or the conditions that produced it.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Ask, for each portfolio item you actually care about: what was the original scope, what was the budget range, how long did it take, what did not ship that was in the original scope, and what specifically were the studio's contributions versus the client's contributions. The answers separate studios who shipped the project from studios who shipped a slice of it under the client's name.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Ignore the brand-name client list in isolation. A studio that has shipped a one-page microsite for Nike is not a Nike-level studio. The studio that built Nike.com is. The brand association alone does not transfer. The specific work transfers.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Weight depth over breadth. A studio with three case studies you can dig into deeply, each with a real decision point and a real artifact, is more useful than a studio with twenty case studies that are each a screenshot and a paragraph. The depth signals the studio's confidence in the work.",
+      },
+
+      {
+        type: "heading",
+        level: 2,
+        id: "pricing-expectations",
+        content: "Pricing expectations",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Pricing depends on the studio's tier, the project shape, and the timeline. Ranges below are for boutique creative engineering studios in 2026, working in US dollars, for direct (non-white-label) engagements. Mid-tier agencies charge roughly two to three times these ranges. Top-tier brand agencies charge five to ten times. Freelancers charge roughly fifty to seventy percent of the lower end.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Marketing site (up to twenty pages, single locale, content-managed): twenty thousand to eighty thousand dollars. The variation depends on motion complexity, custom interactions, and the depth of the CMS schema. A clean two-week build with senior craft sits in the lower half. A complex eight-week build with custom code components and AI integration sits in the upper half.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Marketing site at scale (50+ pages, multi-locale, deep CMS, custom code surface): forty thousand to one hundred fifty thousand dollars. The localization requirement is usually the largest single driver. Two locales add roughly twenty percent. Three or more locales add fifty to one hundred percent.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Product MVP (web app, ten to thirty screens, real backend, deployable to production): fifty thousand to two hundred thousand dollars. The lower end is a focused product with clear scope (a CMS-backed dashboard, a focused workflow tool). The upper end is a product with meaningful business logic, payments, multi-tenancy, and a real backend architecture.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Design system (tokens, components, documentation, governance): thirty thousand to one hundred thousand dollars. A design system without engineering implementation is closer to thirty thousand. A design system with the React component library, the Storybook setup, and the documentation site sits at the higher end.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Brand identity (naming, logo, type system, color, photography direction, applications): twenty thousand to one hundred thousand dollars. The variation depends on scope of application. A logo and basic identity for a startup sits low. A full visual system with editorial direction for a brand at scale sits high.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Mobile app (cross-platform, React Native or Flutter, real backend integration): sixty thousand to two hundred thousand dollars for an MVP. Native iOS plus native Android development separately costs forty to sixty percent more.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Hidden costs to watch for: revision cycles beyond the included rounds (usually two), additional design work outside the original scope, post-launch maintenance retainers, third-party tool subscriptions the studio passes through. Ask the studio to itemize what is and is not included in the headline price.",
+      },
+
+      {
+        type: "heading",
+        level: 2,
+        id: "questions-to-ask",
+        content: "Questions to ask in a discovery call",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Use these in roughly this order. Each one is designed to expose a specific signal you cannot get from the portfolio alone.",
+      },
+      {
+        type: "list",
+        ordered: true,
+        items: [
+          "Who specifically will work on my project? Names, roles, and which other projects they are on right now.",
+          "Walk me through a project from your portfolio that is structurally similar to mine. What decisions did you make and why?",
+          "What was the budget range on that project? How was it priced?",
+          "Tell me about a project that almost did not ship. What broke and how did you handle it?",
+          "Which other studios in the space do you admire? Which ones do you think are overrated?",
+          "What does a typical week look like during week two of an engagement? Who is in which meetings?",
+          "How do revisions work? How many rounds are included? What triggers a scope adjustment?",
+          "What happens after the project ships? Do you offer maintenance? At what rate?",
+          "Can you connect me with a recent client who would speak candidly about the engagement?",
+          "What kind of project would you tell me not to hire you for?",
+        ],
+      },
+      {
+        type: "paragraph",
+        content:
+          "The last question is the most informative. A studio that has a clear answer about what they should not be hired for is a studio that has self-awareness and a defined niche. A studio that says they can do anything is a studio that does not know what they are good at, which means you do not either.",
+      },
+
+      {
+        type: "paragraph",
+        content:
+          "Five questions to ask yourself before you reach out, in order: What does the work actually need (design, engineering, brand, all three)? What is the budget I can actually spend? What is the timeline I can actually hold? Do I have senior in-house people on this, or am I fully outsourcing? What does success look like in a year, not at launch?",
+      },
+      {
+        type: "paragraph",
+        content:
+          "If you can answer those five, the studio short list will write itself. If you cannot answer them yet, the studio worth hiring is one that helps you answer them in the discovery call before quoting the work.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The good studios are smaller than you expect, less visible than you expect, and more selective about who they take on than the agency model trained you to expect. Hiring one well is a real skill. The guide above is what we wish someone had handed us when we were on your side of the table.",
+      },
+
+      {
+        type: "faq",
+        items: [
+          {
+            question:
+              "What is the difference between a creative engineering studio and a regular design agency?",
+            answer:
+              "A regular design agency designs and hires development out. A creative engineering studio designs and develops with the same team, so the work that ships in production is the work the designer drew, with no handoff loss. The output difference is usually visible: motion that feels native rather than added at the end, performance that matches the design, interactions that work the way they were imagined.",
+          },
+          {
+            question:
+              "How much should I budget for a creative engineering studio project?",
+            answer:
+              "Depends on the scope. Marketing site at boutique tier: $20k-$80k. Marketing site at scale with multi-locale and complex CMS: $40k-$150k. Product MVP: $50k-$200k. Design system: $30k-$100k. Brand identity: $20k-$100k. Mobile app MVP: $60k-$200k. Mid-tier agencies charge two to three times these ranges. Top brand agencies charge five to ten times. Freelancers charge roughly half the lower end.",
+          },
+          {
+            question:
+              "How long does a typical engagement take?",
+            answer:
+              "A boutique creative engineering studio ships a marketing site in three to eight weeks, a product MVP in six to sixteen weeks, a design system in four to ten weeks. Faster than the ranges suggest if scope is tightly defined. Slower if scope expands during the engagement, which is usually a signal that the original brief was not specific enough.",
+          },
+          {
+            question:
+              "Should I sign a long contract or pay per project?",
+            answer:
+              "Per-project is correct for one-off work where the deliverable is clearly bounded. Retainer is correct for ongoing work where you need senior capacity across multiple projects or where the relationship is the value. New engagements should start per-project; the retainer conversation makes sense after the third or fourth successful project together, when both sides have built up the shared judgement that retainer pricing assumes.",
+          },
+          {
+            question:
+              "Is it cheaper to hire a senior in-house designer instead of contracting a studio?",
+            answer:
+              "Sometimes. A senior in-house designer fully loaded costs $150k-$250k per year in the US. If your design and engineering needs are continuous and predictable, the in-house hire is cheaper than a year of equivalent studio engagements. If the work is project-shaped and variable, a studio is cheaper because you only pay during active engagements. Most companies under Series B benefit more from studio engagements than from full-time hires.",
+          },
+          {
+            question:
+              "How do I evaluate a studio's portfolio if I am not a designer?",
+            answer:
+              "Ignore the visual polish in isolation. Look for: depth of decision-making in the case studies, recency of the work (within eighteen months), clarity about what the studio contributed versus the client, real metrics where applicable, and consistency across multiple projects rather than one breakout piece. Have a designer you trust review the portfolio with you if possible. Or ask the studio walk-through questions and listen for substance.",
+          },
+          {
+            question:
+              "What is a fair revision policy?",
+            answer:
+              "Two rounds of revisions per major deliverable is the industry standard. Beyond two rounds, additional revisions are billed at the hourly rate or quoted as a scope change. Studios that promise unlimited revisions are either underpricing or quietly limiting through other means. Be explicit about what counts as a round (a single feedback batch with all stakeholders included, not three separate emails from three reviewers).",
+          },
+          {
+            question:
+              "Can I hire a studio for just part of a project, like just design or just development?",
+            answer:
+              "You can, but you give up the structural advantage of hiring a creative engineering studio in the first place. The whole point is that the design and development are the same team, so handoff loss does not happen. Hiring the studio for design only and then handing off to your in-house engineers reintroduces handoff loss. It is sometimes the right call (you have excellent in-house engineers), but go in with eyes open.",
+          },
+        ],
+      },
+    ],
+    coverImage: "/images/blog/hiring-agencies.webp",
+    author,
+    category: hiringAgenciesCategory,
+    tags: [
+      "Hiring",
+      "Buyer's guide",
+      "Creative engineering",
+      "Studio economics",
+      "Pricing",
+      "Agency comparison",
+      "Discovery call",
+    ],
+    readingTimeMinutes: 18,
+    published: true,
+    featured: true,
+    displayOrder: 4,
+    seoTitle:
+      "Hiring a Creative Engineering Studio: A Buyer's Guide · LIVV Creative Studio",
+    seoDescription:
+      "Practical guidance for founders and heads of design choosing a creative engineering studio. What to look for, what to ignore, real pricing ranges, red flags, and the questions to ask before signing.",
+    faqSchema: [
+      {
+        question:
+          "What is the difference between a creative engineering studio and a regular design agency?",
+        answer:
+          "A regular design agency designs and hires development out. A creative engineering studio designs and develops with the same team, so the work in production matches the design with no handoff loss. The difference is visible in motion that feels native and interactions that work the way they were imagined.",
+      },
+      {
+        question:
+          "How much should I budget for a creative engineering studio project in 2026?",
+        answer:
+          "Boutique tier in USD: marketing site $20k-80k, marketing site at scale $40k-150k, product MVP $50k-200k, design system $30k-100k, brand identity $20k-100k, mobile app MVP $60k-200k. Mid-tier agencies charge 2-3x. Top brand agencies charge 5-10x.",
+      },
+      {
+        question: "How long does a typical engagement take?",
+        answer:
+          "Marketing site: 3-8 weeks. Product MVP: 6-16 weeks. Design system: 4-10 weeks. Faster if scope is tightly defined. Slower if scope expands during the engagement.",
+      },
+      {
+        question: "Should I sign per-project or sign a retainer?",
+        answer:
+          "Per-project is correct for clearly bounded one-off work. Retainer makes sense after the third or fourth successful project together, when both sides have built up the shared judgement retainer pricing assumes. New engagements should start per-project.",
+      },
+      {
+        question:
+          "Is hiring an in-house senior designer cheaper than a studio?",
+        answer:
+          "Sometimes. A senior in-house designer fully loaded costs $150k-$250k per year. If the work is continuous, the hire is cheaper. If the work is project-shaped and variable, a studio is cheaper because you only pay during active engagements. Most companies under Series B benefit more from studio engagements.",
+      },
+      {
+        question:
+          "How do I evaluate a studio's portfolio if I am not a designer?",
+        answer:
+          "Look for: depth of decision-making in case studies, recency of the work (within 18 months), clarity about what the studio contributed versus the client, real metrics where applicable, and consistency across multiple projects rather than one breakout piece.",
+      },
+      {
+        question: "What is a fair revision policy?",
+        answer:
+          "Two rounds of revisions per major deliverable is the industry standard. Beyond two rounds, additional revisions are billed at the hourly rate or quoted as a scope change. Studios that promise unlimited revisions are either underpricing or quietly limiting through other means.",
+      },
+      {
+        question:
+          "Can I hire a studio for just design or just development?",
+        answer:
+          "You can, but you give up the structural advantage of hiring a creative engineering studio. The whole point is that design and development are the same team, so handoff loss does not happen. Hiring for design only and handing off to in-house engineers reintroduces handoff loss.",
+      },
+    ],
+    internalLinks: [],
+    cta,
+    relatedPostSlugs: [
+      "white-label-playbook",
+      "webflow-vs-framer-in-2026",
+      "argentine-creative-engineering-tradition",
+    ],
+    createdAt: "2026-05-11T21:00:00.000Z",
+    updatedAt: "2026-05-11T21:00:00.000Z",
+  },
 ]
