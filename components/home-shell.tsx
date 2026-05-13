@@ -11,6 +11,13 @@ const PortfolioSection = dynamic(() => import("@/components/sections/portfolio-s
   ssr: false,
   loading: () => <div className="w-full py-24 md:py-32 min-h-[600px]" />,
 })
+// SSR ON intentionally — the editorial section ships <Link> anchors in
+// initial HTML so Google's mobile indexer and AI crawlers pick up the
+// internal links to the four cluster-H editorial pieces on every crawl
+// pass. Server Console diagnostic showed 57 URLs as "Discovered: currently
+// not indexed", which the advisor flagged as primarily an internal-linking
+// problem solved by surfacing high-priority URLs from the home.
+const RecentEditorialSection = dynamic(() => import("@/components/sections/recent-editorial-section").then((mod) => mod.RecentEditorialSection))
 const ServicesSection = dynamic(() => import("@/components/sections/services-section").then((mod) => mod.ServicesSection))
 const MarketplaceSection = dynamic(() => import("@/components/sections/marketplace-section").then((mod) => mod.MarketplaceSection))
 const TestimonialsSection = dynamic(() => import("@/components/sections/testimonials-section").then((mod) => mod.TestimonialsSection))
@@ -31,6 +38,7 @@ export function HomeShell() {
       <BusinessArtSection />
       <WorkModelSection />
       <PortfolioSection id="work" />
+      <RecentEditorialSection id="writing" />
       <ServicesSection id="services" />
       <MarketplaceSection />
       <TestimonialsSection />
