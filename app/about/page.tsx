@@ -208,6 +208,97 @@ export default function AboutPage() {
                     </section>
                 </SectionReveal>
 
+                {/* Practical detail section — added to fix the indexability
+                    issue flagged by the Search Console advisor (2026-05-14).
+                    Most of /about's existing content lives inside animations,
+                    canvases, or hover-reveals, which Google's WRS may not
+                    extract reliably. This section ships plain prose with
+                    H2/H3 hierarchy, real internal links to /services,
+                    /products, /blog editorial pieces, and /work, so the page
+                    has 500+ words of crawlable, keyword-rich content that
+                    matches the intent queries we want LIVV to rank for:
+                    "creative engineering studio", "white-label web studio",
+                    "Webflow studio Buenos Aires", "design and development
+                    partner for agencies". Voice rules apply — no em dashes,
+                    no banned vocab, no rule-of-three rhetorical. */}
+                <SectionReveal>
+                    <section id="practice" className="py-20 md:py-32 px-6 bg-[#FAFAFA] border-b border-[#1a1a1a]/5 relative">
+                        <AnimatedBorders className="hidden md:block pointer-events-none opacity-15 absolute inset-0 z-0" />
+                        <div className="max-w-4xl mx-auto relative z-10">
+                            <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-[#1a1a1a]/40 mb-6 block">
+                                ✦  How we operate  ✦
+                            </span>
+
+                            <h2 className="section-heading text-[#1a1a1a] mb-12">
+                                Plain talk about <span className="text-gradient-gold">the work</span>.
+                            </h2>
+
+                            <div className="space-y-12 text-base md:text-lg text-[#1a1a1a]/75 leading-[1.8] font-light">
+                                <p>
+                                    LIVV Creative Studio designs and develops digital products for founders and agencies. The studio works in Webflow, Framer, Next.js, React Native, Flutter, and Shopify, both directly and as a <Link href="/blog/white-label-playbook" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">white-label partner</Link>. The team is senior-only. The founder is on every engagement. Most of our client roster is in the United States and the United Kingdom. The catalogue is bilingual: native Spanish, fluent English.
+                                </p>
+
+                                <div>
+                                    <h3 className="text-xl md:text-2xl font-medium text-[#1a1a1a] mb-4 tracking-tight">
+                                        What we build
+                                    </h3>
+                                    <p className="mb-4">
+                                        Marketing sites that read as editorial work, not as templated agency output. Product MVPs that ship to production with the same craft level a top brand agency delivers, on a fraction of the timeline. Design systems that hold together as the product team scales. Mobile applications cross-platform in React Native or Flutter. Custom AI integrations against the Anthropic and OpenAI APIs. White-label SaaS platforms deployed under partner brands.
+                                    </p>
+                                    <p>
+                                        The four canonical service areas: <Link href="/services/creative-engineering" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">Creative Engineering</Link>, <Link href="/services/product-strategy-ui" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">Product Strategy and UI Design</Link>, <Link href="/services/motion-narrative" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">Motion and Narrative</Link>, plus Brand Identity and Visual Systems. Each maps to a specific kind of engagement; the same senior team works across all four.
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h3 className="text-xl md:text-2xl font-medium text-[#1a1a1a] mb-4 tracking-tight">
+                                        How the engagement runs
+                                    </h3>
+                                    <p className="mb-4">
+                                        Fixed-fee or retainer. Cost transparency before kickoff. No hourly-with-mystery billing, no per-section pricing. Typical timelines: corporate marketing sites ship in three to four weeks, product MVPs in six to eight weeks, design systems in four to ten weeks. Two rounds of revisions per major deliverable. Anything outside the original scope is quoted as a scope adjustment, not absorbed silently.
+                                    </p>
+                                    <p>
+                                        Most of our work is invisible. We sign strict NDAs and ship under partner-agency brands in the US and UK. The agencies present the work in client calls. The studio's name does not appear in case studies, on the credit line, or in public marketing. Both sides prefer the arrangement. The full mechanics are documented in the studio's <Link href="/blog/white-label-playbook" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">White-Label Playbook</Link>.
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h3 className="text-xl md:text-2xl font-medium text-[#1a1a1a] mb-4 tracking-tight">
+                                        Stack and toolset
+                                    </h3>
+                                    <p className="mb-4">
+                                        Design in Figma. Marketing sites in Webflow when the client owns the CMS, Framer when motion is part of the argument. Product builds in Next.js with Supabase or Postgres. React Native or Flutter for mobile. Shopify for commerce. AI integration via the Anthropic API or OpenAI, with custom agents and vector search when the product needs to think. The tools are not the brand — the judgement about which tool to pick is closer to what the brand is. The trade-offs between Webflow and Framer in 2026 are documented in our <Link href="/blog/webflow-vs-framer-in-2026" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">practitioner's comparison essay</Link>.
+                                    </p>
+                                    <p>
+                                        For studios and founders building their own AEO surface, we publish a free, MIT-licensed <Link href="/resources/schema-aeo-library" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">Schema and AEO Snippet Library</Link> with nine copy-paste-ready JSON-LD templates (Organization, Person, Article, FAQPage, BreadcrumbList, CreativeWork, Service, SoftwareApplication, plus WebSite with SearchAction).
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h3 className="text-xl md:text-2xl font-medium text-[#1a1a1a] mb-4 tracking-tight">
+                                        Where the studio is based
+                                    </h3>
+                                    <p>
+                                        Buenos Aires, Argentina. Specifically Olivos, in the Vicente López district. The city has produced an unusual amount of the design and engineering work that quietly powers the global product layer over the last fifteen years — Mercado Libre, Globant, Auth0, Mural, Etermax, and the senior teams at Linear, Stripe, Notion, and Vercel are some of the visible edge. The conditions that produced this tradition do not replicate easily anywhere else. We are part of it. The essay on the studio's read of that tradition lives at <Link href="/blog/argentine-creative-engineering-tradition" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">The Argentine Creative Engineering Tradition</Link>.
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h3 className="text-xl md:text-2xl font-medium text-[#1a1a1a] mb-4 tracking-tight">
+                                        Who hires us
+                                    </h3>
+                                    <p className="mb-4">
+                                        Founders past their first fundraise who need a marketing site or a product MVP at a craft level that matches the rest of their pitch. Design leads at scale-ups who need a partner who will not embarrass them in front of their CEO. Creative directors at agencies who need someone they can trust to ship under their name without their name showing up anywhere. The decision framework for any of those audiences is laid out in <Link href="/blog/hiring-creative-engineering-studio" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">our Buyer's Guide</Link>.
+                                    </p>
+                                    <p>
+                                        Selected work lives on the <Link href="/work" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">portfolio page</Link>. White-label work, by definition, does not appear there. If you have a project shape that sounds like it could fit, write to us at <a href="mailto:hola@livv.systems" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">hola@livv.systems</a> or book a fifteen-minute call.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </SectionReveal>
+
                 {/* Team */}
                 <section id="team" className="py-20 md:py-32 px-6 bg-[#FAFAFA] border-b border-[#1a1a1a]/5 relative">
                     <AnimatedBorders className="hidden md:block pointer-events-none opacity-20 absolute inset-0 z-0" />
