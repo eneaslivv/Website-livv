@@ -95,7 +95,7 @@ export const clusterCFramerSeo: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "Framer does not offer a native structured data editor, but you can inject JSON-LD scripts through the custom code section in page settings or site-wide settings. For blog posts, use Article schema. For service pages, use Service or ProfessionalService schema. FAQ schema is particularly valuable because it can generate rich results directly in the SERP, increasing your click-through rate by 20–30% according to multiple case studies. Place your JSON-LD in the <head> custom code area and validate it with Google's Rich Results Test before publishing.",
+          "Framer does not offer a native structured data editor, but you can inject JSON-LD scripts through the custom code section in page settings or site-wide settings. For blog posts, use Article schema. For service pages, use Service or ProfessionalService schema. FAQ schema is particularly valuable because it can generate rich results directly in the SERP, increasing your click-through rate by 20–30% according to multiple case studies. Place your JSON-LD in the <code>&lt;head&gt;</code> custom code area and validate it with Google's Rich Results Test before publishing.",
       },
       {
         type: "heading",
@@ -512,7 +512,7 @@ export const clusterCFramerSeo: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "For static pages, select the page in the left panel, open the page settings gear icon, and scroll to the SEO section. You will find fields for SEO Title and SEO Description. The title should be under 60 characters and include your primary keyword near the beginning. The description should be between 150 and 160 characters, include the keyword naturally, and provide a compelling reason to click. Framer uses these values to generate the <title> and <meta name=\"description\"> tags in the HTML head.",
+          "For static pages, select the page in the left panel, open the page settings gear icon, and scroll to the SEO section. You will find fields for SEO Title and SEO Description. The title should be under 60 characters and include your primary keyword near the beginning. The description should be between 150 and 160 characters, include the keyword naturally, and provide a compelling reason to click. Framer uses these values to generate the <title> and <code>&lt;meta name=\"description\"&gt;</code> tags in the HTML head.",
       },
       {
         type: "callout",
@@ -540,7 +540,7 @@ export const clusterCFramerSeo: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "Framer automatically generates Twitter Card meta tags using the same OG image and description. By default, it uses the summary_large_image card type, which displays a large preview image. If you want to override this behavior or add a different image for Twitter specifically, you can inject custom meta tags in the page's custom code head section. Add <meta name=\"twitter:image\" content=\"your-image-url\"> to override the default.",
+          "Framer automatically generates Twitter Card meta tags using the same OG image and description. By default, it uses the summary_large_image card type, which displays a large preview image. If you want to override this behavior or add a different image for Twitter specifically, you can inject custom meta tags in the page's custom code head section. Add <code>&lt;meta name=\"twitter:image\" content=\"your-image-url\"&gt;</code> to override the default.",
       },
       {
         type: "heading",
@@ -573,7 +573,7 @@ export const clusterCFramerSeo: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "For meta tags that Framer does not support natively — such as article:published_time, article:author, or custom verification tags — use the custom code section. Go to page settings, scroll to the Custom Code area, and add your tags in the Head section. These are injected directly into the page's <head> element. For site-wide tags like google-site-verification or organization-level OG tags, use the site-wide custom code settings instead of adding them to every page individually.",
+          "For meta tags that Framer does not support natively — such as article:published_time, article:author, or custom verification tags — use the custom code section. Go to page settings, scroll to the Custom Code area, and add your tags in the Head section. These are injected directly into the page's <code>&lt;head&gt;</code> element. For site-wide tags like google-site-verification or organization-level OG tags, use the site-wide custom code settings instead of adding them to every page individually.",
       },
       {
         type: "heading",
@@ -616,7 +616,7 @@ export const clusterCFramerSeo: BlogPost[] = [
             question:
               "Can I set different OG images for Facebook and Twitter in Framer?",
             answer:
-              "Not natively. Framer uses the same social image for both platforms. However, you can override the Twitter image by injecting a custom <meta name=\"twitter:image\"> tag in the page's custom code head section.",
+              "Not natively. Framer uses the same social image for both platforms. However, you can override the Twitter image by injecting a custom <code>&lt;meta name=\"twitter:image\"&gt;</code> tag in the page's custom code head section.",
           },
           {
             question: "Does Framer support dynamic OG images for CMS pages?",
@@ -656,7 +656,7 @@ export const clusterCFramerSeo: BlogPost[] = [
         question:
           "Can I set different OG images for Facebook and Twitter in Framer?",
         answer:
-          "Not natively. Framer uses the same social image for both platforms. However, you can override the Twitter image by injecting a custom <meta name=\"twitter:image\"> tag in the page's custom code head section.",
+          "Not natively. Framer uses the same social image for both platforms. However, you can override the Twitter image by injecting a custom <code>&lt;meta name=\"twitter:image\"&gt;</code> tag in the page's custom code head section.",
       },
       {
         question: "Does Framer support dynamic OG images for CMS pages?",
@@ -946,7 +946,7 @@ export const clusterCFramerSeo: BlogPost[] = [
         items: [
           "Compress hero images to under 150KB using tools like Squoosh or TinyPNG before uploading to Framer.",
           "Avoid using background videos as LCP elements — use a static poster image with a play trigger instead.",
-          "Preload critical fonts by adding <link rel=\"preload\"> tags in the site-wide custom code head section.",
+          "Preload critical fonts by adding <code>&lt;link rel=\"preload\"&gt;</code> tags in the site-wide custom code head section.",
           "Remove or defer any above-the-fold animations that delay content visibility.",
           "Use Framer's image component rather than background-image CSS for hero images to enable automatic optimization.",
         ],

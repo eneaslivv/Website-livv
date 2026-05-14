@@ -121,7 +121,7 @@ export const clusterAWebflowSeo: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "Rich results\u2014FAQ dropdowns, review stars, breadcrumbs, how-to carousels\u2014are powered by structured data. Webflow does not generate schema automatically, but you can inject JSON-LD into the <head> of any page via the Custom Code panel. At minimum, every Webflow site should have Organization schema on the homepage, BreadcrumbList schema on subpages, and Article schema on blog posts. FAQ schema is a quick win for service pages.",
+          "Rich results\u2014FAQ dropdowns, review stars, breadcrumbs, how-to carousels\u2014are powered by structured data. Webflow does not generate schema automatically, but you can inject JSON-LD into the <code>&lt;head&gt;</code> of any page via the Custom Code panel. At minimum, every Webflow site should have Organization schema on the homepage, BreadcrumbList schema on subpages, and Article schema on blog posts. FAQ schema is a quick win for service pages.",
       },
       {
         type: "heading",
@@ -289,7 +289,7 @@ export const clusterAWebflowSeo: BlogPost[] = [
         items: [
           "Compress hero images to under 200 KB using Squoosh or ShortPixel.",
           "Add fetchpriority='high' as a custom attribute on the LCP image element.",
-          "Preload critical fonts with a <link rel='preload'> tag in the page\u2019s <head> custom code.",
+          "Preload critical fonts with a <code>&lt;link rel='preload'&gt;</code> tag in the page\u2019s <code>&lt;head&gt;</code> custom code.",
           "Avoid lazy-loading the above-the-fold hero image\u2014Webflow\u2019s default lazy load should be disabled for it.",
           "Remove or defer third-party scripts that block the main thread (analytics, chat widgets).",
         ],
@@ -309,7 +309,7 @@ export const clusterAWebflowSeo: BlogPost[] = [
       {
         type: "callout",
         content:
-          "Use font-display: swap in your @font-face declarations. If you load fonts via Webflow\u2019s font manager, add a <style> tag in Custom Code to override the default font-display value to 'swap' or 'optional' for above-the-fold text.",
+          "Use font-display: swap in your @font-face declarations. If you load fonts via Webflow\u2019s font manager, add a <code>&lt;style&gt;</code> tag in Custom Code to override the default font-display value to 'swap' or 'optional' for above-the-fold text.",
         variant: "tip",
       },
       {
@@ -488,7 +488,7 @@ export const clusterAWebflowSeo: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "You have two options: site-wide or page-specific. For Organization schema, add it in Project Settings > Custom Code > Head Code\u2014this injects the script on every page. For page-specific schema (Article, FAQ, Product), open the page\u2019s settings and paste the JSON-LD into the 'Inside <head> tag' field. For CMS-driven pages like blog posts, use Webflow\u2019s embed element inside the page template and bind CMS fields into the JSON-LD dynamically.",
+          "You have two options: site-wide or page-specific. For Organization schema, add it in Project Settings > Custom Code > Head Code\u2014this injects the script on every page. For page-specific schema (Article, FAQ, Product), open the page\u2019s settings and paste the JSON-LD into the 'Inside <code>&lt;head&gt;</code> tag' field. For CMS-driven pages like blog posts, use Webflow\u2019s embed element inside the page template and bind CMS fields into the JSON-LD dynamically.",
       },
       {
         type: "heading",
@@ -584,7 +584,7 @@ export const clusterAWebflowSeo: BlogPost[] = [
       {
         type: "list",
         items: [
-          "Placing the JSON-LD in the <body> instead of the <head>\u2014it works, but Google recommends <head>.",
+          "Placing the JSON-LD in the <code>&lt;body&gt;</code> instead of the <code>&lt;head&gt;</code>\u2014it works, but Google recommends <code>&lt;head&gt;</code>.",
           "Using placeholder text that never gets updated after launch.",
           "Adding schema types that do not match the page content (e.g., Product schema on a blog post).",
           "Forgetting to update schema when page content changes.",
@@ -1002,7 +1002,7 @@ Sitemap: https://yoursite.com/sitemap.xml\`
       {
         type: "paragraph",
         content:
-          "Password pages, thank-you pages, style guides, and test pages should not be indexed. In Webflow, you can add a noindex meta tag by going to Page Settings > Custom Code > Head Code and pasting: <meta name=\"robots\" content=\"noindex, nofollow\">. Also exclude these pages from the sitemap.",
+          "Password pages, thank-you pages, style guides, and test pages should not be indexed. In Webflow, you can add a noindex meta tag by going to Page Settings > Custom Code > Head Code and pasting: <code>&lt;meta name=\"robots\" content=\"noindex, nofollow\"&gt;</code>. Also exclude these pages from the sitemap.",
       },
       {
         type: "faq",
@@ -1017,7 +1017,7 @@ Sitemap: https://yoursite.com/sitemap.xml\`
             question:
               "How do I add noindex to a Webflow page?",
             answer:
-              "Go to Page Settings > Custom Code > Inside <head> tag and add <meta name='robots' content='noindex, nofollow'>.",
+              "Go to Page Settings > Custom Code > Inside <code>&lt;head&gt;</code> tag and add <code>&lt;meta name='robots' content='noindex, nofollow'&gt;</code>.",
           },
           {
             question:
@@ -1067,7 +1067,7 @@ Sitemap: https://yoursite.com/sitemap.xml\`
       {
         question: "How do I add noindex to a Webflow page?",
         answer:
-          "Go to Page Settings > Custom Code > Inside <head> and add a noindex meta tag.",
+          "Go to Page Settings > Custom Code > Inside <code>&lt;head&gt;</code> and add a noindex meta tag.",
       },
       {
         question: "How many H1 tags should a Webflow page have?",
@@ -1164,7 +1164,7 @@ Sitemap: https://yoursite.com/sitemap.xml\`
       {
         type: "paragraph",
         content:
-          "The site used three custom font families loaded via Webflow\u2019s font manager: a display font for headings, a sans-serif for body, and a monospace for code snippets. All three loaded in the <head> as render-blocking resources. We reduced this to two families (dropping the monospace, which appeared on only two pages) and added font-display: swap via a <style> block in head custom code. We also preloaded the primary body font with a <link rel='preload'> tag.",
+          "The site used three custom font families loaded via Webflow\u2019s font manager: a display font for headings, a sans-serif for body, and a monospace for code snippets. All three loaded in the <code>&lt;head&gt;</code> as render-blocking resources. We reduced this to two families (dropping the monospace, which appeared on only two pages) and added font-display: swap via a <code>&lt;style&gt;</code> block in head custom code. We also preloaded the primary body font with a <code>&lt;link rel='preload'&gt;</code> tag.",
       },
       {
         type: "heading",
@@ -1175,7 +1175,7 @@ Sitemap: https://yoursite.com/sitemap.xml\`
       {
         type: "paragraph",
         content:
-          "The site loaded five third-party scripts in the <head>: Google Tag Manager, Hotjar, Intercom, a cookie consent banner, and a social proof widget. Each script blocked the main thread during parsing. We moved all scripts except GTM to the page footer (body end code in Webflow) and loaded Intercom and the social proof widget only after user interaction using a small loader script that listened for the first click or scroll event.",
+          "The site loaded five third-party scripts in the <code>&lt;head&gt;</code>: Google Tag Manager, Hotjar, Intercom, a cookie consent banner, and a social proof widget. Each script blocked the main thread during parsing. We moved all scripts except GTM to the page footer (body end code in Webflow) and loaded Intercom and the social proof widget only after user interaction using a small loader script that listened for the first click or scroll event.",
       },
       {
         type: "code",
@@ -1203,7 +1203,7 @@ window.addEventListener('scroll', loadDeferred, { once: true });`,
       {
         type: "paragraph",
         content:
-          "Finally, we added preload hints for the two most critical resources: the hero image and the primary web font file. These <link rel='preload'> tags in the <head> tell the browser to fetch these files immediately, before the CSS parser discovers them. Combined with the fetchpriority attribute on the image, this shaved another 200ms off LCP.",
+          "Finally, we added preload hints for the two most critical resources: the hero image and the primary web font file. These <code>&lt;link rel='preload'&gt;</code> tags in the <code>&lt;head&gt;</code> tell the browser to fetch these files immediately, before the CSS parser discovers them. Combined with the fetchpriority attribute on the image, this shaved another 200ms off LCP.",
       },
       {
         type: "heading",
@@ -1714,7 +1714,7 @@ auditScripts();`,
           {
             question: "How does script placement affect SEO?",
             answer:
-              "Scripts in the <head> can block rendering and increase LCP. Place non-critical scripts in the footer and defer them to minimize performance impact.",
+              "Scripts in the <code>&lt;head&gt;</code> can block rendering and increase LCP. Place non-critical scripts in the footer and defer them to minimize performance impact.",
           },
           {
             question: "Can I roll back a script change via the API?",

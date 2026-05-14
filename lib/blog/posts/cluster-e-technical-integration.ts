@@ -1402,7 +1402,7 @@ export async function fetchBlogPosts() {
       {
         type: "paragraph",
         content:
-          "The hreflang attribute is an HTML tag that tells search engines which language and regional variant a page targets. It goes in the <head> of every page and points to all language versions, including itself. The format is a link element with rel='alternate', the hreflang value (a language code like 'en' or a language-region code like 'pt-BR'), and the href to the alternate version. Every page must include a self-referencing hreflang and an x-default for fallback. When implemented correctly, Google serves the right version to the right audience, preventing duplicate content issues across locales.",
+          "The hreflang attribute is an HTML tag that tells search engines which language and regional variant a page targets. It goes in the <code>&lt;head&gt;</code> of every page and points to all language versions, including itself. The format is a link element with rel='alternate', the hreflang value (a language code like 'en' or a language-region code like 'pt-BR'), and the href to the alternate version. Every page must include a self-referencing hreflang and an x-default for fallback. When implemented correctly, Google serves the right version to the right audience, preventing duplicate content issues across locales.",
       },
       {
         type: "code",
