@@ -512,7 +512,7 @@ export const clusterCFramerSeo: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "For static pages, select the page in the left panel, open the page settings gear icon, and scroll to the SEO section. You will find fields for SEO Title and SEO Description. The title should be under 60 characters and include your primary keyword near the beginning. The description should be between 150 and 160 characters, include the keyword naturally, and provide a compelling reason to click. Framer uses these values to generate the <title> and <code>&lt;meta name=\"description\"&gt;</code> tags in the HTML head.",
+          "For static pages, select the page in the left panel, open the page settings gear icon, and scroll to the SEO section. You will find fields for SEO Title and SEO Description. The title should be under 60 characters and include your primary keyword near the beginning. The description should be between 150 and 160 characters, include the keyword naturally, and provide a compelling reason to click. Framer uses these values to generate the <code>&lt;title&gt;</code> and <code>&lt;meta name=\"description\"&gt;</code> tags in the HTML head.",
       },
       {
         type: "callout",
@@ -584,7 +584,7 @@ export const clusterCFramerSeo: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "After publishing, validate your meta tags with these tools: Google's Rich Results Test for structured data, Facebook Sharing Debugger for OG tags, Twitter Card Validator for Twitter-specific previews, and LinkedIn Post Inspector for LinkedIn previews. Also inspect the page source directly by viewing the HTML — search for <meta property=\"og: to verify all OG tags are present and correct. Run these checks on both static pages and CMS pages to catch any mapping issues.",
+          "After publishing, validate your meta tags with these tools: Google's Rich Results Test for structured data, Facebook Sharing Debugger for OG tags, Twitter Card Validator for Twitter-specific previews, and LinkedIn Post Inspector for LinkedIn previews. Also inspect the page source directly by viewing the HTML — search for <code>&lt;meta property=&quot;og:&quot;</code> to verify all OG tags are present and correct. Run these checks on both static pages and CMS pages to catch any mapping issues.",
       },
       {
         type: "callout",
