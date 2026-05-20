@@ -55,11 +55,25 @@ export const STUDIO = {
 
 const PRIMARY_SERVICES = [
   {
+    name: "Custom Software Development",
+    nameEs: "Desarrollo de Software a Medida",
+    slug: "custom-software-development",
+    description:
+      "Custom software, business applications, and digital products built end-to-end. From founder MVPs to scale-up internal tools to white-label SaaS platforms. Next.js, React Native, Flutter, Supabase, and the full TypeScript stack.",
+  },
+  {
+    name: "AI Integration",
+    nameEs: "Integración de IA",
+    slug: "ai-integration",
+    description:
+      "AI-powered software for business operations. Custom agents, RAG implementations, AI-augmented workflows, and Claude/OpenAI integrations built into your existing product or shipped as a new one.",
+  },
+  {
     name: "Creative Engineering",
     nameEs: "Ingeniería Creativa",
     slug: "creative-engineering",
     description:
-      "Design and development at the intersection of strategy and technical precision. Scalable, maintainable digital products aligned with real business goals.",
+      "Design and development at the intersection of strategy and technical precision. Scalable, maintainable digital products aligned with real business goals. Webflow, Framer, Next.js.",
   },
   {
     name: "Product Strategy & UI Design",
@@ -73,7 +87,7 @@ const PRIMARY_SERVICES = [
     nameEs: "Motion y Narrativa",
     slug: "motion-narrative",
     description:
-      "Motion design and storytelling that make ideas easy to understand — from product explainers to interface animation and brand narratives.",
+      "Motion design and storytelling that make ideas easy to understand. Product explainers, interface animation, brand narratives.",
   },
   {
     name: "Brand Identity & Visual Systems",
@@ -87,7 +101,7 @@ const PRIMARY_SERVICES = [
     nameEs: "Aplicaciones Web White-Label",
     slug: "white-label-apps",
     description:
-      "Production-grade web apps deployed under your brand — Payper for hospitality, PRTool for creator partnerships, LegalFlow for law firms.",
+      "Production-grade web apps deployed under your brand. Payper for hospitality, PRTool for creator partnerships, LegalFlow for law firms.",
   },
 ] as const
 
@@ -95,23 +109,45 @@ export type StudioService = (typeof PRIMARY_SERVICES)[number]
 export const SERVICES = PRIMARY_SERVICES
 
 const KNOWS_ABOUT = [
+  // Custom software + AI (new primary categories)
+  "Custom software development",
+  "Custom business applications",
+  "AI integration for business",
+  "AI agent development",
+  "AI-powered software",
+  "RAG implementation",
+  "Claude API integration",
+  "OpenAI API integration",
+  "Anthropic Claude API",
+  "Nearshore software development",
+  // Engineering stack
+  "Next.js development",
+  "React development",
+  "React Native development",
+  "Flutter development",
+  "TypeScript",
+  "Node.js",
+  "Supabase",
+  "Webflow development",
+  "Framer development",
+  "Shopify development",
+  // Design + product
   "UI/UX Design",
   "Product Strategy",
   "Brand Identity",
   "Design Systems",
-  "Web Development",
-  "Next.js",
-  "React",
-  "TypeScript",
   "Motion Design",
   "Creative Direction",
   "SaaS Product Design",
+  // Business model + sectors
   "White-Label Software",
   "Hospitality Software",
   "Creator Economy Tooling",
   "Legal Tech",
+  // Geographic / cultural
   "Argentina Design Industry",
   "Latin America Tech",
+  "Argentine creative engineering tradition",
 ]
 
 const AREA_SERVED = [
@@ -155,7 +191,7 @@ export function buildOrganizationGraph() {
         },
         image: STUDIO.ogImage,
         description:
-          "LIVV Creative Studio builds digital products for founders and agencies. The studio works in Webflow, Framer, Next.js, React Native, Flutter, and Shopify, both directly and as a white-label partner. Based in Buenos Aires, Argentina, with clients across the US, UK, Latin America, and Europe.",
+          "LIVV Creative Studio is a creative engineering studio that builds custom software, AI integrations, and digital products for founders and agencies. The studio ships custom business applications, AI agents, and AI-integrated software, plus marketing surfaces in Webflow and Framer. Tech stack: Next.js, React Native, Flutter, Shopify, Supabase, Anthropic API, OpenAI. Works both directly and as a white-label partner. Based in Buenos Aires, Argentina, with clients across the US, UK, Latin America, and Europe.",
         slogan: STUDIO.tagline,
         foundingDate: STUDIO.foundingDate,
         foundingLocation: {

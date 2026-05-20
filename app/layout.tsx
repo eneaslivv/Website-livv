@@ -17,9 +17,9 @@ import { DeferredChatWidget } from "@/components/ui/deferred-chat-widget"
 import { buildOrganizationGraph } from "@/lib/seo/structured-data"
 
 const SITE_TITLE =
-  "LIVV Creative Studio · Buenos Aires, Argentina"
+  "LIVV Creative Studio · Custom Software Development & AI Integration"
 const SITE_DESCRIPTION =
-  "LIVV Creative Studio builds digital products for founders and agencies. Webflow, Framer, Next.js, React Native, Flutter, Shopify. Based in Buenos Aires, with clients across the US, UK, Latin America, and Europe."
+  "LIVV Creative Studio builds custom software, AI integrations, and digital products for founders and agencies. Webflow, Framer, Next.js, React Native, Flutter, Shopify, Anthropic API. Creative engineering studio based in Buenos Aires, with clients across the US, UK, Latin America, and Europe."
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || "GTM-NC96QG65"
 
@@ -30,22 +30,37 @@ export const metadata: Metadata = {
   },
   description: SITE_DESCRIPTION,
   keywords: [
+    // Brand
     "LIVV Creative Studio",
     "LIVV",
+    "Livv Studio",
+    "Livv",
+    // Primary service categories (transactional intent)
+    "custom software development company",
+    "custom software development for small business",
+    "AI integration services",
+    "AI software development company",
+    "custom AI solutions for business",
+    "AI agent development",
+    "custom business application development",
+    "nearshore software development Argentina",
+    // Studio positioning
     "creative engineering studio",
     "white-label design and development",
+    "design and development partner for agencies",
+    // Tech stack signals
     "Webflow studio",
     "Framer studio",
     "Next.js development studio",
     "React Native studio",
-    "design and development partner for agencies",
+    "Claude API integration",
+    "Anthropic API integration",
+    // Geo
     "boutique design studio Buenos Aires",
     "design studio Argentina",
     "estudio de ingeniería creativa",
-    "estudio de diseño Buenos Aires",
-    "diseño y desarrollo web Argentina",
-    "Livv Studio",
-    "Livv",
+    "desarrollo de software a medida Argentina",
+    "integración de AI para negocios",
   ],
   authors: [{ name: "LIVV Creative Studio", url: "https://livvvv.com" }],
   creator: "LIVV Creative Studio",
@@ -69,7 +84,7 @@ export const metadata: Metadata = {
     siteName: "LIVV Creative Studio",
     title: SITE_TITLE,
     description:
-      "Creative engineering studio building digital products for founders and agencies. Webflow, Framer, Next.js, React Native, Flutter. Based in Buenos Aires.",
+      "Custom software development and AI integration for founders and agencies. Creative engineering studio working in Webflow, Framer, Next.js, React Native, and Anthropic API. Based in Buenos Aires.",
     images: [
       {
         url: "/assets/og-image.png",
@@ -83,7 +98,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SITE_TITLE,
     description:
-      "Creative engineering studio building digital products for founders and agencies. Webflow, Framer, Next.js. Based in Buenos Aires.",
+      "Custom software development and AI integration for founders and agencies. Creative engineering studio based in Buenos Aires.",
     creator: "@livvstudio",
     images: ["/assets/og-image.png"],
   },
