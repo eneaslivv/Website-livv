@@ -89,7 +89,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         }))
 
     // ── Services (no public RPC yet — kept hardcoded until one exists) ──
-    const serviceSlugs = ["creative-engineering", "product-strategy-ui", "motion-narrative"]
+    // New high-priority slugs lead the array per the May 2026 SEO strategy.
+    // /custom-software-development and /ai-integration target the
+    // transactional keywords that the studio's entity messaging now leads
+    // with; /nearshore-development captures the geographic positioning
+    // signal. Listed first so they get higher crawl priority within the
+    // /services/ subtree.
+    const serviceSlugs = [
+        "custom-software-development",
+        "ai-integration",
+        "nearshore-development",
+        "creative-engineering",
+        "product-strategy-ui",
+        "motion-narrative",
+    ]
     const servicePages: MetadataRoute.Sitemap = serviceSlugs.map((slug) => ({
         url: `${BASE_URL}/services/${slug}`,
         lastModified: new Date(),
