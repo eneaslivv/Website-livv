@@ -1663,4 +1663,351 @@ export const clusterHEditorial: BlogPost[] = [
     createdAt: "2026-05-11T21:00:00.000Z",
     updatedAt: "2026-05-11T21:00:00.000Z",
   },
+
+  /* ────────────────────────────────────────────────────────────
+   *   Phase 2 / Custom Software #1 — Custom Software vs SaaS
+   * ──────────────────────────────────────────────────────────── */
+  {
+    id: "h-005",
+    slug: "custom-software-vs-saas-when-to-build",
+    title: "Custom Software vs SaaS: When to Build Your Own",
+    excerpt:
+      "Most founders reach for SaaS first, and most of the time that is the right call. When it is not, the wrong choice costs more than the price tag suggests. A framework for thinking through the decision honestly.",
+    content: "",
+    contentBlocks: [
+      {
+        type: "heading",
+        level: 2,
+        id: "key-takeaways",
+        content: "Key takeaways",
+      },
+      {
+        type: "list",
+        ordered: true,
+        items: [
+          "SaaS is almost always the correct starting point. A pre-product-market-fit business that builds custom software before the model is stable is spending capital on a system that will need to be redesigned as the business changes.",
+          "Custom software becomes worth evaluating when your processes diverge meaningfully from the workflow assumptions built into the SaaS tool, and when the gap produces real operational cost in staff time, error rate, or compliance risk.",
+          "Total cost of ownership math usually flips at the 24-to-36-month mark for mid-scale businesses. Subscription stacks that appear inexpensive at launch compound in ways the initial pricing page does not show.",
+          "The decision is rarely binary. Most companies that move to custom software replace one or two specific tools, the ones producing the most operational friction, not their entire stack.",
+          "A custom system built to the wrong spec is worse than staying on SaaS. The quality of the requirements process, and the depth of the development partner's domain knowledge, matters as much as the build decision itself.",
+        ],
+      },
+      {
+        type: "paragraph",
+        content:
+          "Most founders know the answer to this question before they finish reading the headline. SaaS, in almost every case, is the right starting point. The category has matured enough that there is a serviceable tool for nearly every standard business workflow, the pricing is predictable, and you do not own the maintenance.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The harder question is not when to start on SaaS. It is when to recognize that the tool is working against you, and what to do about it. Most businesses wait longer than they should at that point, and a few move too fast. The framework below is designed to help with both.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "what-you-are-comparing",
+        content: "What you are actually comparing",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A SaaS product is a pre-built system designed around a workflow common enough to justify serving many businesses at once. The vendor has made thousands of design decisions about how the workflow should work. They priced the product to cover those decisions and update it continuously with features their median customer wants.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "You are buying those decisions. You are also inheriting them. The invoice line item is the subscription fee. The hidden line item is every hour your team spends adapting its process to fit the tool's assumptions, rather than the reverse.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Custom software is built for one business's actual workflow. A development team translates that business's processes into code rather than adapting the business's processes to code someone else wrote. The result fits the business. The risk is that the fit is only as accurate as the requirements that went into the build.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Neither option is inherently superior. The question is which fits the structure of the decision you are actually making, at the stage you are at, for the specific workflow in question.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Most companies are not choosing between the two in the abstract. They are deciding where to draw the line in a stack that will include both for years. The right framing is: at which point does the cost of the SaaS assumption exceed the cost of building something that fits?",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "when-saas-is-correct",
+        content: "When SaaS is the right answer",
+      },
+      {
+        type: "paragraph",
+        content:
+          "SaaS is correct when the workflow you are buying it for is well-defined and shared across many businesses. Invoicing is invoicing. Email sequencing is email sequencing. A project management tool for a standard software team is a solved problem. When a SaaS vendor has built the tool specifically for your workflow type, you benefit from years of product investment that would cost significantly more to replicate.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "SaaS is also correct when you are early. A business that has not yet stabilized its processes should not build custom software. The process will change as the business model evolves, and the custom system will change with it, at cost. The ability to swap one SaaS tool for another as the model evolves is a structural advantage worth preserving in the early stage.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The practical test is simple. Can you do what you need to do in the SaaS tool, without adaptations that produce real operational cost? If yes, the vendor's investment in that product is working for you, and the subscription is a rational purchase.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The signal that changes the calculation is not a single friction point. It is a pattern of friction across multiple touchpoints, compounding over time. A business that has been on a SaaS stack for two to four years, has grown to the point where tools are integrated with each other, and is noticing that integrations break, monthly cost has grown substantially, and workarounds now require dedicated staff time is approaching the threshold where the comparison is worth running seriously.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "when-custom-is-worth-it",
+        content: "When custom software is worth evaluating",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Four conditions reliably indicate that custom software has crossed into better-value territory for a specific workflow.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The SaaS tools were not designed for your vertical, and the mismatch produces real cost. Legal case management running on a generic task tool, hospitality operations running on a retail POS, insurance workflows running through a sales CRM: in each case the tool's workflow assumptions do not match the business's actual workflow, and the gap shows up as staff time, error rate, or compliance exposure.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The subscription stack has grown larger than the underlying problems it was solving. When a company is paying for ten or more SaaS subscriptions, some of those tools exist only to bridge gaps between other tools. The cost of maintaining those integrations, in API maintenance, automation platforms like Zapier, and SaaS tiers that expose API access, approaches or exceeds the cost of a custom system that would replace them.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The data model of the SaaS tool conflicts with the business's actual data structure. A CRM with a standard deal object does not fit a law firm where the billing unit is a matter, not a deal. A project management tool with standard tasks does not fit an engineering firm tracking work against change orders inside contracts. When the underlying data model is wrong, every feature built on top of it compounds the problem.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The compliance requirements of the business exceed what the SaaS vendor offers at accessible pricing. Specific audit trail formats, data residency requirements, or HIPAA-compliant architectures with direct BAA support at the workflow level are either absent from the tool or gated behind enterprise tiers that reduce the cost advantage of SaaS substantially.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "total-cost-of-ownership",
+        content: "The total cost of ownership math",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The sticker price of SaaS is not the cost. The actual cost includes the subscription fees, the time spent on integration maintenance, the time spent on workarounds, the cost of errors that fall into gaps between tools, and the cost of manual work that a custom system would have handled automatically.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A representative mid-market example. A forty-person professional services firm is running Salesforce at $18,000 per year for ten Professional tier seats, a project management tool at $3,600 per year, a billing system at $4,800 per year, a document management system at $2,400 per year, and a business intelligence layer connecting all four at $6,000 per year. The visible spend is $34,800 per year.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The invisible spend is harder to see until you measure it. One junior operations person spends roughly thirty percent of their time maintaining integrations and fixing data sync errors between the five systems. At a fully-loaded cost of $65,000 per year, the soft cost adds $19,500 annually. Total annual cost: approximately $54,300.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A custom system replacing those five tools, built to fit the firm's actual workflow, would cost between $80,000 and $120,000 to build at boutique studio rates in 2026. With annual maintenance of $8,000 to $12,000, typical for a system of this scope, and a five-year depreciation, the annual cost runs $24,000 to $36,000. The payback period is eighteen to thirty months.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "This math requires two conditions. The custom system must be built accurately, to the actual process rather than to assumptions about the process. And the underlying business process must be stable enough that the software will not need significant redesign within the payback window. When both conditions hold, the math usually favors building. When either is absent, the math usually favors staying on SaaS.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "For a full breakdown of what custom software development costs at boutique, mid-tier, and large agency rates in 2026, the Hiring a Creative Engineering Studio guide on this site covers the pricing ranges in detail.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "portfolio-examples",
+        content: "Two examples from LIVV's portfolio",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Payper is a custom POS system we built for a hospitality operator who was running Shopify for retail, Toast for food service, and a Google Sheets reconciliation layer maintained by two staff members to bridge the two. The monthly subscription cost was manageable. The monthly labor cost of keeping the reconciliation accurate was not.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "We built Payper as a unified POS that handled both retail and food service under a single inventory model, with reporting that eliminated the manual reconciliation step. The build cost was in the $60,000 to $80,000 range. The labor saving alone paid for the system inside fifteen months of operation.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Payper has since been productized. We now license it as a SaaS product to other hospitality operators, which changes its economics entirely for those operators. Businesses subscribing to Payper are buying SaaS rather than commissioning custom software, which is the right call for operators that have not yet hit the vertical-mismatch threshold in their own operations.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "LegalFlow is a case management platform we built for a law firm running Clio alongside two spreadsheet-based workarounds. One tracked billable hours against non-standard matter types that Clio's billing model did not accommodate. The other logged the document review workflow in a format the firm's malpractice insurance required. The compliance gap was the primary driver of the build decision, not the cost.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "We built LegalFlow to fit the firm's specific billing model and compliance logging requirements. The Clio subscription was retired. Both spreadsheet workarounds were retired. The build cost was in the $90,000 to $110,000 range. In the first year after launch, the firm passed a compliance audit it had been failing on documentation grounds.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Neither project replaced the full SaaS stack. Both replaced the specific tools producing the most operational friction, while leaving everything else in place. That is the pattern we see most often when the decision is made well.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "decision-framework",
+        content: "A five-question decision framework",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The decision is not SaaS or custom. It is a filter that runs from the specific to the structural.",
+      },
+      {
+        type: "list",
+        ordered: true,
+        items: [
+          "Is the workflow standard enough that a SaaS tool was built for it? If yes, start there and confirm that the tool actually fits before looking further.",
+          "Are the vertical-specific mismatches creating measurable operational cost? If the friction is real but not yet quantifiable, map it before making any build decision. Unquantified friction is not a build case.",
+          "What will the total annual cost of the SaaS stack be in three years, including integration maintenance and workaround labor? If that number is approaching the build cost of a custom system, the math is worth running fully.",
+          "How stable is the underlying process? Custom software built to a process that is still evolving is expensive to maintain. The best time to build is when the process has stabilized, not when it is still changing.",
+          "Do you have, or can you hire, a development partner who understands both your vertical and your technical requirements? A custom system built by a team without domain knowledge carries more execution risk than staying on SaaS.",
+        ],
+      },
+      {
+        type: "paragraph",
+        content:
+          "If you are hitting the limits of your SaaS stack, the right next step is usually an audit rather than an immediate build decision. Map the visible and invisible costs of each tool in the stack. Identify which one or two tools are producing the majority of operational friction. Determine whether that friction comes from a vertical mismatch, a data model problem, or a compliance gap. That analysis gives you a specific build target rather than a vague replacement mandate.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Most companies that make this decision well replace one or two components of their stack with custom software, not the whole thing. The SaaS tools that are working stay. The specific tools creating friction get replaced with something built to fit the actual workflow.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The White-Label Playbook on this site covers one related angle: how studios and agencies structure the partner relationships that deliver this kind of custom build work, which is useful context if you are evaluating build partners rather than doing this work in-house.",
+      },
+      {
+        type: "faq",
+        items: [
+          {
+            question: "How do I know when my SaaS stack is too expensive?",
+            answer:
+              "When the total annual cost, including visible subscriptions, integration maintenance, and the staff time spent on workarounds, approaches or exceeds what a custom system would cost over a five-year window with annual maintenance included. That crossover typically happens somewhere between $40,000 and $80,000 per year in total stack cost for a mid-scale business.",
+          },
+          {
+            question: "Does moving to custom software mean replacing everything?",
+            answer:
+              "Almost never. The practical pattern is replacing one or two tools that are producing the most operational friction while keeping everything else on SaaS. A full-stack replacement is expensive, carries significant execution risk, and almost always exceeds what the business actually needed to fix.",
+          },
+          {
+            question:
+              "What are realistic timelines for a custom software build in 2026?",
+            answer:
+              "A focused workflow tool replacing one or two SaaS products typically takes eight to sixteen weeks at a boutique studio. A larger system replacing a broader stack takes four to eight months. Both ranges assume stable requirements. Unstable requirements extend both ends significantly.",
+          },
+          {
+            question:
+              "What happens when the SaaS vendor updates their platform after we have built workarounds around it?",
+            answer:
+              "The update often breaks the workaround, which is one of the ongoing costs of the patched-SaaS approach. It is also one of the strongest signals that the vertical mismatch is real. If vendor updates consistently cause operational disruption, the tool was not designed for your workflow.",
+          },
+          {
+            question:
+              "Can I build custom software for just one part of my workflow and keep SaaS for the rest?",
+            answer:
+              "Yes, and that is the most common and practical outcome. A custom billing module that talks to your existing CRM, a custom document management system that integrates with your existing project management tool: these hybrid architectures are how most successful custom software decisions end up. You build the specific component where the SaaS market has not solved your problem, not the whole stack.",
+          },
+          {
+            question:
+              "What is the biggest mistake companies make when they decide to build?",
+            answer:
+              "Building before the process is stable. A custom system built to a workflow that changes significantly in the first year of operation is expensive to maintain and often abandoned. The second most common mistake is choosing a development partner without domain knowledge of the vertical, which produces a system that is technically correct but fails to fit the actual workflow it was built to replace.",
+          },
+          {
+            question: "Is open-source software a third option?",
+            answer:
+              "Sometimes. Open-source tools like Odoo for ERP workflows, Metabase for analytics, or Plane for project management can reduce SaaS stack cost without requiring a full custom build. They introduce a different cost: the engineering time needed to host, configure, and maintain the open-source system. That cost is often underestimated for businesses without a dedicated engineering team.",
+          },
+        ],
+      },
+    ],
+    coverImage: "/images/blog/creative-engineering.webp",
+    author,
+    category: creativeEngineeringCategory,
+    tags: [
+      "Custom software",
+      "SaaS",
+      "Build vs buy",
+      "Software costs",
+      "Total cost of ownership",
+      "Custom development",
+      "Payper",
+      "LegalFlow",
+    ],
+    readingTimeMinutes: 12,
+    published: true,
+    featured: true,
+    displayOrder: 5,
+    seoTitle:
+      "Custom Software vs SaaS: When to Build Your Own · LIVV Creative Studio",
+    seoDescription:
+      "A framework for deciding between custom software and SaaS, with total cost of ownership math, real examples from Payper and LegalFlow, and a five-question decision filter.",
+    faqSchema: [
+      {
+        question: "How do I know when my SaaS stack is too expensive?",
+        answer:
+          "When total annual cost, including subscriptions, integration maintenance, and workaround labor, approaches or exceeds what a custom system would cost over five years with maintenance. That crossover typically happens between $40,000 and $80,000 per year in total stack cost for a mid-scale business.",
+      },
+      {
+        question: "Does moving to custom software mean replacing everything?",
+        answer:
+          "Almost never. The practical pattern is replacing the one or two tools producing the most operational friction while keeping everything else on SaaS. A full-stack replacement is expensive, carries significant execution risk, and almost always exceeds what the business actually needed to fix.",
+      },
+      {
+        question:
+          "What are realistic build timelines for custom software in 2026?",
+        answer:
+          "A focused workflow tool replacing one or two SaaS products takes eight to sixteen weeks at a boutique studio. A larger system takes four to eight months. Both ranges assume stable requirements.",
+      },
+      {
+        question:
+          "Can I build custom software for just one part of my workflow?",
+        answer:
+          "Yes, and that is the most common and practical outcome. A custom billing module, a custom document management system, or a custom reporting layer that integrates with existing SaaS tools covers the gap without replacing the full stack.",
+      },
+      {
+        question:
+          "What is the biggest mistake companies make when they decide to build?",
+        answer:
+          "Building before the process is stable. A custom system built to a workflow that changes significantly in the first year is expensive to maintain and often abandoned. The second most common mistake is choosing a development partner without domain knowledge of the vertical.",
+      },
+      {
+        question: "Is open-source software a third option?",
+        answer:
+          "Sometimes. Tools like Odoo, Metabase, or Plane can reduce SaaS stack cost without a full custom build. They introduce a different cost: hosting, configuration, and ongoing engineering maintenance, which is often underestimated for businesses without a dedicated engineering team.",
+      },
+    ],
+    internalLinks: [],
+    cta,
+    relatedPostSlugs: [
+      "hiring-creative-engineering-studio",
+      "white-label-playbook",
+      "argentine-creative-engineering-tradition",
+    ],
+    createdAt: "2026-05-25T09:00:00.000Z",
+    updatedAt: "2026-05-25T09:00:00.000Z",
+  },
 ]
