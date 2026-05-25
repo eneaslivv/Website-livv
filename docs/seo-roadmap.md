@@ -22,7 +22,7 @@ Category slug: `creative-engineering` (cluster F) until a dedicated cluster
 file exists.
 Cluster file: `lib/blog/posts/cluster-h-editorial.ts` (append at the end).
 
-- [ ] **Custom Software vs SaaS: When to Build Your Own**
+- [~] **Custom Software vs SaaS: When to Build Your Own**
       Comparison piece, ~2,500 words. Pricing ranges, decision tree, real
       examples from LIVV's own product portfolio (Payper, LegalFlow).
 - [ ] **How Much Does Custom Software Cost in 2026?**
