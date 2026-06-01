@@ -54,7 +54,7 @@ Target keywords: `AI integration services`, `AI integration examples`,
 integration`, `RAG vs fine-tuning`, `custom AI chatbot development`,
 `Claude API vs OpenAI API`.
 
-- [~] **How to Integrate AI Into Your Existing Business** `how-to-integrate-ai-into-your-existing-business`
+- [x] **How to Integrate AI Into Your Existing Business** `how-to-integrate-ai-into-your-existing-business`
       Practical guide, ~2,800 words. Workflow inventory, integration
       pattern selection, build vs buy AI tooling.
 - [ ] **AI Integration Examples: 10 Real Business Use Cases**
