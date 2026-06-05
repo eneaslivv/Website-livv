@@ -25,3 +25,11 @@
 - Newly broken: none
 - Newly fixed: none
 - Notes: Audit skipped — Playwright Chromium download blocked by network policy (second consecutive week); cluster-h-editorial.ts touched (8 slugs); IndexNow ping returned 403 — key verification file may need checking
+
+## 2026-06-05
+- OK: N/A
+- THIN: N/A
+- BROKEN: N/A
+- Newly broken: none
+- Newly fixed: none
+- Notes: Audit skipped — Playwright Chromium download blocked by network policy (third consecutive week); cluster-h-editorial.ts touched (added how-to-integrate-ai-into-your-existing-business); IndexNow ping returned 403 again — host key file needs author investigation
