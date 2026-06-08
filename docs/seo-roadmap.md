@@ -25,7 +25,7 @@ Cluster file: `lib/blog/posts/cluster-h-editorial.ts` (append at the end).
 - [x] **Custom Software vs SaaS: When to Build Your Own** `custom-software-vs-saas-when-to-build`
       Comparison piece, ~2,500 words. Pricing ranges, decision tree, real
       examples from LIVV's own product portfolio (Payper, LegalFlow).
-- [ ] **How Much Does Custom Software Cost in 2026?**
+- [~] **How Much Does Custom Software Cost in 2026?**
       Pricing guide, ~2,800 words. Marketing site / MVP / full product /
       AI-integrated app ranges. Boutique vs mid-tier vs big-agency.
 - [ ] **The Build vs Buy Decision: A Framework for Founders**
