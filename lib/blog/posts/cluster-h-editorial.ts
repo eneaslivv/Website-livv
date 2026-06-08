@@ -2422,4 +2422,413 @@ export const clusterHEditorial: BlogPost[] = [
     createdAt: "2026-06-01T09:00:00.000Z",
     updatedAt: "2026-06-01T09:00:00.000Z",
   },
+
+  /* ────────────────────────────────────────────────────────────
+   *   Phase 2 / Custom Software #2 — How Much Does Custom Software Cost in 2026?
+   * ──────────────────────────────────────────────────────────── */
+  {
+    id: "h-007",
+    slug: "how-much-does-custom-software-cost-in-2026",
+    title: "How Much Does Custom Software Cost in 2026?",
+    excerpt:
+      "Real pricing ranges for custom software in 2026, broken down by project type and agency tier. Marketing sites, MVPs, full products, and AI-integrated apps, with the factors that move the number in either direction.",
+    content: "",
+    contentBlocks: [
+      {
+        type: "heading",
+        level: 2,
+        id: "key-takeaways",
+        content: "Key takeaways",
+      },
+      {
+        type: "list",
+        ordered: true,
+        items: [
+          "Custom software pricing in 2026 ranges from roughly $15,000 for a focused internal tool to over $500,000 for a full product with complex integrations. The spread reflects real differences in scope, not arbitrary agency markup.",
+          "Marketing sites at boutique studio rates cost $20,000 to $80,000. Web application MVPs run $50,000 to $150,000. Full products with real business logic, payments, and multi-tenancy cost $100,000 to $400,000 for the initial build.",
+          "Adding AI capabilities to an existing application costs $8,000 to $40,000 at the simpler end. A custom AI agent for a defined workflow runs $30,000 to $120,000. Building AI in from the start adds 10 to 20 percent to the base project cost.",
+          "Boutique studios charge $100 to $200 per hour and deliver at 40 to 60 percent of mid-tier agency cost for comparable work. Big agency rates run five to ten times boutique rates, driven by overhead and brand recognition rather than craft.",
+          "Hourly rate is a poor predictor of total project cost. A studio with better domain knowledge and tighter scope management frequently delivers a lower total cost than a cheaper studio with more revision cycles and a longer timeline.",
+        ],
+      },
+      {
+        type: "paragraph",
+        content:
+          "Custom software pricing confuses most buyers because the same phrase covers an enormous range of actual work. A basic internal tool might cost $15,000. A multi-integration platform serving thousands of users can cost $500,000 or more. Both are technically custom software, and the difference is scope.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "This guide covers what specific project types actually cost in 2026, broken down by tier of the market. The goal is to give you enough information to evaluate whether a quote you receive is reasonable before you sign.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "why-pricing-is-so-variable",
+        content: "Why the price range is so wide",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The first reason pricing varies so much is scope. Unlike a SaaS subscription with a published price list, custom software pricing is proportional to the complexity of what you are building. Two projects described identically in an early conversation can differ by three times in cost once the actual requirements are fully specified.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The second reason is market stratification. The custom software market has at least three distinct tiers: boutique studios, mid-tier agencies, and large agencies. Each tier charges different rates for work that is often technically comparable in craft quality. Understanding which tier you are dealing with is more useful than comparing hourly numbers across tiers.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The third reason is requirements quality. A project built to a well-specified brief with stable requirements costs significantly less than the same project built to a vague brief that evolves mid-build. The cost of a bad brief shows up as revision cycles and scope disputes, not as a transparent line item on the original proposal.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Studios that price well include discovery phases at the front of engagements, specifically to produce better requirements before development begins. A discovery phase costs $5,000 to $20,000 at boutique rates and almost always saves more than it costs over the full project.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "marketing-site-costs",
+        content: "Marketing site costs",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A marketing site is the most common first custom software investment, and the range in pricing is wider than buyers typically expect.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "At boutique studio rates in 2026, a marketing site costs $20,000 to $80,000. The lower end covers a clean site of eight to fifteen pages with content management, mobile-responsive design, and basic analytics integration. The upper end covers a site with custom motion, code-backed interactive components, multi-locale support, and a more complex CMS schema.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Specific factors that push a marketing site toward the upper end of the range: multi-locale support adds $5,000 to $20,000, depending on the number of locales and whether content trees diverge structurally between languages. Custom scroll-driven animations and interactive components add $5,000 to $15,000. AI-powered search or personalization adds $8,000 to $25,000. Each custom platform component beyond the visual editor's built-in capabilities adds $3,000 to $10,000.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "At the mid-tier agency level, the same marketing site costs $50,000 to $200,000. The additional cost covers a larger project team, dedicated account and strategy functions, more concept rounds, and higher overhead per development hour. The output quality is often comparable to boutique studio work, though the higher price does not guarantee it.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Large agencies charge $150,000 to $500,000 or more for a marketing site engagement. That cost reflects brand recognition, enterprise procurement compatibility, and presentation infrastructure designed for multi-stakeholder approvals. For a startup or a mid-sized company that does not need those things, the cost differential is not recovered in craft quality.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Platform choice affects build cost less than most people assume. A Webflow build and a Framer build of similar scope cost roughly the same at a boutique studio. A Next.js marketing site costs 20 to 40 percent more because engineering overhead is higher, though hosting and maintenance costs run lower over a three-year period. The Webflow vs Framer comparison on this site covers the platform trade-offs in detail if that decision is still open.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "mvp-and-early-product-costs",
+        content: "MVP and early product costs",
+      },
+      {
+        type: "paragraph",
+        content:
+          "An MVP, in pricing terms, means a web application functional enough to place in front of real users for validation. It has working authentication, data persistence, a real backend, and the core workflow the product is built around. It is not a prototype or a clickable mockup.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "At boutique studio rates in 2026, a web application MVP costs $50,000 to $150,000. The lower end covers a product with one primary workflow, a small number of user roles, and minimal third-party integrations beyond authentication and payments. The upper end covers a product with more complex business logic, multiple user types, several integrations, and a developed admin surface.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A product MVP at mid-tier agency rates runs $120,000 to $350,000. The additional cost comes from the same structural factors as the marketing site comparison: larger team size, more process overhead, and higher overhead per development hour.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Timeline pressure matters significantly at the MVP stage. A boutique studio shipping an MVP in eight weeks is managing tighter scope and faster decision-making than the same studio taking sixteen weeks. The eight-week version costs less, not because the quality is lower, but because the scope is more focused and the decision cadence is faster.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The most consistent mistake at this stage is over-scoping. Teams building their first product frequently include secondary features before validating that the core workflow is wanted at all. An MVP built around one well-specified core workflow produces more useful signal than one with five partially-implemented features. The Hiring a Creative Engineering Studio guide on this site covers how to evaluate a development partner's willingness to push back on scope decisions, which matters more at the MVP stage than at any other.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "full-product-development-costs",
+        content: "Full product and system development costs",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Full product development means building a system intended to serve real users at scale, with the engineering depth that implies: multi-tenancy, audit trails, role-based access control, third-party integrations at production quality, and a maintainable API design.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "At boutique studio rates, full product development runs $100,000 to $400,000 for the initial build. The lower end represents a well-specified product with one or two user roles, a focused workflow, and three to five integrations. The upper end represents a product with complex business logic, multiple user types, deep reporting requirements, and significant third-party integrations.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "These figures are initial build costs only. Production software requires ongoing maintenance, bug fixes, and feature development after it ships. Budget 15 to 20 percent of the initial build cost per year for ongoing maintenance at the boutique studio tier. Annual maintenance cost estimates in 2026 by application complexity:",
+      },
+      {
+        type: "list",
+        ordered: false,
+        items: [
+          "A web application with one or two integrations: $12,000 to $24,000 per year.",
+          "A mid-complexity product with three to five integrations and periodic feature additions: $24,000 to $60,000 per year.",
+          "A complex product with a large integration surface and regular feature shipping: $60,000 to $120,000 per year.",
+        ],
+      },
+      {
+        type: "paragraph",
+        content:
+          "Retainer engagements tend to be more cost-efficient than per-project maintenance contracts for ongoing work. The retainer removes the overhead of scoping, proposing, and contracting each incremental piece of work separately. The White-Label Playbook on this site covers how studios structure retainer engagements in the agency context, and the same pricing logic applies to direct product development retainers.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "ai-integrated-application-costs",
+        content: "AI-integrated application costs",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Adding AI capabilities to a custom application is a distinct line item in most estimates in 2026. The cost depends on which integration pattern the project requires.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The simplest pattern is adding a single AI-powered feature via a model API: AI-assisted drafting, document classification, or automated summarization within an otherwise standard application. Development cost at boutique studio rates: $8,000 to $40,000, depending on prompt engineering complexity and output handling requirements. Production API usage for a mid-scale feature runs $200 to $1,500 per month.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A retrieval-augmented generation (RAG) system, which connects an AI model to a proprietary document set so it can answer questions about specific content, costs $20,000 to $80,000 to build. A simple internal knowledge retrieval system over a well-organized document library sits at the lower end. A multi-source system with access controls, citation display, and a custom interface sits at the upper end.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A custom AI agent that handles multi-step reasoning and can call external tools or take actions costs $30,000 to $120,000 for the initial build. An agent with one or two tool integrations and a bounded scope sits in the lower half of that range. An agent managing conversation state and calling five or more external tools sits at the upper end.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Building AI capabilities into an application from the start, rather than adding them afterward, typically costs 10 to 20 percent more than the equivalent application without AI. The premium covers evaluation infrastructure, additional testing requirements for non-deterministic outputs, and the prompt engineering that a production-quality integration requires.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The How to Integrate AI Into Your Existing Business guide on this site covers integration patterns and cost structures for AI additions to existing workflows in more detail.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "agency-tier-comparison",
+        content: "What boutique, mid-tier, and big-agency rates actually look like",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The same project brief sent to three different tiers of the market returns three very different numbers. Understanding why the numbers differ is as important as knowing what the numbers are.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Boutique creative engineering studios in 2026 charge $100 to $200 per hour. The effective project cost, meaning what you pay for a finished deliverable, reflects both the hourly rate and the efficiency of a senior team working with focused scope. A four-person boutique studio with a senior designer and a senior engineer working directly on your project often delivers lower total cost than a larger team at a nominally similar rate, because the smaller team has less coordination overhead and fewer revision cycles.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Mid-tier agencies charge $150 to $300 per hour and assign larger teams per project. A marketing site that a boutique studio quotes at $35,000 will often appear at $80,000 to $120,000 from a mid-tier agency. The additional cost covers dedicated account management, a more formalized process, and the agency's overhead structure. That cost is worth paying when your project genuinely benefits from the formalized process or when you need the agency's client relationships.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Large agencies charge $250 to $600 per hour and have overhead structures where a meaningful share of the billing rate goes to non-delivery functions: account management, new business development, strategy, and executive attention. A product build quoted at $100,000 by a boutique studio can realistically appear at $400,000 to $700,000 at a large agency. That premium is sometimes justified by enterprise procurement requirements, stakeholder management needs, or the need for a recognizable vendor name. For companies without those needs, the premium is not recovered in craft quality.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Offshore development runs $20 to $80 per hour. The lower rate does not consistently reduce total project cost, because lower hourly rates are frequently accompanied by higher revision counts, lower productivity per hour, and more communication overhead. On well-scoped projects, the total cost difference between a senior boutique studio and an offshore team often closes to within 20 to 30 percent, and occasionally reverses.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "variables-that-move-the-number",
+        content: "The variables that change the final number",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Several factors consistently push project cost above the initial estimate. Understanding them before signing a proposal is more useful than trying to negotiate them out afterward.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Requirements quality is the largest single variable. A brief that describes outcomes, has been pressure-tested by the buying team before the proposal stage, and includes defined acceptance criteria produces significantly lower total cost than a brief describing a general direction and expecting the studio to fill in the scope. The cost of vague requirements appears as revision cycles, scope discussions, and rework. Budget explicitly for a discovery phase if your brief is not yet fully specified.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Integration count is the second significant variable. Each third-party integration adds to both build cost and ongoing maintenance cost. Budget $3,000 to $10,000 per integration at boutique studio rates for initial implementation, and $1,000 to $3,000 per integration per year for maintenance. A product with eight integrations is not eight times more expensive than a product with one, but it is meaningfully more expensive to build and substantially more expensive to maintain.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Timeline pressure adds cost. A project that needs to ship in six weeks rather than twelve requires the studio to allocate more people simultaneously or extend hours to compress the schedule. Rush surcharges at boutique studios typically run 20 to 40 percent above the standard project rate.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Stack choice affects cost in two directions. No-code platforms (Webflow, Framer) are faster to build marketing sites and CMS-backed pages in than custom code, which means lower development hours for comparable output. Custom engineering costs more per page than a visual editor for standard content but produces better results for complex interactive or data-driven cases. React Native costs more to staff than Flutter in most markets in 2026 because senior React Native engineers are less available.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "how-to-approach-a-quote",
+        content: "How to approach a quote",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The most useful preparation before approaching studios is writing a brief specific enough to be quoted accurately. A quotable brief includes the specific problem the software needs to solve, the workflows it will replace or support, the number of user roles, the required integrations, expected user scale, any compliance requirements, and the hard constraints on timeline and budget.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Studios that receive a specific brief can provide a fixed-fee quote with a defined scope. Studios that receive a vague brief will either quote a wide range that is impossible to evaluate, or propose a discovery phase first. The discovery phase is not a delay; it is the step that prevents expensive surprises later in the build.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Getting three quotes from studios at the same tier is more useful than getting one quote from each of three tiers. A boutique quote, a mid-tier quote, and a big-agency quote are not comparable documents because they reflect different team structures, process models, and overhead rates. Comparing them directly produces confusion rather than clarity.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A competent boutique studio should be able to deliver a written proposal with a defined scope, a fixed fee, and a project timeline within five to seven business days of receiving a detailed brief. A studio that cannot do this is either still developing its ability to scope projects accurately, or does not have available bandwidth right now. The Hiring a Creative Engineering Studio guide on this site covers the signals that separate a consistent studio from an inconsistent one.",
+      },
+      {
+        type: "faq",
+        items: [
+          {
+            question: "How much does a basic custom software project cost in 2026?",
+            answer:
+              "The low end of the market is roughly $15,000 to $25,000 for a focused internal tool built by a boutique studio. A marketing site runs $20,000 to $80,000. A web application MVP runs $50,000 to $150,000. Full product development starts around $100,000 and scales with complexity and integration count.",
+          },
+          {
+            question: "What is the biggest factor in determining custom software cost?",
+            answer:
+              "Requirements quality. A project built to a well-specified brief with stable requirements costs significantly less than the same project built to a vague brief that evolves mid-build. The second most significant factor is integration count, followed by timeline pressure.",
+          },
+          {
+            question: "How do boutique studio rates compare to mid-tier agency rates?",
+            answer:
+              "Boutique studios charge $100 to $200 per hour and typically complete projects at 40 to 60 percent of mid-tier agency cost for comparable deliverables. The additional cost at mid-tier agencies reflects a larger team, more process overhead, and dedicated account management rather than meaningfully different craft quality.",
+          },
+          {
+            question: "How much does adding AI cost to a custom software project?",
+            answer:
+              "Adding a single AI feature via a model API costs $8,000 to $40,000 in development, plus $200 to $1,500 per month in API usage. A RAG knowledge system runs $20,000 to $80,000 to build. A custom AI agent runs $30,000 to $120,000 for the initial build. Building AI in from the start adds roughly 10 to 20 percent to base project cost.",
+          },
+          {
+            question: "How long does custom software take to build in 2026?",
+            answer:
+              "A marketing site takes three to eight weeks at a boutique studio. A web application MVP takes six to sixteen weeks. Full product development takes three to eight months for the initial build. All ranges assume stable requirements. Scope changes and requirements instability extend every range significantly.",
+          },
+          {
+            question: "What should I budget for annual software maintenance?",
+            answer:
+              "Budget 15 to 20 percent of the initial build cost per year. A simple web application with one or two integrations runs $12,000 to $24,000 per year. A mid-complexity product runs $24,000 to $60,000. A complex product with a large integration surface can run $60,000 to $120,000.",
+          },
+          {
+            question: "Why do large agency quotes cost so much more than boutique studio quotes?",
+            answer:
+              "Large agency rates reflect overhead unrelated to delivery: account management, new business development, strategy functions, and executive attention. A project quoted at $100,000 by a boutique studio can appear at $400,000 to $700,000 at a large agency. The premium is justified by enterprise procurement requirements or stakeholder recognition needs, not by craft quality differences.",
+          },
+          {
+            question: "Is offshore development actually cheaper than a boutique studio?",
+            answer:
+              "Not reliably. Offshore hourly rates of $20 to $80 per hour are genuinely lower, but lower rates are frequently accompanied by higher revision counts, more communication overhead, and lower productivity per hour. On well-scoped projects, the total cost difference between a senior boutique studio and an offshore team often closes to within 20 to 30 percent. On poorly scoped projects, the offshore option is sometimes more expensive in total.",
+          },
+        ],
+      },
+    ],
+    coverImage: "/images/blog/creative-engineering.webp",
+    author,
+    category: creativeEngineeringCategory,
+    tags: [
+      "Custom software",
+      "Software costs",
+      "Custom development",
+      "Agency pricing",
+      "MVP costs",
+      "Marketing site costs",
+      "Pricing 2026",
+    ],
+    readingTimeMinutes: 13,
+    published: true,
+    featured: true,
+    displayOrder: 7,
+    seoTitle:
+      "How Much Does Custom Software Cost in 2026? · LIVV Creative Studio",
+    seoDescription:
+      "Real pricing ranges for custom software in 2026: marketing sites $20k-$80k, MVPs $50k-$150k, full products $100k-$400k. Boutique studio vs mid-tier agency vs big-agency rates compared.",
+    faqSchema: [
+      {
+        question: "How much does a basic custom software project cost in 2026?",
+        answer:
+          "The low end is roughly $15,000 to $25,000 for a focused internal tool. A marketing site runs $20,000 to $80,000. A web application MVP runs $50,000 to $150,000. Full product development starts around $100,000 and scales with complexity.",
+      },
+      {
+        question: "What is the biggest factor in determining custom software cost?",
+        answer:
+          "Requirements quality. A project built to a well-specified brief costs significantly less than the same project built to a vague brief that evolves mid-build. The second most significant factor is integration count, followed by timeline pressure.",
+      },
+      {
+        question: "How do boutique studio rates compare to mid-tier agency rates?",
+        answer:
+          "Boutique studios charge $100 to $200 per hour and typically complete projects at 40 to 60 percent of mid-tier agency cost for comparable deliverables. The additional cost at mid-tier agencies reflects team size and process overhead rather than meaningfully different craft quality.",
+      },
+      {
+        question: "How much does adding AI cost to a custom software project?",
+        answer:
+          "A single AI feature via model API costs $8,000 to $40,000 in development. A RAG knowledge system costs $20,000 to $80,000. A custom AI agent costs $30,000 to $120,000. Building AI in from the start adds roughly 10 to 20 percent to base project cost.",
+      },
+      {
+        question: "How long does custom software take to build in 2026?",
+        answer:
+          "A marketing site takes three to eight weeks. A web application MVP takes six to sixteen weeks. Full product development takes three to eight months. All ranges assume stable requirements.",
+      },
+      {
+        question: "What should I budget for annual software maintenance?",
+        answer:
+          "Budget 15 to 20 percent of the initial build cost per year. A simple application runs $12,000 to $24,000. A mid-complexity product runs $24,000 to $60,000. A complex product with a large integration surface can run $60,000 to $120,000.",
+      },
+      {
+        question: "Why do large agency quotes cost so much more than boutique studio quotes?",
+        answer:
+          "Large agency rates reflect overhead unrelated to delivery: account management, new business development, and executive attention. A $100,000 boutique project can appear at $400,000 to $700,000 at a large agency. The premium is justified by enterprise procurement requirements, not by craft quality differences.",
+      },
+      {
+        question: "Is offshore development actually cheaper than a boutique studio?",
+        answer:
+          "Not reliably. Lower hourly rates are frequently accompanied by higher revision counts and more communication overhead. On well-scoped projects, the total cost difference between a boutique studio and an offshore team often closes to within 20 to 30 percent.",
+      },
+    ],
+    internalLinks: [],
+    cta,
+    relatedPostSlugs: [
+      "custom-software-vs-saas-when-to-build",
+      "hiring-creative-engineering-studio",
+      "how-to-integrate-ai-into-your-existing-business",
+    ],
+    createdAt: "2026-06-08T09:00:00.000Z",
+    updatedAt: "2026-06-08T09:00:00.000Z",
+  },
 ]
