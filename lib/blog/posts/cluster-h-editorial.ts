@@ -2831,4 +2831,370 @@ export const clusterHEditorial: BlogPost[] = [
     createdAt: "2026-06-08T09:00:00.000Z",
     updatedAt: "2026-06-08T09:00:00.000Z",
   },
+
+  /* ────────────────────────────────────────────────────────────
+   *   Phase 2 / AI Integration #2 — AI Integration Examples: 10 Real Business Use Cases
+   * ──────────────────────────────────────────────────────────── */
+  {
+    id: "h-008",
+    slug: "ai-integration-examples-real-business-use-cases",
+    title: "AI Integration Examples: 10 Real Business Use Cases",
+    excerpt:
+      "Ten AI integrations that shipped to production: the industry, the specific workflow problem, the integration pattern, and what a successful outcome looks like in each case. Real cost ranges for 2026.",
+    content: "",
+    contentBlocks: [
+      {
+        type: "heading",
+        level: 2,
+        id: "key-takeaways",
+        content: "Key takeaways",
+      },
+      {
+        type: "list",
+        ordered: true,
+        items: [
+          "AI integration works most reliably when applied to a single, well-defined workflow with measurable volume, rather than deployed as a general-purpose assistant across an organization.",
+          "Document-heavy workflows, customer support communication, and internal knowledge retrieval account for the majority of successful business AI integrations. These are the categories where model capability is best-matched to business need.",
+          "The integration pattern matters as much as the model choice. A well-structured API integration with prompt engineering suited to the specific task consistently outperforms a generic AI tool dropped into an unsupported workflow.",
+          "All ten cases in this article went through a proof of concept before production deployment. The PoC stage is where vertical mismatch gets detected before it becomes expensive.",
+          "Real development costs in 2026: adding an AI feature to an existing application runs $8,000 to $40,000. A RAG-based knowledge system runs $20,000 to $80,000. A custom AI agent replacing a defined workflow runs $30,000 to $120,000.",
+        ],
+      },
+      {
+        type: "paragraph",
+        content:
+          "The question \"what can AI do for my business?\" is the wrong starting point. The more useful question is: which of my business workflows processes enough volume, involves enough repetitive judgment, and has a measurable enough outcome that an AI integration would pay for itself?",
+      },
+      {
+        type: "paragraph",
+        content:
+          "This piece answers the second question for ten specific cases. Each case covers the industry context, the specific workflow problem, the integration approach, and the cost and timeline shape. These are not hypothetical scenarios drawn from press releases about AI potential. They are the types of integrations that have completed PoC and reached production in the twelve months before this was written.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The cases are organized by workflow type rather than by industry, because the integration pattern that works for a legal contract review workflow applies equally to a real estate lease comparison workflow. The task shape is the useful abstraction, not the industry label.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "how-to-read-these-cases",
+        content: "How to read these ten cases",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Each case follows the same structure: the industry and company size sets context, the specific problem describes the workflow and what made it a strong candidate, the integration approach describes the technical pattern used, and the cost and outcome shape describes real ranges rather than projected metrics.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The workflows that made it to production shared a specific profile. They were high volume (more than twenty distinct inputs per operator per day), they required consistent judgment against a stable set of rules or patterns, and they had a visible error rate or throughput ceiling under the existing human process. Workflows that did not share this profile produced weak PoC results and did not reach production.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The integration patterns referenced in these cases are covered in structural detail in the How to Integrate AI Into Your Existing Business guide on this site. What follows here is the application of those patterns to specific cases across industries.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "legal-and-contract-workflows",
+        content: "Legal and contract workflows",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Case 1 is a regional law firm specializing in commercial contracts. The firm reviewed approximately two hundred contracts per month to identify non-standard clauses requiring partner-level attention. Associates did the review work, comparing each contract against a standard clause library. Contracts averaged twenty to forty pages, and review time averaged forty-five minutes per contract. The problem was cost rather than accuracy: associate billing rates made contract review the most expensive operational step in the intake workflow.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The integration used the Claude API to process contract text against a defined clause taxonomy. The system extracted flagged clauses, labeled each by category, and generated a structured summary for partner review. Partners reviewed the summary rather than the full document. The AI pre-filtered the standard from the non-standard, routing only flagged sections to human attention. Build cost: $18,000 to $24,000. Production API usage: approximately $800 per month.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Case 2 is a commercial real estate brokerage managing lease amendments across a portfolio of eighty properties. When a landlord proposed an amendment, an analyst compared proposed terms to the original lease and flagged deviations. The comparison took four to six hours of analyst time per amendment.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The integration used a two-pass approach: the first pass extracted original lease terms into a structured schema, the second compared the amendment document against that schema and produced a change-by-change summary. The analyst reviewed and verified the output rather than doing the mechanical comparison manually. Build cost: $14,000 to $20,000. Production API usage: $300 to $600 per month. Analyst review time per standard amendment dropped to under one hour.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "insurance-and-financial-document-processing",
+        content: "Insurance and financial document processing",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Case 3 is a property and casualty insurer receiving approximately three hundred new claims per week. Initial triage (severity assessment, category assignment, initial documentation requirements) was handled by a claims intake team. Each claim required a trained examiner to read the submission, apply a fifteen-point classification rubric, and assign the claim to the appropriate specialist queue.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The integration used a classification model built on top of a frontier API, with the rubric translated into a structured system prompt. The AI produced a classification recommendation and a confidence score. Claims above the confidence threshold were automatically routed; claims below the threshold were routed to a human examiner with the AI's provisional classification attached. Build cost: $22,000 to $30,000. Production API usage: $1,200 to $1,800 per month at production volume.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Case 4 is a regional accounting firm managing audit engagements across twenty clients annually. Evidence gathering required classifying thousands of documents per engagement against a standardized evidence taxonomy. Two staff-level accountants spent a meaningful share of each engagement on classification before analysis could begin.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The integration processed each uploaded document against the firm's evidence taxonomy and returned a category label, a confidence level, and the specific passages supporting the classification. The output fed directly into the engagement management tool. Build cost: $12,000 to $16,000 (the simplest integration shape in this set: single-pass classification with structured output). The classification step dropped from days to hours per engagement. Human review remained in place for low-confidence outputs.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "customer-support-and-ticket-routing",
+        content: "Customer support and ticket routing",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Case 5 is a direct-to-consumer apparel brand with a customer support team of eight agents receiving approximately four hundred tickets per week. Incoming tickets required classification (order status, return request, product question, damage claim) and routing to the appropriate agent with relevant order data attached. Agents also drafted responses manually against a shared template library.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The integration handled classification and routing in the first pass. In the second pass, the system drafted a response for the agent to review, pulling from the template library and filling in the relevant order data from the connected order management system. The agent reviewed, edited, and sent. Build cost: $28,000 to $38,000 (the OMS integration accounted for roughly a third of the build cost). Production API usage: $500 to $900 per month. Classification accuracy for the three primary ticket categories ran above ninety percent based on agent acceptance rates. The damage claim category, requiring more judgment, had lower AI confidence and was routed to human handling by default.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Case 6 is a B2B SaaS company with a tiered support structure needing to route incoming tickets to the correct tier (self-service documentation, tier-one support, tier-two engineering) before an agent read them. Incorrect initial routing added an average of two hours to resolution time for tickets that required escalation.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The integration used a classifier trained on six months of historical tickets with known correct routing. The classifier ran at ticket submission and attached a routing recommendation before the ticket reached the support queue. Build cost: $10,000 to $14,000 (lower than Case 5 because no external system integration or response drafting layer was required). Production API usage: $200 to $400 per month. A self-service documentation suggestion layer was added in a second sprint, surfacing relevant help articles at submission.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "internal-knowledge-retrieval",
+        content: "Internal knowledge retrieval",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Case 7 is a sixty-person management consulting firm with seven years of project deliverables, methodology documentation, and proposal templates stored across a file server, SharePoint, and a legacy intranet. New consultants spent several hours per week searching for relevant materials from previous engagements.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The integration used a RAG (retrieval-augmented generation) architecture. Documents were ingested, chunked, and embedded into a vector database. Staff asked questions in plain language via a web interface. The system retrieved relevant passages from the document set and generated an answer with citations to the source documents. Build cost: $35,000 to $55,000 (the document ingestion pipeline, handling multiple formats and access-controlled materials, accounted for a significant share of cost beyond the AI layer itself). Production API usage: $600 to $1,200 per month. The citation feature was reported as critical to adoption: staff trusted the output more because they could verify the source rather than accepting the synthesis without checking.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Case 8 is a mid-size equipment manufacturer with ten years of maintenance logs, service bulletins, and repair manuals stored in a combination of PDFs and scanned images. Field technicians needed to find specific repair procedures, which required either memorization or a time-consuming search through physical and digital archives.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The integration used a RAG system with OCR preprocessing for scanned documents. Technicians queried via a mobile web interface. Results returned the relevant procedure or service bulletin with the source document attached. Build cost: $40,000 to $60,000 (OCR preprocessing for scanned documents added to both build cost and ongoing maintenance compared to a text-native document set). Production API usage: $400 to $800 per month. The integration also surfaced which documents were queried most frequently, giving the technical documentation team clear signal about where to invest in documentation quality improvements.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "content-generation-and-hr-screening",
+        content: "Content generation and HR screening",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Case 9 is an online retailer with a catalog of twelve thousand SKUs. The retailer had previously written product descriptions through a contract copywriting team at $8 to $15 per SKU. For a catalog of this size the annual description cost was substantial, and the backlog of new SKUs with no descriptions was growing faster than the team could write.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The integration took product data (SKU attributes, category, specifications, and images described via a vision model pass) and generated a draft description in the retailer's brand voice. A copywriter reviewed and approved each description rather than writing from scratch. Build cost: $16,000 to $22,000. Production API usage: $1,000 to $2,500 per month for a catalog of this size, depending on model tier. Description cost per SKU dropped substantially. The retailer reported redirecting surplus copywriter capacity to content types requiring more judgment (editorial, category pages, email) rather than eliminating positions.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Case 10 is an HR operations team at a two-hundred-person company processing approximately eighty applications per month across multiple open roles. Initial screening (checking minimum qualifications, flagging strong candidates for recruiter review) consumed four to six hours of recruiter time per role.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The integration used structured job requirements as the evaluation rubric. Each resume was processed against the rubric, and candidates received an initial score with specific notes about which requirements they met, which were unclear from the resume, and which were absent. The recruiter reviewed the structured output rather than the raw resume stack. Build cost: $10,000 to $16,000. Production API usage: $150 to $300 per month. Recruiters reported spending more time on genuine assessment of strong candidates and less time on manual first-pass filtering. The notes about unclear requirements prompted additional outreach to candidates where the missing information was ambiguous rather than simply absent.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "what-the-ten-cases-share",
+        content: "What the ten cases share",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Reviewing these ten cases together, several patterns are more useful than the per-case results.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Every case started with a workflow that could be described in a single sentence. A law firm reviews contracts for non-standard clauses. An insurer classifies claims by severity. A retailer generates product descriptions from attribute data. The cases that failed their PoC (and several did before the ones described here reached production) could not be described that simply. They were integrations looking for a problem rather than solutions to a problem with a measurable cost.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Every case used a human review step rather than full automation. None of the ten cases removed a human from the workflow entirely. The AI handled the high-volume mechanical component. The human retained the judgment calls. This is the pattern that survives internal stakeholder review, meets regulatory requirements in industries where those apply, and produces better outcomes than full automation at current model capability for most business tasks.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Every case had a defined metric before the PoC started: time saved per document, classification accuracy, cost per generated description. The cases where the PoC produced a clean result and the production decision was straightforward were the ones where the before-measurement was done rigorously. Cases where the PoC produced ambiguous signal were almost always ones where the baseline had been measured loosely or retrospectively.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "None of the ten cases required fine-tuning a model. All used general-purpose frontier models with carefully designed system prompts and (where relevant) retrieval augmentation. Fine-tuning adds cost and complexity that is rarely justified until a well-engineered prompt-based integration has been in production long enough to identify the specific gap fine-tuning would address.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The total development cost of any integration in this set was recoverable within twelve to eighteen months of production deployment, based on hours saved or cost reduced in the target workflow. That range is not a projection. It was the threshold that justified the production build decision in each case. For guidance on evaluating development partners to build an integration like these, the Hiring a Creative Engineering Studio guide on this site covers the signals that separate a studio with genuine AI integration experience from one that has recently added the term to its service list.",
+      },
+      {
+        type: "faq",
+        items: [
+          {
+            question:
+              "Which industries have the clearest AI integration opportunities right now?",
+            answer:
+              "Industries with high document volume per operator (legal, insurance, finance, real estate) and high ticket volume in customer communication (e-commerce, SaaS support, HR) have the clearest near-term cases. These workflows have the volume, the pattern repetition, and the measurable throughput ceiling that makes the path from PoC to production tractable. Industries where value depends on human relationship quality rather than information processing volume tend to produce weaker PoC results.",
+          },
+          {
+            question:
+              "Do all of these integrations use the same AI model?",
+            answer:
+              "No. The pattern across these ten cases is tiered model usage: a more capable and more expensive model for complex reasoning and generation tasks, a faster and cheaper model for classification and routing tasks. A contract clause extraction workflow might use a frontier model for the extraction itself and a smaller model for confidence scoring. Choosing the right model tier for each subtask within the workflow is part of both the prompt engineering and the cost engineering work.",
+          },
+          {
+            question:
+              "How long did each integration take from PoC to production?",
+            answer:
+              "The simpler cases (single-pass classification, single document type) took six to eight weeks from PoC start to production deployment. The more complex cases (RAG systems with multi-format document ingestion, support integrations with external OMS connections) took twelve to eighteen weeks. All ranges assume the PoC ran before the production build began, which added four to six weeks to the total timeline.",
+          },
+          {
+            question:
+              "What happens when the AI output is wrong?",
+            answer:
+              "Every case in this article included a confidence threshold below which the output was routed to a human rather than acted on autonomously. The classification cases used explicit confidence scores. The generation cases (descriptions, draft responses) used a human review step before any output reached a client or was published. Building the error-routing logic is as important as building the integration itself, and is frequently omitted from early estimates.",
+          },
+          {
+            question:
+              "Can any of these integrations be built on a no-code platform?",
+            answer:
+              "Some of the simpler cases can be approximated with platforms like Zapier plus a model API or Make plus Claude for early testing. The ticket routing and basic classification cases have reasonable no-code approximations at low volume. The RAG systems, OMS-integrated support cases, and multi-pass document extraction cases require custom development for production reliability and cost efficiency at scale.",
+          },
+          {
+            question:
+              "What data privacy considerations apply when using a model API for business workflows?",
+            answer:
+              "Anthropic and OpenAI do not train on API inputs by default under their standard API agreements. For legal, insurance, healthcare, and HR workflows, the data processing agreement with the API provider needs to cover your jurisdiction's requirements (GDPR, HIPAA where applicable, and relevant state laws). For workflows where data cannot leave your own infrastructure, self-hosted open-source models are an option at higher infrastructure cost and lower current model capability.",
+          },
+          {
+            question:
+              "What is the realistic cost to get started with a first AI integration?",
+            answer:
+              "The lowest entry point is a simple classification or generation integration using a model API: $8,000 to $15,000 in development cost, $200 to $600 per month in API usage, built over six to eight weeks. That covers one clearly scoped workflow. Expanding to a RAG system or a support integration with an external tool connection costs $20,000 to $50,000 and takes ten to sixteen weeks. These are boutique studio rates in 2026 USD.",
+          },
+          {
+            question:
+              "How do I measure whether the integration is working after it ships?",
+            answer:
+              "Define the metric before you ship: time saved per task, error rate reduction, cost per generated unit, or volume handled without human review. Track it weekly for the first three months after launch. Scheduled evaluation runs on a representative sample of recent outputs are the practical way to catch performance drift before it reaches customers or compounds into a larger problem.",
+          },
+        ],
+      },
+    ],
+    coverImage: "/images/blog/technical-integration.webp",
+    author,
+    category: aiIntegrationCategory,
+    tags: [
+      "AI integration",
+      "AI for business",
+      "AI examples",
+      "Business automation",
+      "RAG",
+      "AI agents",
+      "Workflow automation",
+      "Use cases",
+    ],
+    readingTimeMinutes: 13,
+    published: true,
+    featured: true,
+    displayOrder: 8,
+    seoTitle:
+      "AI Integration Examples: 10 Real Business Use Cases · LIVV Creative Studio",
+    seoDescription:
+      "Ten AI integrations that shipped to production: industry context, workflow problem, integration pattern, and real cost ranges for 2026. Legal, insurance, support, HR, and more.",
+    faqSchema: [
+      {
+        question:
+          "Which industries have the clearest AI integration opportunities right now?",
+        answer:
+          "Industries with high document volume per operator (legal, insurance, finance, real estate) and high ticket volume in customer communication (e-commerce, SaaS support, HR) have the clearest near-term cases. These workflows have the volume, the pattern repetition, and the measurable throughput ceiling that makes the path from PoC to production tractable.",
+      },
+      {
+        question:
+          "Do all of these AI integration examples use the same model?",
+        answer:
+          "No. The pattern is tiered model usage: a more capable model for complex reasoning and generation tasks, a faster and cheaper model for classification and routing. Choosing the right model tier for each subtask is part of both the prompt engineering and cost engineering work.",
+      },
+      {
+        question:
+          "How long does a typical AI integration take from PoC to production?",
+        answer:
+          "Simple classification integrations take six to eight weeks from PoC start to production. RAG systems and integrations with external tool connections take twelve to eighteen weeks. All ranges assume the PoC ran before the production build began, adding four to six weeks to the total timeline.",
+      },
+      {
+        question:
+          "What happens when the AI output is wrong in a production integration?",
+        answer:
+          "Every well-designed integration includes a confidence threshold below which output routes to a human rather than acting autonomously. Generation cases (descriptions, draft responses) use a human review step before any output reaches a client. Building the error-routing logic is as important as building the integration itself.",
+      },
+      {
+        question:
+          "What data privacy considerations apply when using a model API for business workflows?",
+        answer:
+          "Anthropic and OpenAI do not train on API inputs by default. For legal, insurance, healthcare, and HR workflows, the data processing agreement with the provider needs to cover your jurisdiction's requirements. For data that cannot leave your own infrastructure, self-hosted open-source models are the alternative at higher infrastructure cost.",
+      },
+      {
+        question:
+          "What is the realistic cost to start a first AI integration in 2026?",
+        answer:
+          "A simple classification or generation integration costs $8,000 to $15,000 in development and $200 to $600 per month in API usage, built over six to eight weeks. A RAG system or support integration with external tool connections costs $20,000 to $50,000 and takes ten to sixteen weeks. These are boutique studio rates in 2026 USD.",
+      },
+      {
+        question:
+          "Did any of these integrations require fine-tuning a model?",
+        answer:
+          "None did. All ten cases used general-purpose frontier models with carefully designed system prompts and retrieval augmentation where needed. Fine-tuning adds cost and complexity rarely justified until a well-engineered prompt-based integration has been in production long enough to identify the specific gap fine-tuning would address.",
+      },
+      {
+        question:
+          "How do I measure whether an AI integration is working after it ships?",
+        answer:
+          "Define the metric before shipping: time saved per task, error rate reduction, cost per generated unit, or volume handled without human review. Track it weekly for the first three months. Scheduled evaluation runs on recent outputs are the practical way to catch performance drift before it compounds.",
+      },
+    ],
+    internalLinks: [],
+    cta,
+    relatedPostSlugs: [
+      "how-to-integrate-ai-into-your-existing-business",
+      "hiring-creative-engineering-studio",
+      "custom-software-vs-saas-when-to-build",
+    ],
+    createdAt: "2026-06-15T09:00:00.000Z",
+    updatedAt: "2026-06-15T09:00:00.000Z",
+  },
 ]

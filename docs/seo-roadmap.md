@@ -57,7 +57,7 @@ integration`, `RAG vs fine-tuning`, `custom AI chatbot development`,
 - [x] **How to Integrate AI Into Your Existing Business** `how-to-integrate-ai-into-your-existing-business`
       Practical guide, ~2,800 words. Workflow inventory, integration
       pattern selection, build vs buy AI tooling.
-- [~] **AI Integration Examples: 10 Real Business Use Cases** `ai-integration-examples-real-business-use-cases`
+- [x] **AI Integration Examples: 10 Real Business Use Cases** `ai-integration-examples-real-business-use-cases`
       Listicle, ~2,500 words. Each case with industry, problem,
       integration shape, outcome shape.
 - [ ] **What Is an AI Agent and Does Your Business Need One?**
