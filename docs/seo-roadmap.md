@@ -28,7 +28,7 @@ Cluster file: `lib/blog/posts/cluster-h-editorial.ts` (append at the end).
 - [x] **How Much Does Custom Software Cost in 2026?** `how-much-does-custom-software-cost-in-2026`
       Pricing guide, ~2,800 words. Marketing site / MVP / full product /
       AI-integrated app ranges. Boutique vs mid-tier vs big-agency.
-- [~] **The Build vs Buy Decision: A Framework for Founders** `build-vs-buy-decision-framework-for-founders`
+- [x] **The Build vs Buy Decision: A Framework for Founders** `build-vs-buy-decision-framework-for-founders`
       Framework piece, ~2,200 words. Five-question decision tree, real
       cost-of-ownership math, when to revisit the decision.
 - [ ] **Custom Software Development Process: What to Expect**
