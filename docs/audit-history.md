@@ -41,3 +41,11 @@
 - Newly broken: none
 - Newly fixed: none
 - Notes: Audit skipped — Playwright Chromium download blocked by network policy (fourth consecutive week); cluster-h-editorial.ts touched (added ai-integration-examples-real-business-use-cases, 8 slugs total in file); IndexNow ping returned 403 again — api.indexnow.org blocked by network policy; Vercel deploy status unverifiable (no GitHub Actions, Vercel deploys directly)
+
+## 2026-06-26
+- OK: N/A
+- THIN: N/A
+- BROKEN: N/A
+- Newly broken: none
+- Newly fixed: none
+- Notes: Audit skipped — outbound HTTPS to livvvv.com blocked by proxy egress (403); Playwright package now installable via pre-installed Chromium but site unreachable; cluster-h-editorial.ts touched (added build-vs-buy-decision-framework-for-founders, 9 slugs total); IndexNow ping blocked (api.indexnow.org not in egress allowlist, fifth consecutive week); Vercel deploy status unverifiable (no GitHub Actions)
