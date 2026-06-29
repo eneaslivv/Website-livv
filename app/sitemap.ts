@@ -47,6 +47,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         { url: `${BASE_URL}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
         { url: `${BASE_URL}/agencies`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
         { url: `${BASE_URL}/studio`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+        // Spanish AEO landings — high-intent LATAM/AR commercial queries
+        { url: `${BASE_URL}/software-a-medida`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+        { url: `${BASE_URL}/desarrollo-de-apps`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+        { url: `${BASE_URL}/diseno-a-medida`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
     ]
 
     // ── Specialized landings (rewrites in next.config.mjs to /lp/*.html) ─

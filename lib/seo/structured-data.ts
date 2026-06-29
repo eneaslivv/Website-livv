@@ -105,6 +105,17 @@ const KNOWS_ABOUT = [
   "Legal Tech",
   "Argentina Design Industry",
   "Latin America Tech",
+  // Spanish high-intent commercial terms (LATAM / Argentina query space)
+  "Software a medida",
+  "Desarrollo de software a medida",
+  "Desarrollo de aplicaciones a medida",
+  "Desarrollo de apps",
+  "Software especializado para empresas",
+  "Sistemas de gestión a medida",
+  "Diseño de producto digital",
+  "Diseño UX/UI a medida",
+  "Fábrica de software",
+  "Software para empresas de LATAM",
 ]
 
 const AREA_SERVED = [
@@ -249,6 +260,8 @@ export type ServiceJsonLdInput = {
   description: string
   slug: string
   alternateName?: string
+  /** Override the default `/services/{slug}` URL (e.g. top-level AEO landings). */
+  url?: string
 }
 
 export function buildServiceJsonLd({
@@ -256,6 +269,7 @@ export function buildServiceJsonLd({
   description,
   slug,
   alternateName,
+  url,
 }: ServiceJsonLdInput) {
   return {
     "@context": "https://schema.org",
@@ -263,7 +277,7 @@ export function buildServiceJsonLd({
     name,
     alternateName,
     description,
-    url: `${SITE_URL}/services/${slug}`,
+    url: url ?? `${SITE_URL}/services/${slug}`,
     serviceType: name,
     category: "Design & Software Development",
     provider: { "@id": `${SITE_URL}#organization` },
@@ -317,6 +331,23 @@ export function buildSoftwareApplicationJsonLd({
         seller: { "@id": `${SITE_URL}#organization` },
       },
     }),
+  }
+}
+
+/**
+ * FAQPage builder — used by the Spanish AEO landings. Generative engines
+ * (ChatGPT, Perplexity, Gemini) frequently lift FAQ question/answer pairs
+ * verbatim, so keeping them as structured data raises citation odds.
+ */
+export function buildFaqJsonLd(faq: { q: string; a: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map(({ q, a }) => ({
+      "@type": "Question",
+      name: q,
+      acceptedAnswer: { "@type": "Answer", text: a },
+    })),
   }
 }
 
