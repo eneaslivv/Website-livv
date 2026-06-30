@@ -69,7 +69,7 @@ export default function AdminLoginPage() {
                     <div className="mb-12">
                         <Image
                             src="/assets/logo-new.png"
-                            alt="Livv Studio"
+                            alt="LIVV Creative Studio"
                             width={125}
                             height={58}
                             priority

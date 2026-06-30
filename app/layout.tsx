@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     // Brand
     "LIVV Creative Studio",
     "LIVV",
-    "Livv Studio",
+    "LIVV Creative Studio",
     "Livv",
     // Primary service categories (transactional intent)
     "custom software development company",

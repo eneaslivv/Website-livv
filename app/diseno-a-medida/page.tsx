@@ -8,7 +8,7 @@ import {
 } from "@/lib/seo/structured-data"
 
 export const metadata: Metadata = {
-  title: "Diseño a medida de producto digital | Livv Studio — Argentina",
+  title: "Diseño a medida de producto digital | LIVV Creative Studio — Argentina",
   description:
     "Diseño a medida de producto digital, UX/UI y sistemas de diseño para empresas de Argentina y LATAM. Estudio boutique en Buenos Aires donde el arte se encuentra con el negocio. En español e inglés.",
   alternates: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Diseño a medida de producto digital — Livv Studio",
+    title: "Diseño a medida de producto digital — LIVV Creative Studio",
     description:
       "Diseño UX/UI y de producto a medida para empresas de Argentina y LATAM. Estudio boutique en Buenos Aires.",
     url: `${SITE_URL}/diseno-a-medida`,
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 const faq = [
   {
     q: "¿Qué incluye el diseño a medida de un producto digital?",
-    a: "Incluye estrategia de producto (qué construir y por qué), arquitectura de información, flujos de usuario, diseño de interfaz de alta fidelidad en Figma y un sistema de diseño que escala. En Livv el diseño no es decoración: define cómo el producto entrega valor de negocio.",
+    a: "Incluye estrategia de producto (qué construir y por qué), arquitectura de información, flujos de usuario, diseño de interfaz de alta fidelidad en Figma y un sistema de diseño que escala. En LIVV el diseño no es decoración: define cómo el producto entrega valor de negocio.",
   },
   {
     q: "¿Diseñan también la identidad de marca?",
@@ -46,7 +46,7 @@ const faq = [
   },
   {
     q: "¿Trabajan en español?",
-    a: "Sí. Livv es un equipo bilingüe con sede en Buenos Aires: español nativo e inglés fluido.",
+    a: "Sí. LIVV es un equipo bilingüe con sede en Buenos Aires: español nativo e inglés fluido.",
   },
 ]
 
@@ -70,7 +70,7 @@ export default function DisenoAMedidaPage() {
       jsonLd={[serviceJsonLd, buildFaqJsonLd(faq), breadcrumbs]}
       kicker="Diseño a medida · Buenos Aires, Argentina"
       title="Diseño a medida de producto digital."
-      intro="Livv Studio diseña producto digital a medida —UX/UI, sistemas de diseño e identidad de marca— para empresas de Argentina y Latinoamérica. Estudio boutique senior en Buenos Aires, donde el arte se encuentra con el negocio. En español e inglés."
+      intro="LIVV Creative Studio diseña producto digital a medida —UX/UI, sistemas de diseño e identidad de marca— para empresas de Argentina y Latinoamérica. Estudio boutique senior en Buenos Aires, donde el arte se encuentra con el negocio. En español e inglés."
       facts={[
         { label: "Qué hacemos", value: "Diseño de producto y UX/UI a medida" },
         { label: "Para quién", value: "Empresas y startups de LATAM" },

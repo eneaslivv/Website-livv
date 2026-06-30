@@ -431,7 +431,7 @@ export function ChatWidget() {
                                                 </span>
                                             </div>
                                             <div>
-                                                <h3 className="text-white text-[15px] font-semibold tracking-[-0.01em]">Luis from Livv</h3>
+                                                <h3 className="text-white text-[15px] font-semibold tracking-[-0.01em]">Luis from LIVV</h3>
                                                 <div className="flex items-center gap-1.5 mt-0.5">
                                                     <span className="text-[11px] text-emerald-400/90 font-medium">Online</span>
                                                     <span className="text-[11px] text-white/20">&middot;</span>
@@ -850,7 +850,7 @@ export function ChatWidget() {
                             <div className="relative w-[70px] sm:w-[120px] flex-shrink-0">
                                 <Image
                                     src="/assets/luis-profile.jpg"
-                                    alt="Luis - Livv Studio"
+                                    alt="Luis - LIVV Creative Studio"
                                     fill
                                     className="object-cover"
                                     sizes="140px"

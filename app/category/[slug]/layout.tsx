@@ -62,7 +62,7 @@ export async function generateMetadata({
     // The slug exists in URL but not in the DB → invalid, don't index.
     if (result.state === "not-found") {
         return {
-            title: "Category Not Found | Livv Studio",
+            title: "Category Not Found | LIVV Creative Studio",
             description:
                 "The category you're looking for doesn't exist or isn't published.",
             robots: { index: false, follow: false },
@@ -76,8 +76,8 @@ export async function generateMetadata({
             .replace(/[-_]+/g, " ")
             .replace(/\b\w/g, (m) => m.toUpperCase())
         return {
-            title: `${niceName} | Livv Studio`,
-            description: `Explore ${niceName} products and services by Livv Studio.`,
+            title: `${niceName} | LIVV Creative Studio`,
+            description: `Explore ${niceName} products and services by LIVV Creative Studio.`,
             alternates: { canonical: `/category/${slug}` },
         }
     }
@@ -90,10 +90,10 @@ export async function generateMetadata({
                 ? "Products"
                 : "Products & Services"
 
-    const title = `${cat.name} ${kindLabel} | Livv Studio`
+    const title = `${cat.name} ${kindLabel} | LIVV Creative Studio`
     const description = truncate(
         cat.description ||
-            `Explore ${cat.name.toLowerCase()} ${kindLabel.toLowerCase()} crafted by Livv Studio — boutique design and engineering for ambitious teams.`,
+            `Explore ${cat.name.toLowerCase()} ${kindLabel.toLowerCase()} crafted by LIVV Creative Studio — boutique design and engineering for ambitious teams.`,
     )
     const url = `${SITE_URL}/category/${cat.slug}`
 

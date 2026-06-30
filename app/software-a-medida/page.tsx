@@ -9,7 +9,7 @@ import {
 
 export const metadata: Metadata = {
   title:
-    "Software a medida para empresas | Livv Studio — Argentina y LATAM",
+    "Software a medida para empresas | LIVV Creative Studio — Argentina y LATAM",
   description:
     "Desarrollo de software a medida para empresas de Argentina y Latinoamérica. Equipo senior boutique en Buenos Aires: sistemas de gestión, plataformas y apps web a medida, en español e inglés. Presupuesto cerrado antes de empezar.",
   alternates: {
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Software a medida para empresas — Livv Studio",
+    title: "Software a medida para empresas — LIVV Creative Studio",
     description:
       "Estudio boutique en Buenos Aires. Desarrollo de software a medida para empresas de Argentina y LATAM. Equipo senior, presupuesto cerrado.",
     url: `${SITE_URL}/software-a-medida`,
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 const faq = [
   {
     q: "¿Qué es el software a medida?",
-    a: "El software a medida es un sistema construido específicamente para los procesos de una empresa, en lugar de un producto enlatado genérico. Se diseña alrededor de cómo trabaja el negocio: flujos, roles, reglas e integraciones propias. Livv desarrolla software a medida para empresas de Argentina y LATAM cuando un sistema estándar no alcanza o cuando el sistema es una ventaja competitiva.",
+    a: "El software a medida es un sistema construido específicamente para los procesos de una empresa, en lugar de un producto enlatado genérico. Se diseña alrededor de cómo trabaja el negocio: flujos, roles, reglas e integraciones propias. LIVV desarrolla software a medida para empresas de Argentina y LATAM cuando un sistema estándar no alcanza o cuando el sistema es una ventaja competitiva.",
   },
   {
     q: "¿Cuánto cuesta desarrollar un software a medida en Argentina?",
@@ -43,11 +43,11 @@ const faq = [
   },
   {
     q: "¿Software a medida o software enlatado?",
-    a: "El enlatado conviene cuando tu proceso es estándar y existe un producto maduro que lo cubre. El software a medida conviene cuando el proceso es tu diferencial, cuando pagás licencias caras por funciones que no usás, cuando necesitás integrar varios sistemas, o cuando el producto enlatado te obliga a cambiar cómo trabajás. Livv ayuda a decidir esto con honestidad antes de proponer construir.",
+    a: "El enlatado conviene cuando tu proceso es estándar y existe un producto maduro que lo cubre. El software a medida conviene cuando el proceso es tu diferencial, cuando pagás licencias caras por funciones que no usás, cuando necesitás integrar varios sistemas, o cuando el producto enlatado te obliga a cambiar cómo trabajás. LIVV ayuda a decidir esto con honestidad antes de proponer construir.",
   },
   {
-    q: "¿Para qué empresas trabaja Livv?",
-    a: "Livv trabaja con empresas, startups y agencias de Argentina, Latinoamérica (México, Chile, Uruguay, Colombia), España y Estados Unidos. Desde pymes que necesitan un sistema de gestión interno hasta empresas de producto que escalan una plataforma SaaS.",
+    q: "¿Para qué empresas trabaja LIVV?",
+    a: "LIVV trabaja con empresas, startups y agencias de Argentina, Latinoamérica (México, Chile, Uruguay, Colombia), España y Estados Unidos. Desde pymes que necesitan un sistema de gestión interno hasta empresas de producto que escalan una plataforma SaaS.",
   },
   {
     q: "¿Qué tecnologías usan?",
@@ -55,18 +55,18 @@ const faq = [
   },
   {
     q: "¿Ofrecen software especializado por industria?",
-    a: "Sí. Además de desarrollos a medida, Livv opera plataformas white-label que se despliegan bajo la marca del cliente: Payper (gastronomía y hotelería), PRTool (partnerships con creadores) y LegalFlow (estudios jurídicos). Sirven como base para acelerar proyectos de software especializado en esas industrias.",
+    a: "Sí. Además de desarrollos a medida, LIVV opera plataformas white-label que se despliegan bajo la marca del cliente: Payper (gastronomía y hotelería), PRTool (partnerships con creadores) y LegalFlow (estudios jurídicos). Sirven como base para acelerar proyectos de software especializado en esas industrias.",
   },
   {
     q: "¿Trabajan en español?",
-    a: "Sí. Livv es un equipo bilingüe con sede en Buenos Aires: español nativo e inglés fluido. Todo el proceso —reuniones, documentación, soporte— puede ser en español, y manejamos proyectos cross-border entre LATAM y Estados Unidos.",
+    a: "Sí. LIVV es un equipo bilingüe con sede en Buenos Aires: español nativo e inglés fluido. Todo el proceso —reuniones, documentación, soporte— puede ser en español, y manejamos proyectos cross-border entre LATAM y Estados Unidos.",
   },
   {
     q: "¿La empresa es dueña del código?",
     a: "Sí. En los desarrollos a medida, el cliente es dueño del código y de la propiedad intelectual. Entregamos repositorio, documentación y todo lo necesario para que el sistema sea independiente del estudio.",
   },
   {
-    q: "¿Cómo empiezo un proyecto con Livv?",
+    q: "¿Cómo empiezo un proyecto con LIVV?",
     a: "Escribinos a hola@livv.systems o completá el formulario en livvvv.com/contact contando qué necesitás. Respondemos en un día hábil desde Buenos Aires y te proponemos alcance, plazos y precio cerrado.",
   },
 ]
@@ -91,7 +91,7 @@ export default function SoftwareAMedidaPage() {
       jsonLd={[serviceJsonLd, buildFaqJsonLd(faq), breadcrumbs]}
       kicker="Software a medida · Buenos Aires, Argentina"
       title="Software a medida para empresas de Argentina y LATAM."
-      intro="Livv Studio es un estudio boutique de diseño e ingeniería en Buenos Aires. Construimos software a medida —sistemas de gestión, plataformas y apps web— para empresas de Argentina y Latinoamérica que necesitan algo que el software enlatado no resuelve. Equipo senior, en español e inglés, con presupuesto cerrado antes de empezar."
+      intro="LIVV Creative Studio es un estudio boutique de diseño e ingeniería en Buenos Aires. Construimos software a medida —sistemas de gestión, plataformas y apps web— para empresas de Argentina y Latinoamérica que necesitan algo que el software enlatado no resuelve. Equipo senior, en español e inglés, con presupuesto cerrado antes de empezar."
       facts={[
         { label: "Qué hacemos", value: "Software y sistemas a medida" },
         { label: "Para quién", value: "Empresas, pymes y startups de LATAM" },
@@ -125,7 +125,7 @@ export default function SoftwareAMedidaPage() {
           ),
         },
         {
-          title: "Por qué Livv",
+          title: "Por qué LIVV",
           body: (
             <ul className="space-y-2 list-disc list-inside text-white/70">
               <li>Equipo senior, sin juniors en el trabajo del cliente.</li>

@@ -15,32 +15,32 @@ const productMeta: Record<
   payper: {
     name: "Payper",
     title:
-      "Payper — The Operating System for Modern Hospitality | Livv Studio",
+      "Payper — The Operating System for Modern Hospitality | LIVV Creative Studio",
     description:
-      "Unified hospitality platform — QR ordering, kitchen management, and payments. White-label ready, deployed under your brand in days. Built by Livv Studio in Buenos Aires, Argentina.",
+      "Unified hospitality platform — QR ordering, kitchen management, and payments. White-label ready, deployed under your brand in days. Built by LIVV Creative Studio in Buenos Aires, Argentina.",
     shortDescription:
-      "Unified hospitality platform — QR ordering, kitchen management, and payments. White-label SaaS by Livv Studio.",
+      "Unified hospitality platform — QR ordering, kitchen management, and payments. White-label SaaS by LIVV Creative Studio.",
     category: "Hospitality SaaS",
     priceFromUSD: 49,
   },
   prtool: {
     name: "PRTool",
     title:
-      "PRTool — The Platform for Creator Partnerships | Livv Studio",
+      "PRTool — The Platform for Creator Partnerships | LIVV Creative Studio",
     description:
-      "Manage creator campaigns from briefing to payment in one branded platform. Built for PR agencies and talent managers by Livv Studio (Argentina).",
+      "Manage creator campaigns from briefing to payment in one branded platform. Built for PR agencies and talent managers by LIVV Creative Studio (Argentina).",
     shortDescription:
-      "Creator partnerships platform — briefings, campaigns, payments. White-label SaaS by Livv Studio.",
+      "Creator partnerships platform — briefings, campaigns, payments. White-label SaaS by LIVV Creative Studio.",
     category: "Creator Economy SaaS",
     priceFromUSD: 29,
   },
   legalflow: {
     name: "LegalFlow",
-    title: "LegalFlow — Case Management, Automated | Livv Studio",
+    title: "LegalFlow — Case Management, Automated | LIVV Creative Studio",
     description:
-      "Secure case management, document automation, and client collaboration for law firms that want to move faster. Built by Livv Studio (Buenos Aires, Argentina).",
+      "Secure case management, document automation, and client collaboration for law firms that want to move faster. Built by LIVV Creative Studio (Buenos Aires, Argentina).",
     shortDescription:
-      "Case management and document automation for modern law firms. White-label SaaS by Livv Studio.",
+      "Case management and document automation for modern law firms. White-label SaaS by LIVV Creative Studio.",
     category: "Legal Tech SaaS",
     priceFromUSD: 59,
   },
@@ -56,9 +56,9 @@ export async function generateMetadata({
 
   if (!meta) {
     return {
-      title: "Product | Livv Studio",
+      title: "Product | LIVV Creative Studio",
       description:
-        "Scalable, white-label digital products built by Livv Studio.",
+        "Scalable, white-label digital products built by LIVV Creative Studio.",
     }
   }
 

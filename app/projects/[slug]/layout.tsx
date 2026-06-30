@@ -50,7 +50,7 @@ export async function generateMetadata({
     if (!item) {
         // Don't index unknown / unpublished projects.
         return {
-            title: "Project Not Found | Livv Studio",
+            title: "Project Not Found | LIVV Creative Studio",
             description:
                 "The project you're looking for doesn't exist or hasn't been published yet.",
             robots: { index: false, follow: false },
@@ -59,12 +59,12 @@ export async function generateMetadata({
 
     const titleCore = item.title || "Project"
     const subtitle = item.subtitle ? ` — ${item.subtitle}` : ""
-    const title = `${titleCore}${subtitle} | Case Study by Livv Studio`
+    const title = `${titleCore}${subtitle} | Case Study by LIVV Creative Studio`
 
     const descSource =
         item.description ||
         item.subtitle ||
-        `${titleCore}: a case study by Livv Studio. ${item.category ? `Category: ${item.category}.` : ""} ${item.services ? `Services: ${item.services}.` : ""}`.trim()
+        `${titleCore}: a case study by LIVV Creative Studio. ${item.category ? `Category: ${item.category}.` : ""} ${item.services ? `Services: ${item.services}.` : ""}`.trim()
     const description = truncate(descSource)
 
     const cover = pickDisplayCover(item) || undefined

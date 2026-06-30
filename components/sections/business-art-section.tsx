@@ -87,7 +87,7 @@ export function BusinessArtSection() {
 
                             <div className="space-y-6 text-[#5A3E3E]/80 font-normal text-base md:text-lg leading-relaxed max-w-md">
                                 <p>
-                                    At Livv, design and technology work together with one clear purpose: delivering results. We focus on efficiency, clarity, and execution, so every project moves fast and delivers measurable impact.
+                                    At LIVV, design and technology work together with one clear purpose: delivering results. We focus on efficiency, clarity, and execution, so every project moves fast and delivers measurable impact.
                                 </p>
                                 <p>
                                     From Argentina to the world, we work as your partner in building scalable digital solutions.

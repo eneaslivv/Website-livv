@@ -466,7 +466,7 @@ export default function AgenciesPage() {
                     </div>
 
                     <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-white/30 font-light">
-                        <div className="font-medium text-white/40">Livv Studio © 2025</div>
+                        <div className="font-medium text-white/40">LIVV Creative Studio © 2025</div>
                         <div className="flex gap-8">
                             <a href="#" className="hover:text-white transition-colors">LinkedIn</a>
                             <a href="#" className="hover:text-white transition-colors">Twitter</a>

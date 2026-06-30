@@ -155,7 +155,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentMode, onSwitchMode }) =
             <div className="px-3 mb-6 shrink-0 flex justify-center">
                 <img
                     src="/livv-logo-light.png"
-                    alt="Livv"
+                    alt="LIVV"
                     className="h-8 w-auto invert dark:invert-0 transition-all duration-300"
                 />
             </div>
