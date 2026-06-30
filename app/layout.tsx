@@ -17,9 +17,9 @@ import { DeferredChatWidget } from "@/components/ui/deferred-chat-widget"
 import { buildOrganizationGraph } from "@/lib/seo/structured-data"
 
 const SITE_TITLE =
-  "Livv Studio | Diseño y desarrollo digital — Buenos Aires, Argentina"
+  "LIVV Creative Studio · Custom Software Development & AI Integration"
 const SITE_DESCRIPTION =
-  "Livv Studio is a boutique design & engineering studio in Buenos Aires, Argentina. We combine art and business to ship brands, websites, and white-label web apps for ambitious teams across LATAM and the US. Estudio boutique de diseño y desarrollo donde el arte se encuentra con el negocio."
+  "LIVV Creative Studio builds custom software, AI integrations, and digital products for founders and agencies. Webflow, Framer, Next.js, React Native, Flutter, Shopify, Anthropic API. Creative engineering studio based in Buenos Aires, with clients across the US, UK, Latin America, and Europe."
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || "GTM-NC96QG65"
 
@@ -30,28 +30,44 @@ export const metadata: Metadata = {
   },
   description: SITE_DESCRIPTION,
   keywords: [
-    "design studio Argentina",
-    "estudio de diseño Argentina",
-    "estudio de diseño Buenos Aires",
-    "diseño y desarrollo web Argentina",
-    "boutique design studio Latin America",
-    "art and business design studio",
-    "arte y negocios estudio digital",
-    "desarrollo de aplicaciones a medida Argentina",
-    "white-label web apps",
-    "Next.js development studio",
-    "UI/UX design studio Latin America",
-    "Brand identity studio Buenos Aires",
-    "Product design Argentina",
+    // Brand
+    "LIVV Creative Studio",
+    "LIVV",
     "Livv Studio",
     "Livv",
+    // Primary service categories (transactional intent)
+    "custom software development company",
+    "custom software development for small business",
+    "AI integration services",
+    "AI software development company",
+    "custom AI solutions for business",
+    "AI agent development",
+    "custom business application development",
+    "nearshore software development Argentina",
+    // Studio positioning
+    "creative engineering studio",
+    "white-label design and development",
+    "design and development partner for agencies",
+    // Tech stack signals
+    "Webflow studio",
+    "Framer studio",
+    "Next.js development studio",
+    "React Native studio",
+    "Claude API integration",
+    "Anthropic API integration",
+    // Geo
+    "boutique design studio Buenos Aires",
+    "design studio Argentina",
+    "estudio de ingeniería creativa",
+    "desarrollo de software a medida Argentina",
+    "integración de AI para negocios",
   ],
-  authors: [{ name: "Livv Studio", url: "https://livvvv.com" }],
-  creator: "Livv Studio",
-  publisher: "Livv Studio",
+  authors: [{ name: "LIVV Creative Studio", url: "https://livvvv.com" }],
+  creator: "LIVV Creative Studio",
+  publisher: "LIVV Creative Studio",
   metadataBase: new URL("https://livvvv.com"),
   category: "Design & Software Development",
-  applicationName: "Livv Studio",
+  applicationName: "LIVV Creative Studio",
   alternates: {
     canonical: "/",
     languages: {
@@ -65,16 +81,16 @@ export const metadata: Metadata = {
     locale: "en_US",
     alternateLocale: ["es_AR", "es_ES", "es_MX"],
     url: "https://livvvv.com",
-    siteName: "Livv Studio",
+    siteName: "LIVV Creative Studio",
     title: SITE_TITLE,
     description:
-      "Boutique design & engineering studio in Buenos Aires. Brands, websites, and white-label web apps where art meets business.",
+      "Custom software development and AI integration for founders and agencies. Creative engineering studio working in Webflow, Framer, Next.js, React Native, and Anthropic API. Based in Buenos Aires.",
     images: [
       {
         url: "/assets/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Livv Studio — Boutique design & engineering studio in Buenos Aires, Argentina",
+        alt: "LIVV Creative Studio. Creative engineering studio in Buenos Aires, Argentina.",
       },
     ],
   },
@@ -82,7 +98,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SITE_TITLE,
     description:
-      "Boutique design & engineering studio in Buenos Aires. Where art meets business.",
+      "Custom software development and AI integration for founders and agencies. Creative engineering studio based in Buenos Aires.",
     creator: "@livvstudio",
     images: ["/assets/og-image.png"],
   },

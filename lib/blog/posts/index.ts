@@ -6,6 +6,7 @@ import { clusterDHiringAgencies } from "./cluster-d-hiring-agencies"
 import { clusterETechnicalIntegration } from "./cluster-e-technical-integration"
 import { clusterFCreativeEngineering } from "./cluster-f-creative-engineering"
 import { clusterGIndustryGuides } from "./cluster-g-industry-guides"
+import { clusterHEditorial } from "./cluster-h-editorial"
 
 // Register all cluster posts
 registerPosts(clusterAWebflowSeo)
@@ -15,6 +16,7 @@ registerPosts(clusterDHiringAgencies)
 registerPosts(clusterETechnicalIntegration)
 registerPosts(clusterFCreativeEngineering)
 registerPosts(clusterGIndustryGuides)
+registerPosts(clusterHEditorial)
 
 export {
   clusterAWebflowSeo,
@@ -24,4 +26,5 @@ export {
   clusterETechnicalIntegration,
   clusterFCreativeEngineering,
   clusterGIndustryGuides,
+  clusterHEditorial,
 }

@@ -86,6 +86,219 @@ export default function AboutPage() {
                     </div>
                 </section>
 
+                {/* Manifesto — added as a new section that sits in the studio
+                    voice, between the intro text and the team grid. Restraint
+                    over decoration: no entrance animations on the body, only
+                    the two bracket lines get the section-heading treatment so
+                    they read at the same tier as the existing section
+                    headings. Manifesto body is plain prose, no banned vocab,
+                    no em dashes, no rule-of-three. Aligned with the LIVV
+                    editorial brief 6.1 voice rules. */}
+                <SectionReveal>
+                    <section id="manifesto" className="py-24 md:py-40 px-6 bg-white border-b border-[#1a1a1a]/5 relative overflow-hidden">
+                        <AnimatedBorders className="hidden md:block pointer-events-none opacity-15 absolute inset-0 z-0" />
+
+                        {/* Number marker in the corner, editorial print feel */}
+                        <span className="hidden md:block absolute top-12 right-12 text-[10px] font-mono uppercase tracking-[0.3em] text-[#1a1a1a]/30 z-10">
+                            01 / Manifesto
+                        </span>
+
+                        <div className="max-w-3xl mx-auto relative z-10">
+                            <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-[#1a1a1a]/40 mb-8 block text-center">
+                                ✦  The Manifesto  ✦
+                            </span>
+
+                            <ScrollTypewriter as="h2" className="section-heading text-[#1a1a1a] mb-16 text-center block">
+                                LIVV is a <span className="font-light tracking-[-0.08em] text-gradient-gold">creative engineering</span> studio.
+                            </ScrollTypewriter>
+
+                            {/* Beat 1 — Position. Drop cap on the first paragraph
+                                for editorial-print feel. Inline gold accents on
+                                the phrases that carry the most positioning
+                                weight. */}
+                            <SectionReveal>
+                                <div className="space-y-6 text-lg md:text-xl text-[#1a1a1a]/75 leading-[1.8] font-light">
+                                    <p className="manifesto-paragraph first-letter:float-left first-letter:text-7xl md:first-letter:text-8xl first-letter:font-light first-letter:leading-[0.9] first-letter:mr-3 first-letter:mt-1 first-letter:text-[#1a1a1a] first-letter:tracking-[-0.05em]">
+                                        The phrase is more specific than it sounds. We are not a marketing agency, and we are not a development shop in the conventional sense. We do not sit comfortably in the commodity tier of subscription-based, section-priced Webflow shops, and we do not pretend to be the kind of awards-led, direct-only studio whose pricing puts them out of reach for most of the work that needs doing. The work is the same hands from first wireframe to deployed product. That is the only honest way we know to ship things at the level we want them shipped.
+                                    </p>
+                                    <p>
+                                        Most of our work is <span className="text-[#1a1a1a] font-normal">white-label</span>, behind agencies in the US and UK. We sign strict NDAs. We operate inside the agency's process, in the agency's tools, on the agency's calls. The end client never knows we exist. The work that does ship with our name on it sits closer to what you see from a studio in Berlin or Quebec than from a typical Buenos Aires shop, and we try not to make that the point.
+                                    </p>
+                                </div>
+                            </SectionReveal>
+
+                            {/* First pullquote — the most quotable line of the
+                                white-label paragraphs, surfaced as a typographic
+                                statement so a skimmer registers it. */}
+                            <SectionReveal>
+                                <blockquote className="my-16 md:my-20 relative">
+                                    <div className="absolute left-0 top-0 w-1 h-full bg-gradient-to-b from-[#E8BC59] via-[#E8BC59]/40 to-transparent" />
+                                    <p className="pl-8 md:pl-10 text-2xl md:text-4xl font-light tracking-[-0.03em] leading-[1.2] text-[#1a1a1a]">
+                                        White-label is not what we do between direct clients. It is the <span className="text-gradient-gold italic">reason</span> the studio runs at the scale it runs.
+                                    </p>
+                                </blockquote>
+                            </SectionReveal>
+
+                            {/* Beat 2 — Structure + Stack */}
+                            <SectionReveal>
+                                <div className="space-y-6 text-lg md:text-xl text-[#1a1a1a]/75 leading-[1.8] font-light">
+                                    <p>
+                                        The fact that we do both modes, direct and invisible, is the architecture of the studio, not a side product of the model. Agencies in our partnership tier ship under our quiet support. They keep the recurring client relationship and the credit. We get the technical work, and the moments when the project lives or dies on a deploy. That is the trade we like.
+                                    </p>
+                                    <p>
+                                        We work in whatever the project needs. Webflow when the client will own the CMS. Framer when the motion is part of the argument. Next.js with Supabase when the product is real. React Native or Flutter when the product has to live in a pocket. Shopify when there is inventory. Anthropic and OpenAI when the product wants to think. The tools are not the brand. The judgement about which tool to pick is closer to what the brand is.
+                                    </p>
+                                </div>
+                            </SectionReveal>
+
+                            {/* Hairline divider with a small gold mark in the
+                                middle — punctuates the shift from "what we do"
+                                to "where and how". */}
+                            <div className="flex items-center gap-4 my-16 md:my-20" aria-hidden="true">
+                                <div className="h-px flex-1 bg-[#1a1a1a]/10" />
+                                <span className="text-[#E8BC59]/60 text-xs">✦</span>
+                                <div className="h-px flex-1 bg-[#1a1a1a]/10" />
+                            </div>
+
+                            {/* Beat 3 — Place + Taste */}
+                            <SectionReveal>
+                                <div className="space-y-6 text-lg md:text-xl text-[#1a1a1a]/75 leading-[1.8] font-light">
+                                    <p>
+                                        <span className="text-[#1a1a1a] font-normal">Buenos Aires</span> is a deliberate choice, not a cost play. The city has produced an unusual amount of the design and engineering work that quietly powers the global product layer over the last fifteen years. There is a tradition here, even if it does not name itself. The conditions that created it do not replicate easily anywhere else. We are part of that tradition. We are also of the generation that intends to name it.
+                                    </p>
+                                    <p>
+                                        <span className="text-[#1a1a1a] font-normal">Editorial taste</span> runs through everything we ship. Not as decoration. Editorial taste is how you decide what to leave out. It is how a homepage stops feeling cluttered without losing any of its content. It is how a dashboard makes a CFO feel competent at her job instead of confused by her own data. It is how a brand identity does not look like every other identity that was made this year.
+                                    </p>
+                                </div>
+                            </SectionReveal>
+
+                            {/* Second pullquote — the most quotable single line
+                                of the entire manifesto, placed where it can
+                                stand alone. */}
+                            <SectionReveal>
+                                <blockquote className="my-16 md:my-20 text-center">
+                                    <p className="text-3xl md:text-5xl font-light tracking-[-0.04em] leading-[1.1] text-[#1a1a1a]">
+                                        The <span className="text-gradient-gold italic">cuts</span> are the work.
+                                    </p>
+                                </blockquote>
+                            </SectionReveal>
+
+                            {/* Beat 4 — Team + Client */}
+                            <SectionReveal>
+                                <div className="space-y-6 text-lg md:text-xl text-[#1a1a1a]/75 leading-[1.8] font-light">
+                                    <p>
+                                        We are <span className="text-[#1a1a1a] font-normal">small on purpose</span>. The founder is on every project. There are no juniors handing off to other juniors. There is no agency layer between you and the people writing the code. The work begins with a quote and ends with a deploy. Most of the conversation in between is about the work, not about the process.
+                                    </p>
+                                    <p>
+                                        The kind of client who finds us, finds us. Founders past their first fundraise who got burned once by a cheap shop. Design leads at scale-ups who need a partner that will not embarrass them in front of their CEO. And, increasingly, creative directors at agencies who need someone they can trust to ship under their name without their name showing up anywhere. We have not advertised any of this until now.
+                                    </p>
+                                </div>
+                            </SectionReveal>
+
+                            {/* Closing line, ScrollTypewriter at the same tier
+                                as the opening so the two bracket the essay. */}
+                            <ScrollTypewriter as="h3" className="section-heading text-[#1a1a1a] mt-20 md:mt-28 text-center block">
+                                The work is <span className="font-light tracking-[-0.08em] text-gradient-gold">the work</span>, and we like making it.
+                            </ScrollTypewriter>
+
+                            <p className="text-center text-[10px] font-mono uppercase tracking-[0.3em] text-[#1a1a1a]/40 mt-10">
+                                Founded 2022  ·  Olivos, Buenos Aires, Argentina
+                            </p>
+                        </div>
+                    </section>
+                </SectionReveal>
+
+                {/* Practical detail section — added to fix the indexability
+                    issue flagged by the Search Console advisor (2026-05-14).
+                    Most of /about's existing content lives inside animations,
+                    canvases, or hover-reveals, which Google's WRS may not
+                    extract reliably. This section ships plain prose with
+                    H2/H3 hierarchy, real internal links to /services,
+                    /products, /blog editorial pieces, and /work, so the page
+                    has 500+ words of crawlable, keyword-rich content that
+                    matches the intent queries we want LIVV to rank for:
+                    "creative engineering studio", "white-label web studio",
+                    "Webflow studio Buenos Aires", "design and development
+                    partner for agencies". Voice rules apply — no em dashes,
+                    no banned vocab, no rule-of-three rhetorical. */}
+                <SectionReveal>
+                    <section id="practice" className="py-20 md:py-32 px-6 bg-[#FAFAFA] border-b border-[#1a1a1a]/5 relative">
+                        <AnimatedBorders className="hidden md:block pointer-events-none opacity-15 absolute inset-0 z-0" />
+                        <div className="max-w-4xl mx-auto relative z-10">
+                            <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-[#1a1a1a]/40 mb-6 block">
+                                ✦  How we operate  ✦
+                            </span>
+
+                            <h2 className="section-heading text-[#1a1a1a] mb-12">
+                                Plain talk about <span className="text-gradient-gold">the work</span>.
+                            </h2>
+
+                            <div className="space-y-12 text-base md:text-lg text-[#1a1a1a]/75 leading-[1.8] font-light">
+                                <p>
+                                    LIVV Creative Studio designs and develops digital products for founders and agencies. The studio works in Webflow, Framer, Next.js, React Native, Flutter, and Shopify, both directly and as a <Link href="/blog/white-label-playbook" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">white-label partner</Link>. The team is senior-only. The founder is on every engagement. Most of our client roster is in the United States and the United Kingdom. The catalogue is bilingual: native Spanish, fluent English.
+                                </p>
+
+                                <div>
+                                    <h3 className="text-xl md:text-2xl font-medium text-[#1a1a1a] mb-4 tracking-tight">
+                                        What we build
+                                    </h3>
+                                    <p className="mb-4">
+                                        Marketing sites that read as editorial work, not as templated agency output. Product MVPs that ship to production with the same craft level a top brand agency delivers, on a fraction of the timeline. Design systems that hold together as the product team scales. Mobile applications cross-platform in React Native or Flutter. Custom AI integrations against the Anthropic and OpenAI APIs. White-label SaaS platforms deployed under partner brands.
+                                    </p>
+                                    <p>
+                                        The four canonical service areas: <Link href="/services/creative-engineering" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">Creative Engineering</Link>, <Link href="/services/product-strategy-ui" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">Product Strategy and UI Design</Link>, <Link href="/services/motion-narrative" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">Motion and Narrative</Link>, plus Brand Identity and Visual Systems. Each maps to a specific kind of engagement; the same senior team works across all four.
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h3 className="text-xl md:text-2xl font-medium text-[#1a1a1a] mb-4 tracking-tight">
+                                        How the engagement runs
+                                    </h3>
+                                    <p className="mb-4">
+                                        Fixed-fee or retainer. Cost transparency before kickoff. No hourly-with-mystery billing, no per-section pricing. Typical timelines: corporate marketing sites ship in three to four weeks, product MVPs in six to eight weeks, design systems in four to ten weeks. Two rounds of revisions per major deliverable. Anything outside the original scope is quoted as a scope adjustment, not absorbed silently.
+                                    </p>
+                                    <p>
+                                        Most of our work is invisible. We sign strict NDAs and ship under partner-agency brands in the US and UK. The agencies present the work in client calls. The studio's name does not appear in case studies, on the credit line, or in public marketing. Both sides prefer the arrangement. The full mechanics are documented in the studio's <Link href="/blog/white-label-playbook" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">White-Label Playbook</Link>.
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h3 className="text-xl md:text-2xl font-medium text-[#1a1a1a] mb-4 tracking-tight">
+                                        Stack and toolset
+                                    </h3>
+                                    <p className="mb-4">
+                                        Design in Figma. Marketing sites in Webflow when the client owns the CMS, Framer when motion is part of the argument. Product builds in Next.js with Supabase or Postgres. React Native or Flutter for mobile. Shopify for commerce. AI integration via the Anthropic API or OpenAI, with custom agents and vector search when the product needs to think. The tools are not the brand — the judgement about which tool to pick is closer to what the brand is. The trade-offs between Webflow and Framer in 2026 are documented in our <Link href="/blog/webflow-vs-framer-in-2026" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">practitioner's comparison essay</Link>.
+                                    </p>
+                                    <p>
+                                        For studios and founders building their own AEO surface, we publish a free, MIT-licensed <Link href="/resources/schema-aeo-library" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">Schema and AEO Snippet Library</Link> with nine copy-paste-ready JSON-LD templates (Organization, Person, Article, FAQPage, BreadcrumbList, CreativeWork, Service, SoftwareApplication, plus WebSite with SearchAction).
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h3 className="text-xl md:text-2xl font-medium text-[#1a1a1a] mb-4 tracking-tight">
+                                        Where the studio is based
+                                    </h3>
+                                    <p>
+                                        Buenos Aires, Argentina. Specifically Olivos, in the Vicente López district. The city has produced an unusual amount of the design and engineering work that quietly powers the global product layer over the last fifteen years — Mercado Libre, Globant, Auth0, Mural, Etermax, and the senior teams at Linear, Stripe, Notion, and Vercel are some of the visible edge. The conditions that produced this tradition do not replicate easily anywhere else. We are part of it. The essay on the studio's read of that tradition lives at <Link href="/blog/argentine-creative-engineering-tradition" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">The Argentine Creative Engineering Tradition</Link>.
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h3 className="text-xl md:text-2xl font-medium text-[#1a1a1a] mb-4 tracking-tight">
+                                        Who hires us
+                                    </h3>
+                                    <p className="mb-4">
+                                        Founders past their first fundraise who need a marketing site or a product MVP at a craft level that matches the rest of their pitch. Design leads at scale-ups who need a partner who will not embarrass them in front of their CEO. Creative directors at agencies who need someone they can trust to ship under their name without their name showing up anywhere. The decision framework for any of those audiences is laid out in <Link href="/blog/hiring-creative-engineering-studio" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">our Buyer's Guide</Link>.
+                                    </p>
+                                    <p>
+                                        Selected work lives on the <Link href="/work" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">portfolio page</Link>. White-label work, by definition, does not appear there. If you have a project shape that sounds like it could fit, write to us at <a href="mailto:hola@livv.systems" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">hola@livv.systems</a> or book a fifteen-minute call.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </SectionReveal>
+
                 {/* Team */}
                 <section id="team" className="py-20 md:py-32 px-6 bg-[#FAFAFA] border-b border-[#1a1a1a]/5 relative">
                     <AnimatedBorders className="hidden md:block pointer-events-none opacity-20 absolute inset-0 z-0" />
@@ -140,8 +353,6 @@ export default function AboutPage() {
 
                 {/* Global Reach Section */}
                 <GlobalReachSection />
-
-
 
 
 

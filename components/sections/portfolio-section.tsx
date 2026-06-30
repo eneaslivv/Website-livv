@@ -8,7 +8,11 @@ import { RevealText } from "@/components/ui/reveal-text"
 import Image from "next/image"
 import { useFeaturedPortfolioItems } from "@/hooks/usePublicData"
 import { PortfolioItem } from "@/types/livv-os"
-import { pickDisplayCover, isVideoCoverUrl } from "@/lib/default-project-blocks"
+import {
+    pickDisplayCover,
+    pickPosterCover,
+    isVideoCoverUrl,
+} from "@/lib/default-project-blocks"
 
 // Shared with project-archive.tsx and recommended-projects.tsx via the helper.
 const isVideoUrl = (url: string) => isVideoCoverUrl(url)
@@ -110,11 +114,44 @@ function PortfolioGrid() {
                         onClick={() => handleCardClick(`/projects/${item.slug}`)}
                         onMouseEnter={(e) => { const v = e.currentTarget.querySelector('video'); v?.play().catch(() => {}) }}
                         onMouseLeave={(e) => { const v = e.currentTarget.querySelector('video'); if (v) { v.pause(); v.currentTime = 0 } }}
-                        className="group/card relative w-full aspect-[3/2] rounded-[10px] overflow-hidden cursor-pointer border border-[#1a1a1a]/10 hover:border-[#F2D696]/50 transition-all duration-500"
+                        className="group/card relative w-full aspect-[3/2] rounded-[10px] overflow-hidden cursor-pointer bg-[#1a1a1a] border border-[#1a1a1a]/10 hover:border-[#F2D696]/50 transition-all duration-500"
                     >
-                        {/* Cover Media */}
+                        {/* Cover Media
+                         *
+                         * Card bg is dark (bg-[#1a1a1a]) so any moment the
+                         * cover has not yet loaded reads as intentional
+                         * brand surface, not a broken white rectangle.
+                         *
+                         * For video covers: <video preload="auto"> makes
+                         * HTML5 fetch and render the first frame natively
+                         * on every browser including iOS Safari, even
+                         * without autoplay. That's the still frame the
+                         * user sees on mobile until hover (desktop) or
+                         * a tap triggers play. We do not stack a separate
+                         * Image poster underneath because for items whose
+                         * only media is video, pickPosterCover would have
+                         * to fall through to the brand OG default, which
+                         * would obscure the actual video first frame.
+                         *
+                         * For items with no cover URL at all (a real edge
+                         * case, almost never hits production), fall back
+                         * to pickPosterCover which always returns a real
+                         * static URL ending in og-image.png at worst.
+                         */}
                         {(() => {
-                            const coverUrl = getCoverUrl(item) || '/images/placeholder.jpg'
+                            const coverUrl = getCoverUrl(item)
+
+                            if (!coverUrl) {
+                                return (
+                                    <Image
+                                        src={pickPosterCover(item)}
+                                        alt={item.title}
+                                        fill
+                                        sizes="(max-width: 768px) 100vw, 50vw"
+                                        className="object-cover transition-transform duration-1000 group-hover/card:scale-110"
+                                    />
+                                )
+                            }
                             if (isVideoUrl(coverUrl)) {
                                 return (
                                     <video

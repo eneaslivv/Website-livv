@@ -9,6 +9,7 @@ import { BlogPostHeader } from "@/components/blog/BlogPostHeader"
 import { BlogContentRenderer } from "@/components/blog/BlogContentRenderer"
 import { TableOfContents } from "@/components/blog/TableOfContents"
 import { RelatedPosts } from "@/components/blog/RelatedPosts"
+import { EditorialPicks } from "@/components/blog/EditorialPicks"
 import { BlogCTA } from "@/components/blog/BlogCTA"
 import { getPostBySlug, getRelatedPosts } from "@/lib/blog/utils"
 
@@ -132,10 +133,16 @@ export default function BlogPostPage() {
             <BlogCTA cta={post.cta} />
           </div>
 
-          {/* Related Posts */}
+          {/* Related Posts (same-category cluster) */}
           <RelatedPosts posts={related} />
         </div>
       </div>
+
+      {/* Editorial Picks — cluster H flagship pieces. Surfaced on every
+          /blog/[slug] page so SEO cluster posts (A-G) get explicit
+          internal links to the editorial corpus. Hides itself when the
+          current post is already an editorial piece. */}
+      <EditorialPicks currentSlug={post.slug} />
 
       <FooterSection />
     </main>

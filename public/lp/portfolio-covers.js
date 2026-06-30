@@ -89,8 +89,39 @@
     );
   }
 
+  // Build the swap target. Landings ship three different markups today:
+  //   1. ecommerce/startups: <.port-card> <.port-visual> <img.bg-img>
+  //   2. saas:                <.port-card> <img.bg-img>           (no wrapper)
+  //   3. agencies:            <.port-card> <img.port-img>         (different class)
+  // Rather than force every landing to migrate at once, this resolver finds an
+  // existing .port-visual or synthesizes one in place of the orphan <img>, so
+  // the script can swap to either a <video> or <img> uniformly.
+  function ensureVisual(card) {
+    const existing = card.querySelector('.port-visual');
+    if (existing) return existing;
+    const orphan = card.querySelector('img.bg-img, img.port-img');
+    if (!orphan) return null;
+    const wrap = document.createElement('div');
+    wrap.className = 'port-visual';
+    // Inline the same positioning/clipping the working landings ship in CSS,
+    // so the synthesized wrapper renders correctly even on files that never
+    // defined .port-visual styles.
+    wrap.style.position = 'absolute';
+    wrap.style.inset = '0';
+    wrap.style.overflow = 'hidden';
+    orphan.parentNode.insertBefore(wrap, orphan);
+    // Reset stale inline sizing from the orphan and re-apply a clean fill.
+    orphan.removeAttribute('style');
+    orphan.style.width = '100%';
+    orphan.style.height = '100%';
+    orphan.style.objectFit = 'cover';
+    if (!orphan.classList.contains('bg-img')) orphan.classList.add('bg-img');
+    wrap.appendChild(orphan);
+    return wrap;
+  }
+
   function renderCover(card, item) {
-    const visual = card.querySelector('.port-visual');
+    const visual = ensureVisual(card);
     if (!visual) return;
     const coverUrl = getCoverUrl(item);
     if (!coverUrl) return;
@@ -120,6 +151,9 @@
       img.alt = item.title || '';
       img.loading = 'lazy';
       img.className = 'bg-img';
+      img.style.width = '100%';
+      img.style.height = '100%';
+      img.style.objectFit = 'cover';
       visual.appendChild(img);
     }
   }

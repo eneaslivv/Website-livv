@@ -13,6 +13,63 @@ import { FooterSection } from "@/components/sections/footer-section"
 import { supabase } from "@/lib/supabase/client"
 
 const fallbackServiceData: Record<string, any> = {
+    /* ── Custom Software Development ──────────────────────────────
+     * Lead service per the May 2026 SEO strategy. Target keywords:
+     * custom software development company, custom software for small
+     * business, custom business application development, build custom
+     * software for my company. */
+    "custom-software-development": {
+        name: "Custom Software Development",
+        headline: "Custom software, built end-to-end by the team that designed it.",
+        subheadline:
+            "Business applications, internal tools, SaaS MVPs, and AI-integrated products shipped to production. No design-to-engineering handoff because the same senior team does both.",
+        bodyCopy: [
+            "Most software a business actually needs is not on the shelf. The work that runs your operations, the dashboard your team lives inside, the customer portal that holds your relationships: each of those is specific to how your business works. Off-the-shelf SaaS gets you 60 percent of the way there. The other 40 percent is the difference between software your team tolerates and software your team relies on. We build that 40 percent end-to-end.",
+            "We have shipped five proprietary products to production: Payper, PRTool, Registrar, LegalFlow, and PM Agent. We know what it costs to build software because we have done it for ourselves and for clients across the US, UK, and Latin America. We work in Next.js, React Native, Flutter, and Supabase, with TypeScript across the stack. Every project ships with the same senior team from kickoff to deploy. No handoff. No diffusion of responsibility. No surprise milestones.",
+            "Typical engagements: founder MVPs from six to twelve weeks, internal tools for scale-ups in four to ten weeks, full custom SaaS in three to six months. Pricing is fixed-fee or retainer with transparency before kickoff.",
+        ],
+        listTitle: "What we ship",
+        listItems: [
+            "Custom business applications and internal tools",
+            "SaaS MVPs for founders past their first round",
+            "Customer portals, dashboards, and operations software",
+            "AI-integrated workflows built on Claude or OpenAI APIs",
+            "White-label SaaS for partner agencies",
+            "Mobile applications in React Native or Flutter",
+        ],
+        ctaText: "Tell us what you would build if the right team existed.",
+        accentColor: "#C4A35A",
+        secondaryColor: "#8B6F3D",
+    },
+
+    /* ── AI Integration ──────────────────────────────
+     * Second priority service per the SEO strategy. Target keywords:
+     * AI integration services, AI agent development, AI integration
+     * for business, custom AI solutions for business. */
+    "ai-integration": {
+        name: "AI Integration",
+        headline: "AI that does specific work for your business, not generic chat.",
+        subheadline:
+            "Custom AI agents, RAG implementations, AI-augmented workflows, and Claude or OpenAI integrations built into your existing product or shipped as a new one.",
+        bodyCopy: [
+            "AI integration has become a category full of demos and short of production work. The pattern: a vendor shows a chat interface, the team gets excited, six months later nothing has shipped because the integration was never specified at the workflow level. We work the other way. We start with the specific operational job you want AI to do, design the integration around that job, and ship something measurable inside ninety days.",
+            "We build with Anthropic Claude API as our primary model, OpenAI when the use case fits, and custom RAG layers for retrieval over your data. We ship AI agents for project management (PM Agent), customer support workflows, content generation pipelines, document parsing, voice-first interfaces (Registrar), and bespoke automation systems. The AI is invisible inside the product. The user just gets faster, cleaner, more accurate output.",
+            "We also integrate AI into existing products that already have users. The harder problem is not the model call. It is the surrounding software architecture: caching, fallback paths, observability, prompt versioning, evaluation harnesses. That is the part we know how to build.",
+        ],
+        listTitle: "Typical integrations",
+        listItems: [
+            "Custom AI agents for operational workflows",
+            "RAG systems over internal documents and data",
+            "AI-assisted content generation pipelines",
+            "Voice-first interfaces and natural-language input",
+            "AI features inside existing SaaS products",
+            "Evaluation harnesses and prompt observability tooling",
+        ],
+        ctaText: "Bring us the operational job. We design the AI around it.",
+        accentColor: "#769268",
+        secondaryColor: "#4F6447",
+    },
+
     "creative-engineering": {
         name: "Creative Engineering",
         headline: "We design and build digital solutions that actually make sense.",
@@ -71,6 +128,35 @@ const fallbackServiceData: Record<string, any> = {
         ctaText: "Tell your story with clarity and impact.",
         accentColor: "#a78bfa",
         secondaryColor: "#7c3aed",
+    },
+
+    /* ── Nearshore Software Development ──────────────────────────────
+     * Third priority service. Distinct geographic positioning that
+     * competes for "nearshore software development Argentina" — a
+     * growing search cluster with relatively low competition for
+     * editorial-quality content. */
+    "nearshore-development": {
+        name: "Nearshore Software Development",
+        headline: "Senior software development from Argentina, on the US East Coast clock.",
+        subheadline:
+            "Nearshore software partner for US, UK, and European companies. Bilingual senior team. Time-zone overlap with the US East Coast year-round. Same craft level as top boutique studios in Berlin, Quebec, or Portland.",
+        bodyCopy: [
+            "Most nearshore software pitches lean on cost. We lead with everything else: time-zone overlap that makes synchronous work actually possible, senior people who can hold their own on a strategy call without an account manager translating, bilingual operations in English and Spanish, and the craft level you would expect from a top studio in Berlin or Quebec. Cost is the door that opens the conversation. The reason agencies and product teams stay with us for years is the work.",
+            "Buenos Aires sits in UTC-3, which is one hour ahead of New York in southern summer and same-time as New York in southern winter. That gives an American team an effectively-full overlap with our standard working hours. We take 9am Eastern kickoff calls without breaking our day. We ship work overnight that lands in your inbox by morning. The friction of working with offshore teams ten or twelve hours displaced is gone.",
+            "The Argentine software industry has been exporting senior talent to American product companies for two decades. We come out of that tradition. We hire from FADU-UBA design lineage and FCEN / ITBA engineering lineage. Our senior engineers ship code at the level of any Bay Area or NYC product team. The difference is they ship it from Buenos Aires.",
+        ],
+        listTitle: "Why nearshore from Argentina",
+        listItems: [
+            "Full overlap with US East Coast working hours",
+            "Bilingual English and Spanish operations by default",
+            "Senior-only team. No juniors. Founder on every project.",
+            "Same craft level as top studios in Berlin, Quebec, Portland",
+            "Fixed-fee or retainer pricing with transparency up front",
+            "Two-decade lineage of Argentine software exports to US clients",
+        ],
+        ctaText: "Schedule a 15-minute call. We will tell you in fifteen minutes whether we are the right partner.",
+        accentColor: "#2C0405",
+        secondaryColor: "#1a0203",
     }
 }
 

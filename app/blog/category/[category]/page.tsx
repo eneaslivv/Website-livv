@@ -8,6 +8,7 @@ import { FooterSection } from "@/components/sections/footer-section"
 import { BlogCard } from "@/components/blog/BlogCard"
 import { getPostsByCategory, getAllCategories } from "@/lib/blog/utils"
 import { getCategoryBySlug } from "@/lib/blog/categories"
+import { getCategoryIntro } from "@/lib/blog/category-intros"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -17,6 +18,7 @@ export default function BlogCategoryPage() {
   const category = getCategoryBySlug(categorySlug)
   const posts = getPostsByCategory(categorySlug)
   const allCategories = getAllCategories()
+  const intro = getCategoryIntro(categorySlug)
 
   if (!category) {
     return (
@@ -48,12 +50,23 @@ export default function BlogCategoryPage() {
             <span className="text-[#2A1818]">{category.name}</span>
           </nav>
 
-          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight mb-4">
-            {category.name}
+          {intro?.eyebrow && (
+            <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-[#C4A35A] mb-3 block">
+              {intro.eyebrow}
+            </span>
+          )}
+
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight mb-6 max-w-3xl leading-[1.05]">
+            {intro?.heading || category.name}
           </h1>
-          <p className="text-lg text-[#5A3E3E]/60 max-w-2xl mb-8">
-            {category.description}
-          </p>
+
+          {/* Intro paragraph + extra paragraph rendered as plain HTML so
+              Google's crawler picks up the unique 200-400 word body
+              regardless of client-side hydration state. */}
+          <div className="max-w-3xl space-y-5 text-base md:text-lg text-[#5A3E3E]/75 leading-[1.75] font-light mb-10">
+            <p>{intro?.intro || category.description}</p>
+            {intro?.introExtra && <p>{intro.introExtra}</p>}
+          </div>
 
           {/* Other categories */}
           <div className="flex gap-2 flex-wrap">

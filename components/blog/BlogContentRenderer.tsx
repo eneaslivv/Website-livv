@@ -61,10 +61,19 @@ export function BlogContentRenderer({ blocks }: { blocks: BlogContentBlock[] }) 
             )
 
           case "paragraph":
+            // suppressHydrationWarning is the official React escape hatch
+            // for elements where the SSR HTML and post-hydration DOM may
+            // not match exactly. Author content via dangerouslySetInnerHTML
+            // can contain HTML the browser restructures (entities,
+            // smart quotes the SSR encodes differently, void elements
+            // browsers auto-close, etc.). Without it, React throws
+            // Minified error #418 and Googlebot's WRS logs the page as
+            // unstable, which contributes to "Discovered: not indexed".
             return (
               <p
                 key={i}
                 className="text-base md:text-lg text-[#5A3E3E]/70 leading-relaxed mb-6"
+                suppressHydrationWarning
                 dangerouslySetInnerHTML={{ __html: block.content }}
               />
             )
@@ -74,7 +83,7 @@ export function BlogContentRenderer({ blocks }: { blocks: BlogContentBlock[] }) 
               return (
                 <ol key={i} className="list-decimal list-inside space-y-2 mb-6 text-[#5A3E3E]/70 leading-relaxed pl-2">
                   {block.items.map((item, j) => (
-                    <li key={j} className="text-base md:text-lg" dangerouslySetInnerHTML={{ __html: item }} />
+                    <li key={j} className="text-base md:text-lg" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: item }} />
                   ))}
                 </ol>
               )
@@ -82,7 +91,7 @@ export function BlogContentRenderer({ blocks }: { blocks: BlogContentBlock[] }) 
             return (
               <ul key={i} className="list-disc list-inside space-y-2 mb-6 text-[#5A3E3E]/70 leading-relaxed pl-2">
                 {block.items.map((item, j) => (
-                  <li key={j} className="text-base md:text-lg" dangerouslySetInnerHTML={{ __html: item }} />
+                  <li key={j} className="text-base md:text-lg" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: item }} />
                 ))}
               </ul>
             )
@@ -127,7 +136,7 @@ export function BlogContentRenderer({ blocks }: { blocks: BlogContentBlock[] }) 
                 key={i}
                 className={`border rounded-xl p-5 mb-6 ${variants[block.variant]}`}
               >
-                <p className="text-sm md:text-base leading-relaxed" dangerouslySetInnerHTML={{ __html: block.content }} />
+                <p className="text-sm md:text-base leading-relaxed" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: block.content }} />
               </div>
             )
 
@@ -172,6 +181,7 @@ export function BlogContentRenderer({ blocks }: { blocks: BlogContentBlock[] }) 
                           <td
                             key={k}
                             className="px-5 py-3 text-[#5A3E3E]/70"
+                            suppressHydrationWarning
                             dangerouslySetInnerHTML={{ __html: cell }}
                           />
                         ))}

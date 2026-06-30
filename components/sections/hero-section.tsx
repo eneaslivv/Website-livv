@@ -6,7 +6,15 @@ import Image from "next/image"
 import { Navbar } from "@/components/layout/navbar"
 import { GoodfirmsBadge } from "@/components/ui/goodfirms-badge"
 import { trackCTAClick } from "@/lib/analytics"
+import { useIsMobile } from "@/hooks/use-mobile"
 
+// Vercel Speed Insights showed the home `/` route scoring 31/100 on mobile
+// (LCP 6.99s, INP 1,168ms). The three WebGL shaders below are the main
+// culprit: @paper-design/shaders compiles fragment programs and runs them
+// per-frame, which is expensive on mid-tier mobile GPUs and adds ~200 KB
+// to the JS bundle once dynamic imports resolve. The shaders are
+// decorative (overlay layer at opacity 0.7 over the hero image), so the
+// page reads fine without them on mobile. Gated by useIsMobile below.
 const Shader = dynamic(() => import("shaders/react").then((mod) => mod.Shader), { ssr: false })
 const Swirl = dynamic(() => import("shaders/react").then((mod) => mod.Swirl), { ssr: false })
 const ChromaFlow = dynamic(() => import("shaders/react").then((mod) => mod.ChromaFlow), { ssr: false })
@@ -14,6 +22,7 @@ const ChromaFlow = dynamic(() => import("shaders/react").then((mod) => mod.Chrom
 export function HeroSection() {
   const [isLoaded, setIsLoaded] = useState(false)
   const shaderContainerRef = useRef<HTMLDivElement>(null)
+  const isMobile = useIsMobile()
   const frameRef = useRef<HTMLDivElement>(null)
   const frameVars: CSSProperties & Record<string, string | number> = {
     WebkitMaskImage: "radial-gradient(white, black)",
@@ -118,8 +127,10 @@ export function HeroSection() {
               alt="Background"
               fill
               priority
+              fetchPriority="high"
               className="object-cover"
               sizes="100vw"
+              quality={75}
             />
           </div>
 
@@ -133,39 +144,49 @@ export function HeroSection() {
 
           <div className="absolute inset-0 z-[3] bg-black/10 pointer-events-none" />
 
-          <div
-            ref={shaderContainerRef}
-            className={`absolute inset-0 z-[1] pointer-events-none transition-opacity duration-1000 ${isLoaded ? "opacity-70" : "opacity-0"}`}
-            style={{ contain: "strict", mixBlendMode: "overlay" }}
-          >
-            <Shader className="h-full w-full">
-              <Swirl
-                colorA="#769268"
-                colorB="#E8BC59"
-                speed={1.0}
-                detail={1.5}
-                blend={70}
-                coarseX={60}
-                coarseY={60}
-                mediumX={50}
-                mediumY={50}
-                fineX={40}
-                fineY={40}
-              />
-              <ChromaFlow
-                baseColor="#FFFFFF"
-                upColor="#6DBEDC"
-                downColor="#FFFFFF"
-                leftColor="#769268"
-                rightColor="#E8BC59"
-                intensity={1.4}
-                radius={3.0}
-                momentum={35}
-                maskType="alpha"
-                opacity={0.98}
-              />
-            </Shader>
-          </div>
+          {/* WebGL shader overlay. Skipped entirely on mobile (<768px)
+              because the per-frame fragment-shader cost on mid-tier
+              mobile GPUs was the dominant cause of the route's 31/100
+              mobile Real Experience Score in Vercel Speed Insights
+              (LCP 6.99s -> blocked on GPU work + shader bundle parse).
+              The Image + gradient layers above still render, so the
+              hero looks intentional on mobile, just without the
+              animated color overlay. */}
+          {!isMobile && (
+            <div
+              ref={shaderContainerRef}
+              className={`absolute inset-0 z-[1] pointer-events-none transition-opacity duration-1000 ${isLoaded ? "opacity-70" : "opacity-0"}`}
+              style={{ contain: "strict", mixBlendMode: "overlay" }}
+            >
+              <Shader className="h-full w-full">
+                <Swirl
+                  colorA="#769268"
+                  colorB="#E8BC59"
+                  speed={1.0}
+                  detail={1.5}
+                  blend={70}
+                  coarseX={60}
+                  coarseY={60}
+                  mediumX={50}
+                  mediumY={50}
+                  fineX={40}
+                  fineY={40}
+                />
+                <ChromaFlow
+                  baseColor="#FFFFFF"
+                  upColor="#6DBEDC"
+                  downColor="#FFFFFF"
+                  leftColor="#769268"
+                  rightColor="#E8BC59"
+                  intensity={1.4}
+                  radius={3.0}
+                  momentum={35}
+                  maskType="alpha"
+                  opacity={0.98}
+                />
+              </Shader>
+            </div>
+          )}
 
           <div className="relative z-10 flex flex-col items-center justify-start h-full text-center px-4 pt-32 md:pt-40">
             <h1 className="text-2xl md:text-4xl lg:text-5xl leading-tight md:leading-none font-light tracking-[-0.08em] max-w-4xl mx-auto text-gray-100 flex flex-col items-center">

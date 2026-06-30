@@ -33,6 +33,21 @@ const nextConfig = {
       { source: '/ecommerce',    destination: '/for-ecommerce', permanent: false },
       { source: '/dtc',          destination: '/for-ecommerce', permanent: false },
       { source: '/shopify',      destination: '/for-ecommerce', permanent: false },
+      // Journal -> Blog 301s. The /journal surface was built then folded
+      // back into /blog after the user clarified intent was for editorial
+      // content to live INSIDE the existing blog. These permanent
+      // redirects catch any externally shared /journal URL from the
+      // brief window it was live and resolve it to the canonical /blog
+      // location.
+      { source: '/journal',                                          destination: '/blog',                                          permanent: true },
+      { source: '/journal/category/process-craft',                   destination: '/blog/category/platform-comparisons',            permanent: true },
+      { source: '/journal/category/industry',                        destination: '/blog/category/creative-engineering',            permanent: true },
+      { source: '/journal/category/case-study',                      destination: '/work',                                          permanent: true },
+      { source: '/journal/argentine-creative-engineering-tradition', destination: '/blog/argentine-creative-engineering-tradition', permanent: true },
+      { source: '/journal/webflow-vs-framer-2026',                   destination: '/blog/webflow-vs-framer-in-2026',                permanent: true },
+      // Catch-all for any other /journal/<slug> URLs. Sends them to
+      // /blog index so the reader still lands somewhere useful.
+      { source: '/journal/:slug*',                                   destination: '/blog',                                          permanent: true },
     ]
   },
   images: {

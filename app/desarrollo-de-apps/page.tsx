@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 const faq = [
   {
     q: "¿Cuánto cuesta desarrollar una app en Argentina?",
-    a: "En Livv el precio se cierra antes de empezar. Un MVP de aplicación suele arrancar alrededor de USD 8.000 y escala según funcionalidades, integraciones y plataformas (web, iOS, Android). Trabajamos con precio fijo por proyecto o retainer mensual.",
+    a: "El precio se cierra antes de empezar. El presupuesto depende del alcance: funcionalidades, integraciones y plataformas (web, iOS, Android). Trabajamos con precio fijo por proyecto o retainer mensual, con transparencia total de costo antes del kickoff.",
   },
   {
     q: "¿Cuánto tarda desarrollar una app?",

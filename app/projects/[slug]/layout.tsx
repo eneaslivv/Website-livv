@@ -98,33 +98,30 @@ export async function generateMetadata({
 function buildCaseStudyJsonLd(item: PortfolioItem) {
     const cover = pickDisplayCover(item)
     const url = `${SITE_URL}/projects/${item.slug}`
+    // CreativeWork (not Article) is the correct schema for portfolio
+    // case studies per Schema.org. Article is for editorial / news /
+    // blog-shaped content. A portfolio case study describing a website,
+    // app, brand, or design system the studio built is a CreativeWork.
+    // Google Rich Results and AI extractors treat the type difference
+    // as an entity signal — a CreativeWork ranks for portfolio /
+    // showcase queries, an Article ranks for editorial queries.
     return {
         "@context": "https://schema.org",
-        "@type": "Article",
-        "@id": `${url}#article`,
+        "@type": "CreativeWork",
+        "@id": `${url}#creativework`,
         mainEntityOfPage: { "@type": "WebPage", "@id": url },
-        headline: item.title,
+        name: item.title,
         description: item.subtitle || item.description?.slice(0, 200),
         image: cover ? [cover] : undefined,
-        author: {
-            "@type": "Organization",
-            name: "Livv Studio",
-            url: SITE_URL,
-        },
-        publisher: {
-            "@type": "Organization",
-            name: "Livv Studio",
-            url: SITE_URL,
-            logo: {
-                "@type": "ImageObject",
-                url: `${SITE_URL}/assets/logo-new.png`,
-            },
-        },
-        datePublished: item.created_at,
+        creator: { "@id": `${SITE_URL}#organization` },
+        publisher: { "@id": `${SITE_URL}#organization` },
+        dateCreated: item.created_at,
         dateModified: item.updated_at,
+        about: item.category || undefined,
         keywords: [item.category, ...(item.tech_tags || [])]
             .filter(Boolean)
             .join(", "),
+        inLanguage: ["en", "es"],
     }
 }
 

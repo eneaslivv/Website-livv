@@ -64,8 +64,10 @@ export function Navbar({ isLoaded = true }: NavbarProps) {
     ]
 
     const serviceItems = [
-        { label: "Creative Engineering", desc: "Framer / Shopify / Webflow", slug: "creative-engineering" },
-        { label: "Product Strategy & UI", desc: "SaaS / AI Agents / UX", slug: "product-strategy-ui" },
+        { label: "Custom Software Development", desc: "MVPs / SaaS / Internal tools", slug: "custom-software-development" },
+        { label: "AI Integration", desc: "AI agents / RAG / Claude + OpenAI", slug: "ai-integration" },
+        { label: "Creative Engineering", desc: "Webflow / Framer / Next.js", slug: "creative-engineering" },
+        { label: "Product Strategy & UI", desc: "Discovery / UX / Design systems", slug: "product-strategy-ui" },
         { label: "Motion & Narrative", desc: "WebGL / 3D / Brand", slug: "motion-narrative" },
     ]
 

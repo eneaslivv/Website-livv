@@ -35,7 +35,7 @@ const faq = [
   },
   {
     q: "¿Cuánto cuesta desarrollar un software a medida en Argentina?",
-    a: "Depende del alcance, pero en Livv el precio se cierra antes de empezar, sin sorpresas. Un MVP de producto suele arrancar alrededor de USD 8.000 y un sistema de gestión completo escala desde ahí según módulos e integraciones. Trabajamos con precio fijo por proyecto o retainer mensual, siempre con transparencia total de costo antes del kickoff.",
+    a: "El precio se cierra antes de empezar, sin sorpresas. El presupuesto depende del alcance: la cantidad de módulos, las integraciones y la complejidad del sistema. Trabajamos con precio fijo por proyecto o retainer mensual, siempre con transparencia total de costo antes del kickoff. Contanos qué necesitás y te pasamos un presupuesto cerrado.",
   },
   {
     q: "¿Cuánto tarda un proyecto de software a medida?",

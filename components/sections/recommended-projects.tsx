@@ -7,7 +7,11 @@ import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 import { usePortfolioItems } from "@/hooks/usePublicData"
 import { useParams } from "next/navigation"
-import { pickDisplayCover, isVideoCoverUrl } from "@/lib/default-project-blocks"
+import {
+    pickDisplayCover,
+    pickPosterCover,
+    isVideoCoverUrl,
+} from "@/lib/default-project-blocks"
 
 export function RecommendedProjects() {
     const containerRef = useRef<HTMLDivElement>(null)
@@ -64,19 +68,35 @@ export function RecommendedProjects() {
                             onMouseLeave={(e) => { const v = e.currentTarget.querySelector('video'); if (v) { v.pause(); v.currentTime = 0 } }}
                         >
                             <div className="absolute inset-0 bg-[#09090B] transition-transform duration-700 group-hover:scale-105">
+                                {/* preload="auto" lets <video> render the
+                                 *   first frame natively on mobile even
+                                 *   without autoplay. The dark bg
+                                 *   (#09090B) is the visible surface
+                                 *   while the frame loads. */}
                                 {cover && coverIsVideo && (
                                     <video
                                         src={cover}
                                         muted
                                         loop
                                         playsInline
-                                        preload="metadata"
+                                        preload="auto"
                                         poster={project.thumbnail || project.image || undefined}
                                         className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-opacity duration-500"
                                     />
                                 )}
                                 {cover && !coverIsVideo && (
                                     <Image src={cover} alt={project.title} fill sizes="(max-width: 768px) 85vw, 600px" loading="lazy" unoptimized className="object-cover opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
+                                )}
+                                {!cover && (
+                                    <Image
+                                        src={pickPosterCover(project)}
+                                        alt={project.title}
+                                        fill
+                                        sizes="(max-width: 768px) 85vw, 600px"
+                                        loading="lazy"
+                                        unoptimized
+                                        className="object-cover opacity-80 group-hover:opacity-60 transition-opacity duration-500"
+                                    />
                                 )}
                             </div>
 
