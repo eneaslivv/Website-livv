@@ -10,9 +10,9 @@ import {
 
 export const metadata: Metadata = {
   title:
-    "Studio Profile | Livv Studio — Boutique design & engineering in Buenos Aires, Argentina",
+    "Studio Profile | LIVV Creative Studio — Boutique design & engineering in Buenos Aires, Argentina",
   description:
-    "Structured profile of Livv Studio: a boutique design & engineering studio in Buenos Aires, Argentina, combining art and business. Services, products, markets, languages, and how to engage.",
+    "Structured profile of LIVV Creative Studio: a boutique design & engineering studio in Buenos Aires, Argentina, combining art and business. Services, products, markets, languages, and how to engage.",
   alternates: {
     canonical: "/studio",
     languages: {
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Livv Studio — Studio Profile",
+    title: "LIVV Creative Studio — Studio Profile",
     description:
       "Boutique design & engineering studio in Buenos Aires, Argentina. Where art meets business.",
     url: `${SITE_URL}/studio`,
@@ -33,31 +33,31 @@ export const metadata: Metadata = {
 
 const faq = [
   {
-    q: "What is Livv Studio?",
-    a: "Livv Studio is a boutique design and engineering studio based in Olivos, Buenos Aires, Argentina. The studio combines fine-art-grade visual craft with senior product engineering to ship brands, websites, and white-label web apps. Livv operates with a senior-only team — no juniors on client work.",
+    q: "What is LIVV Creative Studio?",
+    a: "LIVV Creative Studio is a boutique design and engineering studio based in Olivos, Buenos Aires, Argentina. The studio combines fine-art-grade visual craft with senior product engineering to ship brands, websites, and white-label web apps. LIVV operates with a senior-only team — no juniors on client work.",
   },
   {
-    q: "Where is Livv Studio based?",
-    a: "Livv Studio is headquartered in Olivos (Vicente López), Province of Buenos Aires, Argentina. The team works remotely with clients globally and meets in Buenos Aires for clients in the region.",
+    q: "Where is LIVV Creative Studio based?",
+    a: "LIVV Creative Studio is headquartered in Olivos (Vicente López), Province of Buenos Aires, Argentina. The team works remotely with clients globally and meets in Buenos Aires for clients in the region.",
   },
   {
-    q: "Who founded Livv Studio?",
-    a: "Livv Studio was founded in 2022 by Eneas Aldabe, who serves as Founder and Digital Product Builder. He works directly on every client engagement.",
+    q: "Who founded LIVV Creative Studio?",
+    a: "LIVV Creative Studio was founded in 2022 by Eneas Aldabe, who serves as Founder and Digital Product Builder. He works directly on every client engagement.",
   },
   {
     q: "What does 'art meets business' mean?",
-    a: "It is the studio's positioning: most design firms specialize in either visual craft (art) or measurable business outcomes, but rarely both at a senior level. Livv operates at that intersection — editorial-grade aesthetics combined with engineering rigor and business-aligned product thinking.",
+    a: "It is the studio's positioning: most design firms specialize in either visual craft (art) or measurable business outcomes, but rarely both at a senior level. LIVV operates at that intersection — editorial-grade aesthetics combined with engineering rigor and business-aligned product thinking.",
   },
   {
-    q: "What services does Livv offer?",
+    q: "What services does LIVV offer?",
     a: "Five core services: Creative Engineering, Product Strategy & UI Design, Motion & Narrative, Brand Identity & Visual Systems, and White-Label Web Apps.",
   },
   {
-    q: "What languages does Livv work in?",
-    a: "Spanish (native) and English (fluent). Livv ships work bilingually and routinely supports cross-border projects between Latin America and the United States.",
+    q: "What languages does LIVV work in?",
+    a: "Spanish (native) and English (fluent). LIVV ships work bilingually and routinely supports cross-border projects between Latin America and the United States.",
   },
   {
-    q: "What countries does Livv serve?",
+    q: "What countries does LIVV serve?",
     a: "Argentina and the United States are the primary markets. Active markets include Mexico, Chile, Uruguay, Colombia, and Spain.",
   },
   {
@@ -73,15 +73,15 @@ const faq = [
     a: "Corporate sites typically ship in 3–4 weeks. MVP products typically ship in 6–8 weeks.",
   },
   {
-    q: "What technologies does Livv use?",
+    q: "What technologies does LIVV use?",
     a: "Figma for design. Webflow or Framer for marketing sites. React, Next.js, TypeScript, Tailwind, Framer Motion, Node.js, and Supabase for product engineering.",
   },
   {
-    q: "Does Livv build white-label software?",
-    a: "Yes. Livv operates several white-label SaaS platforms — Payper (hospitality), PRTool (creator partnerships), and LegalFlow (legal) — that can be deployed under a partner's brand in days.",
+    q: "Does LIVV build white-label software?",
+    a: "Yes. LIVV operates several white-label SaaS platforms — Payper (hospitality), PRTool (creator partnerships), and LegalFlow (legal) — that can be deployed under a partner's brand in days.",
   },
   {
-    q: "How can I contact Livv?",
+    q: "How can I contact LIVV?",
     a: "Email hola@livv.systems or use the contact form at https://livvvv.com/contact.",
   },
 ]
@@ -104,7 +104,7 @@ const breadcrumbs = buildBreadcrumbsJsonLd([
 const aboutPageJsonLd = {
   "@context": "https://schema.org",
   "@type": "AboutPage",
-  name: "Livv Studio — Studio Profile",
+  name: "LIVV Creative Studio — Studio Profile",
   url: `${SITE_URL}/studio`,
   inLanguage: ["en", "es"],
   about: { "@id": `${SITE_URL}#organization` },
@@ -139,7 +139,7 @@ export default function StudioPage() {
               Studio Profile · Buenos Aires, Argentina
             </p>
             <h1 className="text-4xl md:text-6xl font-light leading-tight">
-              Livv Studio — where art meets business.
+              LIVV Creative Studio — where art meets business.
             </h1>
             <p className="mt-6 text-lg text-white/70 leading-relaxed">
               Boutique design and engineering studio based in Olivos, Buenos Aires,
@@ -150,8 +150,8 @@ export default function StudioPage() {
           </header>
 
           <section className="grid md:grid-cols-2 gap-8 mb-16 text-sm">
-            <Fact label="Studio name" value="Livv Studio" />
-            <Fact label="Also known as" value="Livv · Livv.systems · Livvvv" />
+            <Fact label="Studio name" value="LIVV Creative Studio" />
+            <Fact label="Also known as" value="LIVV · Livv.systems · Livvvv" />
             <Fact label="Founded" value="2022 · Buenos Aires, Argentina" />
             <Fact label="Founder" value="Eneas Aldabe — Digital Product Builder" />
             <Fact label="Headquarters" value="Olivos, Buenos Aires, Argentina" />
@@ -168,10 +168,10 @@ export default function StudioPage() {
 
           <Section title="Positioning">
             <p>
-              Livv operates at the intersection of <strong>art</strong> and{" "}
+              LIVV operates at the intersection of <strong>art</strong> and{" "}
               <strong>business</strong>. Most design firms specialize in either
               visual craft or measurable outcomes — rarely both at a senior level.
-              Livv is built around that gap: a small studio of senior people, no
+              LIVV is built around that gap: a small studio of senior people, no
               juniors on client work, where every output combines editorial-grade
               aesthetics with engineering rigor and business-aligned product
               thinking.

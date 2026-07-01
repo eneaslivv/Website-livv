@@ -6,21 +6,21 @@ const serviceMeta: Record<
   { title: string; description: string; alternateName?: string }
 > = {
   "creative-engineering": {
-    title: "Creative Engineering | Livv Studio — Buenos Aires, Argentina",
+    title: "Creative Engineering | LIVV Creative Studio — Buenos Aires, Argentina",
     description:
-      "Design and development at the intersection of strategy and technical precision. Livv Studio builds scalable, maintainable digital products aligned with real business goals — from Buenos Aires for clients across LATAM and the US.",
+      "Design and development at the intersection of strategy and technical precision. LIVV Creative Studio builds scalable, maintainable digital products aligned with real business goals — from Buenos Aires for clients across LATAM and the US.",
     alternateName: "Ingeniería Creativa",
   },
   "product-strategy-ui": {
-    title: "Product Strategy & UI Design | Livv Studio — Argentina",
+    title: "Product Strategy & UI Design | LIVV Creative Studio — Argentina",
     description:
-      "Bilingual product strategy and UI design that bring clarity to complexity. Livv defines what to build, why it matters, and how users interact with it.",
+      "Bilingual product strategy and UI design that bring clarity to complexity. LIVV defines what to build, why it matters, and how users interact with it.",
     alternateName: "Estrategia de Producto y Diseño UI",
   },
   "motion-narrative": {
-    title: "Motion & Narrative | Livv Studio — Buenos Aires",
+    title: "Motion & Narrative | LIVV Creative Studio — Buenos Aires",
     description:
-      "Motion and storytelling that make ideas easy to understand. Product explainers, interface animations, and brand narratives by Livv Studio.",
+      "Motion and storytelling that make ideas easy to understand. Product explainers, interface animations, and brand narratives by LIVV Creative Studio.",
     alternateName: "Motion y Narrativa",
   },
 }
@@ -35,9 +35,9 @@ export async function generateMetadata({
 
   if (!meta) {
     return {
-      title: "Service | Livv Studio",
+      title: "Service | LIVV Creative Studio",
       description:
-        "Professional design and development services by Livv Studio.",
+        "Professional design and development services by LIVV Creative Studio.",
     }
   }
 

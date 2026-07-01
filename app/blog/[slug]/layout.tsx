@@ -15,7 +15,7 @@ export async function generateMetadata({
 
   if (!post) {
     return {
-      title: "Post Not Found | Livv Studio",
+      title: "Post Not Found | LIVV Creative Studio",
       description: "The blog post you're looking for doesn't exist.",
     }
   }

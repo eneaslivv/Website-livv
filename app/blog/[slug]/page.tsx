@@ -61,7 +61,7 @@ export default function BlogPostPage() {
     },
     publisher: {
       "@type": "Organization",
-      name: "Livv Studio",
+      name: "LIVV Creative Studio",
       url: "https://livvvv.com",
     },
     datePublished: post.createdAt,

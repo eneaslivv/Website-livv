@@ -83,7 +83,7 @@ export function Navbar({ isLoaded = true }: NavbarProps) {
                         <Link href="/" className="flex items-center">
                             <Image
                                 src="/assets/logo-new.png"
-                                alt="Livv Logo"
+                                alt="LIVV Logo"
                                 width={125}
                                 height={58}
                                 priority

@@ -83,7 +83,7 @@ export function PartnerFormModal({ isOpen, onClose }: PartnerFormModalProps) {
                             <div className="px-6 py-6 border-b border-stone-100 flex items-center justify-between">
                                 <div>
                                     <h2 className="text-xl font-semibold text-[#2C0405]">Partner Program</h2>
-                                    <p className="text-sm text-stone-500 mt-1">Apply to resell your app on Livv</p>
+                                    <p className="text-sm text-stone-500 mt-1">Apply to resell your app on LIVV</p>
                                 </div>
                                 <button
                                     onClick={onClose}

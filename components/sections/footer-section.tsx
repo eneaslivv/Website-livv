@@ -113,7 +113,7 @@ export function FooterSection({ id }: { id?: string }) {
                 {/* Bottom Meta Bar (Originally in Footer) */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center text-[10px] uppercase tracking-widest text-[#1a1a1a]/60 pb-12 pt-8 w-full border-t border-[#E8E4DC]">
                     <div className="flex flex-col gap-1 mb-4 md:mb-0">
-                        <span>Designed by Livv</span>
+                        <span>Designed by LIVV</span>
                         <span>Rebuilt in Next.js</span>
                         <span>By Antigravity</span>
                     </div>

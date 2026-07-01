@@ -8,7 +8,7 @@ import {
 } from "@/lib/seo/structured-data"
 
 export const metadata: Metadata = {
-  title: "Desarrollo de apps a medida | Livv Studio — Argentina y LATAM",
+  title: "Desarrollo de apps a medida | LIVV Creative Studio — Argentina y LATAM",
   description:
     "Desarrollo de aplicaciones a medida para empresas de Argentina y Latinoamérica. Apps web y móviles construidas por un equipo senior boutique en Buenos Aires, en español e inglés, con presupuesto cerrado.",
   alternates: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Desarrollo de apps a medida — Livv Studio",
+    title: "Desarrollo de apps a medida — LIVV Creative Studio",
     description:
       "Apps web y móviles a medida para empresas de Argentina y LATAM. Equipo senior boutique en Buenos Aires.",
     url: `${SITE_URL}/desarrollo-de-apps`,
@@ -50,7 +50,7 @@ const faq = [
   },
   {
     q: "¿Trabajan en español?",
-    a: "Sí. Livv es un equipo bilingüe con sede en Buenos Aires: español nativo e inglés fluido. Todo el proceso puede ser en español.",
+    a: "Sí. LIVV es un equipo bilingüe con sede en Buenos Aires: español nativo e inglés fluido. Todo el proceso puede ser en español.",
   },
 ]
 
@@ -74,7 +74,7 @@ export default function DesarrolloDeAppsPage() {
       jsonLd={[serviceJsonLd, buildFaqJsonLd(faq), breadcrumbs]}
       kicker="Desarrollo de apps · Buenos Aires, Argentina"
       title="Desarrollo de apps a medida para empresas de LATAM."
-      intro="Livv Studio diseña y desarrolla aplicaciones a medida —web y móviles— para empresas de Argentina y Latinoamérica. Equipo senior boutique en Buenos Aires, en español e inglés, con presupuesto cerrado antes de empezar y código que es propiedad del cliente."
+      intro="LIVV Creative Studio diseña y desarrolla aplicaciones a medida —web y móviles— para empresas de Argentina y Latinoamérica. Equipo senior boutique en Buenos Aires, en español e inglés, con presupuesto cerrado antes de empezar y código que es propiedad del cliente."
       facts={[
         { label: "Qué hacemos", value: "Apps web y móviles a medida" },
         { label: "Para quién", value: "Empresas, pymes y startups de LATAM" },
