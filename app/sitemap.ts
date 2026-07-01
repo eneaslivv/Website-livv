@@ -51,6 +51,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         { url: `${BASE_URL}/software-a-medida`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
         { url: `${BASE_URL}/desarrollo-de-apps`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
         { url: `${BASE_URL}/diseno-a-medida`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+        // Spanish AEO landings — AI/automation cluster
+        { url: `${BASE_URL}/automatizacion-con-ia`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+        { url: `${BASE_URL}/bots-de-whatsapp`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+        { url: `${BASE_URL}/agentes-de-ia`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+        // Spanish AEO landings — dashboards / CRM
+        { url: `${BASE_URL}/dashboards-a-medida`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+        { url: `${BASE_URL}/crm-a-medida`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+        // Spanish AEO landings — industry verticals (product-backed)
+        { url: `${BASE_URL}/software-para-estudios-juridicos`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+        { url: `${BASE_URL}/software-para-gastronomia`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
     ]
 
     // ── Specialized landings (rewrites in next.config.mjs to /lp/*.html) ─
