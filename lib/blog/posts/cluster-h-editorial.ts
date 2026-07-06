@@ -4055,4 +4055,429 @@ export const clusterHEditorial: BlogPost[] = [
     createdAt: "2026-06-29T09:00:00.000Z",
     updatedAt: "2026-06-29T09:00:00.000Z",
   },
+
+  /* ────────────────────────────────────────────────────────────
+   *   Phase 2 / Custom Software #4 — Custom Software Development Process: What to Expect
+   * ──────────────────────────────────────────────────────────── */
+  {
+    id: "h-011",
+    slug: "custom-software-development-process-what-to-expect",
+    title: "Custom Software Development Process: What to Expect",
+    excerpt:
+      "Most founders ask how much a custom software project will cost before they understand what happens in each phase of one. The cost question gets more tractable once the process is clear.",
+    content: "",
+    contentBlocks: [
+      {
+        type: "heading",
+        level: 2,
+        id: "key-takeaways",
+        content: "Key takeaways",
+      },
+      {
+        type: "list",
+        ordered: true,
+        items: [
+          "Custom software development follows five phases: discovery, design, build, ship, and maintain. Each phase produces a specific written output that the next phase depends on.",
+          "Discovery is the phase most often compressed or skipped in custom builds that exceed their budgets. A properly scoped discovery costs $5,000 to $15,000 and prevents mid-build scope decisions that cost significantly more to resolve.",
+          "The build phase involves iterative delivery and client review, not a single handoff at the end. Timely feedback at each checkpoint is one of the few variables the client controls directly.",
+          "Shipping involves more than deploying code. Data migration, staff training, production environment configuration, and a monitored first period in production are all part of a well-run launch.",
+          "Maintenance is a real line item, not an afterthought. A small-business custom application requires $1,000 to $4,000 per month in ongoing engineering time to stay secure, updated, and operational.",
+        ],
+      },
+      {
+        type: "paragraph",
+        content:
+          "The conversation that makes custom software projects go wrong usually starts with a price quote. A founder asks for a number, gets one, approves it, and moves on. The number was real, but it was based on requirements that had not yet been fully defined. Six months later, the project has cost twice as much and taken three times as long.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The process explanation does not excuse that outcome, but it does predict it. Each phase of a well-run custom build produces a specific set of decisions. When a phase gets skipped or compressed, those decisions get made later at higher cost, or they do not get made at all and become operational problems after launch.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "This piece describes each phase in sequence: what a well-run version of it produces, what it costs, and what the consequences are of getting it wrong.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "why-process-clarity-matters-more-than-the-quote",
+        content: "Why process clarity matters more than the quote",
+      },
+      {
+        type: "paragraph",
+        content:
+          "When a client asks for a fixed-price quote before discovery is complete, the number they receive is an estimate built on assumptions, not a commitment built on knowledge. Both parties often know this, and both often proceed anyway.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The pattern is familiar enough in the industry that it has an informal name: the low bid that wins the contract and the change orders that recover the margin. It is not inevitable. A client who insists on discovery before approving a final number, and who builds change order terms into the contract from the start, will get a meaningfully more reliable quote.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The practical reason this matters: the cost of a decision in custom software is inversely proportional to how early it is made. A requirement settled in discovery costs little. The same requirement settled during build, after code has been written around a different assumption, costs the development team time to stop, reassess, revise the design, and re-implement. That overhead typically doubles the cost of the decision.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Settled after launch, the cost includes operational disruption on top of the engineering overhead. Understanding which decisions belong in which phase is the frame that makes a cost conversation real.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "phase-1-discovery",
+        content: "Phase 1: Discovery",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Discovery is the phase where the actual problem gets defined. No code is written in discovery. No final designs are produced. What discovery produces is a shared, written understanding of what the software will do, what it will not do in the first version, and what the constraints on the build are.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A well-run discovery for a small-business application typically takes two to four weeks. The cost ranges from $5,000 to $15,000, depending on the number of stakeholders involved, the complexity of existing systems the new software must interact with, and the amount of data that needs to be inventoried before scope can be set.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Discovery includes structured conversations with each person who will use or operate the system. It includes a review of any integrations: accounting tools, CRM, document storage, payment processors. It includes a data audit that maps what data currently exists, where it lives, how clean it is, and what the new system will need to import or read from it.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The output is a scope document. Not a technical specification (that comes in design), but a clear description of the problem, the core use cases that must work at launch, and the constraints that apply. Both the client and the development team should be able to read the scope document independently and describe the software consistently.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The test for whether discovery was done well is simple. Ask both parties to describe what happens when a specific unexpected input arrives: a user with no assigned permissions, a record with a missing required field, an integration that returns an error. If the answers differ materially, the discovery work is not yet complete.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "When discovery is compressed because a client wants to get to the build, the decisions that should have been made in discovery get pushed into design and build. Each discovery-level decision made during build costs two to four times more than it would have cost during discovery. That multiplier is why the $10,000 discovery phase is one of the most cost-effective components of a custom project.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "phase-2-design",
+        content: "Phase 2: Design",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Design translates the decisions made in discovery into specifications a development team can build from. It runs in two parallel tracks: product design and technical design.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Product design produces wireframes and, for user-facing software, high-fidelity screens. The goal of this work is not visual polish. The goal is to surface every decision about how users will interact with the system before a developer writes the code for it. An interaction that requires a design decision mid-build costs two to four times more to handle than the same decision made during the design phase.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A well-run product design process walks through every user flow from start to finish, including error states, empty states, and permission edge cases. When a designer draws the actual screen sequence a user navigates to complete a task, missing steps and contradictory requirements become visible. Those discoveries are significantly cheaper to address in design than in build.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Technical design produces an architecture document: which systems the software will connect to, how data will be structured, which parts of the system face the highest load, where authentication happens, how the deployment environment will be organized, and what the data model looks like for each entity. For a small-business application with modest traffic, this document is typically ten to twenty pages.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Design for a small-to-mid-size custom application takes three to six weeks and costs $8,000 to $25,000. Applications with many distinct user roles, complex integrations, or data-intensive reporting land at the higher end of that range.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "At the end of design, both the client and the development team should be able to walk through every user flow without encountering open questions. A design phase that ends with significant open questions is a design phase that did not finish.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "phase-3-build",
+        content: "Phase 3: Build",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Build is the phase where the software gets written. For most small-business custom applications, build runs eight to sixteen weeks. For a mid-scale platform with multiple user types and significant integrations, it runs twelve to twenty weeks.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "What happens during build is not a single sustained effort followed by a delivery at the end. A well-run build phase delivers working software incrementally, with client reviews at each stage. A custom CRM build, for example, might deliver working authentication and user management in weeks one and two, a functioning data model and record creation in weeks three through six, reporting and export in weeks seven through ten, and integrations with external systems in weeks eleven through fourteen.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Each delivery gets reviewed by the client team. Those reviews are the mechanism that catches gaps between what was specified and what was built before those gaps compound. A client team that delays reviews, or reviews work superficially, loses the benefit of the incremental delivery model.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Build is also the phase where integrations occasionally reveal complexity that was not visible during design. A payment processor's API may have rate limits that only appear under load. An accounting tool's official API may have data format inconsistencies in older records. A government data feed may have updated its schema since the design was completed. A development team that handles these discoveries transparently, communicates them to the client promptly, and prices any necessary rework through a clear change order process is working correctly.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Build for a focused workflow application at a boutique studio in 2026 costs $20,000 to $60,000. An application with significant integrations, a complex data model, or high performance requirements costs $60,000 to $150,000 or more. Both ranges assume that discovery and design produced stable, complete specifications before build began.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "phase-4-ship",
+        content: "Phase 4: Ship",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Shipping is the transition from software that works in a controlled environment to software that runs in the client's actual operations. For most businesses, this phase takes one to three weeks and involves four activities that are frequently underestimated in the initial project scope.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Data migration moves existing records from prior systems into the new one. If the business has been running on spreadsheets, a legacy database, or a departing SaaS tool, that data needs to be mapped to the new schema, cleaned for inconsistencies, and imported. Historical data is almost always messier than the scope assumed. Fields that look clean in a spreadsheet header contain formatting variations in the actual rows. IDs that should be unique are not. Required fields are empty for records that predate the current policy. Data migration that looks like a two-day task in the scope document commonly takes a week or more on real production data. The additional cost, when it arises, typically falls between $2,000 and $10,000.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Deployment configuration establishes the production environment: cloud hosting, domain and SSL setup, access controls, backup schedules, and monitoring configuration. For cloud-hosted applications, this is typically a one-to-two-day engineering task handled by the development team.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Staff training ensures that the people who will use the system know how to use it before the old system is turned off. For an internal tool used by a small team, a half-day walkthrough plus written documentation is usually sufficient. For a customer-facing application, a staged rollout to a subset of users during the first week is a more controlled approach.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Production monitoring during the first two to four weeks in production catches issues that only appear under real load with real data. Minor bugs during this window are expected and normal. A development partner who considers the engagement complete at the moment of deployment, before this monitoring period ends, is worth noting carefully in the reference check.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "phase-5-maintain",
+        content: "Phase 5: Maintain",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Maintenance begins the day the software ships and does not stop while the software is in use. It is the phase most often underestimated in initial budget planning, and the omission frequently damages otherwise successful builds.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Custom software runs on infrastructure that changes beneath it. Cloud providers update their services. Operating systems release security patches. The frameworks and libraries the software uses internally get updated, and some of those updates require corresponding changes to the application. A custom system that receives no maintenance will, over a two-to-three-year window, accumulate compatibility problems and security exposure that require remediation at significant cost.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The minimum reasonable maintenance budget for a small-business custom application is $1,000 per month. This covers a few hours of monthly engineering time for dependency updates, minor bug fixes, and production monitoring. It does not include new features.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A maintenance arrangement that covers minor feature additions (new report formats, small UI adjustments, additional export fields) typically costs $2,000 to $4,000 per month at boutique-studio rates.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The development partner who built the system is almost always the most efficient choice for ongoing maintenance. They wrote the code, they understand the architecture decisions, and they do not have to spend time orienting before they can act. A handoff to a new team after launch is possible, but it carries an onboarding cost that is rarely reflected in the new team's initial quotes.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "When the business grows significantly or the original requirements evolve enough to require a major expansion, maintenance shifts back into a new build engagement. That transition is expected behavior, not a failure of the original architecture. The original system should have been built with a data model that makes expansion feasible without a full rewrite. Whether the development partner considered this at the architecture stage is one of the most useful things to ask before hiring. The hiring a creative engineering studio piece on this site covers the full evaluation process, including which questions reveal how a studio approaches long-term maintainability.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "typical-timelines-by-project-shape",
+        content: "Typical timelines by project shape",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Timeline estimates in custom software are significantly more reliable after a completed discovery phase than before one. The ranges below assume discovery produced stable specifications and that client reviews happen on schedule during build.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A focused workflow application (one to two user types, four to eight core screens, two to four integrations): discovery two to three weeks, design three to four weeks, build eight to twelve weeks, ship one to two weeks. Total calendar time: fourteen to twenty-one weeks from contract signature to production.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A mid-scale internal platform (multiple user types with distinct permissions, ten to twenty screens, five to ten integrations, reporting): discovery three to five weeks, design four to six weeks, build twelve to eighteen weeks, ship one to three weeks. Total calendar time: twenty to thirty-two weeks.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "An application with an AI integration layer (any of the above, plus an LLM, a retrieval layer, or an agent component): add three to six weeks to the build phase, plus additional discovery and design time for the AI component specifically. Total calendar time: twenty-five to forty weeks at this scope.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Timeline overruns in custom builds trace to a small set of causes. Scope changes after design is complete are the most frequent. Integrations that proved more complex than expected are the second most frequent. Client review delays that break the incremental feedback loop are the third. The first is within the client's control. All three are reduced, though not eliminated, by a well-run discovery phase that surfaces decisions early.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A client who commits to timely reviews, holds scope through the build phase, and treats design decisions as final once made will almost always finish closer to the early end of the timeline range. That is not a consequence of optimistic scheduling. It is a consequence of removing the most common sources of delay.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "For a complete picture of what custom development costs at each phase and project scale, the how much does custom software cost in 2026 piece on this site covers pricing in more detail, including ranges for boutique studios versus larger agencies.",
+      },
+      {
+        type: "faq",
+        items: [
+          {
+            question:
+              "What is the first thing that happens in a custom software project?",
+            answer:
+              "Discovery. Before design or development begins, the development team works with the client to define the actual problem, map the existing systems and data involved, and produce a scope document both parties agree on. Discovery typically takes two to four weeks and costs $5,000 to $15,000. Projects that skip discovery are significantly more likely to exceed their initial budgets.",
+          },
+          {
+            question:
+              "How long does custom software development take from start to finish?",
+            answer:
+              "A focused workflow application takes fourteen to twenty-one weeks from discovery start to production deployment. A mid-scale internal platform takes twenty to thirty-two weeks. An application with an AI integration layer takes twenty-five to forty weeks. Those ranges assume discovery produced stable specifications and that client reviews happen promptly during build.",
+          },
+          {
+            question: "What does custom software cost in 2026?",
+            answer:
+              "Discovery costs $5,000 to $15,000. Design costs $8,000 to $25,000. Build for a focused workflow application costs $20,000 to $60,000; an application with significant integrations costs $60,000 to $150,000 or more. Data migration during shipping can add $2,000 to $10,000. Ongoing maintenance runs $1,000 to $4,000 per month. Total project costs for a small-business application typically fall between $40,000 and $120,000.",
+          },
+          {
+            question:
+              "Why do custom software projects go over budget?",
+            answer:
+              "Scope changes during the build phase are the most common cause. Each change made after design is complete costs two to four times what it would have cost during design. Integration complexity discovered during build is the second most common cause. Client review delays that extend the timeline are the third. All three are reduced by a well-run discovery and design phase before build begins.",
+          },
+          {
+            question:
+              "How do I know if the discovery phase was done properly?",
+            answer:
+              "Ask both the client-side team and the development team to describe what happens when an unexpected input arrives: a user with no permissions, a record with a missing required field, an integration that fails. If the answers differ materially, discovery is not complete. The output of a properly run discovery is a scope document both parties can read independently and describe consistently.",
+          },
+          {
+            question:
+              "Is maintenance really necessary for custom software?",
+            answer:
+              "Yes. Custom software runs on infrastructure that changes: cloud services update, security patches are released, and the libraries the software depends on require updates over time. A system that receives no maintenance will accumulate security exposure and compatibility problems over a two-to-three-year window. The minimum reasonable maintenance budget for a small-business application is $1,000 per month.",
+          },
+          {
+            question:
+              "What should I look for when reviewing work during the build phase?",
+            answer:
+              "Whether deliverables arrive on the agreed schedule, whether each delivery is working and testable, and whether the development team communicates proactively when integrations reveal unexpected complexity. A team that delivers incrementally, reviews with the client at each checkpoint, and handles surprises through a transparent change order process is working correctly.",
+          },
+          {
+            question:
+              "When should I consider building custom software rather than using a SaaS tool?",
+            answer:
+              "When the cost and friction of the current SaaS stack has become measurable and recurring, when a specific workflow cannot be handled by any available tool without significant manual workaround, or when data ownership and integration requirements exceed what SaaS vendors support. The custom software vs SaaS decision piece on this site covers the comparison framework in detail, including a five-question decision filter.",
+          },
+        ],
+      },
+    ],
+    coverImage: "/images/blog/creative-engineering.webp",
+    author,
+    category: creativeEngineeringCategory,
+    tags: [
+      "Custom software development",
+      "Software development process",
+      "Discovery phase",
+      "Software project management",
+      "Custom software cost",
+      "Software timelines",
+    ],
+    readingTimeMinutes: 11,
+    published: true,
+    featured: true,
+    displayOrder: 11,
+    seoTitle:
+      "Custom Software Development Process: What to Expect · LIVV Creative Studio",
+    seoDescription:
+      "A phase-by-phase breakdown of the custom software development process (discovery, design, build, ship, and maintain), with real 2026 cost ranges and typical timelines by project shape.",
+    faqSchema: [
+      {
+        question:
+          "What is the first thing that happens in a custom software project?",
+        answer:
+          "Discovery. Before design or development begins, the development team works with the client to define the actual problem, map existing systems and data, and produce a scope document both parties agree on. Discovery typically takes two to four weeks and costs $5,000 to $15,000.",
+      },
+      {
+        question:
+          "How long does custom software development take from start to finish?",
+        answer:
+          "A focused workflow application takes fourteen to twenty-one weeks. A mid-scale internal platform takes twenty to thirty-two weeks. An application with an AI integration layer takes twenty-five to forty weeks. Those ranges assume discovery produced stable specifications and that client reviews happen promptly during build.",
+      },
+      {
+        question: "What does custom software cost in 2026?",
+        answer:
+          "Discovery costs $5,000 to $15,000. Design costs $8,000 to $25,000. Build costs $20,000 to $150,000 or more depending on scope. Data migration can add $2,000 to $10,000. Ongoing maintenance runs $1,000 to $4,000 per month. Total project costs for a small-business application typically fall between $40,000 and $120,000.",
+      },
+      {
+        question:
+          "Why do custom software projects go over budget?",
+        answer:
+          "Scope changes during build are the most common cause. Each change made after design is complete costs two to four times what it would have cost during design. Integration complexity discovered during build is the second most common cause. Client review delays that extend the timeline are the third.",
+      },
+      {
+        question:
+          "How do I know if the discovery phase was done properly?",
+        answer:
+          "Ask both parties to describe what happens when an unexpected input arrives: a user with no permissions, a missing required field, or a failing integration. If the answers differ materially, discovery is not complete. A properly run discovery produces a scope document both parties can describe consistently.",
+      },
+      {
+        question:
+          "Is maintenance really necessary for custom software?",
+        answer:
+          "Yes. Cloud services update, security patches are released, and the libraries the software depends on require updates over time. A system that receives no maintenance will accumulate security exposure and compatibility problems over a two-to-three-year window. The minimum reasonable budget is $1,000 per month.",
+      },
+      {
+        question:
+          "What should I look for when reviewing work during the build phase?",
+        answer:
+          "Whether deliverables arrive on the agreed schedule, whether each delivery is working and testable, and whether the team communicates proactively about integration complexity. Incremental delivery with client review at each checkpoint is the correct model.",
+      },
+      {
+        question:
+          "When should I build custom software rather than use a SaaS tool?",
+        answer:
+          "When SaaS stack cost and friction are measurable and recurring, when no available tool handles a specific workflow without significant manual workaround, or when data ownership and integration requirements exceed what SaaS vendors support. The custom software vs SaaS decision piece on this site covers the comparison framework in detail.",
+      },
+    ],
+    internalLinks: [
+      {
+        slug: "hiring-creative-engineering-studio",
+        text: "Hiring a Creative Engineering Studio: A Buyer's Guide",
+      },
+      {
+        slug: "how-much-does-custom-software-cost-in-2026",
+        text: "How Much Does Custom Software Cost in 2026?",
+      },
+      {
+        slug: "custom-software-vs-saas-when-to-build",
+        text: "Custom Software vs SaaS: When to Build Your Own",
+      },
+    ],
+    cta,
+    relatedPostSlugs: [
+      "custom-software-vs-saas-when-to-build",
+      "how-much-does-custom-software-cost-in-2026",
+      "build-vs-buy-decision-framework-for-founders",
+    ],
+    createdAt: "2026-07-06T09:00:00.000Z",
+    updatedAt: "2026-07-06T09:00:00.000Z",
+  },
 ]
