@@ -31,7 +31,7 @@ Cluster file: `lib/blog/posts/cluster-h-editorial.ts` (append at the end).
 - [x] **The Build vs Buy Decision: A Framework for Founders** `build-vs-buy-decision-framework-for-founders`
       Framework piece, ~2,200 words. Five-question decision tree, real
       cost-of-ownership math, when to revisit the decision.
-- [ ] **Custom Software Development Process: What to Expect**
+- [~] **Custom Software Development Process: What to Expect** `custom-software-development-process-what-to-expect`
       Educational, ~2,000 words. Discovery → design → build → ship →
       maintain. Typical timelines per project shape.
 - [ ] **When Your Business Outgrows Spreadsheets**
