@@ -62,7 +62,7 @@ integration`, `RAG vs fine-tuning`, `custom AI chatbot development`,
       integration shape, outcome shape.
 - [x] **What Is an AI Agent and Does Your Business Need One?** `what-is-an-ai-agent-does-your-business-need-one`
       Definition + decision-tree, ~2,200 words.
-- [~] **AI Automation for Small Business: Where to Start**
+- [x] **AI Automation for Small Business: Where to Start** `ai-automation-for-small-business-where-to-start`
       Beginner guide, ~2,000 words.
 - [ ] **The Cost of AI Integration: What to Budget in 2026**
       Pricing guide, ~2,500 words. Per-token + per-month subscription +
