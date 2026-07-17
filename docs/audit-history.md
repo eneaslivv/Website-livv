@@ -65,3 +65,11 @@
 - Newly broken: none
 - Newly fixed: none
 - Notes: Audit skipped — livvvv.com returns 403 via proxy egress (eighth consecutive week); cluster-h-editorial.ts touched (new post custom-software-development-process-what-to-expect shipped 2026-07-06, 15 slugs total); IndexNow ping blocked (api.indexnow.org not in egress allowlist, seventh consecutive week); Vercel deploy status unverifiable (no GitHub Actions — Vercel deploys directly); no new PRs this week
+
+## 2026-07-17
+- OK: N/A
+- THIN: N/A
+- BROKEN: N/A
+- Newly broken: none
+- Newly fixed: none
+- Notes: Audit skipped — livvvv.com returns 403 via proxy egress (ninth consecutive week); playwright npm package confirmed installed; cluster-h-editorial.ts touched (new post ai-automation-for-small-business-where-to-start shipped 2026-07-13, 16 slugs total); IndexNow ping returned 403 (api.indexnow.org blocked, eighth consecutive week); Vercel deploy status unverifiable (no GitHub Actions — Vercel deploys directly); 1 content commit + 1 distribution draft this week

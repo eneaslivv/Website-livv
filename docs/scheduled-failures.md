@@ -13,3 +13,6 @@
 | 2026-06-19T00:00:00Z | weekly-maintenance | render-audit: Playwright Chromium browser download blocked by network policy — browser binary unavailable in remote execution environment (fourth consecutive week); audit could not run |
 | 2026-06-19T00:00:00Z | weekly-maintenance | vercel-deploy-check: gh CLI not available and no GitHub MCP deployments tool — Vercel deployment status could not be verified |
 | 2026-06-19T00:00:00Z | weekly-maintenance | indexnow-ping: POST to api.indexnow.org returned 403 "Host not in allowlist" — persistent issue (fourth consecutive week); key file verification and network egress need author attention |
+| 2026-07-17T00:00:00Z | weekly-maintenance | render-audit: livvvv.com returns 403 via proxy egress (ninth consecutive week) — playwright installed but site unreachable; audit could not run |
+| 2026-07-17T00:00:00Z | weekly-maintenance | indexnow-ping: POST to api.indexnow.org returned 403 — api.indexnow.org not in egress allowlist (eighth consecutive week); author action required |
+| 2026-07-17T00:00:00Z | weekly-maintenance | vercel-deploy-check: no GitHub Actions in repository — Vercel deploys directly; deployment status unverifiable via GitHub MCP |
