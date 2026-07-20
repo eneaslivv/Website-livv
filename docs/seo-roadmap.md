@@ -34,7 +34,7 @@ Cluster file: `lib/blog/posts/cluster-h-editorial.ts` (append at the end).
 - [x] **Custom Software Development Process: What to Expect** `custom-software-development-process-what-to-expect`
       Educational, ~2,000 words. Discovery → design → build → ship →
       maintain. Typical timelines per project shape.
-- [ ] **When Your Business Outgrows Spreadsheets**
+- [~] **When Your Business Outgrows Spreadsheets** `when-your-business-outgrows-spreadsheets`
       Pain-point piece, ~2,000 words. Signs the spreadsheet has hit
       its ceiling, what to replace it with, the migration playbook.
 - [ ] **Custom CRM vs Salesforce: The Real Cost Comparison**
