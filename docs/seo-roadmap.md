@@ -64,7 +64,7 @@ integration`, `RAG vs fine-tuning`, `custom AI chatbot development`,
       Definition + decision-tree, ~2,200 words.
 - [x] **AI Automation for Small Business: Where to Start** `ai-automation-for-small-business-where-to-start`
       Beginner guide, ~2,000 words.
-- [~] **The Cost of AI Integration: What to Budget in 2026** `the-cost-of-ai-integration-what-to-budget-in-2026`
+- [x] **The Cost of AI Integration: What to Budget in 2026** `the-cost-of-ai-integration-what-to-budget-in-2026`
       Pricing guide, ~2,500 words. Per-token + per-month subscription +
       development costs.
 - [ ] **RAG vs Fine-Tuning: Which AI Approach Fits Your Business**
