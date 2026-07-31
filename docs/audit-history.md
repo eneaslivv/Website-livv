@@ -81,3 +81,11 @@
 - Newly broken: none
 - Newly fixed: none
 - Notes: Audit skipped — livvvv.com returns 403 via proxy egress (tenth consecutive week); cluster-h-editorial.ts touched (new post when-your-business-outgrows-spreadsheets shipped 2026-07-20, 17 slugs total); IndexNow ping returned 403 (api.indexnow.org blocked, ninth consecutive week); Vercel deploy status unverifiable (no GitHub Actions — Vercel deploys directly)
+
+## 2026-07-31
+- OK: N/A
+- THIN: N/A
+- BROKEN: N/A
+- Newly broken: none
+- Newly fixed: none
+- Notes: Audit skipped — livvvv.com returns 403 via proxy egress (eleventh consecutive week); cluster-h-editorial.ts touched (new post the-cost-of-ai-integration-what-to-budget-in-2026 shipped 2026-07-27, 18 slugs total); IndexNow ping returned 403 (api.indexnow.org blocked, tenth consecutive week); Vercel deploy status unverifiable (no GitHub Actions — Vercel deploys directly)
