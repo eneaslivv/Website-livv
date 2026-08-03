@@ -37,7 +37,7 @@ Cluster file: `lib/blog/posts/cluster-h-editorial.ts` (append at the end).
 - [x] **When Your Business Outgrows Spreadsheets** `when-your-business-outgrows-spreadsheets`
       Pain-point piece, ~2,000 words. Signs the spreadsheet has hit
       its ceiling, what to replace it with, the migration playbook.
-- [ ] **Custom CRM vs Salesforce: The Real Cost Comparison**
+- [~] **Custom CRM vs Salesforce: The Real Cost Comparison**
       Comparison piece, ~2,500 words. TCO math over 3 years, when
       custom wins, when Salesforce wins.
 - [ ] **5 Signs You Need Custom Software (Not Another SaaS Tool)**
