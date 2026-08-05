@@ -1,5 +1,6 @@
 import { getAttribution, type Attribution } from './click-attribution';
 import { trackEvent, trackLeadFormSubmit, trackGenerateLead } from './analytics';
+import { reportContactConversion, type ContactSource } from './google-ads';
 
 const LEAD_INGEST_URL = 'https://ngswutcpsgdgmmjnfddi.supabase.co/functions/v1/lead-ingest';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5nc3d1dGNwc2dkZ21tam5mZGRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc1NzY3NDUsImV4cCI6MjA4MzE1Mjc0NX0.fd_OLVMTOMqN1EF-Ca1EV0MeclzM24kY0rOFDihvzd8';
@@ -203,7 +204,25 @@ export async function submitLead(payload: LeadPayload): Promise<void> {
     }
 
     await trackLeadConversion(payload, attribution, eventId);
+
+    // Google Ads "Contact" conversion — only past this point, i.e. only after
+    // the lead was actually accepted (2xx). Never on page load, never on a
+    // failed submit. Deduplication lives in lib/google-ads.ts.
+    reportContactConversion(CONTACT_SOURCE_BY_ORIGIN[payload.origin] ?? 'contact_form');
 }
+
+/**
+ * Maps the human `origin` each form sends to the conversion's contact_source
+ * parameter. Unknown origins fall back to 'contact_form' rather than being
+ * dropped, so a new form is tracked by default instead of silently missing.
+ */
+const CONTACT_SOURCE_BY_ORIGIN: Record<string, ContactSource> = {
+    'Contact Page': 'contact_form',
+    'Chat Widget': 'chat_widget',
+    'Quoting Flow': 'quoting_flow',
+    'Vision CTA': 'vision_cta',
+    'Partner Program': 'partner_modal',
+};
 
 /**
  * Micro-conversion shim. Prefer importing `trackEvent` directly from

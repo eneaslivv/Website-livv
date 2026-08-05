@@ -5,6 +5,7 @@ import { inter, mondwest, playground } from "./fonts"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { AttributionTracker } from "@/components/analytics/AttributionTracker"
+import { ContactIntentTracker } from "@/components/analytics/ContactIntentTracker"
 import { CookieBanner } from "@/components/analytics/CookieBanner"
 import { EngagementTracker } from "@/components/analytics/EngagementTracker"
 import { SmoothScroll } from "@/components/ui/smooth-scroll"
@@ -15,6 +16,7 @@ import { LazyMotion, domAnimation } from "framer-motion"
 import { CustomCursor } from "@/components/custom-cursor"
 import { DeferredChatWidget } from "@/components/ui/deferred-chat-widget"
 import { buildOrganizationGraph } from "@/lib/seo/structured-data"
+import { GOOGLE_ADS_ID } from "@/lib/google-ads"
 
 const SITE_TITLE =
   "LIVV Creative Studio · Custom Software Development & AI Integration"
@@ -218,6 +220,48 @@ export default function RootLayout({
             `,
           }}
         />
+        {/*
+          Google tag (gtag.js) for Google Ads — snippet A.
+
+          This only registers the account tag and its automatic pageview. The
+          "Contact" conversion is NOT reported here; it is reported from
+          lib/google-ads.ts at the moment a contact action actually completes.
+
+          Consent Mode defaults are already installed above (beforeInteractive),
+          so gtag inherits them and withholds/redacts the ping in the EEA/UK
+          until the cookie banner grants ad_storage.
+
+          Skipped on /embed/* and on the 404 page for the same reasons as GTM.
+          Renders only once NEXT_PUBLIC_GOOGLE_ADS_ID is set, so no broken tag
+          ships while the ID is still missing.
+        */}
+        {GOOGLE_ADS_ID && (
+          <>
+            <Script
+              id="google-ads-gtag-src"
+              strategy="afterInteractive"
+              src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`}
+            />
+            <Script
+              id="google-ads-gtag-init"
+              strategy="afterInteractive"
+              dangerouslySetInnerHTML={{
+                __html: `
+                  (function(){
+                    if (window.__livv_no_track) return;
+                    if (window.location.pathname.indexOf('/embed/') === 0) return;
+                    // window.gtag is already defined by the consent-default
+                    // script above (beforeInteractive), so reuse it rather than
+                    // shadowing it with a second declaration.
+                    window.dataLayer = window.dataLayer || [];
+                    window.gtag('js', new Date());
+                    window.gtag('config', '${GOOGLE_ADS_ID}');
+                  })();
+                `,
+              }}
+            />
+          </>
+        )}
         {/* TODO(tracking): unify Meta Pixel — currently 2 different IDs across routes (this layout uses 1797006294606049, public/lp/tracking-init.js uses 1495620938814274). Decide which one to keep and consolidate. */}
         <Script
           id="meta-pixel"
@@ -278,6 +322,7 @@ export default function RootLayout({
             <Analytics />
             <SpeedInsights />
             <AttributionTracker />
+            <ContactIntentTracker />
             <EngagementTracker />
             <CookieBanner />
             <DeferredChatWidget />
