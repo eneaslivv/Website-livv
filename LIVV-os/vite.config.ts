@@ -6,7 +6,8 @@ export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     return {
       server: {
-        port: 3000,
+        // Honour an assigned PORT so the dev harness can pick a free port
+        port: Number(process.env.PORT) || 5173,
         host: '0.0.0.0',
       },
       plugins: [react()],

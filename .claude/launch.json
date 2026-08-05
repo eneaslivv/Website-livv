@@ -22,8 +22,9 @@
     {
       "name": "livv-os-vite",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["--prefix", "LIVV-os", "run", "dev", "--", "--port", "5173"],
-      "port": 5173
+      "runtimeArgs": ["--prefix", "LIVV-os", "run", "dev"],
+      "port": 5173,
+      "autoPort": true
     },
     {
       "name": "livv-os2-vite",
