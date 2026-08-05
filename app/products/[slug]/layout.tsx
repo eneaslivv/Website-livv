@@ -1,5 +1,10 @@
 import type { Metadata } from "next"
-import { buildSoftwareApplicationJsonLd } from "@/lib/seo/structured-data"
+import {
+  buildBreadcrumbsJsonLd,
+  buildFaqJsonLd,
+  buildSoftwareApplicationJsonLd,
+} from "@/lib/seo/structured-data"
+import { getProductFaqs } from "@/lib/product-faqs"
 
 const productMeta: Record<
   string,
@@ -43,6 +48,26 @@ const productMeta: Record<
       "Case management and document automation for modern law firms. White-label SaaS by LIVV Creative Studio.",
     category: "Legal Tech SaaS",
     priceFromUSD: 59,
+  },
+  registrar: {
+    name: "Registrar",
+    title: "Registrar — Voice-First Income & Expense Tracking | LIVV Creative Studio",
+    description:
+      "Log income and expenses by speaking. Registrar transcribes, categorises and files every movement automatically. White-label finance app in Spanish and English, built by LIVV Creative Studio (Buenos Aires, Argentina).",
+    shortDescription:
+      "Voice-first income and expense tracking that categorises movements automatically. White-label SaaS by LIVV Creative Studio.",
+    category: "Finance SaaS",
+    priceFromUSD: 39,
+  },
+  "pm-agent": {
+    name: "PM Agent",
+    title: "PM Agent — The AI Project Manager | LIVV Creative Studio",
+    description:
+      "An AI agent that turns a goal into tasks, assigns owners, sets deadlines and follows up automatically. White-label AI project management built by LIVV Creative Studio (Buenos Aires, Argentina).",
+    shortDescription:
+      "AI project management agent that plans, assigns and follows up on work automatically. White-label SaaS by LIVV Creative Studio.",
+    category: "AI Project Management",
+    priceFromUSD: 19,
   },
 }
 
@@ -92,25 +117,41 @@ export default async function ProductLayout({
 }) {
   const { slug } = await params
   const meta = productMeta[slug]
+  const faqs = getProductFaqs(slug)
 
-  const jsonLd = meta
-    ? buildSoftwareApplicationJsonLd({
+  const graphs: unknown[] = []
+
+  if (meta) {
+    graphs.push(
+      buildSoftwareApplicationJsonLd({
         name: meta.name,
         description: meta.shortDescription,
         slug,
         category: meta.category,
         priceFromUSD: meta.priceFromUSD,
-      })
-    : null
+      }),
+      buildBreadcrumbsJsonLd([
+        { name: "Home", url: "https://livvvv.com" },
+        { name: "Products", url: "https://livvvv.com/products" },
+        { name: meta.name, url: `https://livvvv.com/products/${slug}` },
+      ]),
+    )
+  }
+
+  // FAQPage mirrors the visible FAQ block rendered by page.tsx
+  if (faqs.length > 0) {
+    graphs.push(buildFaqJsonLd(faqs))
+  }
 
   return (
     <>
-      {jsonLd && (
+      {graphs.map((graph, i) => (
         <script
+          key={i}
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(graph) }}
         />
-      )}
+      ))}
       {children}
     </>
   )

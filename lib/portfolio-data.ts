@@ -5,13 +5,24 @@ export interface Project {
   description: string
   clipCount: number
   createdAt: string
-  images: string[]
+  images?: string[]
   price?: number
   isGenerating?: boolean
   progress?: number
   eta?: string
   isFailed?: boolean
+  /** White-label catalogue fields (see lib/marketplace-data.ts) */
+  slug?: string
+  outcome?: string
+  modules?: string[]
+  licenseFrom?: number
+  screen?: ScreenVariant
+  accent?: string
+  featured?: boolean
 }
+
+/** Rendered UI mock shown inside a product card instead of a stock photo. */
+export type ScreenVariant = "pos" | "campaigns" | "finance" | "cases" | "board"
 
 export const projects: Project[] = [
   {

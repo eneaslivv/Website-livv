@@ -1,10 +1,28 @@
 import type { Metadata } from "next"
-import { buildServiceJsonLd, SERVICES } from "@/lib/seo/structured-data"
+import {
+  buildBreadcrumbsJsonLd,
+  buildFaqJsonLd,
+  buildServiceJsonLd,
+  SERVICES,
+} from "@/lib/seo/structured-data"
+import { getServiceFaqs } from "@/lib/service-faqs"
 
 const serviceMeta: Record<
   string,
   { title: string; description: string; alternateName?: string }
 > = {
+  "custom-software-development": {
+    title: "Custom Software Development | LIVV Creative Studio — Buenos Aires, Argentina",
+    description:
+      "Custom business applications, internal tools and SaaS MVPs designed and built end-to-end by one senior team. LIVV Creative Studio ships production software for clients across LATAM, the US and the UK.",
+    alternateName: "Desarrollo de Software a Medida",
+  },
+  "ai-integration": {
+    title: "AI Integration Services | LIVV Creative Studio — Argentina",
+    description:
+      "AI built around a specific operational job, not a generic chat window. Custom AI agents, RAG systems and Claude or OpenAI integrations shipped into production by LIVV Creative Studio.",
+    alternateName: "Integración de IA",
+  },
   "creative-engineering": {
     title: "Creative Engineering | LIVV Creative Studio — Buenos Aires, Argentina",
     description:
@@ -72,24 +90,41 @@ export default async function ServiceLayout({
   const { slug } = await params
   const meta = serviceMeta[slug]
   const baseService = SERVICES.find((s) => s.slug === slug)
+  const faqs = getServiceFaqs(slug)
 
-  const jsonLd = meta
-    ? buildServiceJsonLd({
-        name: meta.title.split("|")[0]!.trim(),
+  const graphs: unknown[] = []
+
+  if (meta) {
+    const name = meta.title.split("|")[0]!.trim()
+    graphs.push(
+      buildServiceJsonLd({
+        name,
         description: meta.description,
         slug,
         alternateName: meta.alternateName ?? baseService?.nameEs,
-      })
-    : null
+      }),
+      buildBreadcrumbsJsonLd([
+        { name: "Home", url: "https://livvvv.com" },
+        { name: "Services", url: "https://livvvv.com/#services" },
+        { name, url: `https://livvvv.com/services/${slug}` },
+      ]),
+    )
+  }
+
+  // FAQPage mirrors the visible FAQ block rendered by page.tsx
+  if (faqs.length > 0) {
+    graphs.push(buildFaqJsonLd(faqs))
+  }
 
   return (
     <>
-      {jsonLd && (
+      {graphs.map((graph, i) => (
         <script
+          key={i}
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(graph) }}
         />
-      )}
+      ))}
       {children}
     </>
   )

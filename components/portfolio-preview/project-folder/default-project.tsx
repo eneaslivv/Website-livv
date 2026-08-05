@@ -1,18 +1,27 @@
 "use client"
 
 import React from "react"
-import Image from "next/image"
 
 import { useState, useRef, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import type { Project } from "@/lib/portfolio-data"
 import type { ImagePosition } from "./types"
-import { SlotNumber } from "./slot-number"
 import { MenuButton } from "./menu-button"
 import { Sparkles } from "./sparkles"
+import { ProductScreen } from "./product-screen"
 
-const MotionImage = motion(Image)
+const PANEL_H = 380
+
+/**
+ * One dominant 16:10 mockup with two secondary screens peeking behind it.
+ * Widths are fractions of the card so the composition holds at any card size.
+ */
+const SCREEN_LAYERS = [
+  { key: "left", w: 0.46, x: -0.27, y: 40, rotate: -6, z: 5, screenIndex: 1, delay: 0.1, hero: false },
+  { key: "right", w: 0.46, x: 0.27, y: 40, rotate: 6, z: 5, screenIndex: 3, delay: 0.14, hero: false },
+  { key: "hero", w: 0.66, x: 0, y: 18, rotate: 0, z: 10, screenIndex: 0, delay: 0, hero: true },
+] as const
 
 // Rauno-style easing: smooth deceleration
 const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const
@@ -37,6 +46,8 @@ interface DefaultProjectProps {
   onRemove?: () => void
   onCancel?: () => void
   onRename?: (newTitle: string) => void
+  onViewDemo?: () => void
+  onResell?: () => void
   priority?: boolean
 }
 
@@ -57,9 +68,26 @@ export function DefaultProject({
   onRemove,
   onCancel,
   onRename,
+  onViewDemo,
+  onResell,
   priority = false,
 }: DefaultProjectProps) {
   const router = useRouter()
+  const accent = project.accent || "#b8836e"
+  const screenVariant = project.screen || "pos"
+
+  // The mockup composition is sized against the card, not against fixed pixels
+  const panelRef = useRef<HTMLDivElement>(null)
+  const [panelW, setPanelW] = useState(440)
+  useEffect(() => {
+    const el = panelRef.current
+    if (!el) return
+    // Measure once up front — the observer's first callback isn't guaranteed before paint
+    setPanelW(el.getBoundingClientRect().width)
+    const ro = new ResizeObserver(([entry]) => setPanelW(entry.contentRect.width))
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const handleMenuOpenChange = (open: boolean) => {
@@ -246,9 +274,10 @@ export function DefaultProject({
         className="relative w-full"
         style={{ perspective: "1200px" }}
       >
-        {/* Back panel */}
+        {/* Back panel — overflow-hidden keeps the mockups inside the card at any width */}
         <motion.div
-          className="relative z-0 rounded-2xl"
+          ref={panelRef}
+          className="relative z-0 rounded-2xl overflow-hidden"
           animate={{
             rotateX: isActive ? 15 : 0,
             backgroundColor: isGenerating ? "#2C0405" : "#ede7e0",
@@ -266,12 +295,21 @@ export function DefaultProject({
             },
           }}
           style={{
-            height: "224px",
+            height: `${PANEL_H}px`,
             border: "1px solid rgba(44, 36, 32, 0.08)",
             transformStyle: "preserve-3d",
             transformOrigin: "center bottom",
           }}
         >
+          {/* Accent wash so each product's visual area reads as its own, not flat cream */}
+          {!isGenerating && (
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: `radial-gradient(120% 90% at 50% 115%, ${accent}2e 0%, ${accent}0f 42%, transparent 72%)`,
+              }}
+            />
+          )}
           {project.isGenerating && <Sparkles count={16} fading={sparklesFading} variant="generating" />}
           <motion.div
             className="absolute inset-0"
@@ -289,67 +327,53 @@ export function DefaultProject({
               transformOrigin: "center bottom",
             }}
           >
-            {[...Array(5)].map((_, imgIndex) => {
-              const pos = imagePositions[imgIndex] || { x: 0, rotate: 0 }
-              const imageUrl = project.images?.[imgIndex % (project.images?.length || 1)] || "/placeholder.svg"
-              const shouldShowImages = !project.isGenerating || showImages
-
-              const centerIndex = 2
-              const distanceFromCenter = Math.abs(imgIndex - centerIndex)
-              const zIndex = 10 - distanceFromCenter
-
-              const brightness = distanceFromCenter === 0 ? 1 : distanceFromCenter === 1 ? 0.55 : 0.3
-              const blurAmount = distanceFromCenter === 0 ? 0 : distanceFromCenter === 1 ? 0.5 : 1.5
-              const yOffset = -16 * (1 - distanceFromCenter / centerIndex) || 0
-              const scale = distanceFromCenter === 0 ? 1.05 : distanceFromCenter === 1 ? 0.95 : 0.88
-
-              // Final positions (where images should be when visible)
-              // Menu open, editing, or delete confirm = closed folder with scaled down previews
+            {SCREEN_LAYERS.map((layer) => {
+              const shouldShow = !project.isGenerating || showImages
               const isCompact = isEditing || isMenuOpen || showDeleteConfirm || isDeleting
-              const xPos = isCompact ? pos.x * 0.85 : isActive ? pos.x * 1.4 : pos.x
-              const yPos = isCompact ? 18 + yOffset : isActive ? -8 + yOffset : 8 + yOffset
-              const rotation = isCompact ? pos.rotate * 0.8 : isActive ? pos.rotate * 1.3 : pos.rotate
-              const finalScale = isCompact ? scale * 0.98 : isActive ? scale * 1.02 : scale
 
-              // Center-out stagger: center card (index 2) first, then adjacent, then outer
-              const staggerDelay = distanceFromCenter * 0.08
+              const w = Math.round(panelW * layer.w)
+              const x = panelW * layer.x * (isCompact ? 0.8 : isActive ? 1.18 : 1)
+              const y = layer.y + (isCompact ? 22 : isActive ? -10 : 0)
+              const rotate = layer.rotate * (isCompact ? 0.7 : isActive ? 1.25 : 1)
 
               return (
                 <motion.div
-                  key={imgIndex}
-                  className="absolute top-0 left-1/2"
-                  style={{ zIndex, marginLeft: '-50px' }}
+                  key={layer.key}
+                  className="absolute left-1/2"
+                  style={{ zIndex: layer.z, top: 0, marginLeft: -w / 2 }}
                   initial={false}
                   animate={{
-                    x: xPos,
-                    y: yPos,
-                    rotate: rotation,
-                    scale: shouldShowImages ? finalScale : 0.8,
-                    opacity: shouldShowImages ? 1 : 0,
+                    x,
+                    y,
+                    rotate,
+                    scale: shouldShow ? (isActive ? 1.03 : 1) : 0.85,
+                    opacity: shouldShow ? 1 : 0,
                   }}
                   transition={{
                     type: "spring",
-                    stiffness: 100,
-                    damping: 16,
+                    stiffness: 110,
+                    damping: 17,
                     mass: 1,
-                    delay: shouldShowImages ? staggerDelay : 0,
-                    opacity: { duration: 0.4, ease: "easeOut", delay: shouldShowImages ? staggerDelay : 0 },
+                    delay: shouldShow ? layer.delay : 0,
+                    opacity: { duration: 0.4, ease: "easeOut", delay: shouldShow ? layer.delay : 0 },
                   }}
                 >
-                  <div className="h-[160px] w-[100px] overflow-hidden rounded-lg">
-                    <motion.img
-                      src={imageUrl || "/placeholder.svg"}
-                      alt={"Preview " + (imgIndex + 1)}
-                      className="h-full w-full object-cover"
-                      animate={{
-                        filter: `brightness(${isActive ? Math.min(1, brightness + 0.2) : brightness}) contrast(1.08) saturate(${1 - distanceFromCenter * 0.2}) blur(${isActive ? 0 : blurAmount}px)`,
-                      }}
-                      transition={{
-                        duration: TRANSITION_DURATION,
-                        ease: TRANSITION_EASE,
-                      }}
-                    />
-                  </div>
+                  <motion.div
+                    className="overflow-hidden rounded-[10px]"
+                    style={{
+                      border: "1px solid rgba(44,36,32,0.08)",
+                      boxShadow: layer.hero
+                        ? "0 14px 34px rgba(44,36,32,0.16), 0 2px 6px rgba(44,36,32,0.05)"
+                        : "0 6px 18px rgba(44,36,32,0.10)",
+                    }}
+                    animate={{
+                      opacity: layer.hero ? 1 : isActive ? 0.9 : 0.62,
+                      filter: `blur(${layer.hero || isActive ? 0 : 0.7}px)`,
+                    }}
+                    transition={{ duration: TRANSITION_DURATION, ease: TRANSITION_EASE }}
+                  >
+                    <ProductScreen variant={screenVariant} accent={accent} index={layer.screenIndex} width={w} />
+                  </motion.div>
                 </motion.div>
               )
             })}
@@ -412,17 +436,38 @@ export function DefaultProject({
               className="relative z-0 transition-all duration-200 min-h-[3.5rem]"
               style={{ opacity: isEditing ? 0 : 1, pointerEvents: isEditing ? "none" : "auto" }}
             >
+              {!isGenerating && (
+                <div className="flex items-center gap-2 mb-2">
+                  <span
+                    className="inline-flex items-center gap-1 rounded-full px-2 py-[3px] text-[9px] font-medium uppercase tracking-[0.08em]"
+                    style={{ backgroundColor: `${accent}1a`, color: accent }}
+                  >
+                    <span className="w-1 h-1 rounded-full" style={{ backgroundColor: accent }} />
+                    White-label ready
+                  </span>
+                  <span className="text-[10px] uppercase tracking-[0.05em] text-[#8a7e74]/70 truncate">
+                    {project.category}
+                  </span>
+                </div>
+              )}
               <h3
-                className={`font-semibold text-base leading-tight line-clamp-1 transition-colors duration-200 ${isGenerating ? "text-white/90" : "text-[#2c2420]/80"} ${!isGenerating ? "group-hover:text-[#2c2420]" : ""}`}
+                className={`font-semibold text-[17px] leading-tight line-clamp-1 transition-colors duration-200 ${isGenerating ? "text-white/90" : "text-[#2c2420]"}`}
               >
                 {isGenerating ? "Your App Here" : project.title}
               </h3>
-              <p className={`text-[10px] uppercase font-medium mt-0.5 tracking-[0.05em] ${isGenerating ? "text-white/60" : "text-[#b8836e]/90"}`}>
-                {isGenerating ? "Partner Program" : project.category}
+              <p className={`text-[13px] mt-1 line-clamp-2 leading-snug ${isGenerating ? "text-white/50" : "text-[#5c534c]"}`}>
+                {isGenerating ? "Partner with us and resell your app directly." : project.outcome || project.description}
               </p>
-              <p className={`text-[11px] mt-1.5 line-clamp-1 leading-relaxed ${isGenerating ? "text-white/50" : "text-[#8a7e74]"}`}>
-                {isGenerating ? "Partner with us and resell your app directly." : project.description}
-              </p>
+              {!isGenerating && (project.modules?.length || project.licenseFrom) ? (
+                <div className="flex items-baseline gap-3 mt-2">
+                  <p className="text-[11px] text-[#8a7e74] truncate flex-1">{project.modules?.join(" · ")}</p>
+                  {project.licenseFrom ? (
+                    <p className="text-[11px] text-[#8a7e74]/80 whitespace-nowrap">
+                      License from <span className="font-medium text-[#2c2420]/70">${project.licenseFrom}</span>/mo
+                    </p>
+                  ) : null}
+                </div>
+              ) : null}
             </div>
             <textarea
               ref={textareaRef}
@@ -531,26 +576,34 @@ export function DefaultProject({
                     opacity: { duration: 0.35, ease: "easeOut" },
                   }}
                 >
-                  <div className="flex items-center gap-1.5">
-                    {project.price ? (
-                      <span className="text-[14px] font-semibold text-[#2c2420]">${project.price}</span>
-                    ) : (
-                      <>
-                        <SlotNumber value={clipCount} isSpinning={false} />
-                        <span className="text-[13px] text-[#8a7e74]">clips</span>
-                      </>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-2">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      if (onViewDemo) return onViewDemo()
+                      router.push(`/products/${project.slug || project.title.toLowerCase().replace(/\s+/g, "-")}`)
+                    }}
+                    className="group/demo flex items-center gap-1 text-[12px] text-[#8a7e74] hover:text-[#2c2420] transition-colors duration-200"
+                  >
+                    View demo
+                    <svg className="w-2.5 h-2.5 transition-transform duration-200 group-hover/demo:translate-x-0.5" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth={1.6}>
+                      <path d="M2.5 6h7M6.5 3l3 3-3 3" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </button>
+                  <div className="flex items-center gap-1">
                     <button
                       onClick={(e) => {
                         e.stopPropagation()
-                        const slug = project.title.toLowerCase().replace(/\s+/g, '-');
-                        router.push(`/products/${slug}#pricing`);
+                        if (onResell) return onResell()
+                        router.push(`/products/${project.slug || project.title.toLowerCase().replace(/\s+/g, "-")}#pricing`)
                       }}
-                      className="px-3 py-1 rounded-full text-[11px] font-medium bg-[#1a1714] text-[#f5f0eb] hover:bg-[#2c2420] transition-all duration-200 active:scale-[0.96]"
+                      className="group/resell flex items-center gap-1 px-2 py-1 rounded-full text-[12px] font-medium text-[#2c2420] hover:bg-[#2c2420]/[0.06] transition-colors duration-200 active:scale-[0.97]"
                     >
-                      Buy now
+                      <span>
+                        Resell<span className="hidden sm:inline"> this product</span>
+                      </span>
+                      <svg className="w-2.5 h-2.5 transition-transform duration-200 group-hover/resell:translate-x-0.5" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth={1.8}>
+                        <path d="M2.5 6h7M6.5 3l3 3-3 3" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
                     </button>
                     <MenuButton project={project} onOpenChange={handleMenuOpenChange} onRemove={handleDeleteClick} onCancel={onCancel} onRename={handleEditClick} isVisible={true} />
                   </div>
@@ -691,11 +744,10 @@ export function DefaultProject({
               style={{ marginTop: "-34px" }}
             >
               {[1, 2, 3].map((imgIndex, i) => {
-                const imageUrl = project.images?.[imgIndex] || "/placeholder.svg"
                 const rotations = [-10, 0, 10]
                 const yOffsets = [4, 0, 4]
                 const scales = [0.95, 1.05, 0.95]
-                const marginLeft = i === 0 ? 0 : -8
+                const marginLeft = i === 0 ? 0 : -22
 
                 return (
                   <div
@@ -708,19 +760,14 @@ export function DefaultProject({
                     }}
                   >
                     <div
-                      className="h-[72px] w-[44px] overflow-hidden rounded-md shadow-xl"
+                      className="w-[76px] h-[48px] overflow-hidden rounded-md shadow-xl"
                       style={{
                         transform: `translateY(${yOffsets[i]}px) rotate(${rotations[i]}deg) scale(${scales[i]})`,
                       }}
                     >
-                      <img
-                        src={imageUrl || "/placeholder.svg"}
-                        alt={"Preview " + (imgIndex + 1)}
-                        className="h-full w-full object-cover"
-                        style={{
-                          filter: i === 1 ? "brightness(1)" : "brightness(0.6)",
-                        }}
-                      />
+                      <div style={{ opacity: i === 1 ? 1 : 0.6 }}>
+                        <ProductScreen variant={screenVariant} accent={accent} index={imgIndex} width={76} />
+                      </div>
                     </div>
                   </div>
                 )
@@ -738,8 +785,8 @@ export function DefaultProject({
                 animation: "crownImageAppear 400ms cubic-bezier(0.34, 1.56, 0.64, 1) 280ms both",
               }}
             >
-              <span className="text-[11px] font-medium text-[#2c2420]/60">{clipCount}</span>
-              <span className="text-[11px] text-[#8a7e74]">clips</span>
+              <span className="text-[11px] font-medium text-[#2c2420]/60">{project.modules?.length ?? clipCount}</span>
+              <span className="text-[11px] text-[#8a7e74]">modules</span>
             </div>
 
             {/* Title */}
