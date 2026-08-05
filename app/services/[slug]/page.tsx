@@ -2,14 +2,19 @@
 
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import { Layers, ArrowRight, CheckCircle2 } from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
+import { ArrowRight, CheckCircle2 } from "lucide-react"
 import { useParams, useRouter } from "next/navigation"
 import { LiquidMetalButton } from "@/components/button-styling/liquid-metal-button"
-import { clientLogos } from "@/components/data/client-logos"
 import { Navbar } from "@/components/layout/navbar"
 import { FooterSection } from "@/components/sections/footer-section"
+import { ServiceTransformation } from "@/components/services/service-transformation"
+import { ServiceCapabilities } from "@/components/services/service-capabilities"
+import { ServiceProcessAndProof } from "@/components/services/service-process-proof"
+import { TrustedByStrip } from "@/components/services/trusted-by-strip"
+import { ServiceFaqSection } from "@/components/services/service-faq"
+import { ServiceFinalCTA } from "@/components/services/service-final-cta"
+import { getServicePageContent } from "@/lib/service-pages-data"
+import { getServiceFaqs } from "@/lib/service-faqs"
 import { supabase } from "@/lib/supabase/client"
 
 const fallbackServiceData: Record<string, any> = {
@@ -168,6 +173,10 @@ export default function ServiceDetailPage() {
     const [isVisible, setIsVisible] = useState(false)
     const router = useRouter()
 
+    // Below-the-fold content is authored per service; the hero stays as-is
+    const pageContent = getServicePageContent(slug)
+    const faqs = getServiceFaqs(slug)
+
     useEffect(() => {
         // Initial setup
         window.scrollTo({ top: 0, behavior: "instant" })
@@ -212,7 +221,7 @@ export default function ServiceDetailPage() {
     }, [slug])
 
     const handleStartScoping = () => {
-        router.push("/#blog")
+        router.push("/contact")
     }
 
     return (
@@ -395,73 +404,75 @@ export default function ServiceDetailPage() {
                     </div>
                 </motion.div>
 
-                {/* Detailed Content Sections */}
-                <section className="w-full max-w-5xl mx-auto px-6 py-20 md:py-32 grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 relative z-20">
-                    {/* Left: Body Copy */}
-                    <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className="flex flex-col gap-8"
-                    >
-                        {data.bodyCopy.map((paragraph, i) => (
-                            <p key={i} className="text-lg text-stone-600 font-light leading-relaxed">
-                                {paragraph}
-                            </p>
-                        ))}
+                {/* ── Below the fold ───────────────────────────────────────
+                 * Four compact blocks driven by lib/service-pages-data.ts.
+                 * Slugs without authored content keep the original prose layout. */}
+                {pageContent ? (
+                    <>
+                        <ServiceTransformation content={pageContent.transformation} />
+                        <ServiceCapabilities label={pageContent.capabilitiesLabel} capabilities={pageContent.capabilities} />
+                        <ServiceProcessAndProof
+                            processLabel={pageContent.processLabel}
+                            process={pageContent.process}
+                            proof={pageContent.proof}
+                        />
+                        <TrustedByStrip />
+                        <ServiceFaqSection faqs={faqs} serviceName={data.name} />
+                        <ServiceFinalCTA content={pageContent.cta} />
+                    </>
+                ) : (
+                    <>
+                        <section className="w-full max-w-5xl mx-auto px-6 py-20 md:py-32 grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 relative z-20">
+                            <motion.div
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.8 }}
+                                className="flex flex-col gap-8"
+                            >
+                                {data.bodyCopy.map((paragraph: string, i: number) => (
+                                    <p key={i} className="text-lg text-stone-600 font-light leading-relaxed">
+                                        {paragraph}
+                                    </p>
+                                ))}
 
-                        <div className="mt-8">
-                            <button className="group bg-stone-900 text-stone-50 text-xs font-semibold tracking-wider px-8 py-4 rounded-md shadow-2xl hover:bg-stone-800 hover:scale-[1.02] transition-all duration-300 uppercase flex items-center gap-3">
-                                <span>{data.ctaText}</span>
-                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                            </button>
-                        </div>
-                    </motion.div>
+                                <div className="mt-8">
+                                    <button
+                                        onClick={handleStartScoping}
+                                        className="group bg-stone-900 text-stone-50 text-xs font-semibold tracking-wider px-8 py-4 rounded-md shadow-2xl hover:bg-stone-800 hover:scale-[1.02] transition-all duration-300 uppercase flex items-center gap-3"
+                                    >
+                                        <span>{data.ctaText}</span>
+                                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                    </button>
+                                </div>
+                            </motion.div>
 
-                    {/* Right: List / Focus Points */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className="bg-white/40 backdrop-blur-sm border border-stone-200 rounded-3xl p-8 md:p-12 shadow-sm"
-                    >
-                        <h3 className="text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold mb-8">
-                            {data.listTitle}
-                        </h3>
-                        <ul className="flex flex-col gap-6">
-                            {data.listItems.map((item, i) => (
-                                <li key={i} className="flex items-start gap-4 group">
-                                    <div className="mt-1">
-                                        <CheckCircle2 className="w-5 h-5 text-stone-300 group-hover:text-emerald-500 transition-colors" />
-                                    </div>
-                                    <span className="text-base text-stone-700 font-medium tracking-tight">
-                                        {item}
-                                    </span>
-                                </li>
-                            ))}
-                        </ul>
-                    </motion.div>
-                </section>
+                            <motion.div
+                                initial={{ opacity: 0, x: 20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.8 }}
+                                className="bg-white/40 backdrop-blur-sm border border-stone-200 rounded-3xl p-8 md:p-12 shadow-sm"
+                            >
+                                <h3 className="text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold mb-8">
+                                    {data.listTitle}
+                                </h3>
+                                <ul className="flex flex-col gap-6">
+                                    {data.listItems.map((item: string, i: number) => (
+                                        <li key={i} className="flex items-start gap-4 group">
+                                            <div className="mt-1">
+                                                <CheckCircle2 className="w-5 h-5 text-stone-300 group-hover:text-emerald-500 transition-colors" />
+                                            </div>
+                                            <span className="text-base text-stone-700 font-medium tracking-tight">{item}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </motion.div>
+                        </section>
 
-                {/* Bottom Trusted By */}
-                <div className="py-20 flex flex-col items-center gap-6">
-                    <p className="text-[10px] font-semibold tracking-widest text-stone-400 uppercase">Trusted by engineering teams at</p>
-                    <div className="flex items-center justify-center gap-8 flex-wrap">
-                        {clientLogos.map((logo) => (
-                            <Image
-                                key={logo.alt}
-                                src={logo.src}
-                                alt={logo.alt}
-                                width={120}
-                                height={24}
-                                loading="lazy"
-                                className="h-6 w-auto object-contain grayscale opacity-40 hover:opacity-60 transition-opacity duration-300"
-                            />
-                        ))}
-                    </div>
-                </div>
+                        <TrustedByStrip />
+                    </>
+                )}
 
             </main>
             <FooterSection id="contact" />
