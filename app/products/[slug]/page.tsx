@@ -3,7 +3,9 @@
 import { useEffect, useState } from "react"
 import { motion, useMotionValue, useMotionTemplate, useSpring } from "framer-motion"
 import { Zap, ShieldCheck, Users, Globe, BarChart3, Lock, ArrowUpRight } from "lucide-react"
-import { useParams } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
+import Link from "next/link"
+import { getProductFaqs } from "@/lib/product-faqs"
 import { Navbar } from "@/components/layout/navbar"
 import { FooterSection } from "@/components/sections/footer-section"
 import { AnimatedBorders } from "@/components/ui/animated-borders"
@@ -132,6 +134,80 @@ const fallbackProductData: Record<string, any> = {
         gradient: "from-[#845ec2] to-[#6a40a3]",
         darkGradient: "from-[#2c2420] to-[#1a1714]"
     },
+    "registrar": {
+        name: "Registrar",
+        industry: "Finance",
+        target: "Freelancers, small businesses & accountants",
+        headline: "Your Books, Kept by Voice",
+        subheadline: "Log income and expenses by speaking. Registrar transcribes, categorises and files every movement, so the books stay current without anyone sitting down to update them.",
+        stats: [],
+        problem: [
+            { title: "Receipts Pile Up", desc: "Expenses get logged weeks later, from memory, or never." },
+            { title: "Spreadsheet Drift", desc: "Manual entry means typos, duplicates and broken formulas." },
+            { title: "No Live Picture", desc: "You only learn how the month went once it is already over." },
+            { title: "Accounting Friction", desc: "Month-end close starts with reconstructing what happened." }
+        ],
+        solution: "A voice-first ledger: speak a movement, and Registrar transcribes it, assigns a category and files it — under your brand, for your clients.",
+        features: [
+            { title: "Voice Capture", desc: "Say what you spent or earned. No forms, no fields." },
+            { title: "Auto-Categorisation", desc: "Movements are classified as they are logged." },
+            { title: "Live Balance", desc: "Income, expenses and net position, always current." },
+            { title: "Reports & Export", desc: "Period reports and clean exports for your accountant." },
+            { title: "Multi-Currency", desc: "Track more than one currency in the same ledger." },
+            { title: "Your Brand", desc: "Your logo, your domain, your colours." }
+        ],
+        workflow: [
+            { step: "01", title: "Speak the Movement", desc: "Open the app and say what came in or went out." },
+            { step: "02", title: "It Files Itself", desc: "The entry is transcribed, categorised and stored." },
+            { step: "03", title: "Close the Month", desc: "Export a reconciled period instead of rebuilding it." }
+        ],
+        pricing: {
+            monthly: "$39",
+            setup: "$999",
+            includes: ["Voice capture in Spanish and English", "Custom branding", "Unlimited entries", "Data export and reporting"]
+        },
+        accentColor: "#00c9a7",
+        gradient: "from-[#00c9a7] to-[#00937b]",
+        darkGradient: "from-[#2c2420] to-[#1a1714]"
+    },
+
+    "pm-agent": {
+        name: "PM Agent",
+        industry: "AI Agent",
+        target: "Agencies, studios & product teams",
+        headline: "The Project Manager That Never Forgets",
+        subheadline: "An AI agent that turns a goal into tasks, assigns owners, sets deadlines and chases the follow-ups — running inside your workflow, under your brand.",
+        stats: [],
+        problem: [
+            { title: "Work Stalls Silently", desc: "Nobody notices a blocked task until the deadline passes." },
+            { title: "Vague Requests", desc: "A goal arrives as a paragraph, not as assignable work." },
+            { title: "Follow-Up Costs", desc: "Chasing status updates is a job nobody wants to own." },
+            { title: "Tool Sprawl", desc: "Plans live in chat, docs and three different trackers." }
+        ],
+        solution: "An AI agent that reads the goal, breaks it into tasks with owners and dates, and keeps following up until each one closes — so project management stops depending on someone remembering.",
+        features: [
+            { title: "Goal Decomposition", desc: "Turns a written objective into a structured task list." },
+            { title: "Owner Assignment", desc: "Routes each task to the right person with a due date." },
+            { title: "Automatic Follow-Up", desc: "Chases open work without anyone writing the reminder." },
+            { title: "Status Digest", desc: "A written summary of what moved, what stalled and why." },
+            { title: "Workflow Integration", desc: "Runs alongside the tools your team already uses." },
+            { title: "Your Brand", desc: "Deployed under your name, for your clients." }
+        ],
+        workflow: [
+            { step: "01", title: "State the Goal", desc: "Describe the outcome in plain language." },
+            { step: "02", title: "Agent Plans It", desc: "Tasks, owners and deadlines are generated and assigned." },
+            { step: "03", title: "It Follows Up", desc: "The agent chases open items and reports what changed." }
+        ],
+        pricing: {
+            monthly: "$19",
+            setup: "$999",
+            includes: ["AI task planning and assignment", "Automated follow-ups", "Custom branding", "Workflow integration support"]
+        },
+        accentColor: "#ff6f91",
+        gradient: "from-[#ff6f91] to-[#c94e69]",
+        darkGradient: "from-[#2c2420] to-[#1a1714]"
+    },
+
     "default": {
         name: "Enterprise",
         industry: "SaaS",
@@ -293,6 +369,8 @@ export default function ProductDetailPage() {
         : (fallbackProductData[slug] || fallbackProductData["default"])
 
     const [isLoaded, setIsLoaded] = useState(false)
+    const router = useRouter()
+    const faqs = getProductFaqs(slug)
 
     useEffect(() => {
         setIsLoaded(true)
@@ -332,7 +410,10 @@ export default function ProductDetailPage() {
                             {data.subheadline}
                         </p>
                         <div className="flex justify-start md:justify-end">
-                            <button className="group relative px-8 py-3 bg-white rounded-full flex items-center space-x-3 transition-all duration-300 hover:bg-zinc-50 hover:scale-105 border border-[#E6E2D8] shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
+                            <button
+                                onClick={() => router.push("/contact")}
+                                className="group relative px-8 py-3 bg-white rounded-full flex items-center space-x-3 transition-all duration-300 hover:bg-zinc-50 hover:scale-105 border border-[#E6E2D8] shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)]"
+                            >
                                 <span className="w-8 h-8 rounded-full bg-[#09090B] flex items-center justify-center text-[#E8BC59] group-hover:bg-[#E8BC59] group-hover:text-[#09090B] transition-colors duration-300">
                                     <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:rotate-45" />
                                 </span>
@@ -344,11 +425,11 @@ export default function ProductDetailPage() {
                     </div>
                 </section>
 
-                {/* 2. THE CHALLENGE (DARK MARQUEE) */}
-                <MarqueeSection items={data.problem} />
+                {/* 2. THE CHALLENGE (DARK MARQUEE) — skipped when a product has no authored problems */}
+                {data.problem && data.problem.length > 0 && <MarqueeSection items={data.problem} />}
 
                 {/* 3. SOLUTION & FEATURES */}
-                <section className="py-24 md:py-40 px-6 md:px-12 bg-[#FDFBF7] relative">
+                <section className={`py-24 md:py-40 px-6 md:px-12 bg-[#FDFBF7] relative ${data.features?.length ? "" : "hidden"}`}>
                     <div className="max-w-[100rem] mx-auto relative z-10">
                         <div className="flex flex-col md:flex-row justify-between items-end mb-12 md:mb-20 gap-8">
                             <div>
@@ -439,7 +520,10 @@ export default function ProductDetailPage() {
                                         <p className="text-2xl md:text-3xl tracking-[-0.08em] text-[#09090B] font-light">{data.pricing.setup}</p>
                                     </div>
 
-                                    <button className="w-full group relative px-8 py-5 bg-[#09090B] flex items-center justify-between transition-all duration-300 hover:bg-black border border-[#09090B] rounded-full">
+                                    <button
+                                        onClick={() => router.push("/contact")}
+                                        className="w-full group relative px-8 py-5 bg-[#09090B] flex items-center justify-between transition-all duration-300 hover:bg-black border border-[#09090B] rounded-full"
+                                    >
                                         <span className="text-[#FDFBF7] text-sm font-medium tracking-wide uppercase text-center w-full relative z-10">
                                             Get Started
                                         </span>
@@ -452,6 +536,55 @@ export default function ProductDetailPage() {
                         </div>
                     </div>
                 </section>
+
+                {/* 6. FAQ — mirrors the FAQPage JSON-LD emitted by layout.tsx.
+                     Keep both in sync via lib/product-faqs.ts. */}
+                {faqs.length > 0 && (
+                    <section className="py-24 md:py-32 px-6 md:px-12 bg-[#F5F2EB] border-t border-[#E6E2D8] relative">
+                        <div className="max-w-[100rem] mx-auto relative z-10">
+                            <div className="grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-24">
+                                <div>
+                                    <h3 className="text-[10px] uppercase font-mono tracking-widest text-[#78736A]/60 mb-6 font-semibold">
+                                        Questions
+                                    </h3>
+                                    <h4 className="text-3xl md:text-4xl lg:text-[40px] tracking-[-0.08em] text-[#09090B] font-light leading-[1.1]">
+                                        Everything about <span className="italic text-gradient-gold">{data.name}.</span>
+                                    </h4>
+                                    <p className="mt-6 text-[#78736A] text-sm font-light leading-relaxed max-w-sm">
+                                        Still unclear on something? Ask us directly — we answer the specifics before you commit.
+                                    </p>
+                                    <Link
+                                        href="/contact"
+                                        className="group mt-8 inline-flex items-center gap-2 text-sm font-medium text-[#09090B] border-b border-[#09090B]/20 pb-1 hover:border-[#09090B] transition-colors duration-300"
+                                    >
+                                        Talk to the team
+                                        <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                                    </Link>
+                                </div>
+
+                                <dl className="flex flex-col">
+                                    {faqs.map((faq, i) => (
+                                        <motion.div
+                                            key={faq.q}
+                                            initial={{ opacity: 0, y: 12 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            viewport={{ once: true, margin: "-60px" }}
+                                            transition={{ duration: 0.5, delay: Math.min(i * 0.06, 0.3), ease: [0.22, 1, 0.36, 1] }}
+                                            className="border-t border-[#E6E2D8] py-7 last:border-b"
+                                        >
+                                            <dt className="text-lg md:text-xl text-[#09090B] font-light tracking-tight leading-snug text-balance">
+                                                {faq.q}
+                                            </dt>
+                                            <dd className="mt-3 text-[#78736A] text-sm md:text-[15px] font-light leading-relaxed max-w-2xl">
+                                                {faq.a}
+                                            </dd>
+                                        </motion.div>
+                                    ))}
+                                </dl>
+                            </div>
+                        </div>
+                    </section>
+                )}
             </main>
 
             <FooterSection />
