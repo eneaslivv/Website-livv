@@ -4,14 +4,22 @@
  * Single entry-point for sending events to Google Tag Manager (GTM-NC96QG65).
  *
  * Rules:
- *   - This module ONLY pushes to window.dataLayer. It never calls gtag(),
- *     fbq(), or any vendor SDK directly. Configure the actual tags
- *     (GA4, Google Ads, Meta, etc.) inside GTM using these events as triggers.
+ *   - This module pushes to window.dataLayer. Configure GA4, Meta and
+ *     remarketing tags inside GTM using these events as triggers.
+ *   - DELIBERATE EXCEPTION: the Google Ads "Contact" conversion is reported
+ *     from code via lib/google-ads.ts, not from a GTM tag. The contact-intent
+ *     helpers below (trackContactClick, trackBookCallClick, and trackCTAClick
+ *     for contact CTAs) call it so that every existing call site is covered
+ *     without editing each component. Consequence: do NOT also add a Google
+ *     Ads conversion tag for "Contact" in the GTM container, or every
+ *     conversion is counted twice. See lib/google-ads.ts.
  *   - All event names are snake_case (GA4 convention).
  *   - SSR-safe: every push is guarded by a window check.
  *   - Avoid passing raw PII to the dataLayer. For Enhanced Conversions,
  *     pass only hashed values (SHA-256, lowercase, trimmed) inside `user_data`.
  */
+
+import { reportContactConversion } from './google-ads'
 
 interface DataLayerEvent {
   event: string
@@ -80,11 +88,21 @@ export function trackGenerateLead(params: LeadEventParams): void {
  * Fire when a primary call-to-action is clicked (e.g. "Get started",
  * "Book a call"). `location` lets you distinguish hero vs. footer vs. nav.
  */
+/**
+ * CTA names that represent contact intent and therefore report the Google Ads
+ * "Contact" conversion. Other CTAs (e.g. "see_the_work") are navigation and
+ * must not report.
+ */
+const CONTACT_INTENT_CTAS: ReadonlySet<string> = new Set(['get_in_touch'])
+
 export function trackCTAClick(ctaName: string, location?: string): void {
   trackEvent('cta_click', {
     cta_name: ctaName,
     cta_location: location,
   })
+  if (CONTACT_INTENT_CTAS.has(ctaName)) {
+    reportContactConversion('get_in_touch_cta')
+  }
 }
 
 /**
@@ -106,6 +124,19 @@ export function trackEngagedVisitor(): void {
  */
 export function trackContactClick(method: 'email' | 'phone', location?: string): void {
   trackEvent('contact_click', { method, location })
+  // A mailto/tel click is a real contact action, so it reports the Google Ads
+  // "Contact" conversion. Every existing call site is covered by hooking it
+  // here rather than editing each link.
+  reportContactConversion('mailto')
+}
+
+/**
+ * Click on a "book a call" link (cal.com). Reports the Contact conversion for
+ * the same reason as a mailto click.
+ */
+export function trackBookCallClick(location?: string): void {
+  trackEvent('book_call_click', { location })
+  reportContactConversion('book_call')
 }
 
 /** Chat widget opened. `provider` is the SDK name (e.g. "livv_custom"). */
