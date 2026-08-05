@@ -1,317 +1,250 @@
-﻿"use client"
+"use client"
 
-import { useState, useEffect, useMemo, useRef, useCallback } from "react"
-import { projects as initialProjects, type Project } from "@/lib/marketplace-data"
-import { Toaster, toast } from "sonner"
-// canvas-confetti loaded dynamically on click
+import { useState, useCallback, useRef } from "react"
+import { featuredProject, secondaryProjects, type Project } from "@/lib/marketplace-data"
+import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 
-// Dynamically import components to avoid circular dependencies if any, 
-// and ensure client-side rendering where appropriate.
-// However, since we are in "use client", we can import them directly if they are standard components.
-// Checking paths based on previous file listing.
 import { ProjectFolder } from "@/components/portfolio-preview/project-folder/index"
-import { FullpageLoader } from "@/components/portfolio-preview/fullpage-loader"
-import { NewProjectSlot } from "@/components/portfolio-preview/new-project-slot"
-import { ProjectDetailModal } from "@/components/portfolio-preview/project-detail-modal"
-import { HeroBanner } from "@/components/portfolio-preview/hero-banner"
 import { AnimatedBorders } from "@/components/ui/animated-borders"
 import { PartnerFormModal } from "@/components/portfolio-preview/partner-form-modal"
+import { WhitelabelShowcase } from "@/components/portfolio-preview/whitelabel-showcase"
+import { GenerationProvider } from "@/contexts/generation-context"
 
-// We need to make sure useGeneration is available. 
-// If it's not in a global context, we might need to wrap this section or assume it's provided.
-// The original page wrapped it in a provider?
-// Let's assume the provider is at a higher level or we need to mock it if missing.
-// Checking if we can import it.
-import { useGeneration, GenerationProvider } from "@/contexts/generation-context"
-
-const PARTNER_PROGRAM_ID = "partner-program-project"
-const PARTNER_PROGRAM_CONFIG = {
-    title: "Partner Program",
-    category: "Partnership \u00b7 Resell",
-    description: "Partner with us and resell your app directly through our ecosystem.",
-    clipCount: 1,
-    images: [
-        "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop",
-    ],
-}
-
-const PROJECT_CONFIGS = [
-    {
-        title: "How to Design a Fashion Brand",
-        clipCount: 6,
-        images: [
-            "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=2070&auto=format&fit=crop",
-        ],
-    },
-    {
-        title: "Starting a Modern Company in New York",
-        clipCount: 8,
-        images: [
-            "https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop",
-        ],
-    },
+const STEPS = [
+    { n: "01", title: "Choose", copy: "Start from a proven product and a business model that already works." },
+    { n: "02", title: "Customize", copy: "Adapt the branding, features and workflows to your market." },
+    { n: "03", title: "Launch", copy: "Sell it under your name — to your clients or as a new business." },
 ]
 
+function productHref(project: Project) {
+    return `/products/${project.slug}`
+}
+
 function MarketplaceContent({ id }: { id?: string }) {
-    const { startGeneration } = useGeneration()
-
-    const [isLoading, setIsLoading] = useState(true)
-    const [newProjects, setNewProjects] = useState<(Project & { isNew?: boolean; isVisible?: boolean })[]>([])
-    const [projects, setProjects] = useState(initialProjects)
-    const nextProjectIndexRef = useRef(0)
-    const animatingRef = useRef(false)
-    const [showContent, setShowContent] = useState(false)
-    const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+    const router = useRouter()
+    const [partnerProduct, setPartnerProduct] = useState<string | null>(null)
     const [isPartnerFormOpen, setIsPartnerFormOpen] = useState(false)
-    const sectionRef = useRef<HTMLDivElement>(null)
+    const gridRef = useRef<HTMLDivElement>(null)
 
-    useEffect(() => {
-        const hasNewInvisible = newProjects.some((p) => p.isNew && !p.isVisible)
-        if (hasNewInvisible && !animatingRef.current) {
-            animatingRef.current = true
-            const timer = setTimeout(() => {
-                setNewProjects((prev: (Project & { isNew?: boolean; isVisible?: boolean })[]) => prev.map((p) => (p.isNew && !p.isVisible ? { ...p, isVisible: true } : p)))
-            }, 50)
-            return () => clearTimeout(timer)
-        }
-    }, [newProjects])
-
-    useEffect(() => {
-        const hasVisibleNew = newProjects.some((p) => p.isNew && p.isVisible)
-        if (hasVisibleNew) {
-            const timer = setTimeout(() => {
-                setNewProjects((prev: (Project & { isNew?: boolean; isVisible?: boolean })[]) => prev.map((p) => ({ ...p, isNew: false })))
-                animatingRef.current = false
-            }, 500)
-            return () => clearTimeout(timer)
-        }
-    }, [newProjects])
-
-    const allProjects = useMemo(() => {
-        return [...newProjects, ...projects]
-    }, [newProjects, projects])
-
-    const handleCreateProject = useCallback(() => {
-        // Check if partner project already exists
-        const partnerProject = newProjects.find(p => p.id === PARTNER_PROGRAM_ID)
-
-        if (partnerProject) {
-            if (!partnerProject.isGenerating) {
-                setIsPartnerFormOpen(true)
-            }
-            return
-        }
-
-        const timestamp = Date.now()
-        const config = PARTNER_PROGRAM_CONFIG
-
-        const newProject: Project & { isNew: boolean; isVisible?: boolean } = {
-            id: PARTNER_PROGRAM_ID, // Use fixed ID for the partner app
-            title: config.title,
-            category: config.category,
-            description: config.description,
-            clipCount: config.clipCount,
-            images: config.images,
-            isGenerating: true,
-            progress: 0,
-            isNew: true,
-            isVisible: false,
-            createdAt: new Date().toISOString(),
-        }
-
-        setNewProjects((prev) => [newProject, ...prev])
-
-        startGeneration(newProject.id, () => {
-            setNewProjects((prev: (Project & { isNew?: boolean; isVisible?: boolean })[]) => prev.map((p) => (String(p.id) === newProject.id ? { ...p, isGenerating: false } : p)))
-            // Optionally auto-open form after generation
-            // setIsPartnerFormOpen(true) 
-        })
-    }, [startGeneration, newProjects])
-
-    const handleRemoveFolder = useCallback((projectId: string) => {
-        // Remove immediately - the exit animation is already handled in DefaultProject
-        setNewProjects((prev) => prev.filter((p) => String(p.id) !== projectId))
-        setProjects((prev) => prev.filter((p) => String(p.id) !== projectId))
+    const openPartnerForm = useCallback((product?: string) => {
+        setPartnerProduct(product ?? null)
+        setIsPartnerFormOpen(true)
     }, [])
 
-    const handleFolderClick = useCallback((project: (typeof initialProjects)[number]) => {
-        if (project.id === PARTNER_PROGRAM_ID) {
-            setIsPartnerFormOpen(true)
-        } else {
-            setSelectedProject(project)
-        }
+    const scrollToProducts = useCallback(() => {
+        gridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
     }, [])
-
-    const handleRenameProject = useCallback((projectId: string, newTitle: string) => {
-        setNewProjects((prev: (Project & { isNew?: boolean; isVisible?: boolean })[]) =>
-            prev.map((p) => (String(p.id) === projectId ? { ...p, title: newTitle } : p))
-        )
-        setProjects((prev) =>
-            prev.map((p) => (String(p.id) === projectId ? { ...p, title: newTitle } : p))
-        )
-    }, [])
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setIsLoading(false)
-        }, 2000)
-        return () => clearTimeout(timer)
-    }, [])
-
-    useEffect(() => {
-        if (!isLoading) {
-            const timer = setTimeout(() => {
-                setShowContent(true)
-            }, 300)
-            return () => clearTimeout(timer)
-        }
-    }, [isLoading])
-
-    // Removed FullpageLoader to avoid blocking the whole page when this is just a section.
-    // We can show a local loader or just render nothing until ready.
-    // For better UX in a section, we might just render it directly or with a skeleton.
-    // But let's keep it simple for now, maybe just hidden until ready.
 
     return (
-        <section id={id} className="min-h-screen bg-background relative w-full py-12 md:py-24">
-            <Toaster
-                position="bottom-center"
-                toastOptions={{
-                    style: {
-                        background: "#ffffff",
-                        border: "1px solid rgba(44, 36, 32, 0.08)",
-                        color: "#2c2420",
-                        borderRadius: "12px",
-                        boxShadow: "0 4px 24px rgba(44, 36, 32, 0.08)",
-                    },
-                }}
-            />
+        <section id={id} className="bg-background relative w-full py-12 md:py-24">
+            <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+                <AnimatedBorders className="hidden md:block" />
 
-            <div
-                className="transition-all duration-700 ease-out"
-                style={{
-                    opacity: showContent ? 1 : 0,
-                    transform: showContent ? "translateY(0) scale(1)" : "translateY(20px) scale(0.98)",
-                }}
-            >
-                <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-                    <AnimatedBorders className="hidden md:block" />
+                <div className="w-full max-w-[288px] sm:max-w-[600px] lg:max-w-[912px] xl:max-w-[1152px] mx-auto">
+                    {/* ---------- Narrative header ---------- */}
+                    <div className="max-w-2xl">
+                        <p className="text-[11px] uppercase tracking-[0.16em] text-[#b8836e] font-medium animate-blur-in">
+                            White-label software
+                        </p>
+                        <h2 className="mt-3 font-sans text-[clamp(1.9rem,4.4vw,3rem)] font-light leading-[1.12] tracking-tight text-[#2c2420] text-balance animate-blur-in">
+                            Launch a software product{" "}
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#b8836e] via-[#c9a48a] to-[#a0694f]">
+                                without starting from zero.
+                            </span>
+                        </h2>
+                        <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground max-w-xl animate-blur-in-delay-1">
+                            Choose a proven digital system, adapt it to your brand and market, and take it to
+                            market as your own. We handle the product, the design and the technology behind it.
+                        </p>
 
-                    <div ref={sectionRef} className="w-full max-w-[288px] sm:max-w-[600px] lg:max-w-[912px] mx-auto">
-                        <div className="animate-blur-in mb-8">
-                            <HeroBanner />
-                        </div>
-                        <div className="flex items-start justify-between mb-10 sm:mb-12 gap-6">
-                            <div>
-                                <h1 className="font-sans text-[clamp(1.75rem,4vw,2.75rem)] font-light leading-[1.15] tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#b8836e] via-[#c9a48a] to-[#a0694f] text-balance animate-blur-in">
-                                    Our Custom Apps
-                                </h1>
-                                <p className="mt-2.5 text-[14px] sm:text-[15px] leading-relaxed text-muted-foreground max-w-md animate-blur-in-delay-1">
-                                    Products built in collaboration. We partner with startups, agencies, and teams to design and develop scalable digital systems.
-                                </p>
-                            </div>
+                        <div className="mt-7 flex flex-wrap items-center gap-3 animate-blur-in-delay-2">
                             <button
-                                className="text-sm font-medium text-primary-foreground rounded-full hover:opacity-90 transition-all duration-200 py-1.5 bg-primary px-4 whitespace-nowrap mt-1 animate-blur-in-delay-2 active:scale-[0.97]"
-                                onClick={async (e) => {
-                                    const rect = e.currentTarget.getBoundingClientRect()
-                                    const x = (rect.left + rect.width / 2) / window.innerWidth
-                                    const y = (rect.top + rect.height / 2) / window.innerHeight
-                                    const colors = ["#b8836e", "#c9a48a", "#d4bfad", "#a0694f", "#8a7e74"]
-                                    const { default: confetti } = await import("canvas-confetti")
-                                    confetti({
-                                        particleCount: 40,
-                                        spread: 50,
-                                        origin: { x, y },
-                                        colors,
-                                        startVelocity: 20,
-                                        gravity: 0.6,
-                                        scalar: 0.8,
-                                        ticks: 150,
-                                        shapes: ["circle"],
-                                        disableForReducedMotion: true,
-                                    })
-                                    setTimeout(() => {
-                                        confetti({
-                                            particleCount: 25,
-                                            spread: 70,
-                                            origin: { x, y: y - 0.05 },
-                                            colors,
-                                            startVelocity: 15,
-                                            gravity: 0.5,
-                                            scalar: 0.6,
-                                            ticks: 120,
-                                            shapes: ["circle"],
-                                            disableForReducedMotion: true,
-                                        })
-                                    }, 100)
-                                }}
+                                onClick={scrollToProducts}
+                                className="text-sm font-medium text-primary-foreground rounded-full bg-primary px-5 py-2 hover:opacity-90 transition-all duration-200 active:scale-[0.97]"
                             >
-                                Start Trial
+                                Explore the products
+                            </button>
+                            <button
+                                onClick={() => openPartnerForm()}
+                                className="group text-sm font-medium text-[#2c2420] rounded-full border border-[#2c2420]/12 px-5 py-2 hover:bg-[#2c2420]/[0.04] transition-all duration-200 active:scale-[0.97] flex items-center gap-1.5"
+                            >
+                                Become a reseller
+                                <svg className="w-3 h-3 transition-transform duration-200 group-hover:translate-x-0.5" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth={1.6}>
+                                    <path d="M2.5 6h7M6.5 3l3 3-3 3" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
                             </button>
                         </div>
-
-                        <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-                            <motion.div
-                                layout
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.3, delay: 0.05, ease: [0.32, 0.72, 0, 1] }}
-                            >
-                                <NewProjectSlot onClick={handleCreateProject} />
-                            </motion.div>
-                            {allProjects.map((project, idx) => {
-                                return (
-                                    <motion.div
-                                        key={project.id}
-                                        layout
-                                        initial={{ opacity: 0, scale: 0.95, y: 10 }}
-                                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                                        exit={{ opacity: 0, scale: 0.95 }}
-                                        transition={{
-                                            duration: 0.25,
-                                            delay: Math.min(idx * 0.03, 0.3),
-                                            ease: [0.32, 0.72, 0, 1],
-                                            layout: { duration: 0.25, ease: [0.32, 0.72, 0, 1] },
-                                        }}
-                                    >
-                                        <ProjectFolder
-                                            project={project}
-                                            index={idx}
-                                            onRemove={() => handleRemoveFolder(String(project.id))}
-                                            onCancel={() => handleRemoveFolder(String(project.id))}
-                                            onClick={() => handleFolderClick(project)}
-                                            onRename={(newTitle) => handleRenameProject(String(project.id), newTitle)}
-                                        />
-                                    </motion.div>
-                                )
-                            })}
-                        </div>
                     </div>
+
+                    {/* ---------- How it works ---------- */}
+                    <div className="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-px rounded-2xl overflow-hidden bg-[#2c2420]/[0.07]">
+                        {STEPS.map((step, i) => (
+                            <motion.div
+                                key={step.n}
+                                initial={{ opacity: 0, y: 12 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-80px" }}
+                                transition={{ duration: 0.45, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                                className="bg-background px-5 py-5"
+                            >
+                                <span className="text-[11px] font-medium tabular-nums text-[#b8836e]">{step.n}</span>
+                                <h3 className="mt-1.5 text-[15px] font-medium text-[#2c2420]">{step.title}</h3>
+                                <p className="mt-1 text-[13px] leading-relaxed text-[#8a7e74]">{step.copy}</p>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    {/* ---------- Featured product ---------- */}
+                    <div ref={gridRef} className="mt-16 scroll-mt-28">
+                        <motion.div
+                            initial={{ opacity: 0, y: 16 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-80px" }}
+                            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                            className="relative rounded-3xl overflow-hidden border border-[#2c2420]/[0.08]"
+                        >
+                            {/* Background plate */}
+                            <div
+                                className="absolute inset-0"
+                                style={{
+                                    backgroundImage: "url('/images/hero-bg.jpg')",
+                                    backgroundSize: "cover",
+                                    backgroundPosition: "center",
+                                }}
+                            />
+                            {/* Warm scrim: keeps the copy readable and pulls the image into the LIVV palette */}
+                            <div
+                                className="absolute inset-0"
+                                style={{
+                                    background:
+                                        "linear-gradient(108deg, rgba(250,247,243,0.97) 0%, rgba(250,247,243,0.93) 34%, rgba(246,238,231,0.74) 58%, rgba(184,131,110,0.20) 100%)",
+                                }}
+                            />
+                            <div className="absolute inset-0" style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.6)" }} />
+
+                            <div className="relative grid grid-cols-1 lg:grid-cols-[0.92fr_1.08fr] gap-10 lg:gap-14 p-6 sm:p-9 lg:p-12 items-center">
+                                <div>
+                                    <div className="flex items-center gap-2">
+                                        <span
+                                            className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.08em]"
+                                            style={{ backgroundColor: `${featuredProject.accent}1f`, color: featuredProject.accent }}
+                                        >
+                                            <span className="w-1 h-1 rounded-full" style={{ backgroundColor: featuredProject.accent }} />
+                                            White-label ready
+                                        </span>
+                                        <span className="text-[10px] uppercase tracking-[0.06em] text-[#8a7e74]">
+                                            Featured product
+                                        </span>
+                                    </div>
+
+                                    <h3 className="mt-4 text-[clamp(1.6rem,3vw,2.1rem)] font-light leading-[1.15] tracking-tight text-[#2c2420]">
+                                        {featuredProject.title} — the operating system for bars, venues and events.
+                                    </h3>
+                                    <p className="mt-3 text-[14px] leading-relaxed text-[#5c534c] max-w-md">
+                                        {featuredProject.description}
+                                    </p>
+
+                                    <div className="mt-5 flex flex-wrap gap-1.5">
+                                        {featuredProject.modules.map((m) => (
+                                            <span
+                                                key={m}
+                                                className="rounded-full border border-[#2c2420]/10 bg-white/60 px-2.5 py-1 text-[11px] text-[#5c534c]"
+                                            >
+                                                {m}
+                                            </span>
+                                        ))}
+                                    </div>
+
+                                    <div className="mt-6 flex flex-wrap items-center gap-3">
+                                        <button
+                                            onClick={() => router.push(productHref(featuredProject))}
+                                            className="text-sm font-medium text-primary-foreground rounded-full bg-primary px-5 py-2 hover:opacity-90 transition-all duration-200 active:scale-[0.97]"
+                                        >
+                                            Explore {featuredProject.title}
+                                        </button>
+                                        <button
+                                            onClick={() => openPartnerForm(featuredProject.title)}
+                                            className="group text-sm font-medium text-[#2c2420] rounded-full border border-[#2c2420]/12 bg-white/50 px-5 py-2 hover:bg-white transition-all duration-200 active:scale-[0.97] flex items-center gap-1.5"
+                                        >
+                                            Resell {featuredProject.title}
+                                            <svg className="w-3 h-3 transition-transform duration-200 group-hover:translate-x-0.5" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth={1.6}>
+                                                <path d="M2.5 6h7M6.5 3l3 3-3 3" strokeLinecap="round" strokeLinejoin="round" />
+                                            </svg>
+                                        </button>
+                                    </div>
+
+                                    <p className="mt-4 text-[12px] text-[#8a7e74]">
+                                        White-label license from{" "}
+                                        <span className="font-medium text-[#2c2420]/75">${featuredProject.licenseFrom}</span>/mo ·
+                                        custom branding included
+                                    </p>
+                                </div>
+
+                                <WhitelabelShowcase />
+                            </div>
+                        </motion.div>
+                    </div>
+
+                    {/* ---------- Remaining products ---------- */}
+                    <div className="mt-6 grid gap-5 grid-cols-1 lg:grid-cols-2">
+                        {secondaryProjects.map((project, idx) => (
+                            <motion.div
+                                key={project.id}
+                                initial={{ opacity: 0, y: 14 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-60px" }}
+                                transition={{ duration: 0.4, delay: Math.min(idx * 0.06, 0.24), ease: [0.22, 1, 0.36, 1] }}
+                            >
+                                <ProjectFolder
+                                    project={project}
+                                    index={idx}
+                                    onClick={() => router.push(productHref(project))}
+                                    onViewDemo={() => router.push(productHref(project))}
+                                    onResell={() => openPartnerForm(project.title)}
+                                />
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    {/* ---------- Reseller CTA ---------- */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 14 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-60px" }}
+                        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                        className="mt-6 rounded-3xl border border-[#2c2420]/[0.08] px-6 sm:px-10 py-8 sm:py-10 flex flex-col md:flex-row md:items-center gap-6 justify-between"
+                        style={{ background: "linear-gradient(120deg,#1a1714 0%,#2c2420 100%)" }}
+                    >
+                        <div className="max-w-lg">
+                            <p className="text-[11px] uppercase tracking-[0.16em] text-[#c9a48a] font-medium">
+                                Your brand. Our product engine.
+                            </p>
+                            <h3 className="mt-3 text-[clamp(1.4rem,2.6vw,1.9rem)] font-light leading-[1.2] tracking-tight text-[#f5f0eb]">
+                                Build a new revenue stream.
+                            </h3>
+                            <p className="mt-2.5 text-[14px] leading-relaxed text-[#f5f0eb]/60">
+                                Add complete digital products to your portfolio without building an internal
+                                product team. We keep the platform running — you own the client relationship.
+                            </p>
+                        </div>
+                        <button
+                            onClick={() => openPartnerForm()}
+                            className="group shrink-0 self-start md:self-auto text-sm font-medium text-[#1a1714] rounded-full bg-[#f5f0eb] px-6 py-2.5 hover:bg-white transition-all duration-200 active:scale-[0.97] flex items-center gap-1.5"
+                        >
+                            Apply to become a reseller
+                            <svg className="w-3 h-3 transition-transform duration-200 group-hover:translate-x-0.5" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth={1.8}>
+                                <path d="M2.5 6h7M6.5 3l3 3-3 3" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                        </button>
+                    </motion.div>
                 </div>
             </div>
-
-            <ProjectDetailModal
-                project={selectedProject}
-                isOpen={!!selectedProject}
-                onClose={() => setSelectedProject(null)}
-            />
 
             <PartnerFormModal
                 isOpen={isPartnerFormOpen}
                 onClose={() => setIsPartnerFormOpen(false)}
+                product={partnerProduct ?? undefined}
             />
         </section>
     )
@@ -324,4 +257,3 @@ export function MarketplaceSection({ id }: { id?: string }) {
         </GenerationProvider>
     )
 }
-

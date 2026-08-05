@@ -9,9 +9,11 @@ import { submitLead } from "@/lib/lead-ingest"
 interface PartnerFormModalProps {
     isOpen: boolean
     onClose: () => void
+    /** Product the visitor clicked "resell" on, if any */
+    product?: string
 }
 
-export function PartnerFormModal({ isOpen, onClose }: PartnerFormModalProps) {
+export function PartnerFormModal({ isOpen, onClose, product }: PartnerFormModalProps) {
     const [step, setStep] = useState(1)
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [isSuccess, setIsSuccess] = useState(false)
@@ -27,6 +29,13 @@ export function PartnerFormModal({ isOpen, onClose }: PartnerFormModalProps) {
         setMounted(true)
     }, [])
 
+    // Prefill the plan field when the visitor came from a specific product card
+    useEffect(() => {
+        if (isOpen && product) {
+            setFormData((prev) => (prev.appIdea ? prev : { ...prev, appIdea: `Interested in reselling ${product}. ` }))
+        }
+    }, [isOpen, product])
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setIsSubmitting(true)
@@ -35,7 +44,8 @@ export function PartnerFormModal({ isOpen, onClose }: PartnerFormModalProps) {
                 name: formData.name,
                 email: formData.email,
                 company: formData.company,
-                message: `Partner Application\n\nApp Idea: ${formData.appIdea}`,
+                message: `Reseller Application${product ? ` — ${product}` : ""}\n\nPlan: ${formData.appIdea}`,
+                // Keep the origin string stable — the CRM groups leads by this badge
                 origin: "Partner Program",
                 source: "website",
                 category: "partner",
@@ -82,8 +92,12 @@ export function PartnerFormModal({ isOpen, onClose }: PartnerFormModalProps) {
                             {/* Header */}
                             <div className="px-6 py-6 border-b border-stone-100 flex items-center justify-between">
                                 <div>
-                                    <h2 className="text-xl font-semibold text-[#2C0405]">Partner Program</h2>
-                                    <p className="text-sm text-stone-500 mt-1">Apply to resell your app on LIVV</p>
+                                    <h2 className="text-xl font-semibold text-[#2C0405]">Reseller Program</h2>
+                                    <p className="text-sm text-stone-500 mt-1">
+                                        {product
+                                            ? `Launch ${product} under your own brand`
+                                            : "Launch our products under your own brand"}
+                                    </p>
                                 </div>
                                 <button
                                     onClick={onClose}
@@ -123,24 +137,24 @@ export function PartnerFormModal({ isOpen, onClose }: PartnerFormModalProps) {
                                                 </div>
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-[11px] uppercase tracking-widest font-semibold text-stone-500">Company / Product Name</label>
+                                                <label className="text-[11px] uppercase tracking-widest font-semibold text-stone-500">Company / Agency</label>
                                                 <input
                                                     required
                                                     type="text"
                                                     value={formData.company}
                                                     onChange={e => setFormData({ ...formData, company: e.target.value })}
-                                                    placeholder="My SaaS App"
+                                                    placeholder="My Agency"
                                                     className="w-full px-4 py-3 rounded-xl bg-white border border-stone-200 focus:border-[#C4A35A] focus:ring-1 focus:ring-[#C4A35A] transition-all outline-none text-sm"
                                                 />
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-[11px] uppercase tracking-widest font-semibold text-stone-500">App Idea / Description</label>
+                                                <label className="text-[11px] uppercase tracking-widest font-semibold text-stone-500">Which product and market?</label>
                                                 <textarea
                                                     required
                                                     rows={3}
                                                     value={formData.appIdea}
                                                     onChange={e => setFormData({ ...formData, appIdea: e.target.value })}
-                                                    placeholder="Briefly describe what your app does..."
+                                                    placeholder="Which product you want to resell, and who you'd sell it to..."
                                                     className="w-full px-4 py-3 rounded-xl bg-white border border-stone-200 focus:border-[#C4A35A] focus:ring-1 focus:ring-[#C4A35A] transition-all outline-none text-sm resize-none"
                                                 />
                                             </div>

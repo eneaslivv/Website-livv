@@ -53,7 +53,7 @@ export function useProjectState({ project, index, generationDuration }: UseProje
   const imagePositions = useMemo<ImagePosition[]>(() => {
     const count = 5
     const positions: ImagePosition[] = []
-    const totalSpread = 160
+    const totalSpread = 200
     const step = count > 1 ? totalSpread / (count - 1) : 0
     const startX = -totalSpread / 2
 

@@ -1,11 +1,27 @@
+/** Rendered UI mock shown inside a product card instead of a stock photo. */
+export type ScreenVariant = "pos" | "campaigns" | "finance" | "cases" | "board"
+
 export interface Project {
     id: string
+    /** Route segment for /products/[slug] */
+    slug: string
     title: string
     category: string
+    /** Long-form copy, used by the featured block */
     description: string
+    /** One-line result the product delivers, used on the cards */
+    outcome: string
+    /** Core modules, shown as a single meta line */
+    modules: string[]
+    /** Monthly white-label license, starting price */
+    licenseFrom: number
+    /** Which UI mock to render in the card's visual area */
+    screen: ScreenVariant
+    accent: string
+    featured?: boolean
     clipCount: number
     createdAt: string
-    images: string[]
+    images?: string[]
     price?: number
     isGenerating?: boolean
     progress?: number
@@ -16,82 +32,81 @@ export interface Project {
 export const projects: Project[] = [
     {
         id: "1",
+        slug: "payper",
         title: "Payper",
-        category: "Operations \u00b7 Hospitality",
-        description: "All-in-one operating system for bars and venues. Orders, payments, stock, and real-time control from a single dashboard.",
+        category: "Operations · Hospitality",
+        description:
+            "All-in-one operating system for bars, venues and events. Orders, payments, stock and real-time control from a single dashboard — deployed under your brand.",
+        outcome: "Run bars, venues and events from one system.",
+        modules: ["Orders", "Payments", "Inventory", "Analytics"],
+        licenseFrom: 49,
+        screen: "pos",
+        accent: "#b8836e",
+        featured: true,
         clipCount: 14,
-        price: 49,
         createdAt: "2024-10-20",
-        images: [
-            "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop",
-        ],
     },
     {
         id: "2",
+        slug: "prtool",
         title: "PRTool",
-        category: "Partnerships \u00b7 Creator Economy",
-        description: "Platform to manage collaborations between brands and creators. Campaigns, tracking, payouts, and performance analytics in one place.",
+        category: "Partnerships · Creator Economy",
+        description:
+            "Platform to manage collaborations between brands and creators. Campaigns, tracking, payouts and performance analytics in one place.",
+        outcome: "Run creator campaigns from brief to payout.",
+        modules: ["Campaigns", "Tracking", "Payouts"],
+        licenseFrom: 29,
+        screen: "campaigns",
+        accent: "#c9a48a",
         clipCount: 6,
-        price: 29,
         createdAt: "2024-11-15",
-        images: [
-            "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2074&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2074&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop",
-        ],
     },
     {
         id: "3",
-        title: "Registrar",
-        category: "Finance \u00b7 Personal OS",
-        description: "Voice-first app to log income and expenses. Automatically categorizes movements and helps you understand your finances without friction.",
-        clipCount: 5,
-        price: 39,
-        createdAt: "2024-11-25",
-        images: [
-            "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1454165833267-023bb0a16e82?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=2070&auto=format&fit=crop",
-        ],
+        slug: "legalflow",
+        title: "LegalFlow",
+        category: "Legal · Workflow Automation",
+        description:
+            "Case and document management system for law firms. Centralizes clients, cases, deadlines and internal workflows.",
+        outcome: "Centralize cases, documents and deadlines.",
+        modules: ["Cases", "Documents", "Deadlines"],
+        licenseFrom: 59,
+        screen: "cases",
+        accent: "#8a7e74",
+        clipCount: 8,
+        createdAt: "2024-10-25",
     },
     {
         id: "4",
-        title: "LegalFlow",
-        category: "Legal \u00b7 Workflow Automation",
-        description: "Case and document management system for law firms. Centralizes clients, cases, deadlines, and internal workflows.",
-        clipCount: 8,
-        price: 59,
-        createdAt: "2024-10-25",
-        images: [
-            "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1436450412740-6b988f486c6b?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1505664194779-8beaceb93744?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1436450412740-6b988f486c6b?q=80&w=2070&auto=format&fit=crop",
-        ],
+        slug: "registrar",
+        title: "Registrar",
+        category: "Finance · Personal OS",
+        description:
+            "Voice-first app to log income and expenses. Automatically categorizes movements and helps you understand your finances without friction.",
+        outcome: "Log income and expenses by voice.",
+        modules: ["Voice input", "Categories", "Reports"],
+        licenseFrom: 39,
+        screen: "finance",
+        accent: "#a0694f",
+        clipCount: 5,
+        createdAt: "2024-11-25",
     },
     {
         id: "5",
+        slug: "pm-agent",
         title: "PM Agent",
-        category: "AI Agent \u00b7 Project Management",
-        description: "AI project manager that breaks work into tasks, assigns owners, sets deadlines, and follows up automatically.",
+        category: "AI Agent · Project Management",
+        description:
+            "AI project manager that breaks work into tasks, assigns owners, sets deadlines and follows up automatically.",
+        outcome: "Turn goals into tasks, owners and deadlines.",
+        modules: ["Tasks", "Owners", "Follow-ups"],
+        licenseFrom: 19,
+        screen: "board",
+        accent: "#b8836e",
         clipCount: 8,
-        price: 19,
         createdAt: "2024-11-20",
-        images: [
-            "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1518186239124-79774308a94e?q=80&w=1974&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2070&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=2070&auto=format&fit=crop",
-        ],
     },
 ]
+
+export const featuredProject = projects.find((p) => p.featured) ?? projects[0]
+export const secondaryProjects = projects.filter((p) => p !== featuredProject)

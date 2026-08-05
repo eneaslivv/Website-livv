@@ -18,11 +18,15 @@ export function ProjectFolder({
   onClick,
   onCancel,
   onRename,
+  onViewDemo,
+  onResell,
 }: ProjectFolderProps & {
   onRemove?: () => void
   onClick?: () => void
   onCancel?: () => void
   onRename?: (newTitle: string) => void
+  onViewDemo?: () => void
+  onResell?: () => void
 }) {
   const { startGeneration, cancelGeneration } = useGeneration()
 
@@ -103,6 +107,8 @@ export function ProjectFolder({
         onRemove={onRemove}
         onCancel={handleCancel}
         onRename={handleRename}
+        onViewDemo={onViewDemo}
+        onResell={onResell}
         priority={index < 4}
       />
     </div>
