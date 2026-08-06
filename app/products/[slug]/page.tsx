@@ -6,6 +6,7 @@ import { Zap, ShieldCheck, Users, Globe, BarChart3, Lock, ArrowUpRight } from "l
 import { useParams, useRouter } from "next/navigation"
 import Link from "next/link"
 import { getProductFaqs } from "@/lib/product-faqs"
+import { ProductHeroVisual } from "@/components/products/product-hero-visual"
 import { Navbar } from "@/components/layout/navbar"
 import { FooterSection } from "@/components/sections/footer-section"
 import { AnimatedBorders } from "@/components/ui/animated-borders"
@@ -228,79 +229,6 @@ const fallbackProductData: Record<string, any> = {
 
 // --- Livv Aesthetic Components ---
 
-function PerspectiveCard({ title, desc, index }: { title: string, desc: string, index: number, bgArray: string[] }) {
-    const mouseX = useMotionValue(0)
-    const mouseY = useMotionValue(0)
-
-    const rotateX = useSpring(useMotionValue(0), { damping: 40, stiffness: 200 })
-    const rotateY = useSpring(useMotionValue(0), { damping: 40, stiffness: 200 })
-
-    function onMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent<HTMLDivElement>) {
-        const { left, top, width, height } = currentTarget.getBoundingClientRect()
-        const x = clientX - left
-        const y = clientY - top
-        mouseX.set(x)
-        mouseY.set(y)
-
-        const rx = ((y / height) - 0.5) * -15
-        const ry = ((x / width) - 0.5) * 15
-
-        rotateX.set(rx)
-        rotateY.set(ry)
-    }
-
-    function onMouseLeave() {
-        mouseX.set(0)
-        mouseY.set(0)
-        rotateX.set(0)
-        rotateY.set(0)
-    }
-
-    return (
-        <motion.div
-            className="relative h-full min-h-[300px] rounded-[10px] p-8 flex flex-col justify-between overflow-hidden group border border-[#E6E2D8] bg-white shadow-[0_4px_20px_rgb(0,0,0,0.03)] z-10"
-            onMouseMove={onMouseMove}
-            onMouseLeave={onMouseLeave}
-            style={{
-                transformStyle: "preserve-3d",
-                rotateX,
-                rotateY,
-                perspective: 1000
-            }}
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-        >
-            {/* Spotlight effect */}
-            <motion.div
-                className="pointer-events-none absolute -inset-px rounded-[10px] opacity-0 transition duration-300 group-hover:opacity-100"
-                style={{
-                    background: useMotionTemplate`
-                        radial-gradient(
-                            600px circle at ${mouseX}px ${mouseY}px,
-                            rgba(232, 188, 89, 0.08),
-                            transparent 80%
-                        )
-                    `,
-                }}
-            />
-
-            <div className="relative z-10 w-full mb-8 transform-gpu" style={{ transform: "translateZ(30px)" }}>
-                <span className="text-[10px] uppercase font-mono tracking-widest text-[#78736A]/60 mb-6 block">0{index + 1}</span>
-                <h3 className="text-xl font-medium tracking-tight text-[#09090B] mb-4 group-hover:text-[#E8BC59] transition-colors duration-300">{title}</h3>
-                <p className="text-[#78736A] text-sm font-light leading-relaxed">{desc}</p>
-            </div>
-
-            {/* Decorative line */}
-            <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#E8BC59]/30 to-transparent" />
-
-            {/* Bottom arrow CTA */}
-            <div className="absolute bottom-6 right-6 w-10 h-10 rounded-full border border-[#E6E2D8] flex items-center justify-center translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 bg-white transform-gpu" style={{ transform: "translateZ(40px)" }}>
-                <ArrowUpRight className="w-5 h-5 text-[#09090B]" strokeWidth={1.5} />
-            </div>
-        </motion.div>
-    )
-}
-
 function MarqueeSection({ items }: { items: any[] }) {
     const problems = items.map((i: any) => i.title).join(" \u2022 ")
     return (
@@ -314,27 +242,34 @@ function MarqueeSection({ items }: { items: any[] }) {
                 </h2>
             </div>
 
-            <div className="relative w-full flex overflow-hidden">
+            {/* One quiet marquee line instead of three at 8vw. The giant
+                scrolling headline was the loudest thing on the page and said
+                nothing the cards below don't say better. */}
+            <div className="relative w-full flex overflow-hidden opacity-60" aria-hidden>
                 <div className="flex animate-marquee whitespace-nowrap items-center">
-                    <h1 className="text-[8vw] leading-[0.8] font-light tracking-tighter text-[#27272A] mr-8 flex items-center shrink-0 opacity-40">
-                        {problems} <span className="ml-8 text-white/5">&bull;</span>
-                    </h1>
-                    <h1 className="text-[8vw] leading-[0.8] font-light tracking-tighter text-[#27272A] mr-8 flex items-center shrink-0 opacity-40">
-                        {problems} <span className="ml-8 text-white/5">&bull;</span>
-                    </h1>
-                    <h1 className="text-[8vw] leading-[0.8] font-light tracking-tighter text-[#27272A] mr-8 flex items-center shrink-0 opacity-40">
-                        {problems} <span className="ml-8 text-white/5">&bull;</span>
-                    </h1>
+                    {[0, 1, 2].map((n) => (
+                        <span
+                            key={n}
+                            className="text-[13px] md:text-[15px] font-mono uppercase tracking-[0.2em] text-[#FDFBF7]/25 mr-10 shrink-0"
+                        >
+                            {problems} <span className="ml-10 text-[#E8BC59]/30">&bull;</span>
+                        </span>
+                    ))}
                 </div>
             </div>
 
-            {/* Feature cards */}
-            <div className="w-full max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-12 md:mt-16 relative z-10">
+            {/* Problem list — thin rules rather than glass cards */}
+            <div className="w-full max-w-5xl mx-auto px-6 md:px-12 mt-14 md:mt-16 relative z-10 grid grid-cols-1 md:grid-cols-2 border-t border-[#27272A]">
                 {items.map((item: any, i: number) => (
-                    <div key={i} className="rounded-[10px] p-6 hover-lift border border-[#27272A] bg-white/5 group backdrop-blur-md transition-colors duration-500 hover:bg-white/10 cursor-default">
-                        <span className="text-[10px] font-mono text-[#E8BC59]/40 block mb-4 group-hover:text-[#E8BC59] transition-colors">{`0${i + 1}`}</span>
-                        <h4 className="text-[#FDFBF7] text-lg tracking-tight mb-2 font-medium">{item.title}</h4>
-                        <p className="text-[#FDFBF7]/70 text-[13px] leading-relaxed font-light">{item.desc}</p>
+                    <div
+                        key={i}
+                        className="py-7 md:py-8 md:px-8 md:first:pl-0 border-b border-[#27272A] md:[&:not(:nth-child(2n+1))]:border-l"
+                    >
+                        <span className="text-[10px] font-mono text-[#E8BC59]/50 block mb-3">
+                            {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <h4 className="text-[#FDFBF7] text-lg tracking-tight mb-2 font-light">{item.title}</h4>
+                        <p className="text-[#FDFBF7]/60 text-[13px] leading-relaxed font-light max-w-sm">{item.desc}</p>
                     </div>
                 ))}
             </div>
@@ -423,6 +358,17 @@ export default function ProductDetailPage() {
                             </button>
                         </div>
                     </div>
+
+                    {/* Product visual. These pages previously carried no image of
+                        the product at all — a product landing with no product in
+                        it. Rendered UI rather than a stock photo, same language
+                        as the catalogue cards. */}
+                    {/* Capped width on purpose: the mock is drawn on a 260px
+                        canvas and scaled, so past ~800px its hairlines coarsen
+                        and it starts reading as a giant wireframe. */}
+                    <div className="mt-16 md:mt-20 px-4 md:px-8 max-w-3xl mx-auto">
+                        <ProductHeroVisual slug={slug} accent={data.accentColor} />
+                    </div>
                 </section>
 
                 {/* 2. THE CHALLENGE (DARK MARQUEE) — skipped when a product has no authored problems */}
@@ -443,15 +389,34 @@ export default function ProductDetailPage() {
                             </p>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {/* Editorial grid split by thin rules — same language as the
+                            service pages. Replaces 3D-tilt cards with a gold
+                            spotlight, which read as generic SaaS and were the
+                            single cheapest-looking element on these pages. */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-t border-[#E6E2D8]">
                             {data.features.map((feature: any, i: number) => (
-                                <PerspectiveCard
+                                <motion.div
                                     key={i}
-                                    title={feature.title}
-                                    desc={feature.desc}
-                                    index={i}
-                                    bgArray={["bg-white/40"]}
-                                />
+                                    initial={{ opacity: 0, y: 12 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, margin: "-60px" }}
+                                    transition={{ duration: 0.5, delay: Math.min(i * 0.06, 0.3), ease: [0.22, 1, 0.36, 1] }}
+                                    className="group py-8 md:py-10 px-0 md:px-8 lg:px-10 border-b border-[#E6E2D8] md:[&:not(:nth-child(3n+1))]:border-l md:first:pl-0 lg:first:pl-0"
+                                >
+                                    <span className="text-[10px] font-mono tracking-widest text-[#78736A]/50">
+                                        {String(i + 1).padStart(2, "0")}
+                                    </span>
+                                    <h3 className="mt-4 text-lg md:text-xl font-light tracking-tight text-[#09090B] leading-snug text-balance">
+                                        {feature.title}
+                                    </h3>
+                                    <p className="mt-3 text-[#78736A] text-sm font-light leading-relaxed">
+                                        {feature.desc}
+                                    </p>
+                                    <div
+                                        className="mt-6 h-px w-8 transition-all duration-500 ease-out group-hover:w-14"
+                                        style={{ background: data.accentColor, opacity: 0.5 }}
+                                    />
+                                </motion.div>
                             ))}
                         </div>
                     </div>
