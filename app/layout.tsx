@@ -6,6 +6,7 @@ import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { AttributionTracker } from "@/components/analytics/AttributionTracker"
 import { ContactIntentTracker } from "@/components/analytics/ContactIntentTracker"
+import { SiteIntro } from "@/components/ui/site-intro"
 import { CookieBanner } from "@/components/analytics/CookieBanner"
 import { EngagementTracker } from "@/components/analytics/EngagementTracker"
 import { SmoothScroll } from "@/components/ui/smooth-scroll"
@@ -321,6 +322,7 @@ export default function RootLayout({
             <CustomCursor />
             <Analytics />
             <SpeedInsights />
+            <SiteIntro />
             <AttributionTracker />
             <ContactIntentTracker />
             <EngagementTracker />
