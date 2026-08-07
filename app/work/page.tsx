@@ -28,6 +28,18 @@ export default function WorkPage() {
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-[-0.04em] leading-[1.05] text-[#1a1a1a] mb-8 max-w-3xl">
                             The portfolio LIVV is willing to show in public.
                         </h1>
+                    </section>
+
+                    <ProjectArchive />
+
+                    {/* Motion & animation reel — anchor target for the home block */}
+                    <MotionReelSection id="motion" />
+
+                    {/* Positioned after the work, not before it. This copy exists
+                        so /work has crawlable body text (Search Console flagged the
+                        page as thin in May), but reading two paragraphs before seeing
+                        a single project was the wrong order. */}
+                    <section className="max-w-5xl mx-auto px-6 md:px-12 pt-16 md:pt-24">
                         <div className="max-w-2xl space-y-5 text-base md:text-lg text-[#1a1a1a]/75 leading-[1.75] font-light">
                             <p>
                                 Most of what we ship is invisible. We work as a{" "}
@@ -58,11 +70,6 @@ export default function WorkPage() {
                             </p>
                         </div>
                     </section>
-
-                    <ProjectArchive />
-
-                    {/* Motion & animation reel — anchor target for the home block */}
-                    <MotionReelSection id="motion" />
 
                     {/* Closing prose section. Renders below the project grid
                         so a reader who scrolled the whole portfolio lands on

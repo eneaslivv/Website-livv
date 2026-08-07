@@ -1,12 +1,10 @@
 "use client"
 
 import Link from "next/link"
-import { motion, useReducedMotion } from "framer-motion"
+import { motion } from "framer-motion"
 
 import { MotionVideo } from "@/components/motion/motion-video"
-import { MotionReelScroll } from "@/components/motion/motion-reel-scroll"
 import { featuredMotionPiece, motionPieces, MOTION_CREDITS } from "@/lib/motion-portfolio"
-import { useIsMobile } from "@/hooks/use-mobile"
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
@@ -25,17 +23,6 @@ export function MotionReelSection({
 }) {
     const isFeatured = variant === "featured"
     const rest = motionPieces.filter((p) => p.slug !== featuredMotionPiece.slug)
-
-    // The scroll choreography only makes sense with a pointer, a wide viewport
-    // and motion allowed. Everywhere else falls back to the static layout, which
-    // shows the same pieces — nothing is hidden, only the staging changes.
-    const isMobile = useIsMobile()
-    const reduced = useReducedMotion()
-    const useChoreography = !isMobile && !reduced
-
-    // On the home the block stays compact: the featured piece plus three, and a
-    // link out. The full reel brings in all five followers.
-    const choreographyFollowers = isFeatured ? rest.slice(0, 3) : rest
 
     return (
         <section id={id} className="w-full bg-[#FDFBF9] py-20 md:py-28 relative">
@@ -65,36 +52,9 @@ export function MotionReelSection({
                 </div>
             </div>
 
-            {/* Scroll choreography: the featured clip opens alone and oversized,
-                then the rest enter one at a time as the stage stays pinned. */}
-            {useChoreography && (
-                <>
-                    <MotionReelScroll featured={featuredMotionPiece} followers={choreographyFollowers} />
-                    {isFeatured && (
-                        <div className="max-w-6xl mx-auto px-6 md:px-12">
-                            <Link
-                                href="/work#motion"
-                                className="group inline-flex items-center gap-2 text-[13px] font-medium tracking-tight text-stone-900 border-b border-stone-900/20 pb-1 hover:border-stone-900 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-4 focus-visible:ring-stone-400"
-                            >
-                                See the full reel
-                                <svg
-                                    aria-hidden
-                                    className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-1"
-                                    viewBox="0 0 12 12"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth={1.6}
-                                >
-                                    <path d="M2.5 6h7M6.5 3l3 3-3 3" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                            </Link>
-                        </div>
-                    )}
-                </>
-            )}
 
             <div className="max-w-6xl mx-auto px-6 md:px-12">
-                {useChoreography ? null : isFeatured ? (
+                {isFeatured ? (
                     <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,340px)_1fr] gap-10 lg:gap-14 items-start">
                         {/* Featured piece */}
                         <motion.div
@@ -108,7 +68,6 @@ export function MotionReelSection({
                                 poster={featuredMotionPiece.poster}
                                 title={featuredMotionPiece.title}
                                 duration={featuredMotionPiece.duration}
-                                priority
                             />
                             <p className="mt-4 text-[10px] uppercase tracking-[0.14em] text-stone-400">
                                 {featuredMotionPiece.category}
@@ -163,7 +122,7 @@ export function MotionReelSection({
                             </Link>
                         </div>
                     </div>
-                ) : useChoreography ? null : (
+                ) : (
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-5 md:gap-6">
                         {motionPieces.map((piece, i) => (
                             <motion.div
@@ -178,7 +137,6 @@ export function MotionReelSection({
                                     poster={piece.poster}
                                     title={piece.title}
                                     duration={piece.duration}
-                                    priority={i === 0}
                                 />
                                 <p className="mt-3.5 text-[10px] uppercase tracking-[0.14em] text-stone-400">
                                     {piece.category}
