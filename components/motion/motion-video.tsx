@@ -6,13 +6,16 @@ import { useReducedMotion } from "framer-motion"
 /**
  * A 9:16 video card.
  *
- * Only the poster loads up front (`preload="none"`); the clip starts fetching
- * and playing when it scrolls into view and pauses when it leaves. Six clips
- * autoplaying at once would otherwise pull ~14MB and peg the decoder.
+ * Playback is hover-triggered, not scroll-triggered. Nothing but the poster is
+ * fetched until the visitor actually points at a clip (`preload="none"`), which
+ * keeps the page weight to a handful of JPEGs instead of streaming ~14MB of
+ * video for clips that may never be watched.
  *
- * Muted autoplay with playsInline is what mobile browsers require; sound is
- * opt-in per card. Under prefers-reduced-motion nothing autoplays and the
- * poster stays until the visitor presses play.
+ * Focus starts playback too, so the reel is reachable by keyboard, and on touch
+ * devices — where there is no hover — a tap on the card plays it.
+ *
+ * Muted + playsInline is what mobile browsers require for programmatic play;
+ * sound is opt-in per card.
  */
 export function MotionVideo({
     src,
@@ -35,26 +38,28 @@ export function MotionVideo({
     const [muted, setMuted] = useState(true)
     const [playing, setPlaying] = useState(false)
 
+    // Pause anything still playing if the card unmounts mid-playback.
     useEffect(() => {
         const el = videoRef.current
-        if (!el || reduced) return
+        return () => {
+            el?.pause()
+        }
+    }, [])
 
-        const io = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    // play() rejects if the browser blocks autoplay; ignore it and
-                    // leave the poster up rather than throwing an unhandled rejection.
-                    el.play().then(() => setPlaying(true)).catch(() => {})
-                } else {
-                    el.pause()
-                    setPlaying(false)
-                }
-            },
-            { threshold: 0.35 },
-        )
-        io.observe(el)
-        return () => io.disconnect()
-    }, [reduced])
+    function start() {
+        const el = videoRef.current
+        if (!el || reduced) return
+        // play() rejects if the browser blocks it; swallow that and leave the
+        // poster up rather than throwing an unhandled rejection.
+        el.play().then(() => setPlaying(true)).catch(() => {})
+    }
+
+    function stop() {
+        const el = videoRef.current
+        if (!el) return
+        el.pause()
+        setPlaying(false)
+    }
 
     function togglePlay() {
         const el = videoRef.current
@@ -84,6 +89,10 @@ export function MotionVideo({
         <div
             className={`group relative overflow-hidden rounded-xl bg-[#F2EEE7] ${className}`}
             style={{ aspectRatio: "9 / 16" }}
+            onMouseEnter={start}
+            onMouseLeave={stop}
+            onFocus={start}
+            onBlur={stop}
         >
             <video
                 ref={videoRef}
@@ -92,7 +101,9 @@ export function MotionVideo({
                 muted
                 loop
                 playsInline
-                preload={priority ? "metadata" : "none"}
+                /* Never "metadata": the point of hover playback is that a visitor
+                   who does not interact pays only for the poster. */
+                preload="none"
                 aria-label={title}
                 onClick={togglePlay}
                 className="absolute inset-0 h-full w-full object-cover cursor-pointer"
