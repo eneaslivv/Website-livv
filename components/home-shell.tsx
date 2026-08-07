@@ -12,6 +12,7 @@ const PortfolioSection = dynamic(() => import("@/components/sections/portfolio-s
   loading: () => <div className="w-full py-24 md:py-32 min-h-[600px]" />,
 })
 const ServicesSection = dynamic(() => import("@/components/sections/services-section").then((mod) => mod.ServicesSection))
+const MotionReelSection = dynamic(() => import("@/components/sections/motion-reel-section").then((mod) => mod.MotionReelSection))
 const MarketplaceSection = dynamic(() => import("@/components/sections/marketplace-section").then((mod) => mod.MarketplaceSection))
 const TestimonialsSection = dynamic(() => import("@/components/sections/testimonials-section").then((mod) => mod.TestimonialsSection))
 const LogoGridSection = dynamic(() => import("@/components/sections/logo-grid-section").then((mod) => mod.LogoGridSection))
@@ -31,6 +32,7 @@ export function HomeShell() {
       <BusinessArtSection />
       <WorkModelSection />
       <PortfolioSection id="work" />
+      <MotionReelSection variant="featured" />
       <ServicesSection id="services" />
       <MarketplaceSection />
       <TestimonialsSection />

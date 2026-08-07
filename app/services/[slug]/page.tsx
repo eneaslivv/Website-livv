@@ -12,6 +12,7 @@ import { ServiceCapabilities } from "@/components/services/service-capabilities"
 import { ServiceProcessAndProof } from "@/components/services/service-process-proof"
 import { TrustedByStrip } from "@/components/services/trusted-by-strip"
 import { ServiceFaqSection } from "@/components/services/service-faq"
+import { MotionReelSection } from "@/components/sections/motion-reel-section"
 import { ServiceFinalCTA } from "@/components/services/service-final-cta"
 import { getServicePageContent } from "@/lib/service-pages-data"
 import { getServiceFaqs } from "@/lib/service-faqs"
@@ -416,6 +417,10 @@ export default function ServiceDetailPage() {
                             process={pageContent.process}
                             proof={pageContent.proof}
                         />
+                        {/* Real motion work is stronger proof than a static
+                            project card, so the reel only renders on this one
+                            service. Carries the editor credit with it. */}
+                        {slug === "motion-narrative" && <MotionReelSection />}
                         <TrustedByStrip />
                         <ServiceFaqSection faqs={faqs} serviceName={data.name} />
                         <ServiceFinalCTA content={pageContent.cta} />
