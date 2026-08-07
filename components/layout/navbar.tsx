@@ -88,7 +88,14 @@ export function Navbar({ isLoaded = true }: NavbarProps) {
                                 height={58}
                                 priority
                                 fetchPriority="high"
-                                className={`h-7 md:h-9 w-auto object-contain ${!isLightPage ? "brightness-0 invert" : ""}`}
+                                /* max-w-none is load-bearing: Tailwind's preflight puts
+                                   max-width:100% on every img, and that 100% resolves
+                                   against this auto-width flex ancestor, whose own width
+                                   depends on the image. Chrome breaks the cycle by
+                                   collapsing the logo to width:0 — it was invisible in
+                                   the navbar in production. With the clamp removed the
+                                   width resolves from the height and aspect ratio. */
+                                className={`h-7 md:h-9 w-auto max-w-none object-contain ${!isLightPage ? "brightness-0 invert" : ""}`}
                             />
                         </Link>
                     </div>

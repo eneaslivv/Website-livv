@@ -4,6 +4,7 @@ import Link from "next/link"
 import { Navbar } from "@/components/layout/navbar"
 import { FooterSection } from "@/components/sections/footer-section"
 import { ProjectArchive } from "@/components/sections/project-archive"
+import { MotionReelSection } from "@/components/sections/motion-reel-section"
 
 export default function WorkPage() {
     return (
@@ -59,6 +60,9 @@ export default function WorkPage() {
                     </section>
 
                     <ProjectArchive />
+
+                    {/* Motion & animation reel — anchor target for the home block */}
+                    <MotionReelSection id="motion" />
 
                     {/* Closing prose section. Renders below the project grid
                         so a reader who scrolled the whole portfolio lands on

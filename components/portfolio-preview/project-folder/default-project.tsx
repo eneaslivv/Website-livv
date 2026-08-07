@@ -306,7 +306,7 @@ export function DefaultProject({
             <div
               className="absolute inset-0 pointer-events-none"
               style={{
-                background: `radial-gradient(120% 90% at 50% 115%, ${accent}2e 0%, ${accent}0f 42%, transparent 72%)`,
+                background: `radial-gradient(120% 90% at 50% 115%, ${accent}1c 0%, ${accent}0a 42%, transparent 72%)`,
               }}
             />
           )}

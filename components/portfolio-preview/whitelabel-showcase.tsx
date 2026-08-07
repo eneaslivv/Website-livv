@@ -75,20 +75,17 @@ export function WhitelabelShowcase() {
       }}
     >
       <motion.div style={{ rotateX, rotateY, transformStyle: "preserve-3d" }} className="relative">
-        {/* Accent halo — picks up the active brand */}
-        <motion.div
-          className="absolute -inset-6 rounded-[32px] pointer-events-none"
-          animate={{ background: `radial-gradient(60% 60% at 60% 40%, ${brand.tint} 0%, transparent 70%)` }}
-          transition={{ duration: 0.8 }}
-        />
+        {/* The accent halo behind the window was removed: a coloured glow is the
+            opposite of the restraint this section is going for, and the window
+            already separates from the plate on its own. */}
 
         {/* App window */}
         <div
           className="relative rounded-2xl overflow-hidden"
           style={{
-            background: "linear-gradient(180deg,#ffffff 0%,#fdfbf9 100%)",
-            border: "1px solid rgba(255,255,255,0.7)",
-            boxShadow: "0 24px 60px rgba(44,36,32,0.16), 0 4px 12px rgba(44,36,32,0.06)",
+            background: "#ffffff",
+            border: "1px solid rgba(44,36,32,0.08)",
+            boxShadow: "0 8px 24px rgba(44,36,32,0.07)",
           }}
         >
           {/* Browser chrome */}
@@ -247,11 +244,11 @@ export function WhitelabelShowcase() {
           className="absolute -left-3 sm:-left-7 -bottom-7 w-[164px] rounded-2xl p-3.5"
           style={{
             transform: "translateZ(60px)",
-            background: "rgba(255,255,255,0.82)",
-            backdropFilter: "blur(24px) saturate(1.4)",
-            WebkitBackdropFilter: "blur(24px) saturate(1.4)",
-            border: "1px solid rgba(255,255,255,0.75)",
-            boxShadow: "0 16px 44px rgba(44,36,32,0.16), inset 0 1px 0 rgba(255,255,255,0.9)",
+            // Solid rather than glass: the blur-plus-inset-highlight treatment
+            // was the most decorative thing in the composition.
+            background: "#ffffff",
+            border: "1px solid rgba(44,36,32,0.08)",
+            boxShadow: "0 10px 28px rgba(44,36,32,0.10)",
           }}
           initial={{ opacity: 0, y: 18, scale: 0.94 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
