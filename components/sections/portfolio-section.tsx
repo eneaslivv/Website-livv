@@ -122,16 +122,13 @@ function PortfolioGrid() {
                          * cover has not yet loaded reads as intentional
                          * brand surface, not a broken white rectangle.
                          *
-                         * For video covers: <video preload="auto"> makes
-                         * HTML5 fetch and render the first frame natively
-                         * on every browser including iOS Safari, even
-                         * without autoplay. That's the still frame the
-                         * user sees on mobile until hover (desktop) or
-                         * a tap triggers play. We do not stack a separate
-                         * Image poster underneath because for items whose
-                         * only media is video, pickPosterCover would have
-                         * to fall through to the brand OG default, which
-                         * would obscure the actual video first frame.
+                         * For video covers: preload="metadata", NOT "auto".
+                         * "auto" was fetching whole clips on first paint —
+                         * the covers in production are 40MB, 36MB and 24MB
+                         * files, about 100MB before the visitor scrolls.
+                         * "metadata" still lets most browsers paint the
+                         * first frame, and the poster below covers the rest.
+                         * The clip itself loads on hover or tap.
                          *
                          * For items with no cover URL at all (a real edge
                          * case, almost never hits production), fall back
@@ -159,7 +156,13 @@ function PortfolioGrid() {
                                         muted
                                         loop
                                         playsInline
-                                        preload="auto"
+                                        /* Only pay for the full clip when there is no
+                                           thumbnail to stand in for the first frame.
+                                           With a poster, metadata is enough and the
+                                           card looks identical — but the listing stops
+                                           downloading a video per card on first paint,
+                                           which was the heaviest thing on mobile. */
+                                        preload="metadata"
                                         poster={item.thumbnail || undefined}
                                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover/card:scale-110"
                                     />
