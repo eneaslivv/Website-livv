@@ -39,21 +39,12 @@ export function ProductHeroVisual({ slug, accent }: { slug: string; accent: stri
 
     return (
         <div className="relative">
-            {/* Accent halo, keyed to the product's colour */}
-            <div
-                aria-hidden
-                className="absolute -inset-x-8 -top-10 bottom-0 pointer-events-none"
-                style={{
-                    background: `radial-gradient(60% 55% at 50% 30%, ${accent}1f 0%, transparent 70%)`,
-                }}
-            />
-
             <motion.div
                 ref={ref}
                 className="relative rounded-xl overflow-hidden bg-white"
                 style={{
                     border: "1px solid #E6E2D8",
-                    boxShadow: "0 24px 64px rgba(9,9,11,0.10), 0 2px 8px rgba(9,9,11,0.04)",
+                    boxShadow: "0 10px 28px rgba(9,9,11,0.07)",
                 }}
                 initial={reduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -90,7 +81,8 @@ export function ProductHeroVisual({ slug, accent }: { slug: string; accent: stri
                 {["YOUR BRANDING", "YOUR DOMAIN", "WHITE-LABEL READY"].map((label, i) => (
                     <motion.span
                         key={label}
-                        className="text-[9px] font-mono uppercase tracking-[0.18em] text-[#78736A]/70"
+                        className="text-[10px] font-semibold uppercase text-[#78736A]/70"
+                        style={{ letterSpacing: "0.15em" }}
                         initial={reduced ? { opacity: 1 } : { opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.4, delay: reduced ? 0 : 0.5 + i * 0.1 }}

@@ -111,34 +111,42 @@ function MarketplaceContent({ id }: { id?: string }) {
                                     backgroundImage: "url('/images/hero-bg.jpg')",
                                     backgroundSize: "cover",
                                     backgroundPosition: "center",
+                                    // Pulls the yellow back toward the warm neutral palette
+                                    filter: "saturate(0.45) brightness(1.05)",
                                 }}
                             />
-                            {/* Warm scrim: keeps the copy readable and pulls the image into the LIVV palette */}
+                            {/* Scrim. Deliberately heavy and desaturating: the source image
+                                is a saturated yellow abstract, and at lower opacity it read
+                                as a photo competing with the copy. Here it survives only as
+                                a faint warm texture. */}
                             <div
                                 className="absolute inset-0"
                                 style={{
                                     background:
-                                        "linear-gradient(108deg, rgba(250,247,243,0.97) 0%, rgba(250,247,243,0.93) 34%, rgba(246,238,231,0.74) 58%, rgba(184,131,110,0.20) 100%)",
+                                        "linear-gradient(108deg, rgba(250,247,243,0.985) 0%, rgba(250,247,243,0.97) 40%, rgba(248,243,237,0.93) 70%, rgba(245,238,231,0.88) 100%)",
                                 }}
                             />
                             <div className="absolute inset-0" style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.6)" }} />
 
                             <div className="relative grid grid-cols-1 lg:grid-cols-[0.92fr_1.08fr] gap-10 lg:gap-14 p-6 sm:p-9 lg:p-12 items-center">
                                 <div>
-                                    <div className="flex items-center gap-2">
-                                        <span
-                                            className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.08em]"
-                                            style={{ backgroundColor: `${featuredProject.accent}1f`, color: featuredProject.accent }}
-                                        >
-                                            <span className="w-1 h-1 rounded-full" style={{ backgroundColor: featuredProject.accent }} />
+                                    {/* Flat labels instead of a tinted pill with a dot. Wide
+                                        positive tracking on small caps, which is what makes
+                                        this kind of micro-label read as considered. */}
+                                    <div className="flex items-center gap-3 text-[10.5px] font-semibold uppercase">
+                                        <span style={{ color: featuredProject.accent, letterSpacing: "0.15em" }}>
                                             White-label ready
                                         </span>
-                                        <span className="text-[10px] uppercase tracking-[0.06em] text-[#8a7e74]">
+                                        <span aria-hidden className="w-3 h-px bg-[#2c2420]/20" />
+                                        <span className="text-[#8a7e74]" style={{ letterSpacing: "0.15em" }}>
                                             Featured product
                                         </span>
                                     </div>
 
-                                    <h3 className="mt-4 text-[clamp(1.6rem,3vw,2.1rem)] font-light leading-[1.15] tracking-tight text-[#2c2420]">
+                                    <h3
+                                        className="mt-5 text-[clamp(1.6rem,3vw,2.1rem)] font-light leading-[1.14] text-[#2c2420]"
+                                        style={{ letterSpacing: "-0.02em" }}
+                                    >
                                         {featuredProject.title} — the operating system for bars, venues and events.
                                     </h3>
                                     <p className="mt-3 text-[14px] leading-relaxed text-[#5c534c] max-w-md">
