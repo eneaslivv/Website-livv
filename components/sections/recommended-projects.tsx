@@ -68,7 +68,7 @@ export function RecommendedProjects() {
                             onMouseLeave={(e) => { const v = e.currentTarget.querySelector('video'); if (v) { v.pause(); v.currentTime = 0 } }}
                         >
                             <div className="absolute inset-0 bg-[#09090B] transition-transform duration-700 group-hover:scale-105">
-                                {/* preload="auto" lets <video> render the
+                                {/* preload="metadata" lets most browsers paint the
                                  *   first frame natively on mobile even
                                  *   without autoplay. The dark bg
                                  *   (#09090B) is the visible surface
@@ -79,7 +79,7 @@ export function RecommendedProjects() {
                                         muted
                                         loop
                                         playsInline
-                                        preload="auto"
+                                        preload="metadata"
                                         poster={project.thumbnail || project.image || undefined}
                                         className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-opacity duration-500"
                                     />

@@ -275,7 +275,7 @@ export function ProjectArchive() {
                                                             muted
                                                             loop
                                                             playsInline
-                                                            preload="auto"
+                                                            preload="metadata"
                                                             poster={project.thumbnail || undefined}
                                                             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                                         />
