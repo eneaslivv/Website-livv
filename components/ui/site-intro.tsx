@@ -45,12 +45,16 @@ export function SiteIntro() {
             /* storage disabled — treat as unseen */
         }
 
+        // ?intro=1 forces it, so the intro can be reviewed without having to
+        // close the browser to clear the session flag.
+        const forced = new URLSearchParams(window.location.search).get("intro") === "1"
+
         // Note: deliberately NOT gated on document.readyState. On a fast
         // connection the document is already "complete" before React hydrates,
         // which skipped the intro every single time. It is a brand beat, so it
         // runs on the session's first view regardless — kept short, because it
         // does delay first content and that cost is real.
-        if (reduced || seen) return
+        if (!forced && (reduced || seen)) return
 
         try {
             window.sessionStorage.setItem(SESSION_KEY, "1")
