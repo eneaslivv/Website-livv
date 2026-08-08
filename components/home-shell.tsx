@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic"
 import { HeroSection } from "@/components/sections/hero-section"
+import { HeroReveal } from "@/components/ui/hero-reveal"
 
 const ClientLogoSlider = dynamic(() => import("@/components/sections/client-logo-slider").then((mod) => mod.ClientLogoSlider))
 const AnalyticsSection = dynamic(() => import("@/components/sections/analytics-section").then((mod) => mod.AnalyticsSection))
@@ -26,7 +27,9 @@ const FooterSection = dynamic(() => import("@/components/sections/footer-section
 export function HomeShell() {
   return (
     <>
-      <HeroSection />
+      <HeroReveal>
+        <HeroSection />
+      </HeroReveal>
       <ClientLogoSlider />
       <AnalyticsSection />
       <BusinessArtSection />

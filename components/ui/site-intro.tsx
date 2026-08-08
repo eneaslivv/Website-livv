@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { INTRO_DONE_EVENT, introWillRun, markIntroShown } from "@/lib/intro-state"
 
 /**
  * First-load intro: a full-bleed cream panel with a counter that fills, then
@@ -16,15 +17,20 @@ import { useEffect, useRef, useState } from "react"
  * site's perceived performance and accessibility:
  *   - Once per session. A curtain on every navigation is punishment, not polish.
  *   - Skipped entirely under prefers-reduced-motion.
- *   - Kept to ~1.1s max. It delays first content, which is a real cost.
+ *   - Kept to ~1.1s max on desktop, 650ms on mobile, where it lands on LCP.
  *   - Hard capped, so a slow asset can never hold the page hostage.
  *   - aria-hidden and pointer-events-none on the way out; the real content is
  *     always in the HTML underneath, so crawlers and screen readers are
  *     unaffected.
  */
 
-const SESSION_KEY = "__livv_intro_shown"
-const MAX_DURATION = 1100
+/**
+ * Mobile gets a shorter beat. The intro sits in front of first content, so on a
+ * phone it lands directly on LCP — the metric that matters most there and the
+ * one on the slowest connections. 650ms still registers as intentional.
+ */
+const MAX_DURATION_DESKTOP = 1100
+const MAX_DURATION_MOBILE = 650
 const EXIT_MS = 1150
 
 export function SiteIntro() {
@@ -37,33 +43,15 @@ export function SiteIntro() {
         // Decide synchronously on mount whether this visit gets an intro at all.
         if (typeof window === "undefined") return
 
-        const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        let seen = false
-        try {
-            seen = window.sessionStorage.getItem(SESSION_KEY) === "1"
-        } catch {
-            /* storage disabled — treat as unseen */
-        }
-
-        // ?intro=1 forces it, so the intro can be reviewed without having to
-        // close the browser to clear the session flag.
-        const forced = new URLSearchParams(window.location.search).get("intro") === "1"
-
-        // Note: deliberately NOT gated on document.readyState. On a fast
-        // connection the document is already "complete" before React hydrates,
-        // which skipped the intro every single time. It is a brand beat, so it
-        // runs on the session's first view regardless — kept short, because it
-        // does delay first content and that cost is real.
-        if (!forced && (reduced || seen)) return
-
-        try {
-            window.sessionStorage.setItem(SESSION_KEY, "1")
-        } catch {
-            /* non-fatal */
-        }
+        if (!introWillRun()) return
+        markIntroShown()
 
         setMounted(true)
         document.documentElement.style.overflow = "hidden"
+
+        const isSmall = window.matchMedia("(max-width: 767px)").matches
+        const maxDuration = isSmall ? MAX_DURATION_MOBILE : MAX_DURATION_DESKTOP
+        const floorMs = isSmall ? 420 : 700
 
         const started = performance.now()
         let done = false
@@ -74,6 +62,8 @@ export function SiteIntro() {
             setPct(100)
             setLeaving(true)
             document.documentElement.style.overflow = ""
+            // The hero listens for this to run its opening reveal.
+            window.dispatchEvent(new Event(INTRO_DONE_EVENT))
             window.setTimeout(() => setMounted(false), EXIT_MS)
         }
 
@@ -82,7 +72,7 @@ export function SiteIntro() {
         // progress rather than a fixed fake animation.
         function tick() {
             const elapsed = performance.now() - started
-            const ratio = Math.min(elapsed / MAX_DURATION, 1)
+            const ratio = Math.min(elapsed / maxDuration, 1)
             // ease-out so it decelerates instead of running linearly to 100
             const eased = 1 - Math.pow(1 - ratio, 2)
             setPct(Math.round(eased * 100))
@@ -98,11 +88,11 @@ export function SiteIntro() {
             // Give the counter a beat to catch up rather than snapping from 30%.
             const elapsed = performance.now() - started
             // Floor the visible duration so it never flashes for 80ms.
-            window.setTimeout(finish, Math.max(0, 700 - elapsed))
+            window.setTimeout(finish, Math.max(0, floorMs - elapsed))
         }
         window.addEventListener("load", onLoad)
 
-        const hardStop = window.setTimeout(finish, MAX_DURATION + 200)
+        const hardStop = window.setTimeout(finish, maxDuration + 200)
 
         return () => {
             cancelAnimationFrame(rafRef.current)
