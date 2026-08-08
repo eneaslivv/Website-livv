@@ -58,10 +58,10 @@ export function MotionReelSection({
                     <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,340px)_1fr] gap-10 lg:gap-14 items-start">
                         {/* Featured piece */}
                         <motion.div
-                            initial={{ opacity: 0, y: 16 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={{ opacity: 0, y: 40, scale: 0.96 }}
+                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
                             viewport={{ once: true, margin: "-80px" }}
-                            transition={{ duration: 0.6, ease: EASE }}
+                            transition={{ duration: 0.7, ease: EASE }}
                         >
                             <MotionVideo
                                 src={featuredMotionPiece.src}
@@ -86,10 +86,14 @@ export function MotionReelSection({
                                 {rest.slice(0, 3).map((piece, i) => (
                                     <motion.div
                                         key={piece.slug}
-                                        initial={{ opacity: 0, y: 14 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
+                                        initial={{ opacity: 0, y: 48, scale: 0.94 }}
+                                        whileInView={{ opacity: 1, y: 0, scale: 1 }}
                                         viewport={{ once: true, margin: "-60px" }}
-                                        transition={{ duration: 0.5, delay: i * 0.08, ease: EASE }}
+                                        /* 0.35s head start so the featured clip reads as
+                                           leading, then 0.14s between each follower — the
+                                           "one at a time" the sticky version was after,
+                                           without pinning the page or hiding anything. */
+                                        transition={{ duration: 0.65, delay: 0.35 + i * 0.14, ease: EASE }}
                                     >
                                         <MotionVideo
                                             src={piece.src}
@@ -127,10 +131,10 @@ export function MotionReelSection({
                         {motionPieces.map((piece, i) => (
                             <motion.div
                                 key={piece.slug}
-                                initial={{ opacity: 0, y: 16 }}
-                                whileInView={{ opacity: 1, y: 0 }}
+                                initial={{ opacity: 0, y: 48, scale: 0.94 }}
+                                whileInView={{ opacity: 1, y: 0, scale: 1 }}
                                 viewport={{ once: true, margin: "-60px" }}
-                                transition={{ duration: 0.5, delay: Math.min(i * 0.06, 0.3), ease: EASE }}
+                                transition={{ duration: 0.65, delay: i * 0.12, ease: EASE }}
                             >
                                 <MotionVideo
                                     src={piece.src}
