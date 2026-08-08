@@ -11,7 +11,12 @@ import { MenuButton } from "./menu-button"
 import { Sparkles } from "./sparkles"
 import { ProductScreen } from "./product-screen"
 
-const PANEL_H = 380
+/**
+ * Visual area height. Narrow cards get a shorter panel — at 380px a phone-width
+ * card was mostly mockup, which made the grid enormous to scroll.
+ */
+const PANEL_H_WIDE = 380
+const PANEL_H_NARROW = 268
 
 /**
  * One dominant 16:10 mockup with two secondary screens peeking behind it.
@@ -295,7 +300,7 @@ export function DefaultProject({
             },
           }}
           style={{
-            height: `${PANEL_H}px`,
+            height: `${panelW < 360 ? PANEL_H_NARROW : PANEL_H_WIDE}px`,
             border: "1px solid rgba(44, 36, 32, 0.08)",
             transformStyle: "preserve-3d",
             transformOrigin: "center bottom",
@@ -437,17 +442,25 @@ export function DefaultProject({
               style={{ opacity: isEditing ? 0 : 1, pointerEvents: isEditing ? "none" : "auto" }}
             >
               {!isGenerating && (
-                <div className="flex items-center gap-2 mb-2">
+                /* Flat label, no pill. The pill wrapped onto two lines on a
+                   phone and collided with the category beside it. The category
+                   is dropped on narrow cards rather than shown truncated to
+                   "CREATO…", which told the reader nothing. */
+                <div className="flex items-center gap-2 mb-1.5 min-w-0">
                   <span
-                    className="inline-flex items-center gap-1 rounded-full px-2 py-[3px] text-[9px] font-medium uppercase tracking-[0.08em]"
-                    style={{ backgroundColor: `${accent}1a`, color: accent }}
+                    className="text-[9px] font-semibold uppercase whitespace-nowrap"
+                    style={{ color: accent, letterSpacing: "0.12em" }}
                   >
-                    <span className="w-1 h-1 rounded-full" style={{ backgroundColor: accent }} />
-                    White-label ready
+                    White-label
                   </span>
-                  <span className="text-[10px] uppercase tracking-[0.05em] text-[#8a7e74]/70 truncate">
-                    {project.category}
-                  </span>
+                  {panelW >= 360 && (
+                    <>
+                      <span aria-hidden className="w-2.5 h-px shrink-0 bg-[#2c2420]/20" />
+                      <span className="text-[9.5px] uppercase tracking-[0.1em] text-[#8a7e74]/70 truncate">
+                        {project.category}
+                      </span>
+                    </>
+                  )}
                 </div>
               )}
               <h3
@@ -459,11 +472,11 @@ export function DefaultProject({
                 {isGenerating ? "Partner with us and resell your app directly." : project.outcome || project.description}
               </p>
               {!isGenerating && (project.modules?.length || project.licenseFrom) ? (
-                <div className="flex items-baseline gap-3 mt-2">
+                <div className={`mt-2 gap-x-3 ${panelW < 360 ? "flex flex-col gap-y-0.5" : "flex items-baseline"}`}>
                   <p className="text-[11px] text-[#8a7e74] truncate flex-1">{project.modules?.join(" · ")}</p>
                   {project.licenseFrom ? (
                     <p className="text-[11px] text-[#8a7e74]/80 whitespace-nowrap">
-                      License from <span className="font-medium text-[#2c2420]/70">${project.licenseFrom}</span>/mo
+                      From <span className="font-medium text-[#2c2420]/70">${project.licenseFrom}</span>/mo
                     </p>
                   ) : null}
                 </div>
