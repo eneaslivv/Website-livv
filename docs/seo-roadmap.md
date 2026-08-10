@@ -67,7 +67,7 @@ integration`, `RAG vs fine-tuning`, `custom AI chatbot development`,
 - [x] **The Cost of AI Integration: What to Budget in 2026** `the-cost-of-ai-integration-what-to-budget-in-2026`
       Pricing guide, ~2,500 words. Per-token + per-month subscription +
       development costs.
-- [~] **RAG vs Fine-Tuning: Which AI Approach Fits Your Business**
+- [x] **RAG vs Fine-Tuning: Which AI Approach Fits Your Business** `rag-vs-fine-tuning-which-ai-approach-fits-your-business`
       Technical accessible, ~2,500 words.
 - [ ] **How to Build a Custom AI Chatbot for Your Website**
       Tutorial, ~2,800 words. Anthropic Claude API stack.
