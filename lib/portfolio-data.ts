@@ -18,6 +18,7 @@ export interface Project {
   licenseFrom?: number
   screen?: ScreenVariant
   accent?: string
+  heroImage?: string
   featured?: boolean
 }
 
