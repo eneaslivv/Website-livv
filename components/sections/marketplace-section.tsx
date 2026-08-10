@@ -89,10 +89,10 @@ function MarketplaceContent({ id }: { id?: string }) {
                     </div>
 
                     {/* ---------- Product index ---------- */}
-                    {/* Line-based, one row per product, with the art revealed on
-                        hover. Replaces a featured block plus a card grid that both
-                        leaned on rendered dashboard mockups — a lot of visual weight
-                        carrying very little information. */}
+                    {/* Dark plate, numbered cells, flat until hovered — where the
+                        art comes in. Replaces a featured block plus a card grid that
+                        both leaned on rendered dashboard mockups: a lot of visual
+                        weight carrying very little information. */}
                     <div ref={gridRef} className="mt-16 scroll-mt-28">
                         <div className="flex items-baseline justify-between gap-6 mb-6">
                             <p className="text-[10px] font-semibold uppercase text-[#8a7e74]" style={{ letterSpacing: "0.16em" }}>
