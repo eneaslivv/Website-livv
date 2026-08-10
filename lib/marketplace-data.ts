@@ -18,6 +18,13 @@ export interface Project {
     /** Which UI mock to render in the card's visual area */
     screen: ScreenVariant
     accent: string
+    /**
+     * Background image revealed on hover in the product index. Optional on
+     * purpose: until real art exists the row falls back to a soft accent wash,
+     * so nothing looks broken and no placeholder art gets shipped. Drop a path
+     * here per product and that row switches to image + scrim automatically.
+     */
+    heroImage?: string
     featured?: boolean
     clipCount: number
     createdAt: string
