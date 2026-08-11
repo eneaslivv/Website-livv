@@ -238,7 +238,7 @@ export function PortfolioSection({ id }: { id?: string }) {
                 <AnimatedBorders className="hidden md:block" />
 
                 {/* Section Header */}
-                <div className="mx-6 md:mx-12 border-t border-dashed border-[#D1CDC2] relative z-10" />
+                <div className="mx-6 md:mx-12 border-t border-dashed border-[#B8B1A4]/60 relative z-10" />
 
                 <div className="w-full pt-24 md:pt-32 flex flex-col md:flex-row justify-between items-center gap-8 mb-12 md:mb-16 px-10 md:px-24 relative z-10">
                     <div>

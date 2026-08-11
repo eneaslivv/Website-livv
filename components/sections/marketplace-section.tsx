@@ -70,7 +70,7 @@ function MarketplaceContent({ id }: { id?: string }) {
             style={{ backgroundColor: dark ? PRODUCT_INDEX_BG : "var(--background)" }}
         >
             <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-                <AnimatedBorders className="hidden md:block" />
+                <AnimatedBorders className="hidden md:block" tone={dark ? "dark" : "light"} />
 
                 <div className="w-full max-w-[288px] sm:max-w-[600px] lg:max-w-[912px] xl:max-w-[1152px] mx-auto">
                     {/* ---------- Narrative header ---------- */}

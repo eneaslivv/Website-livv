@@ -319,7 +319,7 @@ export default function ProductDetailPage() {
             <main className="relative z-10 pt-40 pb-0">
                 {/* 1. HERO */}
                 <section className="px-6 md:px-12 max-w-[100rem] mx-auto mb-16 md:mb-24 relative">
-                    <AnimatedBorders className="hidden md:block opacity-30" />
+                    <AnimatedBorders className="hidden md:block" />
 
                     <div className="flex flex-col gap-6 md:gap-8 px-4 md:px-8 mb-16">
                         <div className="flex items-center gap-3">

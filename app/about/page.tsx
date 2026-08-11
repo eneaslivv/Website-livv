@@ -70,7 +70,7 @@ export default function AboutPage() {
 
                 {/* Intro Text - ALREADY ANIMATED WITH SCROLLTYPEWRITER */}
                 <section className="py-20 md:py-32 px-6 bg-[#FAFAFA] border-b border-[#1a1a1a]/5 relative group">
-                    <AnimatedBorders className="hidden md:block pointer-events-none opacity-20 absolute inset-0 z-0" />
+                    <AnimatedBorders className="hidden md:block pointer-events-none absolute inset-0 z-0" />
                     <div className="max-w-4xl mx-auto text-center relative z-10">
                         <ScrollTypewriter as="h2" className="section-heading text-[#1a1a1a] mb-10 block">
                             We design digital products that work like <span className="font-light tracking-[-0.08em] text-gradient-gold">living organisms.</span>
@@ -96,7 +96,7 @@ export default function AboutPage() {
                     editorial brief 6.1 voice rules. */}
                 <SectionReveal>
                     <section id="manifesto" className="py-24 md:py-40 px-6 bg-white border-b border-[#1a1a1a]/5 relative overflow-hidden">
-                        <AnimatedBorders className="hidden md:block pointer-events-none opacity-15 absolute inset-0 z-0" />
+                        <AnimatedBorders className="hidden md:block pointer-events-none absolute inset-0 z-0" />
 
                         {/* Number marker in the corner, editorial print feel */}
                         <span className="hidden md:block absolute top-12 right-12 text-[10px] font-mono uppercase tracking-[0.3em] text-[#1a1a1a]/30 z-10">
@@ -210,7 +210,7 @@ export default function AboutPage() {
 
                 {/* Team */}
                 <section id="team" className="py-20 md:py-32 px-6 bg-[#FAFAFA] border-b border-[#1a1a1a]/5 relative">
-                    <AnimatedBorders className="hidden md:block pointer-events-none opacity-20 absolute inset-0 z-0" />
+                    <AnimatedBorders className="hidden md:block pointer-events-none absolute inset-0 z-0" />
                     <SectionReveal className="max-w-6xl mx-auto relative z-10">
                         <h2 className="section-heading text-[#1a1a1a] mb-8 relative z-10">Senior Team Only</h2>
                         <div className="grid grid-cols-2 gap-4 relative z-10 min-h-[500px]">
@@ -274,7 +274,7 @@ export default function AboutPage() {
                 {/* Process Section */}
                 <SectionReveal>
                     <section className="py-20 md:py-32 px-6 bg-[#FAFAFA] text-[#1a1a1a] relative border-b border-[#1a1a1a]/5">
-                        <AnimatedBorders className="hidden md:block pointer-events-none opacity-20 absolute inset-0 z-0" />
+                        <AnimatedBorders className="hidden md:block pointer-events-none absolute inset-0 z-0" />
                         <div className="max-w-6xl mx-auto relative z-10">
                             {/* Horizontal Cards Timeline */}
                             <ProcessTimeline />
@@ -286,7 +286,7 @@ export default function AboutPage() {
 
                 {/* FAQ */}
                 <section className="py-20 md:py-32 px-6 bg-[#FAFAFA] relative group">
-                    <AnimatedBorders className="hidden md:block pointer-events-none opacity-20 absolute inset-0 z-0" />
+                    <AnimatedBorders className="hidden md:block pointer-events-none absolute inset-0 z-0" />
                     <div className="max-w-3xl mx-auto relative z-10">
                         <h2 className="section-heading text-[#1a1a1a] mb-12">Frequently Asked Questions</h2>
                         <div className="space-y-4">
@@ -330,7 +330,7 @@ export default function AboutPage() {
                     no banned vocab, no rule-of-three rhetorical. */}
                 <SectionReveal>
                     <section id="practice" className="py-20 md:py-32 px-6 bg-[#FAFAFA] border-b border-[#1a1a1a]/5 relative">
-                        <AnimatedBorders className="hidden md:block pointer-events-none opacity-15 absolute inset-0 z-0" />
+                        <AnimatedBorders className="hidden md:block pointer-events-none absolute inset-0 z-0" />
                         <div className="max-w-4xl mx-auto relative z-10">
                             <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-[#1a1a1a]/40 mb-6 block">
                                 ✦  How we operate  ✦
