@@ -11,6 +11,11 @@ interface AnimatedBordersProps {
     showBottom?: boolean
     fullWidth?: boolean
     color?: string
+    /**
+     * Section tone. Dark sections need a light rule or the grid vanishes; the
+     * default cream tone is for the light background the rest of the site uses.
+     */
+    tone?: "light" | "dark"
 }
 
 export function AnimatedBorders({
@@ -20,8 +25,18 @@ export function AnimatedBorders({
     showTop = false,
     showBottom = false,
     fullWidth = false,
-    color = "#D1CDC2"
+    color,
+    tone = "light",
 }: AnimatedBordersProps) {
+    /**
+     * Rule opacity lives here, once, so every section renders the same grid.
+     * It used to be 0.3 against #D1CDC2 on cream, which is roughly a 4% contrast
+     * step and effectively invisible — and /about then multiplied it down again
+     * with wrapper opacities, so the same grid was five times fainter there than
+     * anywhere else. One value, applied everywhere.
+     */
+    const lineColor = color ?? (tone === "dark" ? "#F5F0EB" : "#B8B1A4")
+    const lineOpacity = tone === "dark" ? 0.22 : 0.55
     const [randomOffset] = useState(() => Math.random() * 10)
 
     // REFINED GRADIENT: Softer falloff and deeper atmosphere
@@ -54,16 +69,16 @@ export function AnimatedBorders({
 
             {/* STATIC DASHED LINES (The Architecture) */}
             {showLeft && (
-                <div className="absolute left-6 md:left-12 top-0 bottom-0 w-[1px] border-l border-dashed opacity-30" style={{ borderColor: color }} />
+                <div className="absolute left-6 md:left-12 top-0 bottom-0 w-[1px] border-l border-dashed" style={{ borderColor: lineColor, opacity: lineOpacity }} />
             )}
             {showRight && (
-                <div className="absolute right-6 md:right-12 top-0 bottom-0 w-[1px] border-r border-dashed opacity-30" style={{ borderColor: color }} />
+                <div className="absolute right-6 md:right-12 top-0 bottom-0 w-[1px] border-r border-dashed" style={{ borderColor: lineColor, opacity: lineOpacity }} />
             )}
             {showTop && (
-                <div className={`absolute top-0 ${fullWidth ? "left-0 right-0" : "left-6 md:left-12 right-6 md:right-12"} h-[1px] border-t border-dashed opacity-30`} style={{ borderColor: color }} />
+                <div className={`absolute top-0 ${fullWidth ? "left-0 right-0" : "left-6 md:left-12 right-6 md:right-12"} h-[1px] border-t border-dashed`} style={{ borderColor: lineColor, opacity: lineOpacity }} />
             )}
             {showBottom && (
-                <div className={`absolute bottom-0 ${fullWidth ? "left-0 right-0" : "left-6 md:left-12 right-6 md:right-12"} h-[1px] border-b border-dashed opacity-30`} style={{ borderColor: color }} />
+                <div className={`absolute bottom-0 ${fullWidth ? "left-0 right-0" : "left-6 md:left-12 right-6 md:right-12"} h-[1px] border-b border-dashed`} style={{ borderColor: lineColor, opacity: lineOpacity }} />
             )}
 
             {/* CONTINUOUS TRAVELLING PARTICLES */}

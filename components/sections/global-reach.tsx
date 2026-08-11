@@ -24,7 +24,7 @@ export function GlobalReachSection() {
     return (
         <SectionReveal>
             <section ref={sectionRef} className="py-24 md:py-36 px-6 overflow-hidden bg-[#FAFAFA] text-[#1a1a1a] relative group border-b border-[#1a1a1a]/5">
-                <AnimatedBorders className="hidden md:block pointer-events-none opacity-20 absolute inset-0 z-0" />
+                <AnimatedBorders className="hidden md:block pointer-events-none absolute inset-0 z-0" />
 
                 {/* Subtle light background texture */}
                 <div className="absolute inset-0 opacity-[0.02] bg-[radial-gradient(#000000_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"></div>
