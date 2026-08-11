@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react"
 import { motion, useReducedMotion } from "framer-motion"
+import { AnimatedBorders } from "@/components/ui/animated-borders"
 
 /**
  * Shared editorial primitives for the service page sections.
@@ -105,7 +106,11 @@ export function ServiceSection({
 }) {
   return (
     <section aria-label={ariaLabel} className={`w-full relative z-20 ${className}`}>
-      <div className="max-w-5xl mx-auto px-6">{children}</div>
+      {/* The site-wide dashed grid. Every service block routes through this
+          shell, so adding it once keeps the rules continuous down the page
+          instead of cutting out across the service sections. */}
+      <AnimatedBorders className="hidden md:block" />
+      <div className="max-w-5xl mx-auto px-6 relative z-10">{children}</div>
     </section>
   )
 }
