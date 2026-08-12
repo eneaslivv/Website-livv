@@ -69,10 +69,26 @@ export function ProductIndex({ products }: { products: Project[] }) {
                                         sizes="(max-width: 768px) 100vw, 50vw"
                                         className="object-cover"
                                     />
+                                    {/* Legibility without smothering the art.
+                                        A flat scrim over the whole cell buried the
+                                        image; instead the top stays almost clear and
+                                        a masked blur band sits under the copy, so the
+                                        photograph reads and the text still holds. */}
                                     <div
                                         className="absolute inset-0"
                                         style={{
-                                            background: `linear-gradient(180deg, rgba(30,42,39,0.35) 0%, rgba(30,42,39,0.78) 55%, rgba(30,42,39,0.95) 100%)`,
+                                            background:
+                                                "linear-gradient(180deg, rgba(30,42,39,0.55) 0%, rgba(30,42,39,0.10) 26%, rgba(30,42,39,0.14) 46%, rgba(30,42,39,0.52) 78%, rgba(30,42,39,0.80) 100%)",
+                                        }}
+                                    />
+                                    <div
+                                        className="absolute inset-x-0 bottom-0 h-[62%]"
+                                        style={{
+                                            backdropFilter: "blur(16px) saturate(1.05)",
+                                            WebkitBackdropFilter: "blur(16px) saturate(1.05)",
+                                            // Feathers the blur upward so there is no visible seam
+                                            maskImage: "linear-gradient(to top, #000 26%, transparent 100%)",
+                                            WebkitMaskImage: "linear-gradient(to top, #000 26%, transparent 100%)",
                                         }}
                                     />
                                 </motion.div>

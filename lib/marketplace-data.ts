@@ -49,6 +49,7 @@ export const projects: Project[] = [
         licenseFrom: 49,
         screen: "pos",
         accent: "#b8836e",
+        heroImage: "/images/products/payper-hover.jpg",
         featured: true,
         clipCount: 14,
         createdAt: "2024-10-20",
