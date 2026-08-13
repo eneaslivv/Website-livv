@@ -80,7 +80,7 @@ export function RecommendedProjects() {
                                         loop
                                         playsInline
                                         preload="metadata"
-                                        poster={project.thumbnail || project.image || undefined}
+                                        poster={project.thumbnail || project.image || pickPosterCover(project)}
                                         className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-opacity duration-500"
                                     />
                                 )}
