@@ -126,8 +126,13 @@ function PortfolioGrid() {
                          * "auto" was fetching whole clips on first paint —
                          * the covers in production are 40MB, 36MB and 24MB
                          * files, about 100MB before the visitor scrolls.
-                         * "metadata" still lets most browsers paint the
-                         * first frame, and the poster below covers the rest.
+                         *
+                         * But "metadata" alone does NOT paint a first frame on
+                         * mobile, and these items have no thumbnail, so the
+                         * cards rendered as black rectangles on phones. The
+                         * poster is therefore never left undefined: it falls
+                         * back through pickPosterCover, which always returns a
+                         * real static URL. A brand image beats a black hole.
                          * The clip itself loads on hover or tap.
                          *
                          * For items with no cover URL at all (a real edge
@@ -163,7 +168,7 @@ function PortfolioGrid() {
                                            downloading a video per card on first paint,
                                            which was the heaviest thing on mobile. */
                                         preload="metadata"
-                                        poster={item.thumbnail || undefined}
+                                        poster={item.thumbnail || pickPosterCover(item)}
                                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover/card:scale-110"
                                     />
                                 )

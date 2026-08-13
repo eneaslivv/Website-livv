@@ -13,7 +13,9 @@ const inter = Inter({ subsets: ["latin"] })
 import { usePortfolioItems } from "@/hooks/usePublicData"
 import { PortfolioItem } from "@/types/livv-os"
 import { trackPortfolioItemClick } from "@/lib/analytics"
-import { pickDisplayCover, isVideoCoverUrl } from "@/lib/default-project-blocks"
+import { pickDisplayCover, isVideoCoverUrl,
+    pickPosterCover,
+} from "@/lib/default-project-blocks"
 
 // Shared with portfolio-section.tsx and recommended-projects.tsx via the helper.
 const isVideoUrl = (url: string) => isVideoCoverUrl(url)
@@ -276,7 +278,7 @@ export function ProjectArchive() {
                                                             loop
                                                             playsInline
                                                             preload="metadata"
-                                                            poster={project.thumbnail || undefined}
+                                                            poster={project.thumbnail || pickPosterCover(project)}
                                                             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                                         />
                                                     )

@@ -32,6 +32,38 @@ function pickCover(item: PortfolioItem): string | undefined {
 }
 
 /**
+ * First frames extracted from CMS video covers that have no static media of
+ * their own, keyed by the video's filename (stable in Supabase storage).
+ *
+ * Without these the poster fell all the way through to /assets/og-image.png,
+ * which does not exist in /public and 404s. A failed poster paints nothing, so
+ * on mobile — where preload="metadata" does not render a first frame — those
+ * cards showed as black rectangles.
+ *
+ * Frames are committed at ~50-60KB each, against 24MB and 36MB source videos.
+ */
+const VIDEO_COVER_FRAMES: Record<string, string> = {
+    "1773862659218": "/images/portfolio-posters/1773862659218.jpg",
+    "1773673216180": "/images/portfolio-posters/1773673216180.jpg",
+}
+
+/** Matches an extracted frame against any video URL on the item. */
+function frameForItem(item: PortfolioItem): string | undefined {
+    const urls = [
+        item.thumbnail,
+        item.image,
+        ...(item.media?.map((m) => m.url) ?? []),
+    ].filter(Boolean) as string[]
+
+    for (const url of urls) {
+        if (!isVideoCoverUrl(url)) continue
+        const id = url.split("/").pop()?.replace(/\.[a-z0-9]+$/i, "")
+        if (id && VIDEO_COVER_FRAMES[id]) return VIDEO_COVER_FRAMES[id]
+    }
+    return undefined
+}
+
+/**
  * Static-image fallback for use as a video poster, or as the cover itself
  * when the resolved cover would be a video and the consuming surface wants
  * a still image (e.g., listing cards on mobile where autoplay is blocked
@@ -41,8 +73,9 @@ function pickCover(item: PortfolioItem): string | undefined {
  *   1. `item.thumbnail` if it is a static image (not a video URL).
  *   2. The first non-video URL in `item.media[]`.
  *   3. `item.image` if it itself is a static image.
- *   4. Site OG default (`/assets/og-image.png`) — ships in /public, always
- *      resolvable, branded.
+ *   4. A first frame extracted from the item's own video cover, if one has
+ *      been committed for it.
+ *   5. `/assets/logo-bg-1.jpg` — a real file in /public, branded.
  *
  * This guarantees every visible card has SOMETHING to show instead of a
  * blank white box while a video element fails to autoplay or while a
@@ -61,7 +94,14 @@ export function pickPosterCover(item: PortfolioItem): string {
     const image = normalizeCoverUrl(item.image)
     if (image && !isVideoCoverUrl(image)) return image
 
-    return "/assets/og-image.png"
+    // A frame pulled from the item's own video beats any generic brand art.
+    const frame = frameForItem(item)
+    if (frame) return frame
+
+    // Last resort. This used to point at /assets/og-image.png, which is not in
+    // /public — the poster 404'd and the card rendered black. logo-bg-1.jpg is
+    // a real file and is at least a branded surface.
+    return "/assets/logo-bg-1.jpg"
 }
 
 /**
