@@ -224,9 +224,17 @@ const SCOPE_QUESTIONS: Question[] = [
 ]
 
 // --- Pricing helper ---
+// Calibrated against the quoting service (livv.quoting): PRICING.floor is
+// 1500 — "never quote below this for a whole project" — and the live
+// service_pricing catalog tops out around $3,000 for a full platform build.
+// The old base of 800 meant a visitor who skipped every question was shown
+// $800–$1,280, undercutting the studio's own floor by almost half.
+const QUOTE_FLOOR_USD = 1500
+
 function computeEstimate(score: number): { low: string; high: string } {
   const base = 800
-  const low = Math.round((base + score * 420) / 100) * 100
+  const raw = Math.round((base + score * 420) / 100) * 100
+  const low = Math.max(QUOTE_FLOOR_USD, raw)
   const high = Math.round((low * 1.6) / 100) * 100
   return {
     low: low.toLocaleString("en-US"),
@@ -259,6 +267,11 @@ export function QuotingFlow({
   const [emailSubmitted, setEmailSubmitted] = useState(false)
   const [selectedOption, setSelectedOption] = useState<string | null>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
+  // Extra details typed into the post-estimate chat, so they reach the CRM
+  // instead of dying in the UI.
+  const chatDetailsRef = useRef<string[]>([])
+  // Guards double-submission (Enter + click, double click).
+  const leadSentRef = useRef(false)
 
   // Initialize with first question
   useEffect(() => {
@@ -330,10 +343,14 @@ export function QuotingFlow({
 
   const handleOptionClick = useCallback(
     (option: string) => {
+      // Pills stay visible for 350ms after the first pick; a double-click (or
+      // two different picks in that window) advanced the flow twice and
+      // double-counted the score. First pick wins.
+      if (selectedOption) return
       setSelectedOption(option)
       setTimeout(() => advanceQuestion(option), 350)
     },
-    [advanceQuestion],
+    [advanceQuestion, selectedOption],
   )
 
   const handleSkip = useCallback(() => {
@@ -344,6 +361,33 @@ export function QuotingFlow({
     if (!emailInput.trim() || !emailInput.includes("@")) return
     setEmailSubmitted(true)
     setMessages((prev) => [...prev, { role: "user", text: emailInput.trim(), type: "text" }])
+
+    // The lead is captured HERE, the moment we have an email — not on the
+    // schedule-a-call click. Before this, a visitor who answered every
+    // question, handed over their email and read the estimate produced no
+    // lead at all unless they also clicked the CTA. The team never heard
+    // about them. Capturing at email time is the whole point of asking.
+    if (!leadSentRef.current) {
+      leadSentRef.current = true
+      const est = computeEstimate(complexityScore)
+      const designIncluded = answers.some((a) => a.includes("Design"))
+      const scope = designIncluded ? "design + development" : answers.some((a) => a === "Design only") ? "design" : "development"
+      const tl = answers.find((a) => ["No rush", "Within a month", "ASAP"].includes(a)) || "flexible"
+      submitLead({
+        name: emailInput.split("@")[0],
+        email: emailInput.trim(),
+        message: [
+          `Service: ${badge.label}`,
+          `Scope: ${scope}`,
+          `Selections: ${answers.filter((a) => a !== "skipped").join(", ")}`,
+          `Timeline: ${tl}`,
+          `Estimated range shown: $${est.low} – $${est.high} USD`,
+        ].join("\n"),
+        origin: "Quoting Flow",
+        source: "website",
+        category: "quote",
+      }).catch((err) => console.error("Failed to save quote lead:", err))
+    }
 
     // Generate summary after email
     setTimeout(() => {
@@ -376,6 +420,7 @@ export function QuotingFlow({
     if (!chatInput.trim()) return
     setMessages((prev) => [...prev, { role: "user", text: chatInput.trim(), type: "text" }])
     const userMsg = chatInput.trim()
+    chatDetailsRef.current.push(userMsg)
     setChatInput("")
     setTimeout(() => {
       setMessages((prev) => [
@@ -580,31 +625,29 @@ export function QuotingFlow({
                   <LiquidMetalButton
                     label="schedule a call"
                     onClick={async () => {
-                      const designIncluded = answers.some((a) => a.includes("Design"))
-                      const scope = designIncluded ? "design + development" : answers.some((a) => a === "Design only") ? "design" : "development"
-                      const timeline = answers.find((a) => ["No rush", "Within a month", "ASAP"].includes(a)) || "flexible"
-                      const selections = answers.filter((a) => a !== "skipped").join(", ")
-                      const message = [
-                        `Service: ${badge.label}`,
-                        `Scope: ${scope}`,
-                        `Selections: ${selections}`,
-                        `Timeline: ${timeline}`,
-                        `Estimated range: $${estimate.low} – $${estimate.high} USD`,
-                      ].join("\n")
-
-                      try {
-                        await submitLead({
-                          name: emailInput.split("@")[0],
-                          email: emailInput,
-                          message,
-                          origin: "Quoting Flow",
-                          source: "website",
-                          category: "quote",
-                        })
-                      } catch (err) {
-                        console.error("Failed to save quote lead:", err)
+                      // The lead itself was already captured at email time.
+                      // Here we only forward anything typed into the chat
+                      // afterwards, so those details reach the CRM too.
+                      const details = chatDetailsRef.current
+                      if (details.length > 0) {
+                        try {
+                          await submitLead({
+                            name: emailInput.split("@")[0],
+                            email: emailInput,
+                            message: `Additional details from quote chat (${badge.label}):\n${details.join("\n")}`,
+                            origin: "Quoting Flow",
+                            source: "website",
+                            category: "quote",
+                          })
+                          chatDetailsRef.current = []
+                        } catch (err) {
+                          console.error("Failed to save quote details:", err)
+                        }
                       }
-                      window.open("https://cal.com", "_blank")
+                      // Was window.open("https://cal.com") — the cal.com
+                      // HOMEPAGE, not our calendar. The visitor landed on a
+                      // scheduling company's marketing site.
+                      window.open("https://cal.com/eneas-aldabe-youfep/15min", "_blank")
                     }}
                     fullWidth
                   />
