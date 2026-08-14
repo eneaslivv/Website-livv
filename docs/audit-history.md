@@ -97,3 +97,11 @@
 - Newly broken: none
 - Newly fixed: none
 - Notes: Audit skipped — livvvv.com returns 403 via proxy egress (twelfth consecutive week); cluster-h-editorial.ts touched (new post custom-crm-vs-salesforce-real-cost-comparison shipped 2026-08-03, 19 slugs total); 3 PRs merged this week (#15 white-label product/service pages, #16 Google Ads conversion tracking, #17 product landing visual overhaul); IndexNow ping returned 403 (api.indexnow.org blocked, eleventh consecutive week); Vercel deploy status unverifiable (no GitHub Actions — Vercel deploys directly)
+
+## 2026-08-14
+- OK: N/A
+- THIN: N/A
+- BROKEN: N/A
+- Newly broken: none
+- Newly fixed: none
+- Notes: Audit skipped — livvvv.com returns 403 via proxy egress (thirteenth consecutive week); cluster-h-editorial.ts touched (new post rag-vs-fine-tuning-which-ai-approach-fits-your-business shipped, 20 slugs total); 16 PRs merged this week (#18–#33: motion reel, scroll choreography, site intro panel, product redesigns, grid coherence, about-page prose fix, mobile video covers, Payper hover art, instant-quote funnel fix); IndexNow ping returned 403 (api.indexnow.org blocked, twelfth consecutive week); Vercel deploy status unverifiable (no GitHub Actions — Vercel deploys directly)
