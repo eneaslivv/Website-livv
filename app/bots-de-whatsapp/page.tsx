@@ -82,7 +82,7 @@ export default function BotsDeWhatsappPage() {
         { label: "Base", value: "API oficial de WhatsApp Business" },
         { label: "Tecnología", value: "Claude · OpenAI · RAG" },
         { label: "Integra", value: "CRM · formularios · calendario" },
-        { label: "Modelo", value: "Precio cerrado o retainer mensual" },
+        { label: "Precio", value: "Cerrado antes de empezar · desde USD 1.500" },
       ]}
       sections={[
         {

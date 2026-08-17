@@ -1175,7 +1175,7 @@ export const clusterHEditorial: BlogPost[] = [
           "Creative engineering studios sit between marketing agencies (which design but rarely build at production grade) and pure development shops (which build but rarely design at brand grade). Hiring one when you need both saves you the handoff loss between two vendors.",
           "You probably need one if your project requires both visual craft and production engineering, your budget is between roughly $30k and $300k, and you do not have senior in-house design and engineering already.",
           "You probably do not need one if you have a sub-$15k budget (hire a senior freelancer), if your project is pure backend or pure brand (hire a specialist), or if you are an enterprise that requires a 100-person agency for procurement reasons.",
-          "Real pricing ranges for boutique studios in 2026: marketing site $20k-80k, product MVP $50k-200k, design system $30k-100k, mobile app $60k-200k. Mid-tier agencies charge 2-3x. Big agencies charge 5-10x.",
+          "Real pricing ranges for US boutique studios in 2026: marketing site $20k-80k, product MVP $50k-200k, design system $30k-100k, mobile app $60k-200k. Mid-tier agencies charge 2-3x. Big agencies charge 5-10x.",
           "The biggest red flags during the sales process: the founder is on the sales call but not the project, the pricing is hourly with no cap, the portfolio is older than 18 months, and the studio cannot explain a single decision in detail.",
         ],
       },
@@ -1553,7 +1553,7 @@ export const clusterHEditorial: BlogPost[] = [
             question:
               "How much should I budget for a creative engineering studio project?",
             answer:
-              "Depends on the scope. Marketing site at boutique tier: $20k-$80k. Marketing site at scale with multi-locale and complex CMS: $40k-$150k. Product MVP: $50k-$200k. Design system: $30k-$100k. Brand identity: $20k-$100k. Mobile app MVP: $60k-$200k. Mid-tier agencies charge two to three times these ranges. Top brand agencies charge five to ten times. Freelancers charge roughly half the lower end.",
+              "Depends on the scope. Marketing site at US boutique tier: $20k-$80k. Marketing site at scale with multi-locale and complex CMS: $40k-$150k. Product MVP: $50k-$200k. Design system: $30k-$100k. Brand identity: $20k-$100k. Mobile app MVP: $60k-$200k. Mid-tier agencies charge two to three times these ranges. Top brand agencies charge five to ten times. Freelancers charge roughly half the lower end.",
           },
           {
             question:
@@ -1822,7 +1822,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "A custom system replacing those five tools, built to fit the firm's actual workflow, would cost between $80,000 and $120,000 to build at boutique studio rates in 2026. With annual maintenance of $8,000 to $12,000, typical for a system of this scope, and a five-year depreciation, the annual cost runs $24,000 to $36,000. The payback period is eighteen to thirty months.",
+          "A custom system replacing those five tools, built to fit the firm's actual workflow, would cost between $80,000 and $120,000 to build at US boutique studio rates in 2026. With annual maintenance of $8,000 to $12,000, typical for a system of this scope, and a five-year depreciation, the annual cost runs $24,000 to $36,000. The payback period is eighteen to thirty months.",
       },
       {
         type: "paragraph",
@@ -1848,7 +1848,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "We built Payper as a unified POS that handled both retail and food service under a single inventory model, with reporting that eliminated the manual reconciliation step. The build cost was in the $60,000 to $80,000 range. The labor saving alone paid for the system inside fifteen months of operation.",
+          "We built Payper as a unified POS that handled both retail and food service under a single inventory model, with reporting that eliminated the manual reconciliation step. A build of this scope is quoted in the $60,000 to $80,000 range at US boutique studio rates; at that price, the labor saving alone would pay for the system inside fifteen months — and LIVV's Buenos Aires cost base put the actual build far below it.",
       },
       {
         type: "paragraph",
@@ -1924,7 +1924,7 @@ export const clusterHEditorial: BlogPost[] = [
             question:
               "What are realistic timelines for a custom software build in 2026?",
             answer:
-              "A focused workflow tool replacing one or two SaaS products typically takes eight to sixteen weeks at a boutique studio. A larger system replacing a broader stack takes four to eight months. Both ranges assume stable requirements. Unstable requirements extend both ends significantly.",
+              "A focused workflow tool replacing one or two SaaS products typically takes eight to sixteen weeks at a US boutique studio. A larger system replacing a broader stack takes four to eight months. Both ranges assume stable requirements. Unstable requirements extend both ends significantly.",
           },
           {
             question:
@@ -1988,7 +1988,7 @@ export const clusterHEditorial: BlogPost[] = [
         question:
           "What are realistic build timelines for custom software in 2026?",
         answer:
-          "A focused workflow tool replacing one or two SaaS products takes eight to sixteen weeks at a boutique studio. A larger system takes four to eight months. Both ranges assume stable requirements.",
+          "A focused workflow tool replacing one or two SaaS products takes eight to sixteen weeks at a US boutique studio. A larger system takes four to eight months. Both ranges assume stable requirements.",
       },
       {
         question:
@@ -2042,7 +2042,7 @@ export const clusterHEditorial: BlogPost[] = [
         items: [
           "Most businesses that benefit from AI integration do not replace their entire stack. They add AI capabilities to the specific workflows where the return is clearest: document processing, support routing, or internal knowledge retrieval.",
           "The decision between buying an AI tool and building a custom integration depends on whether your workflow is standard enough that a vendor has already solved it. Standard workflows benefit from bought tools. Non-standard workflows require custom builds.",
-          "Real costs for AI integrations in 2026: adding an AI feature to an existing application runs $8,000 to $40,000 at boutique studio rates. A RAG-based knowledge system runs $20,000 to $80,000. A custom AI agent replacing a defined workflow runs $30,000 to $120,000.",
+          "Real costs for AI integrations in 2026: adding an AI feature to an existing application runs $8,000 to $40,000 at US boutique studio rates. A RAG-based knowledge system runs $20,000 to $80,000. A custom AI agent replacing a defined workflow runs $30,000 to $120,000.",
           "The biggest waste in AI integration is running proofs of concept that never ship. The PoC stage is necessary but should be capped at four weeks and a defined budget. If the PoC does not show measurable improvement on the target metric, that workflow is not the right fit.",
           "Anthropic's Claude API and OpenAI's GPT-4 API are both production-ready for business applications in 2026. The practical differences show up at specific workflow edges, particularly in document-heavy tasks, long-context reasoning, and instruction-following consistency.",
         ],
@@ -2142,7 +2142,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "Development costs for this pattern at boutique studio rates in 2026: $8,000 to $25,000 for the initial integration, depending on complexity. API usage costs for a mid-scale business workflow run $200 to $2,000 per month, depending on model choice and volume.",
+          "Development costs for this pattern at US boutique studio rates in 2026: $8,000 to $25,000 for the initial integration, depending on complexity. API usage costs for a mid-scale business workflow run $200 to $2,000 per month, depending on model choice and volume.",
       },
       {
         type: "paragraph",
@@ -2199,17 +2199,17 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "Adding an AI feature to an existing application (single feature, defined scope, API-based) costs $8,000 to $40,000 in development. The range depends on the complexity of the prompt engineering, the output handling requirements, and whether a new UI is needed or the output slots into an existing interface.",
+          "At US boutique rates, adding an AI feature to an existing application (single feature, defined scope, API-based) costs $8,000 to $40,000 in development. The range depends on the complexity of the prompt engineering, the output handling requirements, and whether a new UI is needed or the output slots into an existing interface.",
       },
       {
         type: "paragraph",
         content:
-          "A RAG-based knowledge system connecting AI to your existing document set costs $20,000 to $80,000. The range depends on the volume and variety of the document set, the retrieval architecture, and the interface. A simple Q&A system over a well-organized document library sits at the lower end. A multi-source retrieval system with citation, access controls, and a custom interface sits at the upper end.",
+          "At US boutique rates, a RAG-based knowledge system connecting AI to your existing document set costs $20,000 to $80,000. The range depends on the volume and variety of the document set, the retrieval architecture, and the interface. A simple Q&A system over a well-organized document library sits at the lower end. A multi-source retrieval system with citation, access controls, and a custom interface sits at the upper end.",
       },
       {
         type: "paragraph",
         content:
-          "A custom AI agent for a defined workflow costs $30,000 to $120,000 for the initial build. An agent with one or two tool integrations and a bounded scope sits in the lower half. An agent that handles multi-step reasoning, manages conversation state, and calls five or more external tools sits at the upper end.",
+          "At US boutique rates, a custom AI agent for a defined workflow costs $30,000 to $120,000 for the initial build. An agent with one or two tool integrations and a bounded scope sits in the lower half. An agent that handles multi-step reasoning, manages conversation state, and calls five or more external tools sits at the upper end.",
       },
       {
         type: "paragraph",
@@ -2291,7 +2291,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "PoC budgets by integration pattern: a simple API-based feature takes two to four weeks at $5,000 to $15,000 in development cost. A RAG system takes three to five weeks at $8,000 to $25,000. A custom agent takes four to six weeks at $15,000 to $40,000. API usage during a PoC is negligible compared to development cost.",
+          "PoC budgets by integration pattern, at US boutique rates: a simple API-based feature takes two to four weeks at $5,000 to $15,000 in development cost. A RAG system takes three to five weeks at $8,000 to $25,000. A custom agent takes four to six weeks at $15,000 to $40,000. API usage during a PoC is negligible compared to development cost.",
       },
       {
         type: "paragraph",
@@ -2445,9 +2445,9 @@ export const clusterHEditorial: BlogPost[] = [
         ordered: true,
         items: [
           "Custom software pricing in 2026 ranges from roughly $15,000 for a focused internal tool to over $500,000 for a full product with complex integrations. The spread reflects real differences in scope, not arbitrary agency markup.",
-          "Marketing sites at boutique studio rates cost $20,000 to $80,000. Web application MVPs run $50,000 to $150,000. Full products with real business logic, payments, and multi-tenancy cost $100,000 to $400,000 for the initial build.",
+          "Marketing sites at US boutique studio rates cost $20,000 to $80,000. Web application MVPs run $50,000 to $150,000. Full products with real business logic, payments, and multi-tenancy cost $100,000 to $400,000 for the initial build.",
           "Adding AI capabilities to an existing application costs $8,000 to $40,000 at the simpler end. A custom AI agent for a defined workflow runs $30,000 to $120,000. Building AI in from the start adds 10 to 20 percent to the base project cost.",
-          "Boutique studios charge $100 to $200 per hour and deliver at 40 to 60 percent of mid-tier agency cost for comparable work. Big agency rates run five to ten times boutique rates, driven by overhead and brand recognition rather than craft.",
+          "US boutique studios charge $100 to $200 per hour and deliver at 40 to 60 percent of mid-tier agency cost for comparable work. Big agency rates run five to ten times boutique rates, driven by overhead and brand recognition rather than craft.",
           "Hourly rate is a poor predictor of total project cost. A studio with better domain knowledge and tighter scope management frequently delivers a lower total cost than a cheaper studio with more revision cycles and a longer timeline.",
         ],
       },
@@ -2485,7 +2485,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "Studios that price well include discovery phases at the front of engagements, specifically to produce better requirements before development begins. A discovery phase costs $5,000 to $20,000 at boutique rates and almost always saves more than it costs over the full project.",
+          "Studios that price well include discovery phases at the front of engagements, specifically to produce better requirements before development begins. A discovery phase costs $5,000 to $20,000 at US boutique rates and almost always saves more than it costs over the full project.",
       },
       {
         type: "heading",
@@ -2501,7 +2501,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "At boutique studio rates in 2026, a marketing site costs $20,000 to $80,000. The lower end covers a clean site of eight to fifteen pages with content management, mobile-responsive design, and basic analytics integration. The upper end covers a site with custom motion, code-backed interactive components, multi-locale support, and a more complex CMS schema.",
+          "At US boutique studio rates in 2026, a marketing site costs $20,000 to $80,000. The lower end covers a clean site of eight to fifteen pages with content management, mobile-responsive design, and basic analytics integration. The upper end covers a site with custom motion, code-backed interactive components, multi-locale support, and a more complex CMS schema.",
       },
       {
         type: "paragraph",
@@ -2521,7 +2521,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "Platform choice affects build cost less than most people assume. A Webflow build and a Framer build of similar scope cost roughly the same at a boutique studio. A Next.js marketing site costs 20 to 40 percent more because engineering overhead is higher, though hosting and maintenance costs run lower over a three-year period. The Webflow vs Framer comparison on this site covers the platform trade-offs in detail if that decision is still open.",
+          "Platform choice affects build cost less than most people assume. A Webflow build and a Framer build of similar scope cost roughly the same at a US boutique studio. A Next.js marketing site costs 20 to 40 percent more because engineering overhead is higher, though hosting and maintenance costs run lower over a three-year period. The Webflow vs Framer comparison on this site covers the platform trade-offs in detail if that decision is still open.",
       },
       {
         type: "heading",
@@ -2537,7 +2537,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "At boutique studio rates in 2026, a web application MVP costs $50,000 to $150,000. The lower end covers a product with one primary workflow, a small number of user roles, and minimal third-party integrations beyond authentication and payments. The upper end covers a product with more complex business logic, multiple user types, several integrations, and a developed admin surface.",
+          "At US boutique studio rates in 2026, a web application MVP costs $50,000 to $150,000. The lower end covers a product with one primary workflow, a small number of user roles, and minimal third-party integrations beyond authentication and payments. The upper end covers a product with more complex business logic, multiple user types, several integrations, and a developed admin surface.",
       },
       {
         type: "paragraph",
@@ -2568,7 +2568,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "At boutique studio rates, full product development runs $100,000 to $400,000 for the initial build. The lower end represents a well-specified product with one or two user roles, a focused workflow, and three to five integrations. The upper end represents a product with complex business logic, multiple user types, deep reporting requirements, and significant third-party integrations.",
+          "At US boutique studio rates, full product development runs $100,000 to $400,000 for the initial build. The lower end represents a well-specified product with one or two user roles, a focused workflow, and three to five integrations. The upper end represents a product with complex business logic, multiple user types, deep reporting requirements, and significant third-party integrations.",
       },
       {
         type: "paragraph",
@@ -2603,17 +2603,17 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "The simplest pattern is adding a single AI-powered feature via a model API: AI-assisted drafting, document classification, or automated summarization within an otherwise standard application. Development cost at boutique studio rates: $8,000 to $40,000, depending on prompt engineering complexity and output handling requirements. Production API usage for a mid-scale feature runs $200 to $1,500 per month.",
+          "The simplest pattern is adding a single AI-powered feature via a model API: AI-assisted drafting, document classification, or automated summarization within an otherwise standard application. Development cost at US boutique studio rates: $8,000 to $40,000, depending on prompt engineering complexity and output handling requirements. Production API usage for a mid-scale feature runs $200 to $1,500 per month.",
       },
       {
         type: "paragraph",
         content:
-          "A retrieval-augmented generation (RAG) system, which connects an AI model to a proprietary document set so it can answer questions about specific content, costs $20,000 to $80,000 to build. A simple internal knowledge retrieval system over a well-organized document library sits at the lower end. A multi-source system with access controls, citation display, and a custom interface sits at the upper end.",
+          "A retrieval-augmented generation (RAG) system, which connects an AI model to a proprietary document set so it can answer questions about specific content, costs $20,000 to $80,000 to build at US boutique rates. A simple internal knowledge retrieval system over a well-organized document library sits at the lower end. A multi-source system with access controls, citation display, and a custom interface sits at the upper end.",
       },
       {
         type: "paragraph",
         content:
-          "A custom AI agent that handles multi-step reasoning and can call external tools or take actions costs $30,000 to $120,000 for the initial build. An agent with one or two tool integrations and a bounded scope sits in the lower half of that range. An agent managing conversation state and calling five or more external tools sits at the upper end.",
+          "At US boutique rates, a custom AI agent that handles multi-step reasoning and can call external tools or take actions costs $30,000 to $120,000 for the initial build. An agent with one or two tool integrations and a bounded scope sits in the lower half of that range. An agent managing conversation state and calling five or more external tools sits at the upper end.",
       },
       {
         type: "paragraph",
@@ -2644,12 +2644,12 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "Mid-tier agencies charge $150 to $300 per hour and assign larger teams per project. A marketing site that a boutique studio quotes at $35,000 will often appear at $80,000 to $120,000 from a mid-tier agency. The additional cost covers dedicated account management, a more formalized process, and the agency's overhead structure. That cost is worth paying when your project genuinely benefits from the formalized process or when you need the agency's client relationships.",
+          "Mid-tier agencies charge $150 to $300 per hour and assign larger teams per project. A marketing site that a US boutique studio quotes at $35,000 will often appear at $80,000 to $120,000 from a mid-tier agency. The additional cost covers dedicated account management, a more formalized process, and the agency's overhead structure. That cost is worth paying when your project genuinely benefits from the formalized process or when you need the agency's client relationships.",
       },
       {
         type: "paragraph",
         content:
-          "Large agencies charge $250 to $600 per hour and have overhead structures where a meaningful share of the billing rate goes to non-delivery functions: account management, new business development, strategy, and executive attention. A product build quoted at $100,000 by a boutique studio can realistically appear at $400,000 to $700,000 at a large agency. That premium is sometimes justified by enterprise procurement requirements, stakeholder management needs, or the need for a recognizable vendor name. For companies without those needs, the premium is not recovered in craft quality.",
+          "Large agencies charge $250 to $600 per hour and have overhead structures where a meaningful share of the billing rate goes to non-delivery functions: account management, new business development, strategy, and executive attention. A product build quoted at $100,000 by a US boutique studio can realistically appear at $400,000 to $700,000 at a large agency. That premium is sometimes justified by enterprise procurement requirements, stakeholder management needs, or the need for a recognizable vendor name. For companies without those needs, the premium is not recovered in craft quality.",
       },
       {
         type: "paragraph",
@@ -2675,7 +2675,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "Integration count is the second significant variable. Each third-party integration adds to both build cost and ongoing maintenance cost. Budget $3,000 to $10,000 per integration at boutique studio rates for initial implementation, and $1,000 to $3,000 per integration per year for maintenance. A product with eight integrations is not eight times more expensive than a product with one, but it is meaningfully more expensive to build and substantially more expensive to maintain.",
+          "Integration count is the second significant variable. Each third-party integration adds to both build cost and ongoing maintenance cost. Budget $3,000 to $10,000 per integration at US boutique studio rates for initial implementation, and $1,000 to $3,000 per integration per year for maintenance. A product with eight integrations is not eight times more expensive than a product with one, but it is meaningfully more expensive to build and substantially more expensive to maintain.",
       },
       {
         type: "paragraph",
@@ -2719,7 +2719,7 @@ export const clusterHEditorial: BlogPost[] = [
           {
             question: "How much does a basic custom software project cost in 2026?",
             answer:
-              "The low end of the market is roughly $15,000 to $25,000 for a focused internal tool built by a boutique studio. A marketing site runs $20,000 to $80,000. A web application MVP runs $50,000 to $150,000. Full product development starts around $100,000 and scales with complexity and integration count.",
+              "The low end of the market is roughly $15,000 to $25,000 for a focused internal tool built by a US boutique studio. A marketing site runs $20,000 to $80,000. A web application MVP runs $50,000 to $150,000. Full product development starts around $100,000 and scales with complexity and integration count.",
           },
           {
             question: "What is the biggest factor in determining custom software cost?",
@@ -2729,27 +2729,27 @@ export const clusterHEditorial: BlogPost[] = [
           {
             question: "How do boutique studio rates compare to mid-tier agency rates?",
             answer:
-              "Boutique studios charge $100 to $200 per hour and typically complete projects at 40 to 60 percent of mid-tier agency cost for comparable deliverables. The additional cost at mid-tier agencies reflects a larger team, more process overhead, and dedicated account management rather than meaningfully different craft quality.",
+              "US boutique studios charge $100 to $200 per hour and typically complete projects at 40 to 60 percent of mid-tier agency cost for comparable deliverables. The additional cost at mid-tier agencies reflects a larger team, more process overhead, and dedicated account management rather than meaningfully different craft quality.",
           },
           {
             question: "How much does adding AI cost to a custom software project?",
             answer:
-              "Adding a single AI feature via a model API costs $8,000 to $40,000 in development, plus $200 to $1,500 per month in API usage. A RAG knowledge system runs $20,000 to $80,000 to build. A custom AI agent runs $30,000 to $120,000 for the initial build. Building AI in from the start adds roughly 10 to 20 percent to base project cost.",
+              "At US boutique rates, adding a single AI feature via a model API costs $8,000 to $40,000 in development, plus $200 to $1,500 per month in API usage. A RAG knowledge system runs $20,000 to $80,000 to build. A custom AI agent runs $30,000 to $120,000 for the initial build. Building AI in from the start adds roughly 10 to 20 percent to base project cost.",
           },
           {
             question: "How long does custom software take to build in 2026?",
             answer:
-              "A marketing site takes three to eight weeks at a boutique studio. A web application MVP takes six to sixteen weeks. Full product development takes three to eight months for the initial build. All ranges assume stable requirements. Scope changes and requirements instability extend every range significantly.",
+              "A marketing site takes three to eight weeks at a US boutique studio. A web application MVP takes six to sixteen weeks. Full product development takes three to eight months for the initial build. All ranges assume stable requirements. Scope changes and requirements instability extend every range significantly.",
           },
           {
             question: "What should I budget for annual software maintenance?",
             answer:
-              "Budget 15 to 20 percent of the initial build cost per year. A simple web application with one or two integrations runs $12,000 to $24,000 per year. A mid-complexity product runs $24,000 to $60,000. A complex product with a large integration surface can run $60,000 to $120,000.",
+              "For builds at US-tier prices, budget 15 to 20 percent of the initial build cost per year. A simple web application with one or two integrations runs $12,000 to $24,000 per year. A mid-complexity product runs $24,000 to $60,000. A complex product with a large integration surface can run $60,000 to $120,000.",
           },
           {
             question: "Why do large agency quotes cost so much more than boutique studio quotes?",
             answer:
-              "Large agency rates reflect overhead unrelated to delivery: account management, new business development, strategy functions, and executive attention. A project quoted at $100,000 by a boutique studio can appear at $400,000 to $700,000 at a large agency. The premium is justified by enterprise procurement requirements or stakeholder recognition needs, not by craft quality differences.",
+              "Large agency rates reflect overhead unrelated to delivery: account management, new business development, strategy functions, and executive attention. A project quoted at $100,000 by a US boutique studio can appear at $400,000 to $700,000 at a large agency. The premium is justified by enterprise procurement requirements or stakeholder recognition needs, not by craft quality differences.",
           },
           {
             question: "Is offshore development actually cheaper than a boutique studio?",
@@ -2793,12 +2793,12 @@ export const clusterHEditorial: BlogPost[] = [
       {
         question: "How do boutique studio rates compare to mid-tier agency rates?",
         answer:
-          "Boutique studios charge $100 to $200 per hour and typically complete projects at 40 to 60 percent of mid-tier agency cost for comparable deliverables. The additional cost at mid-tier agencies reflects team size and process overhead rather than meaningfully different craft quality.",
+          "US boutique studios charge $100 to $200 per hour and typically complete projects at 40 to 60 percent of mid-tier agency cost for comparable deliverables. The additional cost at mid-tier agencies reflects team size and process overhead rather than meaningfully different craft quality.",
       },
       {
         question: "How much does adding AI cost to a custom software project?",
         answer:
-          "A single AI feature via model API costs $8,000 to $40,000 in development. A RAG knowledge system costs $20,000 to $80,000. A custom AI agent costs $30,000 to $120,000. Building AI in from the start adds roughly 10 to 20 percent to base project cost.",
+          "At US boutique rates, a single AI feature via model API costs $8,000 to $40,000 in development. A RAG knowledge system costs $20,000 to $80,000. A custom AI agent costs $30,000 to $120,000. Building AI in from the start adds roughly 10 to 20 percent to base project cost.",
       },
       {
         question: "How long does custom software take to build in 2026?",
@@ -2808,12 +2808,12 @@ export const clusterHEditorial: BlogPost[] = [
       {
         question: "What should I budget for annual software maintenance?",
         answer:
-          "Budget 15 to 20 percent of the initial build cost per year. A simple application runs $12,000 to $24,000. A mid-complexity product runs $24,000 to $60,000. A complex product with a large integration surface can run $60,000 to $120,000.",
+          "For builds at US-tier prices, budget 15 to 20 percent of the initial build cost per year. A simple application runs $12,000 to $24,000. A mid-complexity product runs $24,000 to $60,000. A complex product with a large integration surface can run $60,000 to $120,000.",
       },
       {
         question: "Why do large agency quotes cost so much more than boutique studio quotes?",
         answer:
-          "Large agency rates reflect overhead unrelated to delivery: account management, new business development, and executive attention. A $100,000 boutique project can appear at $400,000 to $700,000 at a large agency. The premium is justified by enterprise procurement requirements, not by craft quality differences.",
+          "Large agency rates reflect overhead unrelated to delivery: account management, new business development, and executive attention. A $100,000 US-boutique project can appear at $400,000 to $700,000 at a large agency. The premium is justified by enterprise procurement requirements, not by craft quality differences.",
       },
       {
         question: "Is offshore development actually cheaper than a boutique studio?",
@@ -2857,7 +2857,7 @@ export const clusterHEditorial: BlogPost[] = [
           "Document-heavy workflows, customer support communication, and internal knowledge retrieval account for the majority of successful business AI integrations. These are the categories where model capability is best-matched to business need.",
           "The integration pattern matters as much as the model choice. A well-structured API integration with prompt engineering suited to the specific task consistently outperforms a generic AI tool dropped into an unsupported workflow.",
           "All ten cases in this article went through a proof of concept before production deployment. The PoC stage is where vertical mismatch gets detected before it becomes expensive.",
-          "Real development costs in 2026: adding an AI feature to an existing application runs $8,000 to $40,000. A RAG-based knowledge system runs $20,000 to $80,000. A custom AI agent replacing a defined workflow runs $30,000 to $120,000.",
+          "Real development costs at US boutique rates in 2026: adding an AI feature to an existing application runs $8,000 to $40,000. A RAG-based knowledge system runs $20,000 to $80,000. A custom AI agent replacing a defined workflow runs $30,000 to $120,000.",
         ],
       },
       {
@@ -2910,7 +2910,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "The integration used the Claude API to process contract text against a defined clause taxonomy. The system extracted flagged clauses, labeled each by category, and generated a structured summary for partner review. Partners reviewed the summary rather than the full document. The AI pre-filtered the standard from the non-standard, routing only flagged sections to human attention. Build cost: $18,000 to $24,000. Production API usage: approximately $800 per month.",
+          "The integration used the Claude API to process contract text against a defined clause taxonomy. The system extracted flagged clauses, labeled each by category, and generated a structured summary for partner review. Partners reviewed the summary rather than the full document. The AI pre-filtered the standard from the non-standard, routing only flagged sections to human attention. Build cost at US rates: $18,000 to $24,000. Production API usage: approximately $800 per month.",
       },
       {
         type: "paragraph",
@@ -2920,7 +2920,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "The integration used a two-pass approach: the first pass extracted original lease terms into a structured schema, the second compared the amendment document against that schema and produced a change-by-change summary. The analyst reviewed and verified the output rather than doing the mechanical comparison manually. Build cost: $14,000 to $20,000. Production API usage: $300 to $600 per month. Analyst review time per standard amendment dropped to under one hour.",
+          "The integration used a two-pass approach: the first pass extracted original lease terms into a structured schema, the second compared the amendment document against that schema and produced a change-by-change summary. The analyst reviewed and verified the output rather than doing the mechanical comparison manually. Build cost at US rates: $14,000 to $20,000. Production API usage: $300 to $600 per month. Analyst review time per standard amendment dropped to under one hour.",
       },
       {
         type: "heading",
@@ -2936,7 +2936,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "The integration used a classification model built on top of a frontier API, with the rubric translated into a structured system prompt. The AI produced a classification recommendation and a confidence score. Claims above the confidence threshold were automatically routed; claims below the threshold were routed to a human examiner with the AI's provisional classification attached. Build cost: $22,000 to $30,000. Production API usage: $1,200 to $1,800 per month at production volume.",
+          "The integration used a classification model built on top of a frontier API, with the rubric translated into a structured system prompt. The AI produced a classification recommendation and a confidence score. Claims above the confidence threshold were automatically routed; claims below the threshold were routed to a human examiner with the AI's provisional classification attached. Build cost at US rates: $22,000 to $30,000. Production API usage: $1,200 to $1,800 per month at production volume.",
       },
       {
         type: "paragraph",
@@ -2946,7 +2946,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "The integration processed each uploaded document against the firm's evidence taxonomy and returned a category label, a confidence level, and the specific passages supporting the classification. The output fed directly into the engagement management tool. Build cost: $12,000 to $16,000 (the simplest integration shape in this set: single-pass classification with structured output). The classification step dropped from days to hours per engagement. Human review remained in place for low-confidence outputs.",
+          "The integration processed each uploaded document against the firm's evidence taxonomy and returned a category label, a confidence level, and the specific passages supporting the classification. The output fed directly into the engagement management tool. Build cost at US rates: $12,000 to $16,000 (the simplest integration shape in this set: single-pass classification with structured output). The classification step dropped from days to hours per engagement. Human review remained in place for low-confidence outputs.",
       },
       {
         type: "heading",
@@ -2962,7 +2962,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "The integration handled classification and routing in the first pass. In the second pass, the system drafted a response for the agent to review, pulling from the template library and filling in the relevant order data from the connected order management system. The agent reviewed, edited, and sent. Build cost: $28,000 to $38,000 (the OMS integration accounted for roughly a third of the build cost). Production API usage: $500 to $900 per month. Classification accuracy for the three primary ticket categories ran above ninety percent based on agent acceptance rates. The damage claim category, requiring more judgment, had lower AI confidence and was routed to human handling by default.",
+          "The integration handled classification and routing in the first pass. In the second pass, the system drafted a response for the agent to review, pulling from the template library and filling in the relevant order data from the connected order management system. The agent reviewed, edited, and sent. Build cost at US rates: $28,000 to $38,000 (the OMS integration accounted for roughly a third of the build cost). Production API usage: $500 to $900 per month. Classification accuracy for the three primary ticket categories ran above ninety percent based on agent acceptance rates. The damage claim category, requiring more judgment, had lower AI confidence and was routed to human handling by default.",
       },
       {
         type: "paragraph",
@@ -2972,7 +2972,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "The integration used a classifier trained on six months of historical tickets with known correct routing. The classifier ran at ticket submission and attached a routing recommendation before the ticket reached the support queue. Build cost: $10,000 to $14,000 (lower than Case 5 because no external system integration or response drafting layer was required). Production API usage: $200 to $400 per month. A self-service documentation suggestion layer was added in a second sprint, surfacing relevant help articles at submission.",
+          "The integration used a classifier trained on six months of historical tickets with known correct routing. The classifier ran at ticket submission and attached a routing recommendation before the ticket reached the support queue. Build cost at US rates: $10,000 to $14,000 (lower than Case 5 because no external system integration or response drafting layer was required). Production API usage: $200 to $400 per month. A self-service documentation suggestion layer was added in a second sprint, surfacing relevant help articles at submission.",
       },
       {
         type: "heading",
@@ -2988,7 +2988,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "The integration used a RAG (retrieval-augmented generation) architecture. Documents were ingested, chunked, and embedded into a vector database. Staff asked questions in plain language via a web interface. The system retrieved relevant passages from the document set and generated an answer with citations to the source documents. Build cost: $35,000 to $55,000 (the document ingestion pipeline, handling multiple formats and access-controlled materials, accounted for a significant share of cost beyond the AI layer itself). Production API usage: $600 to $1,200 per month. The citation feature was reported as critical to adoption: staff trusted the output more because they could verify the source rather than accepting the synthesis without checking.",
+          "The integration used a RAG (retrieval-augmented generation) architecture. Documents were ingested, chunked, and embedded into a vector database. Staff asked questions in plain language via a web interface. The system retrieved relevant passages from the document set and generated an answer with citations to the source documents. Build cost at US rates: $35,000 to $55,000 (the document ingestion pipeline, handling multiple formats and access-controlled materials, accounted for a significant share of cost beyond the AI layer itself). Production API usage: $600 to $1,200 per month. The citation feature was reported as critical to adoption: staff trusted the output more because they could verify the source rather than accepting the synthesis without checking.",
       },
       {
         type: "paragraph",
@@ -2998,7 +2998,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "The integration used a RAG system with OCR preprocessing for scanned documents. Technicians queried via a mobile web interface. Results returned the relevant procedure or service bulletin with the source document attached. Build cost: $40,000 to $60,000 (OCR preprocessing for scanned documents added to both build cost and ongoing maintenance compared to a text-native document set). Production API usage: $400 to $800 per month. The integration also surfaced which documents were queried most frequently, giving the technical documentation team clear signal about where to invest in documentation quality improvements.",
+          "The integration used a RAG system with OCR preprocessing for scanned documents. Technicians queried via a mobile web interface. Results returned the relevant procedure or service bulletin with the source document attached. Build cost at US rates: $40,000 to $60,000 (OCR preprocessing for scanned documents added to both build cost and ongoing maintenance compared to a text-native document set). Production API usage: $400 to $800 per month. The integration also surfaced which documents were queried most frequently, giving the technical documentation team clear signal about where to invest in documentation quality improvements.",
       },
       {
         type: "heading",
@@ -3014,7 +3014,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "The integration took product data (SKU attributes, category, specifications, and images described via a vision model pass) and generated a draft description in the retailer's brand voice. A copywriter reviewed and approved each description rather than writing from scratch. Build cost: $16,000 to $22,000. Production API usage: $1,000 to $2,500 per month for a catalog of this size, depending on model tier. Description cost per SKU dropped substantially. The retailer reported redirecting surplus copywriter capacity to content types requiring more judgment (editorial, category pages, email) rather than eliminating positions.",
+          "The integration took product data (SKU attributes, category, specifications, and images described via a vision model pass) and generated a draft description in the retailer's brand voice. A copywriter reviewed and approved each description rather than writing from scratch. Build cost at US rates: $16,000 to $22,000. Production API usage: $1,000 to $2,500 per month for a catalog of this size, depending on model tier. Description cost per SKU dropped substantially. The retailer reported redirecting surplus copywriter capacity to content types requiring more judgment (editorial, category pages, email) rather than eliminating positions.",
       },
       {
         type: "paragraph",
@@ -3024,7 +3024,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "The integration used structured job requirements as the evaluation rubric. Each resume was processed against the rubric, and candidates received an initial score with specific notes about which requirements they met, which were unclear from the resume, and which were absent. The recruiter reviewed the structured output rather than the raw resume stack. Build cost: $10,000 to $16,000. Production API usage: $150 to $300 per month. Recruiters reported spending more time on genuine assessment of strong candidates and less time on manual first-pass filtering. The notes about unclear requirements prompted additional outreach to candidates where the missing information was ambiguous rather than simply absent.",
+          "The integration used structured job requirements as the evaluation rubric. Each resume was processed against the rubric, and candidates received an initial score with specific notes about which requirements they met, which were unclear from the resume, and which were absent. The recruiter reviewed the structured output rather than the raw resume stack. Build cost at US rates: $10,000 to $16,000. Production API usage: $150 to $300 per month. Recruiters reported spending more time on genuine assessment of strong candidates and less time on manual first-pass filtering. The notes about unclear requirements prompted additional outreach to candidates where the missing information was ambiguous rather than simply absent.",
       },
       {
         type: "heading",
@@ -3105,7 +3105,7 @@ export const clusterHEditorial: BlogPost[] = [
             question:
               "What is the realistic cost to get started with a first AI integration?",
             answer:
-              "The lowest entry point is a simple classification or generation integration using a model API: $8,000 to $15,000 in development cost, $200 to $600 per month in API usage, built over six to eight weeks. That covers one clearly scoped workflow. Expanding to a RAG system or a support integration with an external tool connection costs $20,000 to $50,000 and takes ten to sixteen weeks. These are boutique studio rates in 2026 USD.",
+              "The lowest entry point is a simple classification or generation integration using a model API: $8,000 to $15,000 in development cost, $200 to $600 per month in API usage, built over six to eight weeks. That covers one clearly scoped workflow. Expanding to a RAG system or a support integration with an external tool connection costs $20,000 to $50,000 and takes ten to sixteen weeks. These are US boutique studio rates in 2026 USD.",
           },
           {
             question:
@@ -3172,7 +3172,7 @@ export const clusterHEditorial: BlogPost[] = [
         question:
           "What is the realistic cost to start a first AI integration in 2026?",
         answer:
-          "A simple classification or generation integration costs $8,000 to $15,000 in development and $200 to $600 per month in API usage, built over six to eight weeks. A RAG system or support integration with external tool connections costs $20,000 to $50,000 and takes ten to sixteen weeks. These are boutique studio rates in 2026 USD.",
+          "A simple classification or generation integration costs $8,000 to $15,000 in development and $200 to $600 per month in API usage, built over six to eight weeks. A RAG system or support integration with external tool connections costs $20,000 to $50,000 and takes ten to sixteen weeks. These are US boutique studio rates in 2026 USD.",
       },
       {
         question:
@@ -3377,7 +3377,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "Custom software has a different cost structure. Development cost is front-loaded. A focused custom workflow application for a 20-person team, built by a boutique studio in 2026, costs $30,000 to $100,000 depending on complexity. Ongoing maintenance runs $1,000 to $3,000 per month. Infrastructure costs $50 to $500 per month at that scale. The full pricing picture, including MVP and full product ranges, is covered in the How Much Does Custom Software Cost in 2026? piece on this site.",
+          "Custom software has a different cost structure. Development cost is front-loaded. A focused custom workflow application for a 20-person team, built by a US boutique studio in 2026, costs $30,000 to $100,000 depending on complexity. Ongoing maintenance runs $1,000 to $3,000 per month. Infrastructure costs $50 to $500 per month at that scale. The full pricing picture, including MVP and full product ranges, is covered in the How Much Does Custom Software Cost in 2026? piece on this site.",
       },
       {
         type: "paragraph",
@@ -3465,7 +3465,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "This approach has a practical budget advantage. A targeted custom application for a specific workflow costs $20,000 to $80,000 at a boutique studio in 2026. A full custom replacement for an entire tool category (a CRM, an ERP, an HR suite) runs $100,000 to $500,000 depending on scope. The targeted approach lets the business test the custom development model on a lower-stakes project before committing the larger budget.",
+          "This approach has a practical budget advantage. A targeted custom application for a specific workflow costs $20,000 to $80,000 at a US boutique studio in 2026. A full custom replacement for an entire tool category (a CRM, an ERP, an HR suite) runs $100,000 to $500,000 depending on scope. The targeted approach lets the business test the custom development model on a lower-stakes project before committing the larger budget.",
       },
       {
         type: "paragraph",
@@ -3541,13 +3541,13 @@ export const clusterHEditorial: BlogPost[] = [
           {
             question: "How long does a typical custom software project take?",
             answer:
-              "A contained workflow tool with a clear scope takes 12 to 16 weeks at a boutique studio. A more complex application with integrations, a multi-role access model, and a responsive design takes 16 to 24 weeks. Projects requiring compliance review, security auditing, or significant third-party API work can run 24 to 36 weeks. Timeline estimates are more reliable when scope has been defined in a paid discovery phase before the main development engagement begins.",
+              "A contained workflow tool with a clear scope takes 12 to 16 weeks at a US boutique studio. A more complex application with integrations, a multi-role access model, and a responsive design takes 16 to 24 weeks. Projects requiring compliance review, security auditing, or significant third-party API work can run 24 to 36 weeks. Timeline estimates are more reliable when scope has been defined in a paid discovery phase before the main development engagement begins.",
           },
           {
             question:
               "Is there a budget threshold below which custom software almost never makes sense?",
             answer:
-              "The practical floor for a genuinely custom web application at a boutique studio in 2026 is around $20,000 to $30,000. Below that threshold, the scope is almost always better addressed by SaaS configuration or by hiring a senior freelancer for a targeted integration. Above it, the question is whether the specific workflow meets the criteria described above.",
+              "The practical floor for a genuinely custom web application at a US boutique studio in 2026 is around $20,000 to $30,000. Below that threshold, the scope is almost always better addressed by SaaS configuration or by hiring a senior freelancer for a targeted integration. Above it, the question is whether the specific workflow meets the criteria described above.",
           },
         ],
       },
@@ -3603,13 +3603,13 @@ export const clusterHEditorial: BlogPost[] = [
       {
         question: "How long does a typical custom software project take?",
         answer:
-          "A contained workflow tool with a clear scope takes 12 to 16 weeks at a boutique studio in 2026. A more complex application with integrations and multi-role access takes 16 to 24 weeks. Timeline estimates are significantly more reliable when scope has been defined in a paid discovery phase before the main development engagement begins.",
+          "A contained workflow tool with a clear scope takes 12 to 16 weeks at a US boutique studio in 2026. A more complex application with integrations and multi-role access takes 16 to 24 weeks. Timeline estimates are significantly more reliable when scope has been defined in a paid discovery phase before the main development engagement begins.",
       },
       {
         question:
           "Is there a budget threshold below which custom software almost never makes sense?",
         answer:
-          "The practical floor for a custom web application at a boutique studio in 2026 is around $20,000 to $30,000. Below that threshold, the scope is almost always better addressed by SaaS configuration or by hiring a senior freelancer for a targeted integration or workflow fix.",
+          "The practical floor for a custom web application at a US boutique studio in 2026 is around $20,000 to $30,000. Below that threshold, the scope is almost always better addressed by SaaS configuration or by hiring a senior freelancer for a targeted integration or workflow fix.",
       },
     ],
     internalLinks: [
@@ -3661,7 +3661,7 @@ export const clusterHEditorial: BlogPost[] = [
           "The distinction between a chatbot, a workflow automation, and an AI agent matters because each carries different cost, reliability, and failure mode profiles. Choosing the wrong category wastes budget and produces a worse outcome than the simpler option.",
           "Most small businesses in 2026 do not need an AI agent. A simpler automation or a well-configured AI assistant covers most use cases at a fraction of the cost and with a more predictable failure profile.",
           "Agents become worth the investment when the task is highly variable in input, requires real-world actions across several systems, runs at high volume, and has failure modes that are recoverable before downstream consequences occur.",
-          "Custom AI agents in 2026 cost $15,000 to $150,000 to build depending on scope. Per-run inference costs after launch typically run $0.01 to $0.50 per task. Ongoing maintenance is a real and frequently underestimated cost.",
+          "Custom AI agents in 2026 cost $15,000 to $150,000 to build at US boutique rates, depending on scope. Per-run inference costs after launch typically run $0.01 to $0.50 per task. Ongoing maintenance is a real and frequently underestimated cost.",
         ],
       },
       {
@@ -3832,22 +3832,22 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "The ranges below apply to custom-built agents at a boutique studio. SaaS agent products have a different cost structure, addressed at the end of this section.",
+          "The ranges below apply to custom-built agents at a US boutique studio. SaaS agent products have a different cost structure, addressed at the end of this section.",
       },
       {
         type: "paragraph",
         content:
-          "A contained single-domain agent handles one well-defined task category, uses two to four tools, requires no persistent memory across sessions, and outputs to a human review queue. Build cost: $15,000 to $40,000. Timeline: 8 to 12 weeks.",
+          "A contained single-domain agent handles one well-defined task category, uses two to four tools, requires no persistent memory across sessions, and outputs to a human review queue. Build cost at US rates: $15,000 to $40,000. Timeline: 8 to 12 weeks.",
       },
       {
         type: "paragraph",
         content:
-          "An agent with memory and multiple data sources operates across several systems (a CRM, a support ticket platform, email), maintains a record of prior interactions, and includes a review interface for the operators overseeing it. Build cost: $40,000 to $80,000. Timeline: 12 to 20 weeks.",
+          "An agent with memory and multiple data sources operates across several systems (a CRM, a support ticket platform, email), maintains a record of prior interactions, and includes a review interface for the operators overseeing it. Build cost at US rates: $40,000 to $80,000. Timeline: 12 to 20 weeks.",
       },
       {
         type: "paragraph",
         content:
-          "A multi-agent system includes an orchestration layer with specialized sub-agents for different task categories, routing logic between them, human-in-the-loop checkpoints for high-stakes decisions, observability tooling, and fallback handling when individual tools fail. Build cost: $80,000 to $150,000 and often more. Timeline: 20 to 36 weeks.",
+          "A multi-agent system includes an orchestration layer with specialized sub-agents for different task categories, routing logic between them, human-in-the-loop checkpoints for high-stakes decisions, observability tooling, and fallback handling when individual tools fail. Build cost at US rates: $80,000 to $150,000 and often more. Timeline: 20 to 36 weeks.",
       },
       {
         type: "paragraph",
@@ -3933,7 +3933,7 @@ export const clusterHEditorial: BlogPost[] = [
           {
             question: "How much does it cost to build a custom AI agent?",
             answer:
-              "Custom agent builds at a boutique studio in 2026 range from $15,000 for a contained single-domain agent to $150,000 or more for a multi-agent system with memory, routing, and observability tooling. Ongoing inference costs after launch typically run $0.01 to $0.50 per agent run. SaaS agent platforms cost $200 to $2,000 per month depending on usage tier. Ongoing maintenance engineering is a real cost that frequently gets underestimated in the initial budget.",
+              "Custom agent builds at a US boutique studio in 2026 range from $15,000 for a contained single-domain agent to $150,000 or more for a multi-agent system with memory, routing, and observability tooling. Ongoing inference costs after launch typically run $0.01 to $0.50 per agent run. SaaS agent platforms cost $200 to $2,000 per month depending on usage tier. Ongoing maintenance engineering is a real cost that frequently gets underestimated in the initial budget.",
           },
           {
             question: "What tasks are AI agents best suited for?",
@@ -3949,7 +3949,7 @@ export const clusterHEditorial: BlogPost[] = [
           {
             question: "How long does it take to build and deploy an AI agent?",
             answer:
-              "A contained single-domain agent takes 8 to 12 weeks at a boutique studio. A multi-domain agent with memory takes 12 to 20 weeks. A multi-agent system with orchestration and observability takes 20 to 36 weeks. Timeline estimates are significantly more reliable after a paid discovery phase where the tool surface and decision logic are mapped before the main build begins.",
+              "A contained single-domain agent takes 8 to 12 weeks at a US boutique studio. A multi-domain agent with memory takes 12 to 20 weeks. A multi-agent system with orchestration and observability takes 20 to 36 weeks. Timeline estimates are significantly more reliable after a paid discovery phase where the tool surface and decision logic are mapped before the main build begins.",
           },
           {
             question:
@@ -4001,7 +4001,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         question: "How much does it cost to build a custom AI agent?",
         answer:
-          "Custom agent builds at a boutique studio in 2026 range from $15,000 for a contained single-domain agent to $150,000 or more for a multi-agent system with memory, routing, and observability tooling. Ongoing inference costs after launch run $0.01 to $0.50 per agent run. SaaS agent platforms cost $200 to $2,000 per month.",
+          "Custom agent builds at a US boutique studio in 2026 range from $15,000 for a contained single-domain agent to $150,000 or more for a multi-agent system with memory, routing, and observability tooling. Ongoing inference costs after launch run $0.01 to $0.50 per agent run. SaaS agent platforms cost $200 to $2,000 per month.",
       },
       {
         question: "What tasks are AI agents best suited for?",
@@ -4017,7 +4017,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         question: "How long does it take to build and deploy an AI agent?",
         answer:
-          "A contained single-domain agent takes 8 to 12 weeks at a boutique studio. A multi-domain agent with memory takes 12 to 20 weeks. A multi-agent system with orchestration and observability takes 20 to 36 weeks. Timeline estimates are more reliable after a paid discovery phase.",
+          "A contained single-domain agent takes 8 to 12 weeks at a US boutique studio. A multi-domain agent with memory takes 12 to 20 weeks. A multi-agent system with orchestration and observability takes 20 to 36 weeks. Timeline estimates are more reliable after a paid discovery phase.",
       },
       {
         question:
@@ -4226,7 +4226,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "Build for a focused workflow application at a boutique studio in 2026 costs $20,000 to $60,000. An application with significant integrations, a complex data model, or high performance requirements costs $60,000 to $150,000 or more. Both ranges assume that discovery and design produced stable, complete specifications before build began.",
+          "Build for a focused workflow application at a US boutique studio in 2026 costs $20,000 to $60,000. An application with significant integrations, a complex data model, or high performance requirements costs $60,000 to $150,000 or more. Both ranges assume that discovery and design produced stable, complete specifications before build began.",
       },
       {
         type: "heading",
@@ -4283,7 +4283,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "A maintenance arrangement that covers minor feature additions (new report formats, small UI adjustments, additional export fields) typically costs $2,000 to $4,000 per month at boutique-studio rates.",
+          "A maintenance arrangement that covers minor feature additions (new report formats, small UI adjustments, additional export fields) typically costs $2,000 to $4,000 per month at US boutique-studio rates.",
       },
       {
         type: "paragraph",
@@ -4590,12 +4590,12 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "The second tier adds AI capabilities to existing software through API integration. A business that wants custom document parsing, specialized classification, or an AI assistant embedded in their own tools builds a custom integration using a model API. Development cost at a boutique studio in 2026 runs $5,000 to $25,000 for a focused integration, covering scoping, prompt engineering, testing, deployment, and documentation. Monthly API costs for a small business workload run $100 to $1,000. This tier gives the business direct control over how the AI behaves and what data it processes, at the cost of build time and ongoing maintenance.",
+          "The second tier adds AI capabilities to existing software through API integration. A business that wants custom document parsing, specialized classification, or an AI assistant embedded in their own tools builds a custom integration using a model API. Development cost at a US boutique studio in 2026 runs $5,000 to $25,000 for a focused integration, covering scoping, prompt engineering, testing, deployment, and documentation. Monthly API costs for a small business workload run $100 to $1,000. This tier gives the business direct control over how the AI behaves and what data it processes, at the cost of build time and ongoing maintenance.",
       },
       {
         type: "paragraph",
         content:
-          "The third tier builds a custom AI agent or multi-step automation pipeline. This covers cases where the task is variable enough that a single-turn AI call is insufficient: the agent needs to look up information, take an action, observe the result, and decide what to do next. Development cost at a boutique studio runs $20,000 to $80,000 depending on the number of tools the agent uses and how much human oversight is required. Monthly inference costs for a moderately active agent run $200 to $2,000 depending on volume and task complexity. For more on how agents differ from simpler automations, the piece on AI agents on this site covers the distinction and the decision framework in detail.",
+          "The third tier builds a custom AI agent or multi-step automation pipeline. This covers cases where the task is variable enough that a single-turn AI call is insufficient: the agent needs to look up information, take an action, observe the result, and decide what to do next. Development cost at a US boutique studio runs $20,000 to $80,000 depending on the number of tools the agent uses and how much human oversight is required. Monthly inference costs for a moderately active agent run $200 to $2,000 depending on volume and task complexity. For more on how agents differ from simpler automations, the piece on AI agents on this site covers the distinction and the decision framework in detail.",
       },
       {
         type: "paragraph",
@@ -4626,12 +4626,12 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "Custom AI integration development: $5,000 to $25,000 at a boutique studio, covering the full build including scoping, prompt engineering, testing, integration with existing systems, deployment, and documentation. A project at the higher end of this range typically involves multiple AI calls per task, a custom evaluation framework to measure output quality, and integration with an existing CRM or database.",
+          "Custom AI integration development: $5,000 to $25,000 at a US boutique studio, covering the full build including scoping, prompt engineering, testing, integration with existing systems, deployment, and documentation. A project at the higher end of this range typically involves multiple AI calls per task, a custom evaluation framework to measure output quality, and integration with an existing CRM or database.",
       },
       {
         type: "paragraph",
         content:
-          "Custom AI agent development: $20,000 to $80,000 at a boutique studio, or $80,000 to $250,000 at a larger agency. The range reflects the number of external tools the agent calls, the complexity of failure handling, and the oversight and review interface the business needs to operate the agent safely.",
+          "Custom AI agent development: $20,000 to $80,000 at a US boutique studio, or $80,000 to $250,000 at a larger agency. The range reflects the number of external tools the agent calls, the complexity of failure handling, and the oversight and review interface the business needs to operate the agent safely.",
       },
       {
         type: "paragraph",
@@ -4726,7 +4726,7 @@ export const clusterHEditorial: BlogPost[] = [
           {
             question: "How much does AI automation cost for a small business in 2026?",
             answer:
-              "Existing AI tools typically cost $50 to $500 per month for a small team. A custom AI integration built by a boutique studio costs $5,000 to $25,000 to develop plus $100 to $1,000 per month in API and maintenance costs. A custom AI agent costs $20,000 to $80,000 to build at a boutique studio, with higher ongoing inference costs depending on volume. Model API costs for basic text processing are very low, often under $10 per month for a small business workload.",
+              "Existing AI tools typically cost $50 to $500 per month for a small team. A custom AI integration built by a US boutique studio costs $5,000 to $25,000 to develop plus $100 to $1,000 per month in API and maintenance costs. A custom AI agent costs $20,000 to $80,000 to build at a US boutique studio, with higher ongoing inference costs depending on volume. Model API costs for basic text processing are very low, often under $10 per month for a small business workload.",
           },
           {
             question: "What is the most common failure mode in small business AI automation?",
@@ -4736,12 +4736,12 @@ export const clusterHEditorial: BlogPost[] = [
           {
             question: "Can a small business implement AI automation without a development team?",
             answer:
-              "Yes, for first-tier implementations that use existing AI tools. A business can subscribe to a meeting transcription service, an AI email client, or a document parser without writing any code. For custom AI integrations or agents, development work is required, but the scope can be kept small enough that a boutique studio can deliver a working first integration for $5,000 to $15,000.",
+              "Yes, for first-tier implementations that use existing AI tools. A business can subscribe to a meeting transcription service, an AI email client, or a document parser without writing any code. For custom AI integrations or agents, development work is required, but the scope can be kept small enough that a US boutique studio can deliver a working first integration for $5,000 to $15,000.",
           },
           {
             question: "How long does it take to implement AI automation for a small business?",
             answer:
-              "Configuring an existing AI tool takes one to four weeks from decision to production use. A custom AI integration at a boutique studio takes four to twelve weeks. A custom AI agent takes eight to twenty weeks depending on the number of external systems involved. All of these timelines include a parallel-run validation period where the AI output is compared against human output before full transition.",
+              "Configuring an existing AI tool takes one to four weeks from decision to production use. A custom AI integration at a US boutique studio takes four to twelve weeks. A custom AI agent takes eight to twenty weeks depending on the number of external systems involved. All of these timelines include a parallel-run validation period where the AI output is compared against human output before full transition.",
           },
           {
             question: "Should a small business use an AI agent or a simpler automation?",
@@ -4789,7 +4789,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         question: "How much does AI automation cost for a small business in 2026?",
         answer:
-          "Existing AI tools typically cost $50 to $500 per month for a small team. A custom AI integration costs $5,000 to $25,000 to develop at a boutique studio plus $100 to $1,000 per month in API and maintenance costs. A custom AI agent costs $20,000 to $80,000 to build, with higher ongoing inference costs depending on volume.",
+          "Existing AI tools typically cost $50 to $500 per month for a small team. A custom AI integration costs $5,000 to $25,000 to develop at a US boutique studio plus $100 to $1,000 per month in API and maintenance costs. A custom AI agent costs $20,000 to $80,000 to build, with higher ongoing inference costs depending on volume.",
       },
       {
         question: "What is the most common failure mode in small business AI automation?",
@@ -4799,12 +4799,12 @@ export const clusterHEditorial: BlogPost[] = [
       {
         question: "Can a small business implement AI automation without a development team?",
         answer:
-          "Yes, for first-tier implementations using existing AI tools. A business can subscribe to a meeting transcription service, an AI email client, or a document parser without writing any code. For custom AI integrations or agents, development work is required, but a focused first integration can often be delivered by a boutique studio for $5,000 to $15,000.",
+          "Yes, for first-tier implementations using existing AI tools. A business can subscribe to a meeting transcription service, an AI email client, or a document parser without writing any code. For custom AI integrations or agents, development work is required, but a focused first integration can often be delivered by a US boutique studio for $5,000 to $15,000.",
       },
       {
         question: "How long does it take to implement AI automation for a small business?",
         answer:
-          "Configuring an existing AI tool takes one to four weeks from decision to production use. A custom AI integration takes four to twelve weeks at a boutique studio. A custom AI agent takes eight to twenty weeks depending on the number of external systems involved. All timelines include a parallel-run validation period before full transition.",
+          "Configuring an existing AI tool takes one to four weeks from decision to production use. A custom AI integration takes four to twelve weeks at a US boutique studio. A custom AI agent takes eight to twenty weeks depending on the number of external systems involved. All timelines include a parallel-run validation period before full transition.",
       },
       {
         question: "Should a small business use an AI agent or a simpler automation?",
@@ -4970,7 +4970,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "The cost for custom software in this context ranges from $15,000 to $60,000 for a focused internal tool built by a boutique studio. A well-scoped replacement for a single operational spreadsheet sits at the lower end of that range. Tools with complex reporting, external integrations, or multiple permission levels sit at the higher end. Ongoing cost after delivery is $500 to $2,000 per month in hosting, maintenance, and occasional updates.",
+          "The cost for custom software in this context ranges from $15,000 to $60,000 for a focused internal tool built by a US boutique studio. A well-scoped replacement for a single operational spreadsheet sits at the lower end of that range. Tools with complex reporting, external integrations, or multiple permission levels sit at the higher end. Ongoing cost after delivery is $500 to $2,000 per month in hosting, maintenance, and occasional updates.",
       },
       {
         type: "paragraph",
@@ -5381,7 +5381,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "For a straightforward integration where AI is added as a single feature to an existing product, such as a draft-generation tool in an internal dashboard or a question-answering chatbot on a support site that retrieves from existing content, development costs range from $8,000 to $25,000 at boutique studio rates in 2026. These are USD figures at $150 to $250 per hour for a small team working over four to eight weeks.",
+          "For a straightforward integration where AI is added as a single feature to an existing product, such as a draft-generation tool in an internal dashboard or a question-answering chatbot on a support site that retrieves from existing content, development costs range from $8,000 to $25,000 at US boutique studio rates in 2026. These are USD figures at $150 to $250 per hour for a small team working over four to eight weeks.",
       },
       {
         type: "paragraph",
@@ -5685,7 +5685,7 @@ export const clusterHEditorial: BlogPost[] = [
         ordered: true,
         items: [
           "Salesforce Enterprise licensing costs $165 per user per month; a 10-person sales team pays roughly $19,800 per year in licensing before setup, customization, or admin.",
-          "A custom CRM built by a boutique studio costs $45,000 to $120,000 to build; the 3-year total cost of ownership is typically lower than Salesforce for teams under 25 whose workflows require significant customization.",
+          "A custom CRM built by a US boutique studio costs $45,000 to $120,000 to build; the 3-year total cost of ownership is typically lower than Salesforce for teams under 25 whose workflows require significant customization.",
           "Salesforce wins on deployment speed, a large partner ecosystem, and built-in compliance certifications; it is the correct choice for teams with standard B2B pipeline workflows and seat counts above 40.",
           "Custom CRM wins when the sales workflow is genuinely non-standard, when Salesforce customization costs exceed $30,000 in year one, or when data residency requirements rule out a multi-tenant platform.",
           "The most expensive Salesforce configurations are often the least visible: Apex development, Lightning Web Component work, and CPQ implementation each add $15,000 to $120,000 to the base license cost and rarely appear in initial comparisons.",
@@ -5762,7 +5762,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "A custom CRM built by a boutique studio in 2026 has three cost components: the initial build, hosting, and an ongoing maintenance retainer.",
+          "A custom CRM built by a US boutique studio in 2026 has three cost components: the initial build, hosting, and an ongoing maintenance retainer.",
       },
       {
         type: "paragraph",
@@ -6685,7 +6685,7 @@ export const clusterHEditorial: BlogPost[] = [
       {
         type: "paragraph",
         content:
-          "A more complete application that consolidates two to four SaaS tools, includes user management, data migration, and an API layer, typically costs $60,000 to $150,000 at boutique studio rates. Mid-tier agencies charge $120,000 to $300,000 for comparable scope. Large agency rates for the same work typically exceed $300,000, driven primarily by overhead and account management rather than differences in engineering output.",
+          "A more complete application that consolidates two to four SaaS tools, includes user management, data migration, and an API layer, typically costs $60,000 to $150,000 at US boutique studio rates. Mid-tier agencies charge $120,000 to $300,000 for comparable scope. Large agency rates for the same work typically exceed $300,000, driven primarily by overhead and account management rather than differences in engineering output.",
       },
       {
         type: "paragraph",
@@ -6715,7 +6715,7 @@ export const clusterHEditorial: BlogPost[] = [
             question:
               "What does custom software for a small business cost in 2026?",
             answer:
-              "A focused internal tool covering one workflow costs $15,000 to $40,000 at a boutique studio. An application consolidating two to four SaaS tools with user management and data migration runs $60,000 to $150,000 at boutique rates. Mid-tier agencies charge $120,000 to $300,000 for comparable scope. Annual maintenance after launch typically runs 10 to 20 percent of the initial build cost.",
+              "A focused internal tool covering one workflow costs $15,000 to $40,000 at a US boutique studio. An application consolidating two to four SaaS tools with user management and data migration runs $60,000 to $150,000 at US boutique rates. Mid-tier agencies charge $120,000 to $300,000 for comparable scope. Annual maintenance after launch typically runs 10 to 20 percent of the initial build cost.",
           },
           {
             question:
@@ -6780,7 +6780,7 @@ export const clusterHEditorial: BlogPost[] = [
         question:
           "What does custom software for a small business cost in 2026?",
         answer:
-          "A focused internal tool covering one workflow costs $15,000 to $40,000 at a boutique studio. An application consolidating two to four SaaS tools with user management and data migration runs $60,000 to $150,000 at boutique rates. Mid-tier agencies charge $120,000 to $300,000 for comparable scope. Annual maintenance after launch typically runs 10 to 20 percent of the initial build cost.",
+          "A focused internal tool covering one workflow costs $15,000 to $40,000 at a US boutique studio. An application consolidating two to four SaaS tools with user management and data migration runs $60,000 to $150,000 at US boutique rates. Mid-tier agencies charge $120,000 to $300,000 for comparable scope. Annual maintenance after launch typically runs 10 to 20 percent of the initial build cost.",
       },
       {
         question:

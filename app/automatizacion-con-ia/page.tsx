@@ -82,7 +82,7 @@ export default function AutomatizacionConIaPage() {
         { label: "Sede", value: "Olivos, Buenos Aires, Argentina" },
         { label: "Tecnología", value: "Claude · OpenAI · RAG · Make" },
         { label: "Prueba real", value: "PM Agent en producción" },
-        { label: "Modelo", value: "Precio cerrado o retainer mensual" },
+        { label: "Precio", value: "Cerrado antes de empezar · desde USD 1.500" },
       ]}
       sections={[
         {
