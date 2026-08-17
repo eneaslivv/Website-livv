@@ -28,6 +28,7 @@ export const metadata: Metadata = {
     url: `${SITE_URL}/studio`,
     locale: "en_US",
     alternateLocale: ["es_AR"],
+    images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
   },
 }
 

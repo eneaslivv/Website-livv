@@ -1,10 +1,9 @@
-"use client"
-
-import { BlogPost } from "@/types/blog"
+import type { BlogCardPost } from "@/lib/blog/utils"
 import { BlogCard } from "./BlogCard"
 
+// Presentational only — renders on the server alongside the post page.
 interface RelatedPostsProps {
-  posts: BlogPost[]
+  posts: BlogCardPost[]
 }
 
 export function RelatedPosts({ posts }: RelatedPostsProps) {

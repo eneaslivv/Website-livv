@@ -25,6 +25,7 @@ export const metadata: Metadata = {
       "Gestión de casos, automatización de documentos y colaboración con clientes. Creadores de LegalFlow.",
     url: `${SITE_URL}/software-para-estudios-juridicos`,
     locale: "es_AR",
+    images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
   },
 }
 

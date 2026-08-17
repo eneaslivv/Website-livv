@@ -13,6 +13,7 @@ export const metadata: Metadata = {
       "Portfolio of digital products and marketing surfaces shipped by LIVV Creative Studio for founders and agencies.",
     url: `${SITE_URL}/work`,
     siteName: "LIVV Creative Studio",
+    images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
   },
 }
 

@@ -24,6 +24,7 @@ export const metadata: Metadata = {
       "Apps web y móviles a medida para empresas de Argentina y LATAM. Equipo senior boutique en Buenos Aires.",
     url: `${SITE_URL}/desarrollo-de-apps`,
     locale: "es_AR",
+    images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
   },
 }
 

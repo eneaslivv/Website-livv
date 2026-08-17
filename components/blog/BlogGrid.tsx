@@ -1,11 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import { BlogPost, BlogCategory } from "@/types/blog"
+import { BlogCategory } from "@/types/blog"
+import type { BlogCardPost } from "@/lib/blog/utils"
 import { BlogCard } from "./BlogCard"
 
 interface BlogGridProps {
-  posts: BlogPost[]
+  posts: BlogCardPost[]
   categories: BlogCategory[]
 }
 

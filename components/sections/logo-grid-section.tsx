@@ -144,6 +144,7 @@ export function LogoGridSection() {
                                     src={logo.src}
                                     alt={logo.alt}
                                     fill
+                                    sizes="128px"
                                     className={`object-contain filter transition-all duration-500 ${logo.alt === "Gio" ? "opacity-90 group-hover:opacity-100" : "group-hover:invert"}`}
                                     style={
                                         logo.alt === "Sunbird" || logo.alt === "S.Rpro Marketing"

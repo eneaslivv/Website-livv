@@ -26,6 +26,7 @@ export const metadata: Metadata = {
       "Quién tiene productos reales en producción, quién publica precios, y cómo elegir agencia de IA según tu caso. Criterios explícitos, sin humo.",
     url: `${SITE_URL}/mejores-agencias-automatizacion-ia-argentina`,
     locale: "es_AR",
+    images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
   },
 }
 

@@ -25,6 +25,7 @@ export const metadata: Metadata = {
       "Estudio boutique en Buenos Aires. Desarrollo de software a medida para empresas de Argentina y LATAM. Equipo senior, presupuesto cerrado.",
     url: `${SITE_URL}/software-a-medida`,
     locale: "es_AR",
+    images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
   },
 }
 

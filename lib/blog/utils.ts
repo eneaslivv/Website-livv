@@ -57,31 +57,37 @@ export function getAllCategories(): BlogCategory[] {
   return blogCategories
 }
 
+/**
+ * Card-sized view of a post: everything BlogCard renders, and nothing else.
+ *
+ * A full BlogPost carries `content` — 2,000-3,500 words of structured
+ * blocks per post. Listing surfaces (/blog, /blog/category/*) render only
+ * the card fields, so handing them full posts pushed the entire article
+ * corpus into the client bundle and the RSC payload. Projecting to this
+ * shape first keeps the bodies on the server, where only /blog/[slug]
+ * ever needs them.
+ */
+export type BlogCardPost = Pick<
+  BlogPost,
+  "slug" | "title" | "excerpt" | "category" | "readingTimeMinutes" | "createdAt"
+>
+
+export function toBlogCardPost(post: BlogPost): BlogCardPost {
+  return {
+    slug: post.slug,
+    title: post.title,
+    excerpt: post.excerpt,
+    category: post.category,
+    readingTimeMinutes: post.readingTimeMinutes,
+    createdAt: post.createdAt,
+  }
+}
+
 export function getAllSlugs(): string[] {
   return getAllPosts().map((p) => p.slug)
 }
 
-export function generateTableOfContents(blocks: BlogContentBlock[]): { id: string; text: string; level: number }[] {
-  return blocks
-    .filter((b): b is BlogContentBlock & { type: "heading" } => b.type === "heading")
-    .map((b) => ({ id: b.id, text: b.content, level: b.level }))
-}
-
-export function estimateReadingTime(blocks: BlogContentBlock[]): number {
-  let wordCount = 0
-  for (const block of blocks) {
-    if ("content" in block && typeof block.content === "string") {
-      wordCount += block.content.split(/\s+/).length
-    }
-    if (block.type === "list") {
-      wordCount += block.items.join(" ").split(/\s+/).length
-    }
-    if (block.type === "table") {
-      wordCount += block.rows.flat().join(" ").split(/\s+/).length
-    }
-    if (block.type === "faq") {
-      wordCount += block.items.map((i) => `${i.question} ${i.answer}`).join(" ").split(/\s+/).length
-    }
-  }
-  return Math.max(1, Math.ceil(wordCount / 200))
-}
+// Re-exported for existing call sites. Client components should import
+// these from "@/lib/blog/toc" directly — importing them from here drags the
+// whole post registry (and every article body) into the client bundle.
+export { generateTableOfContents, estimateReadingTime } from "./toc"

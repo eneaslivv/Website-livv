@@ -41,6 +41,12 @@ const serviceMeta: Record<
       "Motion and storytelling that make ideas easy to understand. Product explainers, interface animations, and brand narratives by LIVV Creative Studio.",
     alternateName: "Motion y Narrativa",
   },
+  "nearshore-development": {
+    title: "Nearshore Software Development | LIVV — Argentina",
+    description:
+      "A senior Buenos Aires team working US East Coast hours, in English and Spanish. Nearshore product engineering with the same people designing and shipping the software.",
+    alternateName: "Desarrollo Nearshore",
+  },
 }
 
 export async function generateMetadata({
@@ -52,10 +58,15 @@ export async function generateMetadata({
   const meta = serviceMeta[slug]
 
   if (!meta) {
+    // Unknown slug: still self-canonicalize rather than inheriting a
+    // parent canonical, and keep it out of the index since there is no
+    // real content behind it.
     return {
       title: "Service | LIVV Creative Studio",
       description:
         "Professional design and development services by LIVV Creative Studio.",
+      alternates: { canonical: `/services/${slug}` },
+      robots: { index: false, follow: true },
     }
   }
 
@@ -76,7 +87,8 @@ export async function generateMetadata({
       url: `https://livvvv.com/services/${slug}`,
       locale: "en_US",
       alternateLocale: ["es_AR"],
-    },
+        images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
+  },
   }
 }
 

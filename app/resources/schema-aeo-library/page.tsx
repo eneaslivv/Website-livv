@@ -35,6 +35,7 @@ export const metadata: Metadata = {
       "Copy-paste-ready Schema.org JSON-LD templates for creative studios. The same ones we ship on LIVV. Free, MIT-licensed.",
     url: `${SITE_URL}/resources/schema-aeo-library`,
     siteName: "LIVV Creative Studio",
+    images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
   },
 }
 

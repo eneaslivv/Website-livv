@@ -13,6 +13,7 @@ export const metadata: Metadata = {
       "Insights on Webflow development, Framer, SEO optimization, creative engineering, and building digital products that perform.",
     url: "https://livvvv.com/blog",
     type: "website",
+    images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
   },
 }
 
