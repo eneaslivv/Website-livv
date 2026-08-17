@@ -82,7 +82,7 @@ export default function AgentesDeIaPage() {
         { label: "Modelos", value: "Anthropic Claude · OpenAI" },
         { label: "Datos", value: "RAG sobre tu información" },
         { label: "Prueba real", value: "PM Agent en producción" },
-        { label: "Modelo", value: "Precio cerrado o retainer mensual" },
+        { label: "Precio", value: "Cerrado antes de empezar · desde USD 1.500" },
       ]}
       sections={[
         {
