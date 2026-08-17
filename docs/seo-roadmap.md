@@ -136,7 +136,11 @@ When the weekly content production cron fires:
 8. Mark item `[x]` in this file with the slug of the shipped post.
 9. Commit + push to master with message:
    `content(blog): ship cluster-H post — <slug>`
-10. The Vercel deploy + IndexNow ping happen automatically downstream.
+10. The Vercel deploy happens automatically on push. The `indexnow`
+    GitHub Action (`.github/workflows/indexnow.yml`) then waits for the
+    deploy and pings IndexNow with the sitemap plus the new post URL —
+    it parses the slug out of the commit message, so keep the
+    `content(blog): ship cluster-H post — <slug>` format exact.
 
 ## Weekly maintenance agent instructions
 
@@ -145,9 +149,12 @@ Every Friday at 17:00 ART:
 1. Run `node scripts/render-audit.mjs --concurrency=4`.
 2. If any pages broke since last run, report in a commit on the
    `audit/<date>` branch with the diff.
-3. Run an IndexNow ping for any URL changed in the last 7 days
-   (`git log --since="7 days ago" --name-only --pretty=format: | sort -u`
-    filtered to /blog/ and /services/ paths).
+3. Do NOT ping IndexNow from this agent: the sandbox egress proxy
+   blocks api.indexnow.org (403 — see scheduled-failures.md), and the
+   `indexnow` GitHub Action already pings on every push to master
+   (`.github/workflows/indexnow.yml`). Do not log the blocked egress
+   as a new failure. To ping by hand from a normal network:
+   `node scripts/indexnow-ping.mjs --from-sitemap --changed-within=7`.
 4. Check the latest Vercel deploy status via `gh api`. If failure,
    open an issue in the repo.
 5. Log to `docs/audit-history.md` with timestamp + summary.
