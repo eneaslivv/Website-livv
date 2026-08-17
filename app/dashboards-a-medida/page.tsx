@@ -77,7 +77,7 @@ export default function DashboardsAMedidaPage() {
         { label: "Para quién", value: "Empresas y pymes de LATAM" },
         { label: "Incluye", value: "Métricas en vivo · permisos por rol" },
         { label: "Integra", value: "CRM · ERP · planillas · APIs" },
-        { label: "Sede", value: "Olivos, Buenos Aires, Argentina" },
+        { label: "Sede", value: "Núñez, Buenos Aires, Argentina" },
         { label: "Modelo", value: "Precio cerrado o retainer mensual" },
       ]}
       sections={[

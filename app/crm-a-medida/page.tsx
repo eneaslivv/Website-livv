@@ -76,7 +76,7 @@ export default function CrmAMedidaPage() {
         { label: "Para quién", value: "Empresas y pymes de LATAM" },
         { label: "Integra", value: "WhatsApp · formularios · web" },
         { label: "Ventaja", value: "Sin licencia por usuario mensual" },
-        { label: "Sede", value: "Olivos, Buenos Aires, Argentina" },
+        { label: "Sede", value: "Núñez, Buenos Aires, Argentina" },
         { label: "Modelo", value: "Precio cerrado o retainer mensual" },
       ]}
       sections={[

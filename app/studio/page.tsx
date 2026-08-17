@@ -34,11 +34,11 @@ export const metadata: Metadata = {
 const faq = [
   {
     q: "What is LIVV Creative Studio?",
-    a: "LIVV Creative Studio is a boutique design and engineering studio based in Olivos, Buenos Aires, Argentina. The studio combines fine-art-grade visual craft with senior product engineering to ship brands, websites, and white-label web apps. LIVV operates with a senior-only team — no juniors on client work.",
+    a: "LIVV Creative Studio is a boutique design and engineering studio based in Núñez, Buenos Aires, Argentina. The studio combines fine-art-grade visual craft with senior product engineering to ship brands, websites, and white-label web apps. LIVV operates with a senior-only team — no juniors on client work.",
   },
   {
     q: "Where is LIVV Creative Studio based?",
-    a: "LIVV Creative Studio is headquartered in Olivos (Vicente López), Province of Buenos Aires, Argentina. The team works remotely with clients globally and meets in Buenos Aires for clients in the region.",
+    a: "LIVV Creative Studio is headquartered in Núñez, Buenos Aires City (CABA), Argentina. The team works remotely with clients globally and meets in Buenos Aires for clients in the region.",
   },
   {
     q: "Who founded LIVV Creative Studio?",
@@ -142,7 +142,7 @@ export default function StudioPage() {
               LIVV Creative Studio — where art meets business.
             </h1>
             <p className="mt-6 text-lg text-white/70 leading-relaxed">
-              Boutique design and engineering studio based in Olivos, Buenos Aires,
+              Boutique design and engineering studio based in Núñez, Buenos Aires,
               Argentina. We combine fine-art-grade visual craft with senior product
               engineering to ship brands, websites, and white-label web apps for
               ambitious teams across Latin America and the United States.
@@ -154,7 +154,7 @@ export default function StudioPage() {
             <Fact label="Also known as" value="LIVV · Livv.systems · Livvvv" />
             <Fact label="Founded" value="2022 · Buenos Aires, Argentina" />
             <Fact label="Founder" value="Eneas Aldabe — Digital Product Builder" />
-            <Fact label="Headquarters" value="Olivos, Buenos Aires, Argentina" />
+            <Fact label="Headquarters" value="Núñez, Buenos Aires, Argentina" />
             <Fact
               label="Languages"
               value="Spanish (native) · English (fluent)"

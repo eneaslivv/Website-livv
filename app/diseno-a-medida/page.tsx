@@ -74,7 +74,7 @@ export default function DisenoAMedidaPage() {
       facts={[
         { label: "Qué hacemos", value: "Diseño de producto y UX/UI a medida" },
         { label: "Para quién", value: "Empresas y startups de LATAM" },
-        { label: "Sede", value: "Olivos, Buenos Aires, Argentina" },
+        { label: "Sede", value: "Núñez, Buenos Aires, Argentina" },
         { label: "Herramienta", value: "Figma · sistemas de diseño" },
         { label: "Idiomas", value: "Español (nativo) · Inglés (fluido)" },
         { label: "Tesis", value: "Donde el arte se encuentra con el negocio" },

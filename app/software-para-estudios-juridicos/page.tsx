@@ -80,7 +80,7 @@ export default function SoftwareEstudiosJuridicosPage() {
         { label: "Producto base", value: "LegalFlow" },
         { label: "Incluye", value: "Casos · documentos · clientes" },
         { label: "Para quién", value: "Estudios jurídicos de LATAM" },
-        { label: "Sede", value: "Olivos, Buenos Aires, Argentina" },
+        { label: "Sede", value: "Núñez, Buenos Aires, Argentina" },
         { label: "Modelo", value: "Precio cerrado o retainer mensual" },
       ]}
       sections={[
