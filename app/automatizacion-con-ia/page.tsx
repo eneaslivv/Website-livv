@@ -79,7 +79,7 @@ export default function AutomatizacionConIaPage() {
       facts={[
         { label: "Qué hacemos", value: "Automatización de procesos con IA" },
         { label: "Para quién", value: "Empresas y pymes de LATAM" },
-        { label: "Sede", value: "Olivos, Buenos Aires, Argentina" },
+        { label: "Sede", value: "Núñez, Buenos Aires, Argentina" },
         { label: "Tecnología", value: "Claude · OpenAI · RAG · Make" },
         { label: "Prueba real", value: "PM Agent en producción" },
         { label: "Precio", value: "Cerrado antes de empezar · desde USD 1.500" },

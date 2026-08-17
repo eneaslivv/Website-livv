@@ -118,7 +118,7 @@ export const metadata: Metadata = {
   },
   other: {
     "geo.region": "AR-B",
-    "geo.placename": "Olivos, Buenos Aires, Argentina",
+    "geo.placename": "Núñez, Buenos Aires, Argentina",
     "geo.position": "-34.5076;-58.4914",
     ICBM: "-34.5076, -58.4914",
     // Generative search hints

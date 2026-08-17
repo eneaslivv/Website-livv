@@ -31,10 +31,12 @@ jobs:
         if: github.event_name == 'push'
         run: sleep 180
 
-      # The blog pipeline commits as `content(blog): ship cluster-H post — <slug>`.
-      # The live sitemap revalidates hourly, so the newest post may not be in
-      # it yet — pass its URL explicitly instead of relying on the sitemap.
-      - name: Extract blog slugs from pushed commit messages
+      # The content pipelines commit as `content(blog): ship cluster-H post — <slug>`
+      # (EN posts under /blog/) and `content(es): ship cluster-ES page — <slug>`
+      # (Spanish root-level pages). The live sitemap revalidates hourly, so the
+      # newest page may not be in it yet — pass its URL explicitly instead of
+      # relying on the sitemap.
+      - name: Extract content slugs from pushed commit messages
         if: github.event_name == 'push'
         env:
           COMMITS: ${{ toJSON(github.event.commits.*.message) }}
@@ -42,11 +44,16 @@ jobs:
           node -e '
             const fs = require("node:fs")
             const msgs = JSON.parse(process.env.COMMITS || "[]")
-            const slugs = msgs
+            const blog = msgs
               .map((m) => /^content\(blog\): ship .*— ([A-Za-z0-9-]+)/mu.exec(m))
               .filter(Boolean)
               .map((m) => `https://livvvv.com/blog/${m[1]}`)
-            console.log("Blog URLs from commit messages:", slugs.length ? slugs : "(none)")
+            const es = msgs
+              .map((m) => /^content\(es\): ship .*— ([A-Za-z0-9-]+)/mu.exec(m))
+              .filter(Boolean)
+              .map((m) => `https://livvvv.com/${m[1]}`)
+            const slugs = [...blog, ...es]
+            console.log("Content URLs from commit messages:", slugs.length ? slugs : "(none)")
             fs.appendFileSync(process.env.GITHUB_ENV, `EXTRA_URLS=${slugs.join(" ")}\n`)
           '
 

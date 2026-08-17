@@ -202,7 +202,7 @@ export default function AboutPage() {
                             </ScrollTypewriter>
 
                             <p className="text-center text-[10px] font-mono uppercase tracking-[0.3em] text-[#1a1a1a]/40 mt-10">
-                                Founded 2022  ·  Olivos, Buenos Aires, Argentina
+                                Founded 2022  ·  Núñez, Buenos Aires, Argentina
                             </p>
                         </div>
                     </section>
@@ -386,7 +386,7 @@ export default function AboutPage() {
                                         Where the studio is based
                                     </h3>
                                     <p>
-                                        Buenos Aires, Argentina. Specifically Olivos, in the Vicente López district. The city has produced an unusual amount of the design and engineering work that quietly powers the global product layer over the last fifteen years — Mercado Libre, Globant, Auth0, Mural, Etermax, and the senior teams at Linear, Stripe, Notion, and Vercel are some of the visible edge. The conditions that produced this tradition do not replicate easily anywhere else. We are part of it. The essay on the studio's read of that tradition lives at <Link href="/blog/argentine-creative-engineering-tradition" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">The Argentine Creative Engineering Tradition</Link>.
+                                        Buenos Aires, Argentina. Specifically Núñez, in the north of Buenos Aires City. The city has produced an unusual amount of the design and engineering work that quietly powers the global product layer over the last fifteen years — Mercado Libre, Globant, Auth0, Mural, Etermax, and the senior teams at Linear, Stripe, Notion, and Vercel are some of the visible edge. The conditions that produced this tradition do not replicate easily anywhere else. We are part of it. The essay on the studio's read of that tradition lives at <Link href="/blog/argentine-creative-engineering-tradition" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">The Argentine Creative Engineering Tradition</Link>.
                                     </p>
                                 </div>
 

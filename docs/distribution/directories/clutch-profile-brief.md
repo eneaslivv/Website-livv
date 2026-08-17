@@ -45,7 +45,7 @@ $100 - $149 / hr
 
 ### Location
 ```
-Olivos, Buenos Aires, Buenos Aires, Argentina
+Buenos Aires, Ciudad Autónoma de Buenos Aires, Argentina
 ```
 
 ---

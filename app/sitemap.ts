@@ -61,6 +61,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         // Spanish AEO landings — industry verticals (product-backed)
         { url: `${BASE_URL}/software-para-estudios-juridicos`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
         { url: `${BASE_URL}/software-para-gastronomia`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+        // Cluster ES — comparativas y funnel para dueños de negocio (AR/LATAM)
+        { url: `${BASE_URL}/mejores-agencias-automatizacion-ia-argentina`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
+        { url: `${BASE_URL}/n8n-vs-make-vs-desarrollo-a-medida`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+        { url: `${BASE_URL}/diagnostico-de-automatizacion`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
     ]
 
     // ── Specialized landings (rewrites in next.config.mjs to /lp/*.html) ─
