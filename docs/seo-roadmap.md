@@ -40,7 +40,7 @@ Cluster file: `lib/blog/posts/cluster-h-editorial.ts` (append at the end).
 - [x] **Custom CRM vs Salesforce: The Real Cost Comparison** `custom-crm-vs-salesforce-real-cost-comparison`
       Comparison piece, ~2,500 words. TCO math over 3 years, when
       custom wins, when Salesforce wins.
-- [~] **5 Signs You Need Custom Software (Not Another SaaS Tool)** `5-signs-you-need-custom-software`
+- [x] **5 Signs You Need Custom Software (Not Another SaaS Tool)** `5-signs-you-need-custom-software`
       Listicle / educational, ~1,800 words. Diagnostic questions.
 - [ ] **Custom Software Development Timeline: From Idea to Launch**
       Project shape educational, ~2,000 words. Week-by-week breakdown.
