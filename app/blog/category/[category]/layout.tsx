@@ -50,7 +50,8 @@ export async function generateMetadata({
       description: intro.description,
       url: `${SITE_URL}${canonical}`,
       siteName: "LIVV Creative Studio",
-    },
+        images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
+  },
     twitter: {
       card: "summary_large_image",
       title: intro.title,

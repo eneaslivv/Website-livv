@@ -93,7 +93,7 @@ export function TestimonialsSection() {
                                         ${active === i ? "z-10 scale-110" : "grayscale hover:grayscale-0 hover:scale-105"}
                                     `}
                                 >
-                                    <Image src={t.image} alt={t.name} fill className="object-cover" />
+                                    <Image src={t.image} alt={t.name} fill sizes="40px" className="object-cover" />
                                 </button>
                             ))}
                         </div>

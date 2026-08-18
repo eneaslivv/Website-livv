@@ -16,6 +16,7 @@ export const metadata: Metadata = {
       "Creative engineering studio in Buenos Aires. Direct work and white-label partnerships for founders and agencies. Senior team only.",
     url: `${SITE_URL}/about`,
     siteName: "LIVV Creative Studio",
+    images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
   },
 }
 

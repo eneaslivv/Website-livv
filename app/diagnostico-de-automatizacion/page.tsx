@@ -26,6 +26,7 @@ export const metadata: Metadata = {
       "Llamada de 30 minutos + informe con los 3 procesos que más te conviene automatizar y su impacto estimado. Sin compromiso.",
     url: `${SITE_URL}/diagnostico-de-automatizacion`,
     locale: "es_AR",
+    images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
   },
 }
 

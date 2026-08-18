@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     description:
       "Get in touch with LIVV Creative Studio. Tell us about your project and let's build something exceptional together.",
     url: "https://livvvv.com/contact",
+    images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
   },
 }
 

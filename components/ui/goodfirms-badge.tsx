@@ -28,6 +28,7 @@ export function GoodfirmsBadge({
                 src="/badges/goodfirms.png"
                 alt="Goodfirms Badge"
                 fill
+                sizes="200px"
                 className="object-contain"
                 style={variant === "light"
                     ? { filter: "brightness(0.65) saturate(1.5)" }

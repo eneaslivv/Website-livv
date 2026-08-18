@@ -24,6 +24,7 @@ export const metadata: Metadata = {
       "Diseño UX/UI y de producto a medida para empresas de Argentina y LATAM. Estudio boutique en Buenos Aires.",
     url: `${SITE_URL}/diseno-a-medida`,
     locale: "es_AR",
+    images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
   },
 }
 

@@ -1,19 +1,19 @@
-"use client"
-
-import { Inter } from "next/font/google"
 import { Navbar } from "@/components/layout/navbar"
 import { FooterSection } from "@/components/sections/footer-section"
 import { BlogGrid } from "@/components/blog/BlogGrid"
-import { getAllPosts, getAllCategories } from "@/lib/blog/utils"
+import { getAllPosts, getAllCategories, toBlogCardPost } from "@/lib/blog/utils"
 
-const inter = Inter({ subsets: ["latin"] })
-
+/**
+ * Server component. The index renders no interactive state of its own —
+ * the category filter lives inside BlogGrid — so the post corpus stays on
+ * the server and only card-sized projections cross to the client.
+ */
 export default function BlogPage() {
-  const posts = getAllPosts()
+  const posts = getAllPosts().map(toBlogCardPost)
   const categories = getAllCategories()
 
   return (
-    <main className={`bg-[#FAF8F3] text-[#2A1818] selection:bg-[#E6E2D6] min-h-screen ${inter.className}`}>
+    <main className="bg-[#FAF8F3] text-[#2A1818] selection:bg-[#E6E2D6] min-h-screen">
       <Navbar />
 
       <div className="pt-40 md:pt-52">

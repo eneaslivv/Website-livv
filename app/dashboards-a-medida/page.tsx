@@ -25,6 +25,7 @@ export const metadata: Metadata = {
       "Paneles y herramientas internas a medida: métricas en tiempo real y una sola pantalla para operar.",
     url: `${SITE_URL}/dashboards-a-medida`,
     locale: "es_AR",
+    images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
   },
 }
 

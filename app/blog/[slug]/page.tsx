@@ -1,7 +1,3 @@
-"use client"
-
-import { useParams } from "next/navigation"
-import { Inter } from "next/font/google"
 import Link from "next/link"
 import { Navbar } from "@/components/layout/navbar"
 import { FooterSection } from "@/components/sections/footer-section"
@@ -11,9 +7,17 @@ import { TableOfContents } from "@/components/blog/TableOfContents"
 import { RelatedPosts } from "@/components/blog/RelatedPosts"
 import { EditorialPicks } from "@/components/blog/EditorialPicks"
 import { BlogCTA } from "@/components/blog/BlogCTA"
-import { getPostBySlug, getRelatedPosts } from "@/lib/blog/utils"
+import { getPostBySlug, getRelatedPosts, toBlogCardPost } from "@/lib/blog/utils"
 
-const inter = Inter({ subsets: ["latin"] })
+/**
+ * Server component. Rendering this on the client bundled every post in the
+ * corpus into the route's JavaScript just to display one of them. The page
+ * needs no browser state — the interactive pieces (table of contents, CTA)
+ * are their own client components.
+ *
+ * Inter is applied by the root layout, so the route-level next/font call
+ * that used to live here only downloaded a second copy of the same family.
+ */
 
 function NotFound() {
   return (
@@ -29,14 +33,17 @@ function NotFound() {
   )
 }
 
-export default function BlogPostPage() {
-  const params = useParams()
-  const slug = params?.slug as string
+export default async function BlogPostPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const { slug } = await params
   const post = getPostBySlug(slug)
 
   if (!post) {
     return (
-      <main className={`bg-[#FAF8F3] text-[#2A1818] selection:bg-[#E6E2D6] min-h-screen ${inter.className}`}>
+      <main className="bg-[#FAF8F3] text-[#2A1818] selection:bg-[#E6E2D6] min-h-screen">
         <Navbar />
         <div className="pt-40 md:pt-52">
           <NotFound />
@@ -46,7 +53,7 @@ export default function BlogPostPage() {
     )
   }
 
-  const related = getRelatedPosts(post, 3)
+  const related = getRelatedPosts(post, 3).map(toBlogCardPost)
 
   // JSON-LD Structured Data
   const articleSchema = {
@@ -97,7 +104,7 @@ export default function BlogPostPage() {
   }
 
   return (
-    <main className={`bg-[#FAF8F3] text-[#2A1818] selection:bg-[#E6E2D6] min-h-screen ${inter.className}`}>
+    <main className="bg-[#FAF8F3] text-[#2A1818] selection:bg-[#E6E2D6] min-h-screen">
       {/* Structured Data */}
       <script
         type="application/ld+json"

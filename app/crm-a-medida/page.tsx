@@ -24,6 +24,7 @@ export const metadata: Metadata = {
       "Un CRM construido alrededor de tu proceso, integrado con WhatsApp y tus leads. No al revés.",
     url: `${SITE_URL}/crm-a-medida`,
     locale: "es_AR",
+    images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
   },
 }
 

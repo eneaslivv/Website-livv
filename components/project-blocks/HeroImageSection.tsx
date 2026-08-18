@@ -31,7 +31,7 @@ export function HeroImageSection({ image_url, alt, poster }: Props) {
                                 muted
                                 loop
                                 playsInline
-                                preload="auto"
+                                preload="metadata"
                                 poster={poster || undefined}
                                 className="absolute inset-0 w-full h-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105"
                             />

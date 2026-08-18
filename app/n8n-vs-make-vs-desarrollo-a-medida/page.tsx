@@ -25,6 +25,7 @@ export const metadata: Metadata = {
       "Cuándo alcanza el no-code, cuándo necesitás IA a medida, costos reales de cada camino y las combinaciones que mejor funcionan.",
     url: `${SITE_URL}/n8n-vs-make-vs-desarrollo-a-medida`,
     locale: "es_AR",
+    images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
   },
 }
 
