@@ -16,6 +16,8 @@ export const metadata: Metadata = {
     canonical: "/agentes-de-ia",
     languages: {
       "es-AR": "/agentes-de-ia",
+      "es-ES": "/agentes-de-ia",
+      es: "/agentes-de-ia",
       "x-default": "/agentes-de-ia",
     },
   },
@@ -101,6 +103,12 @@ export default function AgentesDeIaPage() {
       related={{
         title: "Servicios relacionados",
         items: [
+          {
+            href: "/diagnostico-de-automatizacion",
+            name: "Diagnóstico de automatización sin cargo",
+            description:
+              "Treinta minutos y un informe con los procesos priorizados.",
+          },
           {
             href: "/automatizacion-con-ia",
             name: "Automatización con IA",

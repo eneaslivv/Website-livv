@@ -16,6 +16,8 @@ export const metadata: Metadata = {
     canonical: "/automatizacion-con-ia",
     languages: {
       "es-AR": "/automatizacion-con-ia",
+      "es-ES": "/automatizacion-con-ia",
+      es: "/automatizacion-con-ia",
       "x-default": "/automatizacion-con-ia",
     },
   },
@@ -113,6 +115,12 @@ export default function AutomatizacionConIaPage() {
       related={{
         title: "Servicios relacionados",
         items: [
+          {
+            href: "/diagnostico-de-automatizacion",
+            name: "Diagnóstico de automatización sin cargo",
+            description:
+              "Treinta minutos y un informe con los procesos priorizados.",
+          },
           {
             href: "/bots-de-whatsapp",
             name: "Bots de WhatsApp con IA",

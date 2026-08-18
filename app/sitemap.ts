@@ -67,6 +67,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         { url: `${BASE_URL}/n8n-vs-make-vs-desarrollo-a-medida`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
         { url: `${BASE_URL}/cuanto-cuesta-automatizar-un-proceso-argentina`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
         { url: `${BASE_URL}/agencia-de-ia-vs-freelancer-vs-equipo-propio`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+        { url: `${BASE_URL}/automatizacion-con-ia-espana`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
         { url: `${BASE_URL}/diagnostico-de-automatizacion`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
     ]
 

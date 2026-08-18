@@ -16,6 +16,8 @@ export const metadata: Metadata = {
     canonical: "/software-a-medida",
     languages: {
       "es-AR": "/software-a-medida",
+      "es-ES": "/software-a-medida",
+      es: "/software-a-medida",
       "x-default": "/software-a-medida",
     },
   },
@@ -147,6 +149,12 @@ export default function SoftwareAMedidaPage() {
       related={{
         title: "Servicios relacionados",
         items: [
+          {
+            href: "/diagnostico-de-automatizacion",
+            name: "Diagnóstico de automatización sin cargo",
+            description:
+              "Treinta minutos y un informe con los procesos priorizados.",
+          },
           {
             href: "/desarrollo-de-apps",
             name: "Desarrollo de apps a medida",
