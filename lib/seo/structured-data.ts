@@ -24,7 +24,10 @@ export const STUDIO = {
   taglineEs:
     "Estudio de ingeniería creativa que construye productos digitales para founders y agencias.",
   email: "hola@livv.systems",
-  phone: undefined as string | undefined,
+  // Same number the verified Google Business Profile displays publicly
+  // (011 15-3799-1815 in AR mobile format). Identical NAP across the site
+  // schema, GBP and Bing Places is how Google reconciles the brand entity.
+  phone: "+54 9 11 3799-1815" as string | undefined,
   url: SITE_URL,
   logo: `${SITE_URL}/assets/logo-new.png`,
   ogImage: `${SITE_URL}/assets/og-image.png`,
@@ -215,6 +218,7 @@ export function buildOrganizationGraph() {
         },
         founder: { "@id": personId },
         email: STUDIO.email,
+        telephone: STUDIO.phone,
         address: {
           "@type": "PostalAddress",
           streetAddress: STUDIO.address.streetAddress,
@@ -232,6 +236,7 @@ export function buildOrganizationGraph() {
           {
             "@type": "ContactPoint",
             email: STUDIO.email,
+            telephone: STUDIO.phone,
             contactType: "customer service",
             areaServed: ["AR", "US", "ES", "MX", "CL", "UY", "CO"],
             availableLanguage: ["Spanish", "English"],
@@ -262,6 +267,7 @@ export function buildOrganizationGraph() {
         name: STUDIO.legalName,
         url: STUDIO.url,
         image: STUDIO.ogImage,
+        telephone: STUDIO.phone,
         priceRange: "$$$",
         address: {
           "@type": "PostalAddress",
@@ -291,6 +297,9 @@ export function buildOrganizationGraph() {
         "@id": websiteId,
         url: STUDIO.url,
         name: STUDIO.legalName,
+        // Google's site-name feature reads WebSite name/alternateName; the
+        // SERP currently labels results "livvvv.com" instead of the brand.
+        alternateName: ["LIVV", "Livv Studio"],
         publisher: { "@id": orgId },
         inLanguage: ["en", "es"],
         potentialAction: {
