@@ -199,11 +199,24 @@ rankings that currently own those SERPs. Bing AI Performance shows 3.1K
 citations in 3 months, 100% from old platform-comparison posts, which
 proves the format works and that nothing new has landed yet.
 
-- [ ] Outreach to the AR listicles that rank today (they accept
-      submissions; several self-published rankings include competitors)
-- [ ] Finish the directory set already scoped in
-      docs/distribution/directories/ (Clutch, Crunchbase, TechBehemoths,
-      DesignRush, agentes.ai) — user action, brief already written
+- [x] **Outreach kit written** (2026-08-18):
+      `docs/distribution/directories/listicle-outreach.md`. Covers what
+      the earlier English-only directory docs missed — the Spanish
+      listicles that actually own the AR and ES SERPs, split into
+      Tier 1 (self-serve registration: DevelopArgentina, Sortlist AR,
+      Agency Partners, TechBehemoths, agentes.ai), Tier 2 (editorial
+      outreach to competitor-run rankings) and Tier 3 (Spain, new since
+      /automatizacion-con-ia-espana). Includes the Spanish profile copy
+      that no doc had, and three outreach templates.
+      **Verified against the source file:** only Wodes, Suriscode, tec5,
+      Be Solution and Xcapit are in LIVV's own listicle, so the
+      reciprocity paragraph in template A is flagged as usable with
+      those three targets only. Re-verify that column if the listicle
+      is ever expanded.
+- [ ] Execute Tier 1 (self-serve, does not depend on anyone replying) —
+      user action, copy is ready to paste
+- [ ] Update GoodFirms: claimed but stale (old "Adobe After Effects
+      100%" focus, founding year wrong, 0 reviews) — needs user login
 - [ ] Ask existing clients for reviews: the GBP has 5 and it is the
       single largest lever on the local panel
 
