@@ -51,6 +51,9 @@ export const STUDIO = {
   socials: [
     "https://www.linkedin.com/company/39648193/",
     "https://github.com/livvstudio",
+    // Same handle the Google Business Profile lists under social profiles —
+    // sameAs parity across surfaces is an entity-reconciliation signal.
+    "https://www.instagram.com/livv.creativv/",
   ],
   founder: {
     name: "Eneas Aldabe",
