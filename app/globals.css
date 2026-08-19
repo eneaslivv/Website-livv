@@ -547,3 +547,47 @@
 .preserve-3d {
   transform-style: preserve-3d;
 }
+
+/* ── Product collage ──────────────────────────────────────────────────
+   The wide and compact compositions switch in CSS rather than from a
+   ResizeObserver callback. Layout correctness should not depend on a JS
+   observer firing: if it is delayed or never runs, a phone would other-
+   wise get the wide composition, where cards land on top of the head-
+   line and push past the stage. Media queries cannot fail that way. */
+.collage-item {
+  left: var(--ml, var(--l));
+  top: var(--mt, var(--t));
+}
+
+/* ProductScreen renders at its base width; this steps it down per
+   breakpoint. It sits on its own element so it never fights the
+   transform framer writes on the parallax wrapper above it. */
+.collage-scale {
+  transform-origin: top left;
+  transform: scale(var(--cs, 0.46));
+}
+
+/* Items that only belong to the wide composition. */
+.collage-wide-only {
+  display: none;
+}
+
+@media (min-width: 520px) {
+  .collage-scale { --cs: 0.62; }
+}
+
+@media (min-width: 640px) {
+  .collage-item {
+    left: var(--l);
+    top: var(--t);
+  }
+  .collage-wide-only { display: block; }
+}
+
+@media (min-width: 780px) {
+  .collage-scale { --cs: 0.82; }
+}
+
+@media (min-width: 1040px) {
+  .collage-scale { --cs: 1; }
+}
