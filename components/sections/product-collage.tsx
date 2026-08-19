@@ -65,6 +65,13 @@ const SPRING = { stiffness: 60, damping: 18, mass: 0.6 }
 /** Rounded a touch, the way the reference squares are. */
 const CHIP_RADIUS = 3
 
+/**
+ * Card aspect. The reference crops its photos to a wide letterbox, much wider
+ * than the 1.6:1 a ProductScreen draws itself at, so the card clips the screen
+ * to this ratio instead of matching it. One number to tune the whole row.
+ */
+const CARD_RATIO = 2.25
+
 type Item = {
     key: string
     /** 0 = pinned to the page, 1.4 = floats furthest forward. */
@@ -115,7 +122,7 @@ const APPS: AppItem[] = [
     { kind: "app", key: "prtool", title: "PRTool", variant: "campaigns", accent: "#c9a48a", index: 1, width: 176, depth: 0.5, left: 42, top: 4, mHide: true, chip: { color: "#EE7B2E", size: 14, corner: "bl" } },
     { kind: "app", key: "legalflow", title: "LegalFlow", variant: "cases", accent: "#8a7e74", index: 2, width: 190, depth: 1.2, left: 14, top: 57, mLeft: 22, mTop: 55 },
     { kind: "app", key: "registrar", title: "Registrar", variant: "finance", accent: "#a0694f", index: 3, width: 172, depth: 0.72, left: 60, top: 63, mHide: true, chip: { color: "#E8873A", size: 13, corner: "tr" } },
-    { kind: "app", key: "pm-agent", title: "PM Agent", variant: "board", accent: "#b8836e", index: 4, width: 196, depth: 1.05, left: 74, top: 15, mLeft: 62, mTop: 26 },
+    { kind: "app", key: "pm-agent", title: "PM Agent", variant: "board", accent: "#b8836e", index: 4, width: 196, depth: 1.05, left: 71, top: 15, mLeft: 62, mTop: 26 },
 ]
 
 /** Solid colour chips, matching the reference collage. */
@@ -338,26 +345,41 @@ export function ProductCollage() {
                                 style={{ animationDelay: `${(0.12 + i * 0.16).toFixed(2)}s` }}
                             >
                             <div className="relative">
-                            <div className="collage-card overflow-hidden rounded-[3px] bg-white">
+                            <div
+                                className="collage-card relative overflow-hidden rounded-[3px] bg-white"
+                                style={{
+                                    width: a.width,
+                                    height: Math.round(a.width / CARD_RATIO),
+                                }}
+                            >
                                 {a.image ? (
                                     <Image
                                         src={a.image}
                                         alt=""
                                         width={a.width}
-                                        height={Math.round(a.width / SCREEN_RATIO)}
-                                        className="block object-cover"
-                                        style={{
-                                            width: a.width,
-                                            height: Math.round(a.width / SCREEN_RATIO),
-                                        }}
+                                        height={Math.round(a.width / CARD_RATIO)}
+                                        className="block h-full w-full object-cover"
                                     />
                                 ) : (
-                                    <ProductScreen
-                                        variant={a.variant}
-                                        accent={a.accent}
-                                        index={a.index}
-                                        width={a.width}
-                                    />
+                                    /* The drawn screen keeps its own 1.6:1 and
+                                       gets cropped to the letterbox, pulled up
+                                       so the crop lands on the content rather
+                                       than on the window chrome at the top. */
+                                    <div
+                                        className="absolute inset-x-0"
+                                        style={{
+                                            top: -Math.round(
+                                                (a.width / SCREEN_RATIO - a.width / CARD_RATIO) * 0.62,
+                                            ),
+                                        }}
+                                    >
+                                        <ProductScreen
+                                            variant={a.variant}
+                                            accent={a.accent}
+                                            index={a.index}
+                                            width={a.width}
+                                        />
+                                    </div>
                                 )}
                             </div>
                             {a.chip && (
@@ -372,7 +394,7 @@ export function ProductCollage() {
                                             a.chip.corner,
                                             a.chip.size,
                                             a.width,
-                                            Math.round(a.width / SCREEN_RATIO),
+                                            Math.round(a.width / CARD_RATIO),
                                         ),
                                     }}
                                 />
