@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useRef } from "react"
 import {
     motion,
     useMotionValue,
@@ -10,7 +10,8 @@ import {
     useReducedMotion,
     type MotionValue,
 } from "framer-motion"
-import { ProductScreen } from "@/components/portfolio-preview/project-folder/product-screen"
+import Image from "next/image"
+import { ProductScreen, SCREEN_RATIO } from "@/components/portfolio-preview/project-folder/product-screen"
 import type { ScreenVariant } from "@/lib/portfolio-data"
 
 /**
@@ -20,8 +21,13 @@ import type { ScreenVariant } from "@/lib/portfolio-data"
  * and the three headline words sit on the same 3D stage and drift apart as
  * the pointer moves, so depth reads as motion rather than as drop shadows.
  *
- * The screens are drawn in markup by ProductScreen, not photographed, so this
- * never ships a broken image and always shows the real products.
+ * Cards carry real product art where it exists and fall back to a screen drawn
+ * in markup by ProductScreen where it does not, so the collage never ships a
+ * broken image while art is still being produced.
+ *
+ * Nothing is rotated at rest and nothing carries a shadow at rest: both are
+ * hover and pointer behaviour, which keeps the composition square to the page
+ * the way the reference is.
  *
  * Accessibility: the visual words are decorative duplicates. The real heading
  * is a single visually-hidden h2 so screen readers and crawlers get one clean
@@ -33,12 +39,25 @@ const SHIFT_X = 30
 const SHIFT_Y = 24
 /** Degrees of tilt at depth 1. */
 const TILT = 5
+/** Vertical drift across the scroll pass, at depth 1. */
+const DRIFT = 26
 
 /**
  * Module scope so useSpring gets one stable options reference for the life of
  * the page. Soft and slightly heavy: the collage should settle, not snap.
  */
 const SPRING = { stiffness: 60, damping: 18, mass: 0.6 }
+
+/**
+ * Staggered arrival. Opacity only: the wrapper owns the transform and the
+ * scale sits on its own element, so touching either here would fight them.
+ */
+const ENTER = { hidden: { opacity: 0 }, shown: { opacity: 1 } }
+const enterAt = (depth: number) => ({
+    duration: 0.55,
+    delay: 0.08 + depth * 0.28,
+    ease: [0.22, 1, 0.36, 1] as const,
+})
 
 type Item = {
     key: string
@@ -47,7 +66,6 @@ type Item = {
     /** Percentage position inside the stage, wide layout. */
     left: number
     top: number
-    rotate: number
     /**
      * Compact layout overrides. The wide composition needs roughly 900px to
      * breathe; on a phone the container is 288px, where the same percentages
@@ -68,30 +86,42 @@ type AppItem = Item & {
     index: number
     /** Unscaled width handed to ProductScreen. */
     width: number
+    /**
+     * Real product art, when it exists. Only Payper has one today, so the rest
+     * fall back to the markup-drawn screen. Add a path here as art lands and
+     * that card switches over on its own.
+     */
+    image?: string
+    /**
+     * A colour chip glued to one corner of the card, corner touching corner,
+     * the way the reference pins squares to its photos. It lives inside the
+     * scaled wrapper so it stays glued at every breakpoint and through the
+     * parallax, instead of being a loose piece that happens to sit nearby.
+     */
+    chip?: { color: string; size: number; corner: "tl" | "tr" | "bl" | "br" }
 }
 
 type ChipItem = Item & { kind: "chip"; color: string; size: number }
 
 /** The five products, same ones the index below lists. */
 const APPS: AppItem[] = [
-    { kind: "app", key: "payper", title: "Payper", variant: "pos", accent: "#b8836e", index: 0, width: 208, depth: 0.9, left: 4, top: 17, rotate: -3.2, mLeft: 4, mTop: 4 },
-    { kind: "app", key: "prtool", title: "PRTool", variant: "campaigns", accent: "#c9a48a", index: 1, width: 176, depth: 0.5, left: 42, top: 4, rotate: 2.6, mHide: true },
-    { kind: "app", key: "legalflow", title: "LegalFlow", variant: "cases", accent: "#8a7e74", index: 2, width: 190, depth: 1.2, left: 14, top: 57, rotate: 2.1, mLeft: 22, mTop: 55 },
-    { kind: "app", key: "registrar", title: "Registrar", variant: "finance", accent: "#a0694f", index: 3, width: 172, depth: 0.72, left: 60, top: 63, rotate: -2.4, mHide: true },
-    { kind: "app", key: "pm-agent", title: "PM Agent", variant: "board", accent: "#b8836e", index: 4, width: 196, depth: 1.05, left: 74, top: 15, rotate: 3.4, mLeft: 62, mTop: 26 },
+    { kind: "app", key: "payper", title: "Payper", variant: "pos", accent: "#b8836e", index: 0, width: 208, depth: 0.9, left: 4, top: 17, mLeft: 4, mTop: 4, image: "/images/products/payper-hover.jpg" },
+    { kind: "app", key: "prtool", title: "PRTool", variant: "campaigns", accent: "#c9a48a", index: 1, width: 176, depth: 0.5, left: 42, top: 4, mHide: true, chip: { color: "#EE7B2E", size: 14, corner: "bl" } },
+    { kind: "app", key: "legalflow", title: "LegalFlow", variant: "cases", accent: "#8a7e74", index: 2, width: 190, depth: 1.2, left: 14, top: 57, mLeft: 22, mTop: 55 },
+    { kind: "app", key: "registrar", title: "Registrar", variant: "finance", accent: "#a0694f", index: 3, width: 172, depth: 0.72, left: 60, top: 63, mHide: true, chip: { color: "#E8873A", size: 13, corner: "tr" } },
+    { kind: "app", key: "pm-agent", title: "PM Agent", variant: "board", accent: "#b8836e", index: 4, width: 196, depth: 1.05, left: 74, top: 15, mLeft: 62, mTop: 26 },
 ]
 
 /** Solid colour chips, matching the reference collage. */
 const CHIPS: ChipItem[] = [
-    { kind: "chip", key: "red", color: "#F5402C", size: 17, depth: 1.3, left: 34, top: 7, rotate: 0, mLeft: 46, mTop: 2 },
-    { kind: "chip", key: "orange", color: "#EE7B2E", size: 14, depth: 0.5, left: 37, top: 43, rotate: 0, mLeft: 8, mTop: 44 },
-    { kind: "chip", key: "purple", color: "#A05BE0", size: 15, depth: 1.15, left: 93, top: 9, rotate: 0, mHide: true },
-    { kind: "chip", key: "blue", color: "#2F7DF0", size: 14, depth: 0.68, left: 69, top: 31, rotate: 0, mLeft: 90, mTop: 12 },
-    { kind: "chip", key: "black", color: "#191919", size: 18, depth: 1.35, left: 7, top: 68, rotate: 0, mLeft: 3, mTop: 72 },
-    { kind: "chip", key: "pink", color: "#F79CC8", size: 15, depth: 0.6, left: 33, top: 70, rotate: 0, mLeft: 88, mTop: 62 },
-    { kind: "chip", key: "cyan", color: "#74CBEF", size: 14, depth: 1.1, left: 23, top: 83, rotate: 0, mHide: true },
-    { kind: "chip", key: "green", color: "#55C24A", size: 15, depth: 0.8, left: 88, top: 76, rotate: 0, mLeft: 74, mTop: 88 },
-    { kind: "chip", key: "yellow", color: "#F0DE4A", size: 16, depth: 1.25, left: 55, top: 85, rotate: 0, mHide: true },
+    { kind: "chip", key: "red", color: "#F5402C", size: 17, depth: 1.3, left: 34, top: 7, mLeft: 46, mTop: 2 },
+    { kind: "chip", key: "purple", color: "#9B5CD6", size: 15, depth: 1.15, left: 93, top: 9, mHide: true },
+    { kind: "chip", key: "blue", color: "#2F7DF0", size: 14, depth: 0.68, left: 69, top: 31, mLeft: 90, mTop: 12 },
+    { kind: "chip", key: "black", color: "#191919", size: 18, depth: 1.35, left: 7, top: 68, mLeft: 3, mTop: 72 },
+    { kind: "chip", key: "pink", color: "#F79CC8", size: 15, depth: 0.6, left: 33, top: 70, mLeft: 88, mTop: 62 },
+    { kind: "chip", key: "cyan", color: "#74CBEF", size: 14, depth: 1.1, left: 23, top: 83, mHide: true },
+    { kind: "chip", key: "green", color: "#55C24A", size: 15, depth: 0.8, left: 88, top: 76, mLeft: 74, mTop: 88 },
+    { kind: "chip", key: "yellow", color: "#F0DE4A", size: 16, depth: 1.25, left: 55, top: 85, mHide: true },
 ]
 
 /**
@@ -102,33 +132,69 @@ const CHIPS: ChipItem[] = [
  * the stage instead.
  */
 const WORDS: (Item & { kind: "word"; text: string })[] = [
-    { kind: "word", key: "w1", text: "Products", depth: 0.35, left: 28, top: 37, rotate: 0, mHide: true },
-    { kind: "word", key: "w2", text: "under", depth: 0.62, left: 60, top: 44, rotate: 0, mHide: true },
-    { kind: "word", key: "w3", text: "your name", depth: 0.28, left: 36, top: 75, rotate: 0, mHide: true },
+    { kind: "word", key: "w1", text: "Products", depth: 0.35, left: 28, top: 37, mHide: true },
+    { kind: "word", key: "w2", text: "under", depth: 0.62, left: 60, top: 44, mHide: true },
+    { kind: "word", key: "w3", text: "your name", depth: 0.28, left: 36, top: 75, mHide: true },
 ]
+
+/**
+ * Places a chip so one of its corners meets a card corner exactly, sitting
+ * diagonally outside the card rather than overlapping it.
+ */
+function cornerOffset(
+    corner: "tl" | "tr" | "bl" | "br",
+    size: number,
+    w: number,
+    h: number,
+): { left: number; top: number } {
+    switch (corner) {
+        case "tl":
+            return { left: -size, top: -size }
+        case "tr":
+            return { left: w, top: -size }
+        case "bl":
+            return { left: -size, top: h }
+        case "br":
+            return { left: w, top: h }
+    }
+}
 
 /** Wraps one collage element in the shared parallax + 3D transform. */
 function Floating({
     item,
     px,
     py,
-    scrollY,
+    progress,
     still,
     children,
 }: {
     item: Item
     px: MotionValue<number>
     py: MotionValue<number>
-    scrollY: MotionValue<number>
+    /** 0 when the stage is entering the viewport, 1 once it has left. */
+    progress: MotionValue<number>
     still: boolean
     children: React.ReactNode
 }) {
     const x = useTransform(px, (v) => (still ? 0 : v * SHIFT_X * item.depth))
     const pointerY = useTransform(py, (v) => (still ? 0 : v * SHIFT_Y * item.depth))
-    const drift = useTransform(scrollY, (v) => (still ? 0 : v * item.depth))
+    const drift = useTransform(progress, [0, 1], still ? [0, 0] : [DRIFT * item.depth, -DRIFT * item.depth])
     const y = useTransform([pointerY, drift] as const, ([a, b]: number[]) => a + b)
     const rotateY = useTransform(px, (v) => (still ? 0 : v * TILT * item.depth))
     const rotateX = useTransform(py, (v) => (still ? 0 : -v * TILT * item.depth))
+
+    /*
+     * Pieces come in as the section scrolls up and go back out once it starts
+     * leaving, rather than all landing at once on entry. The stagger is keyed
+     * to depth, so the pieces that sit furthest forward are also the last to
+     * arrive and the first to go.
+     */
+    const lead = item.depth * 0.05
+    const opacity = useTransform(
+        progress,
+        [0.02 + lead, 0.22 + lead, 0.68, 0.94],
+        still ? [1, 1, 1, 1] : [0, 1, 1, 0],
+    )
 
     return (
         <motion.div
@@ -143,13 +209,13 @@ function Floating({
                     y,
                     rotateX,
                     rotateY,
+                    opacity,
                     z: still ? 0 : item.depth * 42,
-                    rotate: item.rotate,
                     transformStyle: "preserve-3d",
-                    willChange: "transform",
+                    willChange: "transform, opacity",
                     /*
                      * Same anchor the scale uses. This wrapper's layout box stays
-                     * the unscaled size of its content, so rotating around the
+                     * the unscaled size of its content, so tilting around the
                      * default centre swings the painted card away from where it
                      * was positioned and pushes it off the stage edge.
                      */
@@ -165,22 +231,17 @@ function Floating({
 export function ProductCollage() {
     const stageRef = useRef<HTMLDivElement>(null)
     const reduce = useReducedMotion()
-    const [ready, setReady] = useState(false)
-
-    /** Gates the entry animation until after mount so nothing pops in on SSR. */
-    useEffect(() => setReady(true), [])
 
     const rawX = useMotionValue(0)
     const rawY = useMotionValue(0)
     const px = useSpring(rawX, SPRING)
     const py = useSpring(rawY, SPRING)
 
+    /** Drives both the vertical drift and the fade in and out of every piece. */
     const { scrollYProgress } = useScroll({
         target: stageRef,
         offset: ["start end", "end start"],
     })
-    /** Slow vertical drift across the whole scroll pass, scaled by depth. */
-    const scrollDrift = useTransform(scrollYProgress, [0, 1], [26, -26])
 
     const still = Boolean(reduce)
 
@@ -230,11 +291,19 @@ export function ProductCollage() {
                 style={{ perspective: 1100, perspectiveOrigin: "50% 45%" }}
             >
                 {CHIPS.map((c) => (
-                    <Floating key={c.key} item={c} px={px} py={py} scrollY={scrollDrift} still={still}>
+                    <Floating key={c.key} item={c} px={px} py={py} progress={scrollYProgress} still={still}>
+                        {/*
+                            Entry lives on the inner element, the scroll fade on
+                            the wrapper. Two opacities that multiply, instead of
+                            one property being written by two animations. This
+                            section is the first thing on the page, so there is
+                            no scroll before it and the entry is what staggers
+                            the arrival; the scroll fade then governs leaving.
+                        */}
                         <motion.span
-                            initial={{ opacity: 0, scale: 0.5 }}
-                            animate={ready ? { opacity: 1, scale: 1 } : {}}
-                            transition={{ duration: 0.5, delay: 0.1 + c.depth * 0.14, ease: [0.22, 1, 0.36, 1] }}
+                            initial={ENTER.hidden}
+                            animate={ENTER.shown}
+                            transition={enterAt(c.depth)}
                             className="block"
                             style={{ width: c.size, height: c.size, backgroundColor: c.color }}
                         />
@@ -242,42 +311,67 @@ export function ProductCollage() {
                 ))}
 
                 {APPS.map((a) => (
-                    <Floating key={a.key} item={a} px={px} py={py} scrollY={scrollDrift} still={still}>
+                    <Floating key={a.key} item={a} px={px} py={py} progress={scrollYProgress} still={still}>
+                        {/* The scale is a CSS transform and framer writes the
+                            transform of every motion node, so the two cannot
+                            share an element. Entry animates opacity only, which
+                            leaves the scale alone. */}
                         <motion.div
-                            initial={{ opacity: 0, y: 14 }}
-                            animate={ready ? { opacity: 1, y: 0 } : {}}
-                            transition={{ duration: 0.6, delay: 0.05 + a.depth * 0.16, ease: [0.22, 1, 0.36, 1] }}
+                            className="collage-scale"
+                            initial={ENTER.hidden}
+                            animate={ENTER.shown}
+                            transition={enterAt(a.depth)}
                         >
-                            {/* Plain element on purpose: the breakpoint scale is
-                                a CSS transform, and every motion element in this
-                                tree has its transform written by framer. Putting
-                                them on the same node means one silently wins. */}
-                            <div className="collage-scale">
-                                <div
-                                    className="collage-card overflow-hidden rounded-[5px] bg-white"
-                                    style={{
-                                        boxShadow:
-                                            "0 1px 2px rgba(44,36,32,0.06), 0 18px 38px -22px rgba(44,36,32,0.42)",
-                                    }}
-                                >
+                            <div className="relative">
+                            <div className="collage-card overflow-hidden rounded-[3px] bg-white">
+                                {a.image ? (
+                                    <Image
+                                        src={a.image}
+                                        alt=""
+                                        width={a.width}
+                                        height={Math.round(a.width / SCREEN_RATIO)}
+                                        className="block object-cover"
+                                        style={{
+                                            width: a.width,
+                                            height: Math.round(a.width / SCREEN_RATIO),
+                                        }}
+                                    />
+                                ) : (
                                     <ProductScreen
                                         variant={a.variant}
                                         accent={a.accent}
                                         index={a.index}
                                         width={a.width}
                                     />
-                                </div>
+                                )}
+                            </div>
+                            {a.chip && (
+                                <span
+                                    className="absolute block"
+                                    style={{
+                                        width: a.chip.size,
+                                        height: a.chip.size,
+                                        backgroundColor: a.chip.color,
+                                        ...cornerOffset(
+                                            a.chip.corner,
+                                            a.chip.size,
+                                            a.width,
+                                            Math.round(a.width / SCREEN_RATIO),
+                                        ),
+                                    }}
+                                />
+                            )}
                             </div>
                         </motion.div>
                     </Floating>
                 ))}
 
-                {WORDS.map((w, i) => (
-                    <Floating key={w.key} item={w} px={px} py={py} scrollY={scrollDrift} still={still}>
+                {WORDS.map((w) => (
+                    <Floating key={w.key} item={w} px={px} py={py} progress={scrollYProgress} still={still}>
                         <motion.span
-                            initial={{ opacity: 0 }}
-                            animate={ready ? { opacity: 1 } : {}}
-                            transition={{ duration: 0.7, delay: 0.24 + i * 0.1 }}
+                            initial={ENTER.hidden}
+                            animate={ENTER.shown}
+                            transition={enterAt(w.depth)}
                             className="block whitespace-nowrap font-sans font-light tracking-tight text-[#2c2420] text-[clamp(1.15rem,3.2vw,2.1rem)]"
                         >
                             {w.text}

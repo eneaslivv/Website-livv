@@ -591,3 +591,26 @@
 @media (min-width: 1040px) {
   .collage-scale { --cs: 1; }
 }
+
+/* Cards rest flat, matching the reference composition. The shadow is a
+   hover affordance rather than a permanent effect, so the collage reads
+   as paper laid on the page instead of floating panels. */
+.collage-card {
+  transition: box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.collage-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 2px 4px rgba(44, 36, 32, 0.05),
+    0 22px 44px -24px rgba(44, 36, 32, 0.45);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .collage-card {
+    transition: none;
+  }
+  .collage-card:hover {
+    transform: none;
+  }
+}
