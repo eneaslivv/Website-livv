@@ -49,15 +49,21 @@ const DRIFT = 26
 const SPRING = { stiffness: 60, damping: 18, mass: 0.6 }
 
 /**
- * Staggered arrival. Opacity only: the wrapper owns the transform and the
- * scale sits on its own element, so touching either here would fight them.
+ * Arrival, one piece at a time.
+ *
+ * Keyed to position in the sequence rather than to depth: depth values cluster,
+ * which made every piece land inside the same fifth of a second and read as one
+ * block appearing. An explicit step spreads the cascade over about a second so
+ * you can follow it.
+ *
+ * Cards get a small rise as well as the fade, which needs its own element:
+ * the parallax wrapper and the breakpoint scale each already own a transform on
+ * their node, and a third writer would silently win over one of them.
+ *
+ * Delays live here; the animations themselves are the collage-enter-* classes.
  */
-const ENTER = { hidden: { opacity: 0 }, shown: { opacity: 1 } }
-const enterAt = (depth: number) => ({
-    duration: 0.55,
-    delay: 0.08 + depth * 0.28,
-    ease: [0.22, 1, 0.36, 1] as const,
-})
+/** Rounded a touch, the way the reference squares are. */
+const CHIP_RADIUS = 3
 
 type Item = {
     key: string
@@ -138,24 +144,31 @@ const WORDS: (Item & { kind: "word"; text: string })[] = [
 ]
 
 /**
- * Places a chip so one of its corners meets a card corner exactly, sitting
- * diagonally outside the card rather than overlapping it.
+ * Places a chip diagonally off one card corner, tucked in by BITE so the two
+ * shapes visibly connect.
+ *
+ * A geometrically exact corner-to-corner touch reads as connected only while
+ * both shapes are square. Once the chip has a radius, that single shared point
+ * becomes a visible gap, so the chip overlaps slightly instead.
  */
+const BITE = 3
+
 function cornerOffset(
     corner: "tl" | "tr" | "bl" | "br",
     size: number,
     w: number,
     h: number,
 ): { left: number; top: number } {
+    const out = size - BITE
     switch (corner) {
         case "tl":
-            return { left: -size, top: -size }
+            return { left: -out, top: -out }
         case "tr":
-            return { left: w, top: -size }
+            return { left: w - BITE, top: -out }
         case "bl":
-            return { left: -size, top: h }
+            return { left: -out, top: h - BITE }
         case "br":
-            return { left: w, top: h }
+            return { left: w - BITE, top: h - BITE }
     }
 }
 
@@ -290,7 +303,7 @@ export function ProductCollage() {
                 className="relative mt-4 w-full h-[300px] sm:h-[440px] md:h-[520px] lg:h-[560px] select-none"
                 style={{ perspective: 1100, perspectiveOrigin: "50% 45%" }}
             >
-                {CHIPS.map((c) => (
+                {CHIPS.map((c, i) => (
                     <Floating key={c.key} item={c} px={px} py={py} progress={scrollYProgress} still={still}>
                         {/*
                             Entry lives on the inner element, the scroll fade on
@@ -300,28 +313,30 @@ export function ProductCollage() {
                             no scroll before it and the entry is what staggers
                             the arrival; the scroll fade then governs leaving.
                         */}
-                        <motion.span
-                            initial={ENTER.hidden}
-                            animate={ENTER.shown}
-                            transition={enterAt(c.depth)}
-                            className="block"
-                            style={{ width: c.size, height: c.size, backgroundColor: c.color }}
+                        <span
+                            className="block collage-enter-pop"
+                            style={{
+                                width: c.size,
+                                height: c.size,
+                                backgroundColor: c.color,
+                                borderRadius: CHIP_RADIUS,
+                                animationDelay: `${(0.06 + i * 0.09).toFixed(2)}s`,
+                            }}
                         />
                     </Floating>
                 ))}
 
-                {APPS.map((a) => (
+                {APPS.map((a, i) => (
                     <Floating key={a.key} item={a} px={px} py={py} progress={scrollYProgress} still={still}>
                         {/* The scale is a CSS transform and framer writes the
                             transform of every motion node, so the two cannot
                             share an element. Entry animates opacity only, which
                             leaves the scale alone. */}
-                        <motion.div
-                            className="collage-scale"
-                            initial={ENTER.hidden}
-                            animate={ENTER.shown}
-                            transition={enterAt(a.depth)}
-                        >
+                        <div className="collage-scale">
+                            <div
+                                className="collage-enter-rise"
+                                style={{ animationDelay: `${(0.12 + i * 0.16).toFixed(2)}s` }}
+                            >
                             <div className="relative">
                             <div className="collage-card overflow-hidden rounded-[3px] bg-white">
                                 {a.image ? (
@@ -352,6 +367,7 @@ export function ProductCollage() {
                                         width: a.chip.size,
                                         height: a.chip.size,
                                         backgroundColor: a.chip.color,
+                                        borderRadius: CHIP_RADIUS,
                                         ...cornerOffset(
                                             a.chip.corner,
                                             a.chip.size,
@@ -362,20 +378,19 @@ export function ProductCollage() {
                                 />
                             )}
                             </div>
-                        </motion.div>
+                            </div>
+                        </div>
                     </Floating>
                 ))}
 
-                {WORDS.map((w) => (
+                {WORDS.map((w, i) => (
                     <Floating key={w.key} item={w} px={px} py={py} progress={scrollYProgress} still={still}>
-                        <motion.span
-                            initial={ENTER.hidden}
-                            animate={ENTER.shown}
-                            transition={enterAt(w.depth)}
-                            className="block whitespace-nowrap font-sans font-light tracking-tight text-[#2c2420] text-[clamp(1.15rem,3.2vw,2.1rem)]"
+                        <span
+                            className="block whitespace-nowrap font-sans font-light tracking-tight text-[#2c2420] text-[clamp(1.15rem,3.2vw,2.1rem)] collage-enter-fade"
+                            style={{ animationDelay: `${(0.34 + i * 0.14).toFixed(2)}s` }}
                         >
                             {w.text}
-                        </motion.span>
+                        </span>
                     </Floating>
                 ))}
             </div>

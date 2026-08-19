@@ -614,3 +614,31 @@
     transform: none;
   }
 }
+
+/* Entry cascade.
+   CSS rather than a framer mount animation: with `backwards` fill the base
+   style stays opacity 1, so if animations never run (disabled at the OS level,
+   a stalled frameloop, a tab restored from bfcache) the collage is simply
+   visible instead of stuck invisible at the animation's from-state. */
+@keyframes collage-rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes collage-pop {
+  from { opacity: 0; transform: scale(0.4); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes collage-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.collage-enter-rise { animation: collage-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+.collage-enter-pop  { animation: collage-pop 0.45s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+.collage-enter-fade { animation: collage-fade 0.5s ease backwards; }
+
+@media (prefers-reduced-motion: reduce) {
+  .collage-enter-rise,
+  .collage-enter-pop,
+  .collage-enter-fade { animation: none; }
+}
