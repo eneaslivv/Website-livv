@@ -19,10 +19,17 @@ export interface Project {
     screen: ScreenVariant
     accent: string
     /**
-     * Background image revealed on hover in the product index. Optional on
-     * purpose: until real art exists the row falls back to a soft accent wash,
-     * so nothing looks broken and no placeholder art gets shipped. Drop a path
-     * here per product and that row switches to image + scrim automatically.
+     * Product art. Optional on purpose: until real art exists the index row
+     * falls back to a soft accent wash and the collage card falls back to a
+     * markup-drawn screen, so nothing looks broken and no placeholder art gets
+     * shipped.
+     *
+     * To add art for a product: drop the file in public/images/products/ and
+     * set the path here. That one line lights up both the hover art in the
+     * product index and the card in the collage at the top of the section.
+     * Images are cropped to a wide letterbox (about 2.25:1) with object-cover,
+     * so anything landscape works and square art gets centre-cropped. Around
+     * 900px wide is plenty; the largest card renders at 208px.
      */
     heroImage?: string
     featured?: boolean

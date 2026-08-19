@@ -13,6 +13,7 @@ import {
 import Image from "next/image"
 import { ProductScreen, SCREEN_RATIO } from "@/components/portfolio-preview/project-folder/product-screen"
 import type { ScreenVariant } from "@/lib/portfolio-data"
+import { projects } from "@/lib/marketplace-data"
 
 /**
  * Editorial collage that replaces the old dark narrative header.
@@ -100,12 +101,6 @@ type AppItem = Item & {
     /** Unscaled width handed to ProductScreen. */
     width: number
     /**
-     * Real product art, when it exists. Only Payper has one today, so the rest
-     * fall back to the markup-drawn screen. Add a path here as art lands and
-     * that card switches over on its own.
-     */
-    image?: string
-    /**
      * A colour chip glued to one corner of the card, corner touching corner,
      * the way the reference pins squares to its photos. It lives inside the
      * scaled wrapper so it stays glued at every breakpoint and through the
@@ -116,9 +111,19 @@ type AppItem = Item & {
 
 type ChipItem = Item & { kind: "chip"; color: string; size: number }
 
+/**
+ * Art comes from the product itself, so there is one place to add it.
+ *
+ * Setting `heroImage` on a product in lib/marketplace-data.ts lights up both
+ * this card and the hover art in the index below. Until a product has one, the
+ * card falls back to the screen ProductScreen draws in markup, so the collage
+ * is never waiting on art to render.
+ */
+const heroFor = (slug: string) => projects.find((p) => p.slug === slug)?.heroImage
+
 /** The five products, same ones the index below lists. */
 const APPS: AppItem[] = [
-    { kind: "app", key: "payper", title: "Payper", variant: "pos", accent: "#b8836e", index: 0, width: 208, depth: 0.9, left: 4, top: 17, mLeft: 4, mTop: 4, image: "/images/products/payper-hover.jpg" },
+    { kind: "app", key: "payper", title: "Payper", variant: "pos", accent: "#b8836e", index: 0, width: 208, depth: 0.9, left: 4, top: 17, mLeft: 4, mTop: 4 },
     { kind: "app", key: "prtool", title: "PRTool", variant: "campaigns", accent: "#c9a48a", index: 1, width: 176, depth: 0.5, left: 42, top: 4, mHide: true, chip: { color: "#EE7B2E", size: 14, corner: "bl" } },
     { kind: "app", key: "legalflow", title: "LegalFlow", variant: "cases", accent: "#8a7e74", index: 2, width: 190, depth: 1.2, left: 14, top: 57, mLeft: 22, mTop: 55 },
     { kind: "app", key: "registrar", title: "Registrar", variant: "finance", accent: "#a0694f", index: 3, width: 172, depth: 0.72, left: 60, top: 63, mHide: true, chip: { color: "#E8873A", size: 13, corner: "tr" } },
@@ -352,9 +357,9 @@ export function ProductCollage() {
                                     height: Math.round(a.width / CARD_RATIO),
                                 }}
                             >
-                                {a.image ? (
+                                {heroFor(a.key) ? (
                                     <Image
-                                        src={a.image}
+                                        src={heroFor(a.key) as string}
                                         alt=""
                                         width={a.width}
                                         height={Math.round(a.width / CARD_RATIO)}
