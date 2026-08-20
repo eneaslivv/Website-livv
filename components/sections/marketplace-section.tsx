@@ -47,7 +47,13 @@ function MarketplaceContent({ id }: { id?: string }) {
                     <ProductCollage />
 
                     <div className="max-w-xl">
-                        <p className="text-[15px] leading-relaxed text-[#6b625b]">
+                        {/* The label sits with the copy it introduces. Above the
+                            collage it had nothing to attach to and read as a
+                            stray line floating over the composition. */}
+                        <p className="text-[11px] uppercase tracking-[0.16em] text-[#b8836e] font-medium">
+                            White-label software
+                        </p>
+                        <p className="mt-3 text-[15px] leading-relaxed text-[#6b625b]">
                             Pick a product that already works. Put your brand on it. Sell it as yours.
                         </p>
 
@@ -107,42 +113,6 @@ function MarketplaceContent({ id }: { id?: string }) {
 
                         <ProductIndex products={allProducts} />
                     </div>
-
-                    {/* ---------- Reseller CTA ---------- */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 14 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-60px" }}
-                        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                        className="mt-6 rounded-3xl border px-6 sm:px-10 py-8 sm:py-10 flex flex-col md:flex-row md:items-center gap-6 justify-between"
-                        style={{
-                            background: "linear-gradient(120deg,#1a1714 0%,#2c2420 100%)",
-                            borderColor: "rgba(44,36,32,0.08)",
-                        }}
-                    >
-                        <div className="max-w-lg">
-                            <p className="text-[11px] uppercase tracking-[0.16em] font-medium text-[#c9a48a]">
-                                Your brand. Our product engine.
-                            </p>
-                            <h3 className="mt-3 text-[clamp(1.4rem,2.6vw,1.9rem)] font-light leading-[1.2] tracking-tight text-[#f5f0eb]">
-                                A new revenue stream.
-                            </h3>
-                            <p className="mt-2.5 text-[14px] leading-relaxed" style={{ color: "rgba(245,240,235,0.6)" }}>
-                                Add finished products to your portfolio without hiring a product team.
-                                We keep the platform running. You own the client.
-                            </p>
-                        </div>
-                        <button
-                            onClick={() => openPartnerForm()}
-                            className="group shrink-0 self-start md:self-auto text-sm font-medium rounded-full px-6 py-2.5 active:scale-[0.97] flex items-center gap-1.5"
-                            style={{ backgroundColor: "#f5f0eb", color: "#1a1714" }}
-                        >
-                            Apply to become a reseller
-                            <svg className="w-3 h-3 transition-transform duration-200 group-hover:translate-x-0.5" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth={1.8}>
-                                <path d="M2.5 6h7M6.5 3l3 3-3 3" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </button>
-                    </motion.div>
                 </div>
             </div>
 

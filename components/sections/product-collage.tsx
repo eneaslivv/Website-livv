@@ -49,20 +49,6 @@ const DRIFT = 26
  */
 const SPRING = { stiffness: 60, damping: 18, mass: 0.6 }
 
-/**
- * Arrival, one piece at a time.
- *
- * Keyed to position in the sequence rather than to depth: depth values cluster,
- * which made every piece land inside the same fifth of a second and read as one
- * block appearing. An explicit step spreads the cascade over about a second so
- * you can follow it.
- *
- * Cards get a small rise as well as the fade, which needs its own element:
- * the parallax wrapper and the breakpoint scale each already own a transform on
- * their node, and a third writer would silently win over one of them.
- *
- * Delays live here; the animations themselves are the collage-enter-* classes.
- */
 /** Rounded a touch, the way the reference squares are. */
 const CHIP_RADIUS = 3
 
@@ -184,12 +170,30 @@ function cornerOffset(
     }
 }
 
+/**
+ * Reveal order, top of the stage downwards.
+ *
+ * Derived from each piece's own position rather than hand-numbered, so moving a
+ * piece in the composition moves it in the cascade too and the two can never
+ * drift apart.
+ */
+const ALL_ITEMS: Item[] = [...CHIPS, ...APPS, ...WORDS]
+const REVEAL_ORDER = new Map(
+    ALL_ITEMS.slice()
+        .sort((a, b) => a.top - b.top)
+        .map((it, i) => [it.key, i] as const),
+)
+/** Share of the entering range the whole cascade occupies. */
+const CASCADE_SPAN = 0.62
+const REVEAL_STEP = CASCADE_SPAN / Math.max(1, ALL_ITEMS.length - 1)
+
 /** Wraps one collage element in the shared parallax + 3D transform. */
 function Floating({
     item,
     px,
     py,
     progress,
+    entering,
     still,
     children,
 }: {
@@ -198,6 +202,8 @@ function Floating({
     py: MotionValue<number>
     /** 0 when the stage is entering the viewport, 1 once it has left. */
     progress: MotionValue<number>
+    /** 0 when the stage top is at the viewport bottom, 1 once it reaches the middle. */
+    entering: MotionValue<number>
     still: boolean
     children: React.ReactNode
 }) {
@@ -209,17 +215,23 @@ function Floating({
     const rotateX = useTransform(py, (v) => (still ? 0 : -v * TILT * item.depth))
 
     /*
-     * Pieces come in as the section scrolls up and go back out once it starts
-     * leaving, rather than all landing at once on entry. The stagger is keyed
-     * to depth, so the pieces that sit furthest forward are also the last to
-     * arrive and the first to go.
+     * Reveal is driven by scroll, not by a mount animation, and it reads from a
+     * different range than the exit does.
+     *
+     * Arrival is measured against the stage coming into view, which finishes by
+     * the time its top reaches the middle of the screen. Tying it to the full
+     * pass instead looked right on a section sitting low on the page and left
+     * this one invisible on /products, where the collage is already on screen
+     * at scroll zero and there is nothing above it to scroll through.
+     *
+     * The two combine by multiplying, so a piece is only visible once it has
+     * arrived and before the section starts leaving.
      */
-    const lead = item.depth * 0.05
-    const opacity = useTransform(
-        progress,
-        [0.02 + lead, 0.22 + lead, 0.68, 0.94],
-        still ? [1, 1, 1, 1] : [0, 1, 1, 0],
-    )
+    const order = REVEAL_ORDER.get(item.key) ?? 0
+    const inStart = order * REVEAL_STEP
+    const arrival = useTransform(entering, [inStart, inStart + 0.2], still ? [1, 1] : [0, 1])
+    const exit = useTransform(progress, [0.78, 0.97], still ? [1, 1] : [1, 0])
+    const opacity = useTransform([arrival, exit] as const, ([a, b]: number[]) => a * b)
 
     return (
         <motion.div
@@ -262,10 +274,15 @@ export function ProductCollage() {
     const px = useSpring(rawX, SPRING)
     const py = useSpring(rawY, SPRING)
 
-    /** Drives both the vertical drift and the fade in and out of every piece. */
+    /** Whole pass across the viewport: drives the drift and the exit fade. */
     const { scrollYProgress } = useScroll({
         target: stageRef,
         offset: ["start end", "end start"],
+    })
+    /** Just the arrival: stage top from the bottom of the screen to the middle. */
+    const { scrollYProgress: entering } = useScroll({
+        target: stageRef,
+        offset: ["start end", "start center"],
     })
 
     const still = Boolean(reduce)
@@ -294,10 +311,6 @@ export function ProductCollage() {
             */}
             <h2 className="sr-only">Products under your name</h2>
 
-            <p className="text-[11px] uppercase tracking-[0.16em] text-[#b8836e] font-medium">
-                White-label software
-            </p>
-
             {/* Visible headline for the compact layout, where there is no gap
                 wide enough to float the words without a card landing on them. */}
             <p
@@ -315,8 +328,8 @@ export function ProductCollage() {
                 className="relative mt-4 w-full h-[300px] sm:h-[440px] md:h-[520px] lg:h-[560px] select-none"
                 style={{ perspective: 1100, perspectiveOrigin: "50% 45%" }}
             >
-                {CHIPS.map((c, i) => (
-                    <Floating key={c.key} item={c} px={px} py={py} progress={scrollYProgress} still={still}>
+                {CHIPS.map((c) => (
+                    <Floating key={c.key} item={c} px={px} py={py} progress={scrollYProgress} entering={entering} still={still}>
                         {/*
                             Entry lives on the inner element, the scroll fade on
                             the wrapper. Two opacities that multiply, instead of
@@ -326,29 +339,25 @@ export function ProductCollage() {
                             the arrival; the scroll fade then governs leaving.
                         */}
                         <span
-                            className="block collage-enter-pop"
+                            className="block"
                             style={{
                                 width: c.size,
                                 height: c.size,
                                 backgroundColor: c.color,
                                 borderRadius: CHIP_RADIUS,
-                                animationDelay: `${(0.06 + i * 0.09).toFixed(2)}s`,
                             }}
                         />
                     </Floating>
                 ))}
 
-                {APPS.map((a, i) => (
-                    <Floating key={a.key} item={a} px={px} py={py} progress={scrollYProgress} still={still}>
+                {APPS.map((a) => (
+                    <Floating key={a.key} item={a} px={px} py={py} progress={scrollYProgress} entering={entering} still={still}>
                         {/* The scale is a CSS transform and framer writes the
                             transform of every motion node, so the two cannot
                             share an element. Entry animates opacity only, which
                             leaves the scale alone. */}
                         <div className="collage-scale">
-                            <div
-                                className="collage-enter-rise"
-                                style={{ animationDelay: `${(0.12 + i * 0.16).toFixed(2)}s` }}
-                            >
+                            <div>
                             <div className="relative">
                             <div
                                 className="collage-card relative overflow-hidden rounded-[3px] bg-white"
@@ -363,6 +372,7 @@ export function ProductCollage() {
                                         alt=""
                                         width={a.width}
                                         height={Math.round(a.width / CARD_RATIO)}
+                                        sizes="220px"
                                         className="block h-full w-full object-cover"
                                     />
                                 ) : (
@@ -410,11 +420,10 @@ export function ProductCollage() {
                     </Floating>
                 ))}
 
-                {WORDS.map((w, i) => (
-                    <Floating key={w.key} item={w} px={px} py={py} progress={scrollYProgress} still={still}>
+                {WORDS.map((w) => (
+                    <Floating key={w.key} item={w} px={px} py={py} progress={scrollYProgress} entering={entering} still={still}>
                         <span
-                            className="block whitespace-nowrap font-sans font-light tracking-tight text-[#2c2420] text-[clamp(1.15rem,3.2vw,2.1rem)] collage-enter-fade"
-                            style={{ animationDelay: `${(0.34 + i * 0.14).toFixed(2)}s` }}
+                            className="block whitespace-nowrap font-sans font-light tracking-tight text-[#2c2420] text-[clamp(1.15rem,3.2vw,2.1rem)]"
                         >
                             {w.text}
                         </span>
