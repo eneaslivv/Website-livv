@@ -567,6 +567,7 @@
   transform: scale(var(--cs, 0.46));
 }
 
+
 /* Items that only belong to the wide composition. */
 .collage-wide-only {
   display: none;

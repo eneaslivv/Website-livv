@@ -186,6 +186,24 @@ const REVEAL_ORDER = new Map(
 /** Share of the entering range the whole cascade occupies. */
 const CASCADE_SPAN = 0.62
 const REVEAL_STEP = CASCADE_SPAN / Math.max(1, ALL_ITEMS.length - 1)
+/** How much of the range one piece takes to resolve. Short reads as a hit. */
+const REVEAL_WINDOW = 0.13
+/** Focus pulled from this far out, in screen pixels. */
+const BLUR_MAX = 9
+
+/**
+ * Deterministic per-key jitter, 0 to 1.
+ *
+ * A strict top-to-bottom sweep reads mechanical. This offsets each piece inside
+ * its own slot so arrivals scatter instead of marching. It has to be derived
+ * from the key rather than randomised: the value is used during render, and a
+ * random one would differ between server and client and break hydration.
+ */
+function jitter(key: string): number {
+    let h = 0
+    for (let i = 0; i < key.length; i++) h = (h * 31 + key.charCodeAt(i)) | 0
+    return (Math.abs(h) % 1000) / 1000
+}
 
 /** Wraps one collage element in the shared parallax + 3D transform. */
 function Floating({
@@ -228,10 +246,23 @@ function Floating({
      * arrived and before the section starts leaving.
      */
     const order = REVEAL_ORDER.get(item.key) ?? 0
-    const inStart = order * REVEAL_STEP
-    const arrival = useTransform(entering, [inStart, inStart + 0.2], still ? [1, 1] : [0, 1])
+    const inStart = order * REVEAL_STEP + jitter(item.key) * REVEAL_STEP * 0.9
+    const arrival = useTransform(
+        entering,
+        [inStart, inStart + REVEAL_WINDOW],
+        still ? [1, 1] : [0, 1],
+    )
     const exit = useTransform(progress, [0.78, 0.97], still ? [1, 1] : [1, 0])
-    const opacity = useTransform([arrival, exit] as const, ([a, b]: number[]) => a * b)
+
+    /*
+     * One presence value, 0 to 1, drives opacity, focus and size together, so a
+     * piece resolves as it arrives and comes apart again the same way when the
+     * section leaves. Blurring the wrapper rather than the card keeps it off the
+     * element whose transform framer is already writing.
+     */
+    const presence = useTransform([arrival, exit] as const, ([a, b]: number[]) => a * b)
+    const opacity = presence
+    const filter = useTransform(presence, (v) => `blur(${(BLUR_MAX * (1 - v)).toFixed(2)}px)`)
 
     return (
         <motion.div
@@ -247,14 +278,16 @@ function Floating({
                     rotateX,
                     rotateY,
                     opacity,
+                    filter,
                     z: still ? 0 : item.depth * 42,
                     transformStyle: "preserve-3d",
-                    willChange: "transform, opacity",
+                    willChange: "transform, opacity, filter",
                     /*
-                     * Same anchor the scale uses. This wrapper's layout box stays
-                     * the unscaled size of its content, so tilting around the
-                     * default centre swings the painted card away from where it
-                     * was positioned and pushes it off the stage edge.
+                     * A CSS scale does not change layout, so this wrapper keeps
+                     * the full-size box of its unscaled content while painting
+                     * something smaller in its top-left corner. Pivoting at the
+                     * centre would therefore tilt the card around a point it
+                     * does not occupy and swing it off the stage.
                      */
                     transformOrigin: "top left",
                 } as unknown as React.CSSProperties
