@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import {
     motion,
     useMotionValue,
@@ -183,11 +183,11 @@ const REVEAL_ORDER = new Map(
         .sort((a, b) => a.top - b.top)
         .map((it, i) => [it.key, i] as const),
 )
-/** Share of the entering range the whole cascade occupies. */
-const CASCADE_SPAN = 0.62
+/** Share of the reveal range the whole cascade occupies. */
+const CASCADE_SPAN = 0.7
 const REVEAL_STEP = CASCADE_SPAN / Math.max(1, ALL_ITEMS.length - 1)
-/** How much of the range one piece takes to resolve. Short reads as a hit. */
-const REVEAL_WINDOW = 0.13
+/** How much of the range one piece takes to resolve. */
+const REVEAL_WINDOW = 0.18
 /** Focus pulled from this far out, in screen pixels. */
 const BLUR_MAX = 9
 
@@ -212,6 +212,7 @@ function Floating({
     py,
     progress,
     entering,
+    skipCascade,
     still,
     children,
 }: {
@@ -220,8 +221,10 @@ function Floating({
     py: MotionValue<number>
     /** 0 when the stage is entering the viewport, 1 once it has left. */
     progress: MotionValue<number>
-    /** 0 when the stage top is at the viewport bottom, 1 once it reaches the middle. */
+    /** Drives the cascade: 0 as the stage top enters the screen, 1 near the top. */
     entering: MotionValue<number>
+    /** Section was already on screen at mount, so there is no arrival to play. */
+    skipCascade: boolean
     still: boolean
     children: React.ReactNode
 }) {
@@ -250,7 +253,7 @@ function Floating({
     const arrival = useTransform(
         entering,
         [inStart, inStart + REVEAL_WINDOW],
-        still ? [1, 1] : [0, 1],
+        still || skipCascade ? [1, 1] : [0, 1],
     )
     const exit = useTransform(progress, [0.78, 0.97], still ? [1, 1] : [1, 0])
 
@@ -312,11 +315,33 @@ export function ProductCollage() {
         target: stageRef,
         offset: ["start end", "end start"],
     })
-    /** Just the arrival: stage top from the bottom of the screen to the middle. */
+    /**
+     * The reveal range, deliberately not the same as the pass.
+     *
+     * Measured from the stage top crossing 90% of the screen height to it
+     * reaching 5%, which is roughly 750px of scrolling on a laptop. An earlier
+     * version ran the cascade while the section was still climbing in from
+     * below the fold: correct on paper and invisible in practice, because it
+     * had finished before the section was somewhere you would be looking.
+     */
     const { scrollYProgress: entering } = useScroll({
         target: stageRef,
-        offset: ["start end", "start center"],
+        offset: ["start 0.9", "start 0.05"],
     })
+
+    /*
+     * A section already on screen when the page loads has no arrival to play:
+     * on /products this collage is the first thing above the fold, and running
+     * the cascade there would just mean landing on a page that is half out of
+     * focus. Measured once after mount, so it never disagrees with the server.
+     */
+    const [skipCascade, setSkipCascade] = useState(false)
+    useEffect(() => {
+        const el = stageRef.current
+        if (el && el.getBoundingClientRect().top < window.innerHeight * 0.9) {
+            setSkipCascade(true)
+        }
+    }, [])
 
     const still = Boolean(reduce)
 
@@ -362,7 +387,7 @@ export function ProductCollage() {
                 style={{ perspective: 1100, perspectiveOrigin: "50% 45%" }}
             >
                 {CHIPS.map((c) => (
-                    <Floating key={c.key} item={c} px={px} py={py} progress={scrollYProgress} entering={entering} still={still}>
+                    <Floating key={c.key} item={c} px={px} py={py} progress={scrollYProgress} entering={entering} skipCascade={skipCascade} still={still}>
                         {/*
                             Entry lives on the inner element, the scroll fade on
                             the wrapper. Two opacities that multiply, instead of
@@ -384,7 +409,7 @@ export function ProductCollage() {
                 ))}
 
                 {APPS.map((a) => (
-                    <Floating key={a.key} item={a} px={px} py={py} progress={scrollYProgress} entering={entering} still={still}>
+                    <Floating key={a.key} item={a} px={px} py={py} progress={scrollYProgress} entering={entering} skipCascade={skipCascade} still={still}>
                         {/* The scale is a CSS transform and framer writes the
                             transform of every motion node, so the two cannot
                             share an element. Entry animates opacity only, which
@@ -454,7 +479,7 @@ export function ProductCollage() {
                 ))}
 
                 {WORDS.map((w) => (
-                    <Floating key={w.key} item={w} px={px} py={py} progress={scrollYProgress} entering={entering} still={still}>
+                    <Floating key={w.key} item={w} px={px} py={py} progress={scrollYProgress} entering={entering} skipCascade={skipCascade} still={still}>
                         <span
                             className="block whitespace-nowrap font-sans font-light tracking-tight text-[#2c2420] text-[clamp(1.15rem,3.2vw,2.1rem)]"
                         >
