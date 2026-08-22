@@ -15,6 +15,8 @@ export const metadata: Metadata = {
     canonical: "/diseno-a-medida",
     languages: {
       "es-AR": "/diseno-a-medida",
+      "es-ES": "/diseno-a-medida",
+      es: "/diseno-a-medida",
       "x-default": "/diseno-a-medida",
     },
   },
@@ -96,6 +98,12 @@ export default function DisenoAMedidaPage() {
       related={{
         title: "Servicios relacionados",
         items: [
+          {
+            href: "/diagnostico-de-automatizacion",
+            name: "Diagnóstico de automatización sin cargo",
+            description:
+              "Treinta minutos y un informe con los procesos priorizados.",
+          },
           {
             href: "/software-a-medida",
             name: "Software a medida para empresas",

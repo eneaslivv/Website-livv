@@ -15,6 +15,8 @@ export const metadata: Metadata = {
     canonical: "/desarrollo-de-apps",
     languages: {
       "es-AR": "/desarrollo-de-apps",
+      "es-ES": "/desarrollo-de-apps",
+      es: "/desarrollo-de-apps",
       "x-default": "/desarrollo-de-apps",
     },
   },
@@ -100,6 +102,12 @@ export default function DesarrolloDeAppsPage() {
       related={{
         title: "Servicios relacionados",
         items: [
+          {
+            href: "/diagnostico-de-automatizacion",
+            name: "Diagnóstico de automatización sin cargo",
+            description:
+              "Treinta minutos y un informe con los procesos priorizados.",
+          },
           {
             href: "/software-a-medida",
             name: "Software a medida para empresas",
