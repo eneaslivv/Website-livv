@@ -6839,4 +6839,413 @@ export const clusterHEditorial: BlogPost[] = [
     createdAt: "2026-08-17T09:00:00.000Z",
     updatedAt: "2026-08-17T09:00:00.000Z",
   },
+
+  /* ────────────────────────────────────────────────────────────
+   *   Piece 18 — How to Build a Custom AI Chatbot for Your Website
+   * ──────────────────────────────────────────────────────────── */
+  {
+    id: "h-018",
+    slug: "how-to-build-a-custom-ai-chatbot-for-your-website",
+    title: "How to Build a Custom AI Chatbot for Your Website",
+    excerpt:
+      "Widget-based chatbots answer general questions. A chatbot built on a model API and connected to your actual knowledge base answers questions about your specific product, policies, and workflows. Here is how to build the latter.",
+    content: "",
+    contentBlocks: [
+      {
+        type: "heading",
+        level: 2,
+        id: "key-takeaways",
+        content: "Key takeaways",
+      },
+      {
+        type: "list",
+        ordered: false,
+        items: [
+          "A custom AI chatbot built on a model API (Claude, OpenAI) outperforms widget-based tools on any knowledge base specific to your business, because the widget tools answer general questions while a custom build answers from your specific documentation.",
+          "The architecture that determines chatbot quality has two layers: a retrieval layer that finds relevant content from your knowledge base, and a generation layer where the model produces an answer. Most chatbot failures are retrieval failures, not model failures.",
+          "Model API costs for a typical business chatbot: a system handling 200 conversations per day at an average of 3,000 input tokens and 400 output tokens per exchange costs approximately $160 to $220 per month using Claude Sonnet 5, or approximately $40 to $55 using Claude Haiku 4.5 at the same volume.",
+          "Build cost from a US boutique studio: $15,000 to $35,000 for a focused implementation with a clean knowledge base and a contact-form escalation path. A system with CRM integration, cross-session memory, and conversation analytics runs $35,000 to $70,000.",
+          "The most common post-launch failure is a chatbot without a defined escalation path. When users hit a question the chatbot cannot answer well and find no route to a human, the conversation ends badly and recovery is difficult.",
+        ],
+      },
+      {
+        type: "paragraph",
+        content:
+          "Most businesses that add a chatbot to their website use a hosted widget. The widget connects to a generic AI model, takes a URL or two as context, and handles simple questions from the homepage. This works adequately for FAQs, pricing tables, and office hours.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The approach stops working when questions get specific. A user asks how your product handles a particular edge case. A prospect asks whether your service covers their geography. A support request references a transaction from three weeks ago. Widget-based chatbots answer these questions with confident-sounding approximations or fall back to generic suggestions that do not address what was asked.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A chatbot built on a model API, connected to your actual knowledge base, answers those same questions accurately. The reference material is your documentation, not a generic training corpus. This piece covers how to build that system, what it costs, and where the common mistakes happen.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "what-a-custom-chatbot-is",
+        content: "What a custom AI chatbot is, and what it is not",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A custom AI chatbot is an application layer sitting between your website visitor and a large language model API. The application manages the conversation flow and retrieves relevant content from your document store. It passes that retrieved content to the model as context and displays the model's response in your site's interface.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "This differs from an embedded widget in one structural way: the model holds no proprietary knowledge of your business from its training data. Every response it generates is grounded in documents your team controls. When your product changes, you update the document. The chatbot's answers adjust accordingly.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The term chatbot covers quite different implementations. A scripted chatbot follows a decision tree and cannot go off script. An AI chatbot with a retrieval layer can answer questions the script never anticipated, as long as the answer exists somewhere in the knowledge base. An AI agent goes further: it can take actions, look up live data, and complete multi-step tasks on behalf of the user.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "This piece covers the middle case, the knowledge-retrieval chatbot, which is the right scope for most website implementations and the correct starting point before adding agentic capabilities. For a clear breakdown of where chatbots and agents differ in scope, the what-is-an-ai-agent-does-your-business-need-one piece covers the distinction with a decision framework.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "two-layer-architecture",
+        content: "The two-layer architecture: retrieval and generation",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A production AI chatbot for a website has two layers. The quality of the system depends far more on the first layer than most teams expect.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The retrieval layer is responsible for finding the right content from your knowledge base in response to a user's question. The standard implementation uses vector search. Your documents are split into chunks, each chunk is converted to a numerical embedding using an embedding model, and those embeddings are stored in a vector database. When a user submits a question, that question is also converted to an embedding, and the database returns the chunks closest to it in meaning. Those chunks become the context the generation layer works from.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The generation layer is where the large language model operates. It receives the user's question plus the retrieved context, and produces an answer. The quality of the answer depends almost entirely on whether the retrieved context was relevant. When the retrieval layer returns good context, even a mid-tier model produces accurate, specific answers. When retrieval fails, a more expensive model either hallucinates or acknowledges ignorance.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Most chatbot failures are retrieval failures. The model confidently answers a question using the wrong document chunk, or the chunk retrieved contains the right topic but not the specific detail the user asked about. Improving a misbehaving chatbot almost always means improving how the knowledge base is organized, how the chunks are sized, or how the retrieval query is formed, not switching to a more expensive model.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The standard architectural pattern for this system is called retrieval-augmented generation, or RAG. The embedding step typically uses a low-cost embedding API, while the vector database can be Pinecone, Weaviate, pgvector on Postgres, or any number of alternatives depending on infrastructure preferences and scale. If your website chatbot will draw on more than two or three source documents, a RAG architecture is the correct foundation.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "choosing-a-model",
+        content: "Choosing a model: Claude and OpenAI in 2026",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Two providers are the practical default for custom chatbot development in 2026: Anthropic's Claude API and OpenAI's API. Both are production-grade, well-documented, and available through standard HTTP integrations that most developers are familiar with.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "For a customer-facing website chatbot, Claude Sonnet 5 and GPT-4o are the relevant mid-tier options. Both handle multilingual input, maintain coherent reasoning over moderate context lengths, and produce responses that read naturally without post-processing. The practical differences appear at specific task edges rather than in general quality.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Claude performs better than GPT-4o on long-context document reasoning, instruction-following with detailed system prompts, and tone consistency across a long conversation. OpenAI has broader third-party tool integrations and more client library support in languages outside Python and JavaScript.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "For a chatbot grounded primarily in written documentation, retrieval augmentation matters more than base model capability. Either model produces similar output quality when given good retrieved context. The choice matters more when the system needs to reason across multiple retrieved documents simultaneously, or when the system prompt defines specific response constraints the model must maintain throughout the conversation.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "On cost: Claude Sonnet 5 charges approximately $3.00 per million input tokens and $15.00 per million output tokens. Claude Haiku 4.5 charges approximately $0.80 per million input tokens and $4.00 per million output tokens. For a typical website chatbot handling 200 conversations per day at an average of 3,000 input tokens and 400 output tokens per exchange, the monthly API cost is approximately $160 to $220 using Claude Sonnet 5, or approximately $40 to $55 using Claude Haiku 4.5. If your chatbot's questions are mostly factual lookups against a clean knowledge base, Haiku is often sufficient and cuts API cost by roughly 75 percent.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "building-the-knowledge-base",
+        content: "Building the knowledge base",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The knowledge base determines what the chatbot can and cannot answer accurately. Its quality matters more than the model selection, the prompt design, or the choice of vector database.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A useful knowledge base for a website chatbot typically includes product documentation, pricing pages, service territory or availability information, terms and conditions summaries, and any FAQ content already written by the support team. These documents represent the specific questions your site visitors actually ask.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Two practices consistently produce better retrieval quality. First, chunk documents by topic rather than by character count. A 500-character chunk that contains half a pricing table and half a refund policy retrieves poorly for either topic. A chunk covering a single product feature or a single policy retrieves accurately for exactly that question. Second, add metadata to each chunk: document type, date, product line, and geography if relevant. Metadata filters allow the retrieval layer to exclude irrelevant documents before the similarity search runs.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Test the retrieval layer independently before integrating it with the model. Send the ten most common support questions against the retrieval system and check whether the correct chunks come back. This test catches structural problems before they become user-facing errors.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The knowledge base requires ongoing maintenance. When a product changes, the relevant documents need updating. When a frequently-asked question falls outside the current document set, a new document should be added to cover it. Teams that treat the knowledge base as a one-time build consistently produce chatbots that degrade in accuracy over time. For context on what AI integration projects typically cost when a knowledge base is part of the scope, the cost of AI integration in 2026 piece covers RAG implementation ranges from boutique studios through large agency pricing.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "conversation-state",
+        content: "Managing conversation state and context",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A website chatbot that forgets everything between messages is technically functional but produces a frustrating user experience. The user who says \"tell me more about that\" gets a confused response because \"that\" has no referent in a stateless conversation.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Managing conversation state means passing a running summary or the recent transcript of the current session as additional context on each request. The practical implementation usually stores the conversation in the client (browser session storage or a backend session record) and includes the relevant prior turns when calling the model API.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The challenge is context window management. Most production chatbots cap conversation history at eight to fifteen prior messages. Beyond that, the context window fills with old conversation content that dilutes the retrieved document chunks. For most website chatbots, per-session memory with no cross-session retention is the appropriate default. It avoids data retention obligations, reduces infrastructure complexity, and matches user expectations for a help-oriented tool on a public website.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "escalation-design",
+        content: "The escalation design: when to hand off to a human",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Every chatbot reaches questions it cannot answer well. The escalation path is what happens when that occurs. Its design affects user satisfaction as much as the chatbot's answer quality on the questions it handles correctly.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A chatbot without a defined escalation path produces a predictable outcome: the user realizes the bot cannot help them, has no clear path to a human, and leaves the conversation. In a support context, that user may file a repeat request through another channel or not resolve the issue at all. In a sales context, a prospect who cannot get a specific answer and cannot find a clear path to a human often becomes someone else's customer.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The escalation design should specify: at what point the chatbot offers to connect the user to a human, what the connection mechanism is (a contact form, a live chat handoff, a calendar link, an email), and whether the chatbot's conversation history transfers to the human handling the escalation. A chatbot that passes the full conversation transcript to the support agent who takes over produces a meaningfully better handoff than one that starts the human with no context.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Confidence thresholds offer one way to trigger escalation automatically. When the model's response indicates it could not find relevant information, the response can include a standardized handoff prompt rather than a speculative answer. Some teams implement this as a function the model can call when it determines the answer is outside its knowledge base. Others handle it with a simple end-of-conversation offer. The simpler the escalation, the more likely it is to function correctly in production.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "build-cost-2026",
+        content: "What a custom chatbot costs to build in 2026",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Build cost for a custom AI chatbot from a US boutique studio depends on the scope of the knowledge base, the complexity of the conversation design, and whether a human escalation path needs to connect to an existing CRM or ticketing system.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A focused implementation covering one primary topic with a clean knowledge base, a system prompt, a basic conversation UI, and a contact-form escalation path runs $15,000 to $35,000 at US boutique studio rates. This scope assumes the knowledge base documents exist and need formatting and chunking, not creation from scratch.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A more complete system with CRM integration for the escalation path, analytics on conversation topics and failure points, and multi-document retrieval runs $35,000 to $70,000. Mid-tier agencies charge $50,000 to $120,000 for comparable scope.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Ongoing costs after launch have two components. The first is API usage: at 200 conversations per day using Claude Sonnet 5, monthly API fees run $160 to $250 depending on average conversation length. The second is infrastructure: vector database hosting runs $50 to $200 per month at typical business chatbot volume, and server costs for the application layer add $20 to $100 per month.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Studio support retainers for chatbot maintenance (knowledge base updates, retrieval tuning, prompt adjustments) typically run $800 to $2,500 per month. Teams that own the knowledge base update process internally and contact the studio only for technical changes pay significantly less. For a broader breakdown of AI integration costs across system types, the how-to-integrate-ai-into-your-existing-business piece covers the full range from simple API additions through complex agentic systems.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "selecting-a-development-partner",
+        content: "Selecting a development partner",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A custom AI chatbot is a software project, not a configuration task. The studio or developer building it needs working experience with RAG architecture, model API integration, embedding pipelines, and basic product design for conversation flow and escalation UX. These skills do not overlap entirely with general web development, and a studio that has built many marketing sites may not have built a RAG-based chatbot before.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The most useful evaluation criteria are specific prior work and clarity on what happens after launch. Ask the studio to describe the retrieval architecture they used on a recent chatbot project, and explain how they handle knowledge base updates after handoff. If their plan for knowledge base updates is to rebuild the index manually on request, that is a process problem affecting ongoing cost and reliability.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Also ask who maintains the knowledge base index after handoff. If the answer is that you do, understand the tooling involved before signing a contract. If the studio handles it on retainer, get the retainer terms in writing before the build starts. For a detailed framework on evaluating studios for technical AI work, the hiring-creative-engineering-studio piece covers the selection criteria, the questions to ask in a discovery call, and the engagement structures that produce reliable delivery.",
+      },
+      {
+        type: "faq",
+        items: [
+          {
+            question:
+              "What is the difference between a custom AI chatbot and a tool like Intercom or Drift?",
+            answer:
+              "Intercom and Drift are hosted platforms that offer AI features built on top of shared infrastructure and a generic training corpus. A custom chatbot is an application you own, trained entirely on your documents, running on an API you pay directly. The practical difference is accuracy on specific questions about your product: a custom chatbot grounded in your documentation answers specific questions correctly; a hosted platform's AI answers them with varying reliability depending on what it can infer from your website.",
+          },
+          {
+            question:
+              "How much does it cost to build a custom AI chatbot in 2026?",
+            answer:
+              "A focused chatbot covering one topic with a clean knowledge base and a contact-form escalation runs $15,000 to $35,000 at a US boutique studio. A more complete system with CRM integration, conversation analytics, and multi-document retrieval runs $35,000 to $70,000. Mid-tier agencies charge $50,000 to $120,000 for comparable scope.",
+          },
+          {
+            question:
+              "How much do Claude API costs run at typical chatbot volume?",
+            answer:
+              "A chatbot handling 200 conversations per day, with 3,000 input tokens and 400 output tokens per exchange, costs approximately $160 to $220 per month using Claude Sonnet 5 (approximately $3 per million input tokens). Using Claude Haiku 4.5 (approximately $0.80 per million input tokens) for the same volume costs approximately $40 to $55 per month. For most business chatbots answering factual questions from a clean knowledge base, Haiku is sufficient and cuts API cost substantially.",
+          },
+          {
+            question: "How long does it take to build a custom AI chatbot?",
+            answer:
+              "A focused chatbot with an existing, well-organized knowledge base takes four to eight weeks from discovery to production deployment at a boutique studio. A more complex system with CRM integration and custom conversation analytics takes eight to sixteen weeks. The largest variable is knowledge base preparation: organized, consistently formatted documents move the project faster; documents needing consolidation and cleanup add time at the start.",
+          },
+          {
+            question:
+              "What is retrieval-augmented generation and why does it matter for chatbots?",
+            answer:
+              "Retrieval-augmented generation is the pattern of retrieving relevant content from a document store and passing it to a language model as context before generating a response. It matters because language models do not learn your specific documentation from their training data. Without retrieval, the model answers questions about your product using general knowledge, which produces inaccurate answers for anything specific to your business. With retrieval, the model answers based on the documents you provide and can cite them.",
+          },
+          {
+            question:
+              "Do I need a large document library to make a chatbot useful?",
+            answer:
+              "No. A chatbot with twenty to thirty well-written, specific documents often performs better than one with two hundred loosely organized pages. The retrieval layer finds content by similarity to the user's question; a smaller, well-organized document set produces more accurate retrieval than a larger inconsistent one. Start with the twenty to thirty documents that cover the questions your support team answers most often, then expand the knowledge base as you identify gaps from the conversation logs.",
+          },
+          {
+            question:
+              "What maintenance does a custom chatbot require after launch?",
+            answer:
+              "Three types of ongoing work: knowledge base updates when your product or policies change, retrieval tuning when certain question types consistently return inaccurate answers, and prompt adjustments when the chatbot's response style drifts. Teams that own the knowledge base update process internally can reduce ongoing studio cost to occasional technical engagements. Teams that want the studio to manage the full knowledge base pay a retainer, typically $800 to $2,500 per month.",
+          },
+          {
+            question: "Does a custom chatbot replace a human support team?",
+            answer:
+              "For most businesses, no. A custom chatbot handles the repetitive, predictable questions that consume support team time without requiring human judgment. The questions it cannot handle accurately go to humans through the escalation path. The expected outcome is a reduction in the volume of straightforward questions reaching the support team, not elimination of the team. The chatbot's value is measured by how many questions it resolves accurately without escalation.",
+          },
+        ],
+      },
+    ],
+    coverImage: "/images/blog/technical-integration.webp",
+    author,
+    category: aiIntegrationCategory,
+    tags: [
+      "AI chatbot",
+      "Custom chatbot development",
+      "Claude API",
+      "RAG",
+      "AI integration",
+      "Chatbot for website",
+      "AI development",
+    ],
+    readingTimeMinutes: 13,
+    published: true,
+    featured: true,
+    displayOrder: 18,
+    seoTitle:
+      "How to Build a Custom AI Chatbot for Your Website · LIVV Creative Studio",
+    seoDescription:
+      "A practical guide to building a custom AI chatbot on the Claude API, covering RAG architecture, knowledge base design, escalation paths, and real build costs in 2026.",
+    faqSchema: [
+      {
+        question:
+          "What is the difference between a custom AI chatbot and a tool like Intercom or Drift?",
+        answer:
+          "Intercom and Drift are hosted platforms that offer AI features built on top of shared infrastructure and a generic training corpus. A custom chatbot is an application you own, trained entirely on your documents, running on an API you pay directly. The practical difference is accuracy on specific questions about your product: a custom chatbot grounded in your documentation answers specific questions correctly; a hosted platform's AI answers them with varying reliability.",
+      },
+      {
+        question:
+          "How much does it cost to build a custom AI chatbot in 2026?",
+        answer:
+          "A focused chatbot covering one topic with a clean knowledge base and a contact-form escalation runs $15,000 to $35,000 at a US boutique studio. A more complete system with CRM integration, conversation analytics, and multi-document retrieval runs $35,000 to $70,000. Mid-tier agencies charge $50,000 to $120,000 for comparable scope.",
+      },
+      {
+        question:
+          "How much do Claude API costs run at typical chatbot volume?",
+        answer:
+          "A chatbot handling 200 conversations per day, with 3,000 input tokens and 400 output tokens per exchange, costs approximately $160 to $220 per month using Claude Sonnet 5. Using Claude Haiku 4.5 for the same volume costs approximately $40 to $55 per month. For factual question-answering from a clean knowledge base, Haiku is often sufficient and cuts API cost substantially.",
+      },
+      {
+        question: "How long does it take to build a custom AI chatbot?",
+        answer:
+          "A focused chatbot with an existing knowledge base takes four to eight weeks from discovery to production deployment at a boutique studio. A more complex system with CRM integration and conversation analytics takes eight to sixteen weeks. The largest variable is knowledge base preparation: well-organized documents move the project faster.",
+      },
+      {
+        question:
+          "What is retrieval-augmented generation and why does it matter for chatbots?",
+        answer:
+          "Retrieval-augmented generation is the pattern of retrieving relevant content from a document store and passing it to a language model as context before generating a response. Without retrieval, the model answers questions about your product using general knowledge, which produces inaccurate answers for anything specific to your business. With retrieval, the model answers based on the documents you provide and can cite them.",
+      },
+      {
+        question:
+          "Do I need a large document library to make a chatbot useful?",
+        answer:
+          "No. A chatbot with twenty to thirty well-written, specific documents often performs better than one with two hundred loosely organized pages. A smaller, well-organized document set produces more accurate retrieval than a larger inconsistent one. Start with the documents that cover the questions your support team answers most often, then expand as you identify gaps from the conversation logs.",
+      },
+      {
+        question:
+          "What maintenance does a custom chatbot require after launch?",
+        answer:
+          "Three types of ongoing work: knowledge base updates when your product or policies change, retrieval tuning when certain question types consistently return inaccurate answers, and prompt adjustments when the response style drifts. Teams that own the knowledge base update process internally can reduce ongoing studio cost to occasional technical engagements. Teams that want the studio to manage the full knowledge base pay a retainer, typically $800 to $2,500 per month.",
+      },
+      {
+        question: "Does a custom chatbot replace a human support team?",
+        answer:
+          "For most businesses, no. A custom chatbot handles the repetitive, predictable questions that consume support team time without requiring human judgment. The expected outcome is a reduction in the volume of straightforward questions reaching the support team, not elimination of the team. The chatbot's value is measured by how many questions it resolves accurately without escalation.",
+      },
+    ],
+    internalLinks: [
+      {
+        slug: "how-to-integrate-ai-into-your-existing-business",
+        text: "How to Integrate AI Into Your Existing Business",
+      },
+      {
+        slug: "what-is-an-ai-agent-does-your-business-need-one",
+        text: "What Is an AI Agent and Does Your Business Need One?",
+      },
+      {
+        slug: "the-cost-of-ai-integration-what-to-budget-in-2026",
+        text: "The Cost of AI Integration: What to Budget in 2026",
+      },
+      {
+        slug: "hiring-creative-engineering-studio",
+        text: "Hiring a Creative Engineering Studio",
+      },
+    ],
+    cta,
+    relatedPostSlugs: [
+      "how-to-integrate-ai-into-your-existing-business",
+      "the-cost-of-ai-integration-what-to-budget-in-2026",
+      "what-is-an-ai-agent-does-your-business-need-one",
+    ],
+    createdAt: "2026-08-24T09:00:00.000Z",
+    updatedAt: "2026-08-24T09:00:00.000Z",
+  },
 ]
