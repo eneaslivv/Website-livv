@@ -20,9 +20,10 @@ import { buildOrganizationGraph } from "@/lib/seo/structured-data"
 import { GOOGLE_ADS_ID } from "@/lib/google-ads"
 
 const SITE_TITLE =
-  "LIVV Creative Studio · Custom Software Development & AI Integration"
+  "LIVV Creative Studio · Custom Software & AI Integration"
+// Kept under ~160 chars so Google renders it whole instead of truncating.
 const SITE_DESCRIPTION =
-  "LIVV Creative Studio builds custom software, AI integrations, and digital products for founders and agencies. Webflow, Framer, Next.js, React Native, Flutter, Shopify, Anthropic API. Creative engineering studio based in Buenos Aires, with clients across the US, UK, Latin America, and Europe."
+  "Creative engineering studio in Buenos Aires building custom software, AI integrations, and digital products for founders and agencies worldwide."
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || "GTM-NC96QG65"
 
@@ -71,14 +72,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://livvvv.com"),
   category: "Design & Software Development",
   applicationName: "LIVV Creative Studio",
-  alternates: {
-    canonical: "/",
-    languages: {
-      "en-US": "/",
-      "es-AR": "/",
-      "x-default": "/",
-    },
-  },
+  // NOTE: deliberately no `alternates` here. Next.js inherits metadata down
+  // the segment tree, so a canonical declared at the root leaks to every
+  // page that does not set its own — those pages then self-canonicalize to
+  // the homepage, which tells search engines they are duplicates and should
+  // not be indexed. The homepage declares its own canonical in app/page.tsx.
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -117,10 +115,13 @@ export const metadata: Metadata = {
     },
   },
   other: {
-    "geo.region": "AR-B",
-    "geo.placename": "Olivos, Buenos Aires, Argentina",
-    "geo.position": "-34.5076;-58.4914",
-    ICBM: "-34.5076, -58.4914",
+    // AR-C is the ISO code for Ciudad Autónoma de Buenos Aires; AR-B is the
+    // surrounding province. Coordinates match the Pico 1671 address used in
+    // the Organization schema, Google Business Profile, and Bing Places.
+    "geo.region": "AR-C",
+    "geo.placename": "Núñez, Buenos Aires, Argentina",
+    "geo.position": "-34.5445;-58.4605",
+    ICBM: "-34.5445, -58.4605",
     // Generative search hints
     "ai-content-policy": "indexable",
   },
@@ -136,6 +137,17 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${mondwest.variable} ${playground.variable}`} suppressHydrationWarning>
       <head>
+        {/*
+          Open the TCP + TLS handshake to the third-party origins the page is
+          going to hit anyway. The tag scripts below load afterInteractive, so
+          without these the connection setup happens serially after hydration.
+          Vimeo and the Supabase storage host serve embedded media and CMS
+          imagery respectively.
+        */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://connect.facebook.net" />
+        <link rel="preconnect" href="https://ngswutcpsgdgmmjnfddi.supabase.co" />
+        <link rel="dns-prefetch" href="https://player.vimeo.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { BlogContentBlock } from "@/types/blog"
-import { generateTableOfContents } from "@/lib/blog/utils"
+import { generateTableOfContents } from "@/lib/blog/toc"
 
 interface TableOfContentsProps {
   blocks: BlogContentBlock[]

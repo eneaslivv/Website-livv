@@ -162,9 +162,10 @@ export function AboutSection({ id }: { id?: string }) {
                 <div className="absolute inset-0 bg-[#2C0405]" />
                 <Image
                   src="/about-stats-bg.jpg"
-                  alt="Mountain landscape"
+                  alt=""
+                  aria-hidden="true"
                   fill
-                  priority
+                  loading="lazy"
                   className="object-cover object-center"
                   sizes="(max-width: 768px) 100vw, 900px"
                 />

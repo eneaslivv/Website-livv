@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     description:
       "Invisible white-label engineering for creative agencies. Scale your technical capabilities without hiring in-house engineers.",
     url: "https://livvvv.com/agencies",
+    images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
   },
 }
 

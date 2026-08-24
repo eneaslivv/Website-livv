@@ -98,7 +98,7 @@ Creative engineering studio building custom software, AI integrations, and digit
 ```
 
 **Founded:** 2022  
-**Headquarters:** Olivos, Buenos Aires, Argentina  
+**Headquarters:** Núñez, Buenos Aires, Argentina  
 **Website:** https://livvvv.com  
 **Industries:** Software, Artificial Intelligence, Design  
 **Number of employees:** 2–10  
@@ -113,7 +113,7 @@ Verificar que la página de empresa en LinkedIn tenga:
 - [ ] Cover image (banner)
 - [ ] About section con descripción completa (3–5 párrafos, incluir "custom software development" y "AI integration" en el texto)
 - [ ] Specialties: Custom Software Development, AI Integration, Webflow, Framer, Next.js, React Native, White-Label Partnerships
-- [ ] Location: Olivos, Buenos Aires, Argentina
+- [ ] Location: Núñez, Buenos Aires, Argentina
 - [ ] Website: https://livvvv.com
 - [ ] Company size: 2–10 employees
 - [ ] Industry: Software Development

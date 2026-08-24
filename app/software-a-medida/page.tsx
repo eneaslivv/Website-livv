@@ -25,6 +25,7 @@ export const metadata: Metadata = {
       "Estudio boutique en Buenos Aires. Desarrollo de software a medida para empresas de Argentina y LATAM. Equipo senior, presupuesto cerrado.",
     url: `${SITE_URL}/software-a-medida`,
     locale: "es_AR",
+    images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
   },
 }
 
@@ -95,7 +96,7 @@ export default function SoftwareAMedidaPage() {
       facts={[
         { label: "Qué hacemos", value: "Software y sistemas a medida" },
         { label: "Para quién", value: "Empresas, pymes y startups de LATAM" },
-        { label: "Sede", value: "Olivos, Buenos Aires, Argentina" },
+        { label: "Sede", value: "Núñez, Buenos Aires, Argentina" },
         { label: "Idiomas", value: "Español (nativo) · Inglés (fluido)" },
         { label: "Modelo", value: "Precio cerrado o retainer mensual" },
         { label: "Tiempos", value: "MVP en 6–8 semanas" },

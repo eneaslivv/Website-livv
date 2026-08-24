@@ -1,10 +1,8 @@
-"use client"
-
 import Link from "next/link"
 import Image from "next/image"
-import { BlogPost } from "@/types/blog"
+import type { BlogCardPost } from "@/lib/blog/utils"
 
-function getOgImageUrl(post: BlogPost): string {
+function getOgImageUrl(post: BlogCardPost): string {
   const params = new URLSearchParams({
     title: post.title,
     category: post.category.slug,
@@ -14,8 +12,10 @@ function getOgImageUrl(post: BlogPost): string {
   return `/api/og?${params.toString()}`
 }
 
+// No "use client": every hover state here is CSS (group-hover), so the card
+// renders entirely on the server when the parent is a server component.
 interface BlogCardProps {
-  post: BlogPost
+  post: BlogCardPost
   featured?: boolean
 }
 

@@ -53,7 +53,19 @@ export default function robots(): MetadataRoute.Robots {
     "Mistralai-User",
   ]
 
-  const privatePaths = ["/admin/", "/api/", "/portal/", "/presentation/"]
+  // `/lp/` holds the raw HTML that the /for-* routes rewrite to. Leaving it
+  // crawlable exposed a second indexable URL for identical content, so the
+  // raw path is blocked and the pretty URL is the only one indexed.
+  // `/embed/` serves iframe widgets meant to render inside third-party
+  // pages, never as standalone results.
+  const privatePaths = [
+    "/admin/",
+    "/api/",
+    "/portal/",
+    "/presentation/",
+    "/lp/",
+    "/embed/",
+  ]
 
   return {
     rules: [

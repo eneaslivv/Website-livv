@@ -24,6 +24,7 @@ export const metadata: Metadata = {
       "Diseño UX/UI y de producto a medida para empresas de Argentina y LATAM. Estudio boutique en Buenos Aires.",
     url: `${SITE_URL}/diseno-a-medida`,
     locale: "es_AR",
+    images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
   },
 }
 
@@ -74,7 +75,7 @@ export default function DisenoAMedidaPage() {
       facts={[
         { label: "Qué hacemos", value: "Diseño de producto y UX/UI a medida" },
         { label: "Para quién", value: "Empresas y startups de LATAM" },
-        { label: "Sede", value: "Olivos, Buenos Aires, Argentina" },
+        { label: "Sede", value: "Núñez, Buenos Aires, Argentina" },
         { label: "Herramienta", value: "Figma · sistemas de diseño" },
         { label: "Idiomas", value: "Español (nativo) · Inglés (fluido)" },
         { label: "Tesis", value: "Donde el arte se encuentra con el negocio" },

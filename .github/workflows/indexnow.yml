@@ -1,0 +1,61 @@
+# Pings IndexNow (Bing → ChatGPT Search / Copilot, plus Yandex, Naver,
+# Seznam) after every push to master. Vercel deploys master directly on
+# push with no CI in between, so this workflow doubles as the post-deploy
+# hook: wait for the deploy to go live, then submit the sitemap plus any
+# blog post named in the pushed commit messages.
+#
+# Why here and not inside the weekly content/maintenance agents: those run
+# in a sandbox whose egress proxy blocks api.indexnow.org (403 for 10+
+# straight weeks — see docs/scheduled-failures.md). GitHub-hosted runners
+# have open egress, so the ping finally succeeds.
+name: indexnow
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch: # manual full-sitemap submission (e.g. right after merging this)
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # The push that triggered us also triggered the Vercel build (~2-3 min
+      # for this site). The sitemap URLs almost all pre-exist, but a freshly
+      # shipped blog post should be live before IndexNow tries to crawl it.
+      - name: Wait for the Vercel deploy of this push
+        if: github.event_name == 'push'
+        run: sleep 180
+
+      # The content pipelines commit as `content(blog): ship cluster-H post — <slug>`
+      # (EN posts under /blog/) and `content(es): ship cluster-ES page — <slug>`
+      # (Spanish root-level pages). The live sitemap revalidates hourly, so the
+      # newest page may not be in it yet — pass its URL explicitly instead of
+      # relying on the sitemap.
+      - name: Extract content slugs from pushed commit messages
+        if: github.event_name == 'push'
+        env:
+          COMMITS: ${{ toJSON(github.event.commits.*.message) }}
+        run: |
+          node -e '
+            const fs = require("node:fs")
+            const msgs = JSON.parse(process.env.COMMITS || "[]")
+            const blog = msgs
+              .map((m) => /^content\(blog\): ship .*— ([A-Za-z0-9-]+)/mu.exec(m))
+              .filter(Boolean)
+              .map((m) => `https://livvvv.com/blog/${m[1]}`)
+            const es = msgs
+              .map((m) => /^content\(es\): ship .*— ([A-Za-z0-9-]+)/mu.exec(m))
+              .filter(Boolean)
+              .map((m) => `https://livvvv.com/${m[1]}`)
+            const slugs = [...blog, ...es]
+            console.log("Content URLs from commit messages:", slugs.length ? slugs : "(none)")
+            fs.appendFileSync(process.env.GITHUB_ENV, `EXTRA_URLS=${slugs.join(" ")}\n`)
+          '
+
+      - name: Submit URLs to IndexNow
+        run: node scripts/indexnow-ping.mjs --from-sitemap --urls $EXTRA_URLS

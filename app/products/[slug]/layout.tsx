@@ -104,7 +104,8 @@ export async function generateMetadata({
       url: `https://livvvv.com/products/${slug}`,
       locale: "en_US",
       alternateLocale: ["es_AR"],
-    },
+        images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
+  },
   }
 }
 

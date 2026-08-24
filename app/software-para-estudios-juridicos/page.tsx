@@ -25,6 +25,7 @@ export const metadata: Metadata = {
       "Gestión de casos, automatización de documentos y colaboración con clientes. Creadores de LegalFlow.",
     url: `${SITE_URL}/software-para-estudios-juridicos`,
     locale: "es_AR",
+    images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
   },
 }
 
@@ -80,7 +81,7 @@ export default function SoftwareEstudiosJuridicosPage() {
         { label: "Producto base", value: "LegalFlow" },
         { label: "Incluye", value: "Casos · documentos · clientes" },
         { label: "Para quién", value: "Estudios jurídicos de LATAM" },
-        { label: "Sede", value: "Olivos, Buenos Aires, Argentina" },
+        { label: "Sede", value: "Núñez, Buenos Aires, Argentina" },
         { label: "Modelo", value: "Precio cerrado o retainer mensual" },
       ]}
       sections={[

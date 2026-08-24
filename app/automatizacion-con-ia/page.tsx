@@ -25,6 +25,7 @@ export const metadata: Metadata = {
       "Automatizá procesos con IA: flujos, agentes que responden y califican, e integraciones. Estudio senior en Buenos Aires.",
     url: `${SITE_URL}/automatizacion-con-ia`,
     locale: "es_AR",
+    images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
   },
 }
 
@@ -79,10 +80,10 @@ export default function AutomatizacionConIaPage() {
       facts={[
         { label: "Qué hacemos", value: "Automatización de procesos con IA" },
         { label: "Para quién", value: "Empresas y pymes de LATAM" },
-        { label: "Sede", value: "Olivos, Buenos Aires, Argentina" },
+        { label: "Sede", value: "Núñez, Buenos Aires, Argentina" },
         { label: "Tecnología", value: "Claude · OpenAI · RAG · Make" },
         { label: "Prueba real", value: "PM Agent en producción" },
-        { label: "Modelo", value: "Precio cerrado o retainer mensual" },
+        { label: "Precio", value: "Cerrado antes de empezar · desde USD 1.500" },
       ]}
       sections={[
         {

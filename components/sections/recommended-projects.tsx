@@ -85,7 +85,7 @@ export function RecommendedProjects() {
                                     />
                                 )}
                                 {cover && !coverIsVideo && (
-                                    <Image src={cover} alt={project.title} fill sizes="(max-width: 768px) 85vw, 600px" loading="lazy" unoptimized className="object-cover opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
+                                    <Image src={cover} alt={project.title} fill sizes="(max-width: 768px) 85vw, 600px" loading="lazy" className="object-cover opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
                                 )}
                                 {!cover && (
                                     <Image
@@ -94,7 +94,6 @@ export function RecommendedProjects() {
                                         fill
                                         sizes="(max-width: 768px) 85vw, 600px"
                                         loading="lazy"
-                                        unoptimized
                                         className="object-cover opacity-80 group-hover:opacity-60 transition-opacity duration-500"
                                     />
                                 )}

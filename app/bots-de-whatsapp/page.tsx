@@ -25,6 +25,7 @@ export const metadata: Metadata = {
       "Atención 24/7 y calificación de leads por WhatsApp, con IA a medida integrada a tu CRM.",
     url: `${SITE_URL}/bots-de-whatsapp`,
     locale: "es_AR",
+    images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
   },
 }
 
@@ -82,7 +83,7 @@ export default function BotsDeWhatsappPage() {
         { label: "Base", value: "API oficial de WhatsApp Business" },
         { label: "Tecnología", value: "Claude · OpenAI · RAG" },
         { label: "Integra", value: "CRM · formularios · calendario" },
-        { label: "Modelo", value: "Precio cerrado o retainer mensual" },
+        { label: "Precio", value: "Cerrado antes de empezar · desde USD 1.500" },
       ]}
       sections={[
         {

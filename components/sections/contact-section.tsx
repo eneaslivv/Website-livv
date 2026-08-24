@@ -85,7 +85,7 @@ export function ContactSection() {
             </h2>
             <div className="space-y-4">
               <p className="text-sm text-white/60">
-                Olivos, Buenos Aires, Argentina
+                Núñez, Buenos Aires, Argentina
               </p>
               <div
                 className="contra-hire-me-button"

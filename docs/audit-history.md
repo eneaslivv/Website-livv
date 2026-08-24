@@ -105,3 +105,11 @@
 - Newly broken: none
 - Newly fixed: none
 - Notes: Audit skipped — livvvv.com returns 403 via proxy egress (thirteenth consecutive week); cluster-h-editorial.ts touched (new post rag-vs-fine-tuning-which-ai-approach-fits-your-business shipped, 20 slugs total); 16 PRs merged this week (#18–#33: motion reel, scroll choreography, site intro panel, product redesigns, grid coherence, about-page prose fix, mobile video covers, Payper hover art, instant-quote funnel fix); IndexNow ping returned 403 (api.indexnow.org blocked, twelfth consecutive week); Vercel deploy status unverifiable (no GitHub Actions — Vercel deploys directly)
+
+## 2026-08-21
+- OK: N/A
+- THIN: N/A
+- BROKEN: N/A
+- Newly broken: none
+- Newly fixed: none
+- Notes: Audit skipped — livvvv.com returns 403 via proxy egress (fourteenth consecutive week); node_modules not installed (playwright unavailable); cluster-h-editorial.ts touched (21 slugs total, new post 5-signs-you-need-custom-software shipped); 5 PRs merged this week (#34 IndexNow deploy ping, #35 real pricing, #36 ES comparison cluster + diagnostic funnel + NAP fix, #37 perf/SEO canonical bug fix + -13 MB images + blog bundle halved, #38 Instagram sameAs); IndexNow ping returned 403 (api.indexnow.org blocked, thirteenth consecutive week); Vercel deploy status unverifiable (no GitHub Actions — Vercel deploys directly)

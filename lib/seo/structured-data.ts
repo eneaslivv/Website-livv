@@ -24,26 +24,36 @@ export const STUDIO = {
   taglineEs:
     "Estudio de ingeniería creativa que construye productos digitales para founders y agencias.",
   email: "hola@livv.systems",
-  phone: undefined as string | undefined,
+  // Same number the verified Google Business Profile displays publicly
+  // (011 15-3799-1815 in AR mobile format). Identical NAP across the site
+  // schema, GBP and Bing Places is how Google reconciles the brand entity.
+  phone: "+54 9 11 3799-1815" as string | undefined,
   url: SITE_URL,
   logo: `${SITE_URL}/assets/logo-new.png`,
   ogImage: `${SITE_URL}/assets/og-image.png`,
   foundingDate: "2022",
   foundingLocation: "Buenos Aires, Argentina",
   address: {
-    locality: "Olivos",
-    region: "Buenos Aires",
+    // NAP kept identical across schema, Google Business Profile, and Bing
+    // Places (Bing Places listing created 2026-08-17 with this address).
+    streetAddress: "Pico 1671",
+    locality: "Buenos Aires",
+    region: "CABA",
+    postalCode: "1429",
     country: "AR",
     countryName: "Argentina",
   },
   geo: {
-    // Olivos, Vicente López, Buenos Aires
-    latitude: -34.5076,
-    longitude: -58.4914,
+    // Pico 1671, Núñez, Ciudad Autónoma de Buenos Aires
+    latitude: -34.5445,
+    longitude: -58.4605,
   },
   socials: [
     "https://www.linkedin.com/company/39648193/",
     "https://github.com/livvstudio",
+    // Same handle the Google Business Profile lists under social profiles —
+    // sameAs parity across surfaces is an entity-reconciliation signal.
+    "https://www.instagram.com/livv.creativv/",
   ],
   founder: {
     name: "Eneas Aldabe",
@@ -211,10 +221,13 @@ export function buildOrganizationGraph() {
         },
         founder: { "@id": personId },
         email: STUDIO.email,
+        telephone: STUDIO.phone,
         address: {
           "@type": "PostalAddress",
+          streetAddress: STUDIO.address.streetAddress,
           addressLocality: STUDIO.address.locality,
           addressRegion: STUDIO.address.region,
+          postalCode: STUDIO.address.postalCode,
           addressCountry: STUDIO.address.country,
         },
         location: { "@id": placeId },
@@ -226,6 +239,7 @@ export function buildOrganizationGraph() {
           {
             "@type": "ContactPoint",
             email: STUDIO.email,
+            telephone: STUDIO.phone,
             contactType: "customer service",
             areaServed: ["AR", "US", "ES", "MX", "CL", "UY", "CO"],
             availableLanguage: ["Spanish", "English"],
@@ -256,11 +270,14 @@ export function buildOrganizationGraph() {
         name: STUDIO.legalName,
         url: STUDIO.url,
         image: STUDIO.ogImage,
+        telephone: STUDIO.phone,
         priceRange: "$$$",
         address: {
           "@type": "PostalAddress",
+          streetAddress: STUDIO.address.streetAddress,
           addressLocality: STUDIO.address.locality,
           addressRegion: STUDIO.address.region,
+          postalCode: STUDIO.address.postalCode,
           addressCountry: STUDIO.address.country,
         },
         geo: {
@@ -283,6 +300,9 @@ export function buildOrganizationGraph() {
         "@id": websiteId,
         url: STUDIO.url,
         name: STUDIO.legalName,
+        // Google's site-name feature reads WebSite name/alternateName; the
+        // SERP currently labels results "livvvv.com" instead of the brand.
+        alternateName: ["LIVV", "Livv Studio"],
         publisher: { "@id": orgId },
         inLanguage: ["en", "es"],
         potentialAction: {
@@ -405,6 +425,43 @@ export function buildBreadcrumbsJsonLd(
       position: index + 1,
       name: item.name,
       item: item.url,
+    })),
+  }
+}
+
+/**
+ * ItemList builder for ranked editorial lists (e.g. "best agencies" pages).
+ * Generative engines lean on ItemList markup when answering "best X" and
+ * "top X" queries, which is exactly the query shape those pages target.
+ */
+export function buildItemListJsonLd({
+  name,
+  description,
+  url,
+  items,
+}: {
+  name: string
+  description: string
+  url: string
+  items: { name: string; description: string; url?: string }[]
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name,
+    description,
+    url,
+    numberOfItems: items.length,
+    itemListOrder: "https://schema.org/ItemListOrderAscending",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "Organization",
+        name: item.name,
+        description: item.description,
+        ...(item.url && { url: item.url }),
+      },
     })),
   }
 }

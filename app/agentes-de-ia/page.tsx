@@ -25,6 +25,7 @@ export const metadata: Metadata = {
       "Agentes de IA que investigan, responden y ejecutan tareas. Claude/OpenAI + RAG sobre tus datos.",
     url: `${SITE_URL}/agentes-de-ia`,
     locale: "es_AR",
+    images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
   },
 }
 
@@ -82,7 +83,7 @@ export default function AgentesDeIaPage() {
         { label: "Modelos", value: "Anthropic Claude · OpenAI" },
         { label: "Datos", value: "RAG sobre tu información" },
         { label: "Prueba real", value: "PM Agent en producción" },
-        { label: "Modelo", value: "Precio cerrado o retainer mensual" },
+        { label: "Precio", value: "Cerrado antes de empezar · desde USD 1.500" },
       ]}
       sections={[
         {

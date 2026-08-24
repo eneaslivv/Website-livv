@@ -46,6 +46,11 @@ Cluster file: `lib/blog/posts/cluster-h-editorial.ts` (append at the end).
       Project shape educational, ~2,000 words. Week-by-week breakdown.
 - [ ] **The True Cost of Off-the-Shelf Software**
       Pain-point, ~2,200 words. Hidden costs of subscription stack.
+- [ ] **Airtable + Zapier vs Custom Software: When the No-Code Stack Breaks**
+      Comparison, ~2,200 words. Real failure points, cost crossover
+      math at volume, the migration path. Comparison posts are the
+      cluster's proven citation format (Bing AI Performance 2026-08:
+      every Copilot citation comes from a comparison piece).
 
 ## Phase 2 — AI Integration blog cluster
 
@@ -69,7 +74,7 @@ integration`, `RAG vs fine-tuning`, `custom AI chatbot development`,
       development costs.
 - [x] **RAG vs Fine-Tuning: Which AI Approach Fits Your Business** `rag-vs-fine-tuning-which-ai-approach-fits-your-business`
       Technical accessible, ~2,500 words.
-- [ ] **How to Build a Custom AI Chatbot for Your Website**
+- [~] **How to Build a Custom AI Chatbot for Your Website**
       Tutorial, ~2,800 words. Anthropic Claude API stack.
 - [ ] **Claude API vs OpenAI API: A Builder's Comparison**
       Comparison, ~2,500 words. Same prompt across both, real cost
@@ -79,6 +84,30 @@ integration`, `RAG vs fine-tuning`, `custom AI chatbot development`,
       Hiring a Creative Engineering Studio piece.
 - [ ] **Building AI Features That Users Actually Use**
       Opinion / expertise, ~2,500 words.
+- [ ] **Zapier vs Make vs Custom AI Automation: A Business Owner's Comparison**
+      Comparison, ~2,200 words. Cost curves at volume, silent-failure
+      maintenance reality, when no-code breaks, the hybrid pattern
+      (no-code plumbing + custom AI brain).
+
+## Phase 3 — Cluster ES: comparativas para dueños de negocio (AR/LATAM)
+
+Root-level Spanish pages (NOT blog posts) targeting the comparison and
+"best X" queries Argentine business owners actually type. Bing AI
+Performance (2026-08) shows every Copilot citation of livvvv.com comes
+from comparison-format content, and Spanish queries produce zero
+citations today — this cluster attacks exactly that gap. Format: see
+"Weekly ES piece" under the weekly agent instructions. Every page links
+to /diagnostico-de-automatizacion as its CTA.
+
+- [x] **Mejores agencias de automatización con IA en Argentina (2026)** `mejores-agencias-automatizacion-ia-argentina` (shipped 2026-08-17)
+- [x] **n8n vs Make vs desarrollo a medida** `n8n-vs-make-vs-desarrollo-a-medida` (shipped 2026-08-17)
+- [ ] **ChatGPT vs un agente de IA a medida: qué le sirve a tu empresa** `chatgpt-vs-agente-de-ia-a-medida`
+- [ ] **Bot de WhatsApp para tu negocio: opciones y costos reales (2026)** `bot-de-whatsapp-costos-argentina`
+- [ ] **CRM a medida vs HubSpot vs Salesforce para pymes** `crm-a-medida-vs-hubspot-vs-salesforce`
+- [ ] **Shopify vs Tienda Nube vs tienda a medida** `shopify-vs-tiendanube-vs-tienda-a-medida`
+- [ ] **Cuánto cuesta automatizar un proceso en Argentina (2026)** `cuanto-cuesta-automatizar-un-proceso-argentina`
+- [ ] **Capacitación en IA para tu equipo: qué tiene que incluir** `capacitacion-en-ia-para-empresas`
+- [ ] **Agencia de IA vs freelancer vs equipo propio: qué conviene** `agencia-de-ia-vs-freelancer-vs-equipo-propio`
 
 ## Phase 2 — Case study pages
 
@@ -136,7 +165,33 @@ When the weekly content production cron fires:
 8. Mark item `[x]` in this file with the slug of the shipped post.
 9. Commit + push to master with message:
    `content(blog): ship cluster-H post — <slug>`
-10. The Vercel deploy + IndexNow ping happen automatically downstream.
+10. The Vercel deploy happens automatically on push. The `indexnow`
+    GitHub Action (`.github/workflows/indexnow.yml`) then waits for the
+    deploy and pings IndexNow with the sitemap plus the new post URL —
+    it parses the slug out of the commit message, so keep the
+    `content(blog): ship cluster-H post — <slug>` format exact.
+
+### Weekly ES piece (added 2026-08-17)
+
+In the same weekly run, ALSO ship one item from "Phase 3 — Cluster ES":
+
+1. Pick the first `[ ]` item in Phase 3, mark it `[~]`, commit the marker.
+2. ES pieces are NOT blog posts. Each is a root-level page at
+   `app/<slug>/page.tsx` built with the `AeoLanding` component — copy
+   the structure of `app/n8n-vs-make-vs-desarrollo-a-medida/page.tsx`.
+3. Voice: rioplatense (vos/tenés), direct, concrete, no hype vocabulary
+   (same banned list as the EN posts). 1,200–1,800 words. Facts and
+   prices must come from `public/llms.txt` (real LIVV rates only —
+   never invent numbers, see the 2026-08-17 pricing correction).
+4. Every page includes: metadata with `es-AR` canonical, a 5-6 pair FAQ
+   via `buildFaqJsonLd`, breadcrumbs, the facts grid, at least 2
+   internal links to other ES pages, and a CTA linking to
+   `/diagnostico-de-automatizacion`.
+5. Add the page to `app/sitemap.ts` (Cluster ES block) and a one-line
+   entry in the ES section of `public/llms.txt`.
+6. Mark the item `[x]` with the slug and commit with message:
+   `content(es): ship cluster-ES page — <slug>`
+   (exact format — the indexnow workflow parses it to ping the new URL).
 
 ## Weekly maintenance agent instructions
 
@@ -145,9 +200,12 @@ Every Friday at 17:00 ART:
 1. Run `node scripts/render-audit.mjs --concurrency=4`.
 2. If any pages broke since last run, report in a commit on the
    `audit/<date>` branch with the diff.
-3. Run an IndexNow ping for any URL changed in the last 7 days
-   (`git log --since="7 days ago" --name-only --pretty=format: | sort -u`
-    filtered to /blog/ and /services/ paths).
+3. Do NOT ping IndexNow from this agent: the sandbox egress proxy
+   blocks api.indexnow.org (403 — see scheduled-failures.md), and the
+   `indexnow` GitHub Action already pings on every push to master
+   (`.github/workflows/indexnow.yml`). Do not log the blocked egress
+   as a new failure. To ping by hand from a normal network:
+   `node scripts/indexnow-ping.mjs --from-sitemap --changed-within=7`.
 4. Check the latest Vercel deploy status via `gh api`. If failure,
    open an issue in the repo.
 5. Log to `docs/audit-history.md` with timestamp + summary.

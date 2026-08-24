@@ -24,6 +24,7 @@ export const metadata: Metadata = {
       "Apps web y móviles a medida para empresas de Argentina y LATAM. Equipo senior boutique en Buenos Aires.",
     url: `${SITE_URL}/desarrollo-de-apps`,
     locale: "es_AR",
+    images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
   },
 }
 
@@ -78,7 +79,7 @@ export default function DesarrolloDeAppsPage() {
       facts={[
         { label: "Qué hacemos", value: "Apps web y móviles a medida" },
         { label: "Para quién", value: "Empresas, pymes y startups de LATAM" },
-        { label: "Sede", value: "Olivos, Buenos Aires, Argentina" },
+        { label: "Sede", value: "Núñez, Buenos Aires, Argentina" },
         { label: "Stack", value: "React · Next.js · TypeScript · Node" },
         { label: "Modelo", value: "Precio cerrado o retainer mensual" },
         { label: "Tiempos", value: "MVP en 6–8 semanas" },

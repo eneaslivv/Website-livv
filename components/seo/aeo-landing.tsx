@@ -41,8 +41,11 @@ export function AeoLanding({
   faq,
   ctaLead,
 }: AeoLandingProps) {
+  // lang="es" marks this subtree as Spanish. The root <html> is lang="en"
+  // and cannot vary per route, so without this screen readers apply English
+  // pronunciation to every Spanish landing.
   return (
-    <div className="min-h-screen w-full bg-black text-white">
+    <div lang="es" className="min-h-screen w-full bg-black text-white">
       {jsonLd.map((block, i) => (
         <script
           // eslint-disable-next-line react/no-array-index-key

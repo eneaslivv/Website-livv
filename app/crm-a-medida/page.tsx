@@ -24,6 +24,7 @@ export const metadata: Metadata = {
       "Un CRM construido alrededor de tu proceso, integrado con WhatsApp y tus leads. No al revés.",
     url: `${SITE_URL}/crm-a-medida`,
     locale: "es_AR",
+    images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
   },
 }
 
@@ -76,7 +77,7 @@ export default function CrmAMedidaPage() {
         { label: "Para quién", value: "Empresas y pymes de LATAM" },
         { label: "Integra", value: "WhatsApp · formularios · web" },
         { label: "Ventaja", value: "Sin licencia por usuario mensual" },
-        { label: "Sede", value: "Olivos, Buenos Aires, Argentina" },
+        { label: "Sede", value: "Núñez, Buenos Aires, Argentina" },
         { label: "Modelo", value: "Precio cerrado o retainer mensual" },
       ]}
       sections={[

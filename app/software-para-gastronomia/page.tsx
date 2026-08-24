@@ -25,6 +25,7 @@ export const metadata: Metadata = {
       "Comandas por QR, gestión de cocina y pagos en una plataforma. Creadores de Payper.",
     url: `${SITE_URL}/software-para-gastronomia`,
     locale: "es_AR",
+    images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
   },
 }
 

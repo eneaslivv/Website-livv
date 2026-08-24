@@ -25,6 +25,7 @@ export const metadata: Metadata = {
       "Paneles y herramientas internas a medida: métricas en tiempo real y una sola pantalla para operar.",
     url: `${SITE_URL}/dashboards-a-medida`,
     locale: "es_AR",
+    images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
   },
 }
 
@@ -77,7 +78,7 @@ export default function DashboardsAMedidaPage() {
         { label: "Para quién", value: "Empresas y pymes de LATAM" },
         { label: "Incluye", value: "Métricas en vivo · permisos por rol" },
         { label: "Integra", value: "CRM · ERP · planillas · APIs" },
-        { label: "Sede", value: "Olivos, Buenos Aires, Argentina" },
+        { label: "Sede", value: "Núñez, Buenos Aires, Argentina" },
         { label: "Modelo", value: "Precio cerrado o retainer mensual" },
       ]}
       sections={[

@@ -1,42 +1,44 @@
-"use client"
-
-import { useParams } from "next/navigation"
 import Link from "next/link"
-import { Inter } from "next/font/google"
+import { notFound } from "next/navigation"
 import { Navbar } from "@/components/layout/navbar"
 import { FooterSection } from "@/components/sections/footer-section"
 import { BlogCard } from "@/components/blog/BlogCard"
-import { getPostsByCategory, getAllCategories } from "@/lib/blog/utils"
+import {
+  getPostsByCategory,
+  getAllCategories,
+  toBlogCardPost,
+} from "@/lib/blog/utils"
 import { getCategoryBySlug } from "@/lib/blog/categories"
 import { getCategoryIntro } from "@/lib/blog/category-intros"
 
-const inter = Inter({ subsets: ["latin"] })
+/**
+ * Server component. This page renders no interactive state, and keeping it
+ * on the client pulled the whole blog corpus (every post's `content`
+ * blocks) into the route's JavaScript — it was the heaviest route on the
+ * site at 388 kB First Load JS. Rendering on the server, and projecting
+ * posts to `BlogCardPost`, keeps the article bodies off the wire entirely.
+ */
 
-export default function BlogCategoryPage() {
-  const params = useParams()
-  const categorySlug = params?.category as string
+export function generateStaticParams() {
+  return getAllCategories().map((category) => ({ category: category.slug }))
+}
+
+export default async function BlogCategoryPage({
+  params,
+}: {
+  params: Promise<{ category: string }>
+}) {
+  const { category: categorySlug } = await params
   const category = getCategoryBySlug(categorySlug)
-  const posts = getPostsByCategory(categorySlug)
+
+  if (!category) notFound()
+
+  const posts = getPostsByCategory(categorySlug).map(toBlogCardPost)
   const allCategories = getAllCategories()
   const intro = getCategoryIntro(categorySlug)
 
-  if (!category) {
-    return (
-      <main className={`bg-[#FAF8F3] text-[#2A1818] selection:bg-[#E6E2D6] min-h-screen ${inter.className}`}>
-        <Navbar />
-        <div className="pt-40 md:pt-52 max-w-6xl mx-auto px-6 py-32 text-center">
-          <h1 className="text-4xl font-light mb-4">Category not found</h1>
-          <Link href="/blog" className="text-sm font-medium text-[#C4A35A] hover:underline">
-            ← Back to all posts
-          </Link>
-        </div>
-        <FooterSection />
-      </main>
-    )
-  }
-
   return (
-    <main className={`bg-[#FAF8F3] text-[#2A1818] selection:bg-[#E6E2D6] min-h-screen ${inter.className}`}>
+    <main className="bg-[#FAF8F3] text-[#2A1818] selection:bg-[#E6E2D6] min-h-screen">
       <Navbar />
 
       <div className="pt-40 md:pt-52">

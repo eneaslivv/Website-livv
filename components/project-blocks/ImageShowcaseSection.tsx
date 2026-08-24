@@ -25,7 +25,7 @@ function Media({ url, alt, className, fit = 'cover' }: { url: string; alt?: stri
                 muted
                 loop
                 playsInline
-                preload="auto"
+                preload="metadata"
                 className={`${className ?? ''} ${fit === 'contain' ? 'object-contain' : 'object-cover'} w-full h-full`}
             />
         )
