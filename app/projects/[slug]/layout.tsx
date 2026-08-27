@@ -20,7 +20,11 @@ async function getPortfolioItem(slug: string): Promise<PortfolioItem | null> {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ p_tenant_slug: TENANT_SLUG }),
-                next: { revalidate: 3600 },
+                // 5 min, no 1 h. Vercel conserva el Data Cache entre deploys, así
+                // que con 3600 un case study recién publicado quedaba hasta una
+                // hora con el título "Project Not Found" y robots noindex — ni un
+                // redeploy lo movía. Pasó con KRU al publicarlo.
+                next: { revalidate: 300 },
             },
         )
         if (!res.ok) return null
