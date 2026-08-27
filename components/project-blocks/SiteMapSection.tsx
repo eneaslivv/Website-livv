@@ -43,7 +43,7 @@ export function SiteMapSection({ label, heading, description, slugs, rootLabel }
     // En pantallas chicas el árbol entra tan reducido que las etiquetas quedan a
     // 4px. Arranca más cerca y se explora arrastrando, como un tablero.
     const [zoom, setZoom] = useState(() =>
-        typeof window !== 'undefined' && window.innerWidth < 768 ? 2.2 : 1,
+        typeof window !== 'undefined' && window.innerWidth < 768 ? 1.8 : 1,
     )
     const [pan, setPan] = useState({ x: 0, y: 0 })
     const drag = useRef<{ x: number; y: number; px: number; py: number } | null>(null)
@@ -154,7 +154,10 @@ export function SiteMapSection({ label, heading, description, slugs, rootLabel }
                         // angosto, así que entrar por altura lo dejaba a escala 0.39
                         // —etiquetas de 4px— con el tablero vacío a los costados.
                         // Así llena el ancho y lo que sobra se explora arrastrando.
-                        preserveAspectRatio="xMidYMin slice"
+                        // Anclado a la izquierda y centrado en vertical: la raíz del
+                        // árbol está en x=0, así se entra por ahí y no por el medio
+                        // de una rama.
+                        preserveAspectRatio="xMinYMid slice"
                         className="w-full h-[420px] md:h-[620px]"
                         style={{
                             transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
