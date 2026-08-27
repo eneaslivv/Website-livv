@@ -316,7 +316,7 @@ export type ContentBlock =
     | { type: 'quote'; content: string; sort_order: number }
     | { type: 'hero_image'; image_url: string; alt?: string; sort_order: number }
     | { type: 'challenge'; label: string; heading: string; paragraphs: string[]; tools: string[]; kpis: { text: string }[]; sort_order: number }
-    | { type: 'image_showcase'; label?: string; layout: 'single' | 'side_by_side' | 'wireframe'; images: { url: string; alt?: string; theme?: 'light' | 'dark'; caption?: string }[]; sort_order: number }
+    | { type: 'image_showcase'; label?: string; layout: 'single' | 'side_by_side' | 'wireframe'; images: { url: string; alt?: string; theme?: 'light' | 'dark'; caption?: string; orientation?: 'landscape' | 'portrait' }[]; sort_order: number }
     | {
           type: 'design_system';
           label: string;
