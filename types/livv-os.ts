@@ -329,6 +329,16 @@ export type ContentBlock =
           download_url?: string;
           sort_order: number;
       }
+    | {
+          type: 'sitemap';
+          label?: string;
+          heading?: string;
+          description?: string;
+          /** Slugs capturados; el componente deduce la jerarquía y la geometría. */
+          slugs: string[];
+          rootLabel?: string;
+          sort_order: number;
+      }
     | { type: 'banner'; heading: string; subtext?: string; background_color?: string; cta_label?: string; cta_href?: string; sort_order: number };
 
 export interface PortfolioItem {

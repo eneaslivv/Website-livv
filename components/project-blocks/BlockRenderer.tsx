@@ -3,6 +3,7 @@ import { HeroImageSection } from "./HeroImageSection"
 import { ChallengeSection } from "./ChallengeSection"
 import { ImageShowcaseSection } from "./ImageShowcaseSection"
 import { DesignSystemSection } from "./DesignSystemSection"
+import { SiteMapSection } from "./SiteMapSection"
 import { BannerSection } from "./BannerSection"
 import { RichText } from "./RichText"
 import { Playfair_Display } from "next/font/google"
@@ -31,6 +32,17 @@ export function BlockRenderer({ block, poster }: { block: ContentBlock; poster?:
                     label={block.label}
                     layout={block.layout}
                     images={block.images}
+                />
+            )
+
+        case 'sitemap':
+            return (
+                <SiteMapSection
+                    label={block.label}
+                    heading={block.heading}
+                    description={block.description}
+                    slugs={block.slugs}
+                    rootLabel={block.rootLabel}
                 />
             )
 

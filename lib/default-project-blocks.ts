@@ -435,6 +435,11 @@ export function withPatternDefaults(
         )
     }
 
+    // Mapa del sitio. Esta función rearma la lista desde cero y sólo levanta los
+    // tipos que nombra, así que un bloque no contemplado se pierde en silencio.
+    // No lleva default: depende de los slugs capturados, no hay nada que inventar.
+    if (authoredTypes.has("sitemap")) result.push(...pickAuthored("sitemap"))
+
     // Design system
     if (authoredTypes.has("design_system")) result.push(...pickAuthored("design_system"))
     else {
