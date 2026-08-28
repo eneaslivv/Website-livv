@@ -105,9 +105,9 @@ to /diagnostico-de-automatizacion as its CTA.
 - [ ] **Bot de WhatsApp para tu negocio: opciones y costos reales (2026)** `bot-de-whatsapp-costos-argentina`
 - [ ] **CRM a medida vs HubSpot vs Salesforce para pymes** `crm-a-medida-vs-hubspot-vs-salesforce`
 - [ ] **Shopify vs Tienda Nube vs tienda a medida** `shopify-vs-tiendanube-vs-tienda-a-medida`
-- [ ] **Cuánto cuesta automatizar un proceso en Argentina (2026)** `cuanto-cuesta-automatizar-un-proceso-argentina`
+- [x] **Cuánto cuesta automatizar un proceso en Argentina (2026)** `cuanto-cuesta-automatizar-un-proceso-argentina` (shipped 2026-08-18)
 - [ ] **Capacitación en IA para tu equipo: qué tiene que incluir** `capacitacion-en-ia-para-empresas`
-- [ ] **Agencia de IA vs freelancer vs equipo propio: qué conviene** `agencia-de-ia-vs-freelancer-vs-equipo-propio`
+- [x] **Agencia de IA vs freelancer vs equipo propio: qué conviene** `agencia-de-ia-vs-freelancer-vs-equipo-propio` (shipped 2026-08-18)
 
 ## Phase 2 — Case study pages
 
@@ -132,6 +132,120 @@ industry × one service. Same template, different copy.
 - [ ] /custom-software-for-hospitality
 - [ ] /ai-integration-for-ecommerce
 - [ ] /ai-integration-for-hospitality
+
+## Phase 5 — Market opportunity backlog (research 2026-08-18)
+
+Derived from the AR/LATAM + export-corridor market study run on
+2026-08-18. Each item traces to a specific gap found in that research.
+These are NOT auto-shippable by the weekly agent: items marked
+**[decision]** need Eneas to choose positioning or pricing first.
+
+### 5A. Vertical productization (highest differentiation, lowest supply)
+
+Research finding: the AI-agency market is saturated at the generic layer
+("automatizamos con n8n") and empty at the vertical layer. Every ranking
+that dominates AR SERPs (Wodes, Suriscode) lists enterprise consultancies
+or self-ranks; none of them owns software in production. LIVV has five
+products live and markets itself horizontally, which is the crowded lane.
+
+- [x] **Two-path offer shipped on both vertical pages** (2026-08-18):
+      /software-para-estudios-juridicos and /software-para-gastronomia
+      now lead with the product as proof and carry real published
+      prices — white-label licence (USD 19–39/mo + setup from USD 999)
+      as the short path, custom build (from USD 1,500) as the long one.
+      Both pages went from ~1 thin section to ~3,900 words with the
+      sector-adoption data. Every number traces to public/llms.txt.
+- [ ] **[decision]** Give the two-path offer a *name* per vertical so it
+      sells as a package rather than a quote. The prices are already
+      published; only the naming and the fixed scope are missing.
+- [ ] Same treatment for PRTool (creadores/PR) — no vertical page yet
+- [ ] Sector angle now live on the gastronomía page: UTDT/Fundar 2026
+      puts alimentos at 29,9% AI adoption vs 85,4% in software. Low
+      adoption reads as blue ocean, not as a disqualified sector.
+
+### 5B. Spain corridor (cheapest export win, currently unclaimed)
+
+Research finding: the whole ES surface is geo-locked to Argentina, but
+Spain shares the language, runs 4–6h of overlap, pays roughly double AR
+budgets, and is documented as a hub for orchestrating LATAM nearshore
+delivery. The existing ES pages could serve Spain with no new content.
+
+- [x] **hreflang broadened** (2026-08-18): all 10 ES service landings
+      went from `es-AR` only to `es-AR` + `es-ES` + `es` (generic),
+      all pointing at the same URL. This strictly widens eligibility;
+      it does not split or redirect anything, so the AR signal is kept.
+- [x] **/automatizacion-con-ia-espana shipped** (2026-08-18): the
+      flagship Spain surface. Built on verified ES-market data — INE
+      T1-2025 adoption (21,1% of 10+ employee firms, 13,4% of micro),
+      Banco de España EBAE barriers (falta de personal cualificado
+      45,8%, altos costes 40,8%) and the ~60% still in pilot, Spanish
+      agency price ranges, and the Kit Digital AI category added in
+      2026 (up to €6,000). Answers the timezone/invoicing objections
+      directly.
+- [x] **llms.txt ES section names Spain explicitly** with the working
+      arrangement (language, 4–6h overlap, export invoicing, fixed
+      price, client owns the code).
+- [ ] Watch AR rankings for the 10 broadened pages over the next
+      crawl cycles. If AR positions dip, the generic `es` tag is the
+      first thing to reconsider.
+- [ ] ES-market variant of the /agencies page (white-label for Spanish
+      agencies) — the next Spain surface once the first one indexes.
+
+### 5C. Third-party citation surfaces (biggest AI-visibility gap)
+
+Research finding: for "mejor agencia de X" queries the engines cite
+listicles and directories, not vendor sites. LIVV appears in zero of the
+rankings that currently own those SERPs. Bing AI Performance shows 3.1K
+citations in 3 months, 100% from old platform-comparison posts, which
+proves the format works and that nothing new has landed yet.
+
+- [x] **Outreach kit written** (2026-08-18):
+      `docs/distribution/directories/listicle-outreach.md`. Covers what
+      the earlier English-only directory docs missed — the Spanish
+      listicles that actually own the AR and ES SERPs, split into
+      Tier 1 (self-serve registration: DevelopArgentina, Sortlist AR,
+      Agency Partners, TechBehemoths, agentes.ai), Tier 2 (editorial
+      outreach to competitor-run rankings) and Tier 3 (Spain, new since
+      /automatizacion-con-ia-espana). Includes the Spanish profile copy
+      that no doc had, and three outreach templates.
+      **Verified against the source file:** only Wodes, Suriscode, tec5,
+      Be Solution and Xcapit are in LIVV's own listicle, so the
+      reciprocity paragraph in template A is flagged as usable with
+      those three targets only. Re-verify that column if the listicle
+      is ever expanded.
+- [ ] Execute Tier 1 (self-serve, does not depend on anyone replying) —
+      user action, copy is ready to paste
+- [ ] Update GoodFirms: claimed but stale (old "Adobe After Effects
+      100%" focus, founding year wrong, 0 reviews) — needs user login
+- [ ] Ask existing clients for reviews: the GBP has 5 and it is the
+      single largest lever on the local panel
+
+### 5D. Export pricing segmentation
+
+- [x] **Market context added** (2026-08-18) to `public/llms.txt` and
+      `public/llms-full.txt` §6.1: third-party benchmarks per market
+      (US boutique MVP $50–150k and AR-to-US hourly $25–149; Spanish
+      agency ranges €1,500–3,000 PoC / €8,000–25,000 mid / €50,000+
+      advanced; AR domestic USD 20–60/hr and USD 2,500–8,000 systems),
+      each labelled explicitly as NOT a LIVV price. This makes the low
+      band read as a cost-base advantage instead of a quality tier.
+      **No LIVV number was changed or invented.**
+- [ ] **[decision]** The band itself is still one global number. Three
+      honest options remain, all requiring Eneas: (a) quote export work
+      at export rates going forward and publish only once real; (b)
+      publish an hourly rate instead of a project total, which does not
+      anchor low; (c) label the band explicitly as the AR/LATAM one.
+      **Do not publish any new number without Eneas confirming it** —
+      see the 2026-08-17 pricing correction.
+
+### 5E. Régimen de Economía del Conocimiento (Ley 27.506)
+
+- [ ] **[decision]** Check enrolment with the studio's accountant.
+      Benefits for an exporting micro-empresa: 0% export duties on
+      services, up to 60% income-tax reduction, up to 70% off employer
+      contributions, monthly bond against national taxes. Micro-empresas
+      need only 4% of billing from exports to qualify. Not a content
+      item; listed here so it does not get lost.
 
 ---
 

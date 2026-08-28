@@ -16,6 +16,8 @@ export const metadata: Metadata = {
     canonical: "/bots-de-whatsapp",
     languages: {
       "es-AR": "/bots-de-whatsapp",
+      "es-ES": "/bots-de-whatsapp",
+      es: "/bots-de-whatsapp",
       "x-default": "/bots-de-whatsapp",
     },
   },
@@ -102,6 +104,12 @@ export default function BotsDeWhatsappPage() {
       related={{
         title: "Servicios relacionados",
         items: [
+          {
+            href: "/diagnostico-de-automatizacion",
+            name: "Diagnóstico de automatización sin cargo",
+            description:
+              "Treinta minutos y un informe con los procesos priorizados.",
+          },
           {
             href: "/automatizacion-con-ia",
             name: "Automatización con IA",

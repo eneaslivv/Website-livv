@@ -15,6 +15,8 @@ export const metadata: Metadata = {
     canonical: "/crm-a-medida",
     languages: {
       "es-AR": "/crm-a-medida",
+      "es-ES": "/crm-a-medida",
+      es: "/crm-a-medida",
       "x-default": "/crm-a-medida",
     },
   },
@@ -96,6 +98,12 @@ export default function CrmAMedidaPage() {
       related={{
         title: "Servicios relacionados",
         items: [
+          {
+            href: "/diagnostico-de-automatizacion",
+            name: "Diagnóstico de automatización sin cargo",
+            description:
+              "Treinta minutos y un informe con los procesos priorizados.",
+          },
           {
             href: "/dashboards-a-medida",
             name: "Dashboards y sistemas internos",
