@@ -22,6 +22,9 @@ export function CookieBanner() {
         <div
             role="dialog"
             aria-label="Cookie consent"
+            // Ancla para poder aislarlo en páginas que traen su propio CSS global
+            // (los case studies exportados definen body y pisan el line-height).
+            data-cookie-banner
             // Mobile: a slim card pinned to the bottom, full-width with margins.
             // Desktop: pinned to the bottom-LEFT corner, max 280px so it never
             // collides with the chat widget in the bottom-right.
