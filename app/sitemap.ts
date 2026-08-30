@@ -57,12 +57,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/mejores-agencias-automatizacion-ia-argentina`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
     { url: `${BASE_URL}/n8n-vs-make-vs-desarrollo-a-medida`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
     { url: `${BASE_URL}/diagnostico-de-automatizacion`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
-    // CPG vertical — English commercial cluster for emerging consumer brands
-    { url: `${BASE_URL}/cpg`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
-    { url: `${BASE_URL}/cpg/web-design`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.88 },
-    { url: `${BASE_URL}/cpg/shopify`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.88 },
-    { url: `${BASE_URL}/cpg/ecommerce`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.86 },
-    { url: `${BASE_URL}/cpg/food-beverage`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.86 },
+
+    // CPG vertical — English commercial cluster
+    { url: `${BASE_URL}/cpg`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.92 },
+    { url: `${BASE_URL}/cpg/web-design`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${BASE_URL}/cpg/shopify`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${BASE_URL}/cpg/ecommerce`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.88 },
+    { url: `${BASE_URL}/cpg/food-beverage`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.88 },
+    { url: `${BASE_URL}/cpg/startups`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.88 },
+    { url: `${BASE_URL}/cpg/beverage`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.88 },
+    { url: `${BASE_URL}/cpg/website-redesign`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.86 },
+    { url: `${BASE_URL}/cpg/digital-audit`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.86 },
+
+    // CPG vertical — Spanish / LATAM / Spain commercial cluster
+    { url: `${BASE_URL}/cpg/es`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.92 },
+    { url: `${BASE_URL}/cpg/es/diseno-web-marcas-alimentos`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${BASE_URL}/cpg/es/shopify-marcas-cpg`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${BASE_URL}/cpg/es/ecommerce-marcas-consumo`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.88 },
+    { url: `${BASE_URL}/cpg/es/marcas-bebidas`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.88 },
+    { url: `${BASE_URL}/cpg/es/auditoria-digital`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.86 },
+    { url: `${BASE_URL}/cpg/es/agencia-digital-cpg`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.88 },
   ]
 
   const landingPages: MetadataRoute.Sitemap = [
