@@ -18,6 +18,14 @@ export interface CpgLandingProps {
   related?: { title: string; items: CpgLink[] }
   faq: CpgFaq[]
   ctaLead?: string
+  lang?: "en" | "es"
+  labels?: {
+    primaryCta?: string
+    secondaryCta?: string
+    faqTitle?: string
+    closingTitle?: string
+    closingCta?: string
+  }
 }
 
 export function CpgLanding({
@@ -30,9 +38,24 @@ export function CpgLanding({
   related,
   faq,
   ctaLead,
+  lang = "en",
+  labels,
 }: CpgLandingProps) {
+  const isEs = lang === "es"
+  const copy = {
+    primaryCta: labels?.primaryCta ?? (isEs ? "Contanos sobre tu marca" : "Start a CPG project"),
+    secondaryCta: labels?.secondaryCta ?? (isEs ? "Ver trabajos" : "See selected work"),
+    faqTitle: labels?.faqTitle ?? (isEs ? "Preguntas frecuentes" : "Frequently asked questions"),
+    closingTitle:
+      labels?.closingTitle ??
+      (isEs
+        ? "Construí la presencia digital de tu marca como si ya estuviera lista para la próxima góndola."
+        : "Build the digital side of your brand like it already belongs on the shelf."),
+    closingCta: labels?.closingCta ?? (isEs ? "Hablar con LIVV" : "Talk to LIVV"),
+  }
+
   return (
-    <div className="min-h-screen w-full overflow-x-hidden bg-[#F6F3ED] text-[#171714]">
+    <div lang={lang} className="min-h-screen w-full overflow-x-hidden bg-[#F6F3ED] text-[#171714]">
       {jsonLd.map((block, i) => (
         <script
           key={i}
@@ -68,13 +91,13 @@ export function CpgLanding({
                 href="/contact"
                 className="rounded-full bg-[#171714] px-5 py-3 text-sm text-white transition-transform hover:-translate-y-0.5"
               >
-                Start a CPG project
+                {copy.primaryCta}
               </Link>
               <Link
                 href="/work"
                 className="rounded-full border border-black/15 bg-white/50 px-5 py-3 text-sm text-black/75 transition-colors hover:bg-white"
               >
-                See selected work
+                {copy.secondaryCta}
               </Link>
             </div>
           </header>
@@ -118,7 +141,7 @@ export function CpgLanding({
               </Section>
             )}
 
-            <Section title="Frequently asked questions">
+            <Section title={copy.faqTitle}>
               <dl className="space-y-7">
                 {faq.map(({ q, a }) => (
                   <div key={q}>
@@ -132,15 +155,17 @@ export function CpgLanding({
             <section className="rounded-2xl bg-[#171714] p-7 text-white md:p-10">
               <p className="text-xs uppercase tracking-[0.18em] text-white/40">LIVV × CPG</p>
               <h2 className="mt-3 text-3xl font-light tracking-[-0.03em] md:text-4xl">
-                Build the digital side of your brand like it already belongs on the shelf.
+                {copy.closingTitle}
               </h2>
               <p className="mt-4 max-w-2xl leading-relaxed text-white/65">
                 {ctaLead ??
-                  "Tell us where the brand is today and what the next retail or growth milestone looks like. We will recommend the smallest useful scope."}
+                  (isEs
+                    ? "Contanos dónde está hoy la marca y cuál es el próximo objetivo comercial. Te proponemos el alcance más chico que realmente mueva el negocio."
+                    : "Tell us where the brand is today and what the next retail or growth milestone looks like. We will recommend the smallest useful scope.")}
               </p>
               <div className="mt-7 flex flex-wrap gap-3">
                 <Link href="/contact" className="rounded-full bg-white px-5 py-3 text-sm text-black">
-                  Talk to LIVV
+                  {copy.closingCta}
                 </Link>
                 <a
                   href={`mailto:${STUDIO.email}`}
