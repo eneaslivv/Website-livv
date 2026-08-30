@@ -7,160 +7,140 @@ const SUPABASE_ANON_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5nc3d1dGNwc2dkZ21tam5mZGRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc1NzY3NDUsImV4cCI6MjA4MzE1Mjc0NX0.fd_OLVMTOMqN1EF-Ca1EV0MeclzM24kY0rOFDihvzd8"
 const TENANT_SLUG = "livvv"
 
-// Regenerate the sitemap once an hour so newly published projects / products
-// in the CMS appear without needing a redeploy.
 export const revalidate = 3600
 
 interface CmsItem {
-    slug?: string
-    updated_at?: string
-    published?: boolean
+  slug?: string
+  updated_at?: string
+  published?: boolean
 }
 
 async function fetchFromSupabaseRpc(rpcName: string): Promise<CmsItem[]> {
-    try {
-        const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${rpcName}`, {
-            method: "POST",
-            headers: {
-                apikey: SUPABASE_ANON_KEY,
-                Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ p_tenant_slug: TENANT_SLUG }),
-            next: { revalidate: 3600 },
-        })
-        if (!res.ok) return []
-        const data = (await res.json()) as CmsItem[]
-        return Array.isArray(data) ? data : []
-    } catch {
-        // Sitemap must never throw — fall back to no CMS-driven URLs.
-        return []
-    }
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${rpcName}`, {
+      method: "POST",
+      headers: {
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ p_tenant_slug: TENANT_SLUG }),
+      next: { revalidate: 3600 },
+    })
+    if (!res.ok) return []
+    const data = (await res.json()) as CmsItem[]
+    return Array.isArray(data) ? data : []
+  } catch {
+    return []
+  }
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    // ── Static pages ────────────────────────────────────────────────────
-    const staticPages: MetadataRoute.Sitemap = [
-        { url: BASE_URL, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
-        { url: `${BASE_URL}/about`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
-        { url: `${BASE_URL}/work`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
-        { url: `${BASE_URL}/products`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
-        { url: `${BASE_URL}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
-        { url: `${BASE_URL}/agencies`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
-        { url: `${BASE_URL}/studio`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
-        // Spanish AEO landings — high-intent LATAM/AR commercial queries
-        { url: `${BASE_URL}/software-a-medida`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
-        { url: `${BASE_URL}/desarrollo-de-apps`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
-        { url: `${BASE_URL}/diseno-a-medida`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
-        // Spanish AEO landings — AI/automation cluster
-        { url: `${BASE_URL}/automatizacion-con-ia`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
-        { url: `${BASE_URL}/bots-de-whatsapp`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
-        { url: `${BASE_URL}/agentes-de-ia`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
-        // Spanish AEO landings — dashboards / CRM
-        { url: `${BASE_URL}/dashboards-a-medida`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
-        { url: `${BASE_URL}/crm-a-medida`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
-        // Spanish AEO landings — industry verticals (product-backed)
-        { url: `${BASE_URL}/software-para-estudios-juridicos`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
-        { url: `${BASE_URL}/software-para-gastronomia`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
-        // Cluster ES — comparativas y funnel para dueños de negocio (AR/LATAM)
-        { url: `${BASE_URL}/mejores-agencias-automatizacion-ia-argentina`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
-        { url: `${BASE_URL}/n8n-vs-make-vs-desarrollo-a-medida`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
-        { url: `${BASE_URL}/diagnostico-de-automatizacion`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
-    ]
+  const staticPages: MetadataRoute.Sitemap = [
+    { url: BASE_URL, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
+    { url: `${BASE_URL}/about`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE_URL}/work`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
+    { url: `${BASE_URL}/products`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE_URL}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE_URL}/agencies`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE_URL}/studio`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${BASE_URL}/software-a-medida`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${BASE_URL}/desarrollo-de-apps`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+    { url: `${BASE_URL}/diseno-a-medida`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+    { url: `${BASE_URL}/automatizacion-con-ia`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${BASE_URL}/bots-de-whatsapp`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${BASE_URL}/agentes-de-ia`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+    { url: `${BASE_URL}/dashboards-a-medida`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+    { url: `${BASE_URL}/crm-a-medida`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+    { url: `${BASE_URL}/software-para-estudios-juridicos`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+    { url: `${BASE_URL}/software-para-gastronomia`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+    { url: `${BASE_URL}/mejores-agencias-automatizacion-ia-argentina`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
+    { url: `${BASE_URL}/n8n-vs-make-vs-desarrollo-a-medida`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+    { url: `${BASE_URL}/diagnostico-de-automatizacion`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    // CPG vertical — English commercial cluster for emerging consumer brands
+    { url: `${BASE_URL}/cpg`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${BASE_URL}/cpg/web-design`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.88 },
+    { url: `${BASE_URL}/cpg/shopify`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.88 },
+    { url: `${BASE_URL}/cpg/ecommerce`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.86 },
+    { url: `${BASE_URL}/cpg/food-beverage`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.86 },
+  ]
 
-    // ── Specialized landings (rewrites in next.config.mjs to /lp/*.html) ─
-    // Only canonical slugs are listed. Aliases like /for-founders, /for-dtc,
-    // /for-shopify resolve to the same content as their canonical variant
-    // (currently rewrites — should ideally be 301 redirects to avoid duplicate
-    // content; tracked as a separate follow-up).
-    const landingPages: MetadataRoute.Sitemap = [
-        { url: `${BASE_URL}/for`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
-        { url: `${BASE_URL}/for-agencies`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
-        { url: `${BASE_URL}/for-startups`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
-        { url: `${BASE_URL}/for-saas`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
-        { url: `${BASE_URL}/for-ecommerce`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
-    ]
+  const landingPages: MetadataRoute.Sitemap = [
+    { url: `${BASE_URL}/for`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
+    { url: `${BASE_URL}/for-agencies`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+    { url: `${BASE_URL}/for-startups`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+    { url: `${BASE_URL}/for-saas`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+    { url: `${BASE_URL}/for-ecommerce`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+  ]
 
-    // ── CMS-driven pages (fetched at build time, revalidated hourly) ────
-    const [portfolioItems, productItems] = await Promise.all([
-        fetchFromSupabaseRpc("get_public_portfolio_items"),
-        fetchFromSupabaseRpc("get_public_products"),
-    ])
+  const [portfolioItems, productItems] = await Promise.all([
+    fetchFromSupabaseRpc("get_public_portfolio_items"),
+    fetchFromSupabaseRpc("get_public_products"),
+  ])
 
-    // Project case studies — /projects/[slug]
-    const projectPages: MetadataRoute.Sitemap = portfolioItems
-        .filter((item) => item.slug && item.published !== false)
-        .map((item) => ({
-            url: `${BASE_URL}/projects/${item.slug}`,
-            lastModified: item.updated_at ? new Date(item.updated_at) : new Date(),
-            changeFrequency: "monthly" as const,
-            priority: 0.85,
-        }))
-
-    // Products — /products/[slug] (replaces previous hardcoded list)
-    const productPages: MetadataRoute.Sitemap = productItems
-        .filter((item) => item.slug && item.published !== false)
-        .map((item) => ({
-            url: `${BASE_URL}/products/${item.slug}`,
-            lastModified: item.updated_at ? new Date(item.updated_at) : new Date(),
-            changeFrequency: "monthly" as const,
-            priority: 0.8,
-        }))
-
-    // ── Services (no public RPC yet — kept hardcoded until one exists) ──
-    // New high-priority slugs lead the array per the May 2026 SEO strategy.
-    // /custom-software-development and /ai-integration target the
-    // transactional keywords that the studio's entity messaging now leads
-    // with; /nearshore-development captures the geographic positioning
-    // signal. Listed first so they get higher crawl priority within the
-    // /services/ subtree.
-    const serviceSlugs = [
-        "custom-software-development",
-        "ai-integration",
-        "nearshore-development",
-        "creative-engineering",
-        "product-strategy-ui",
-        "motion-narrative",
-    ]
-    const servicePages: MetadataRoute.Sitemap = serviceSlugs.map((slug) => ({
-        url: `${BASE_URL}/services/${slug}`,
-        lastModified: new Date(),
-        changeFrequency: "monthly" as const,
-        priority: 0.8,
+  const projectPages: MetadataRoute.Sitemap = portfolioItems
+    .filter((item) => item.slug && item.published !== false)
+    .map((item) => ({
+      url: `${BASE_URL}/projects/${item.slug}`,
+      lastModified: item.updated_at ? new Date(item.updated_at) : new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.85,
     }))
 
-    // ── Blog (file-based, already dynamic) ──────────────────────────────
-    const blogIndex: MetadataRoute.Sitemap = [
-        { url: `${BASE_URL}/blog`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
-    ]
-    const blogPostPages: MetadataRoute.Sitemap = getAllPosts().map((post) => ({
-        url: `${BASE_URL}/blog/${post.slug}`,
-        lastModified: new Date(post.updatedAt),
-        changeFrequency: "monthly" as const,
-        priority: 0.7,
-    }))
-    const blogCategoryPages: MetadataRoute.Sitemap = getAllCategories().map((cat) => ({
-        url: `${BASE_URL}/blog/category/${cat.slug}`,
-        lastModified: new Date(),
-        changeFrequency: "weekly" as const,
-        priority: 0.6,
+  const productPages: MetadataRoute.Sitemap = productItems
+    .filter((item) => item.slug && item.published !== false)
+    .map((item) => ({
+      url: `${BASE_URL}/products/${item.slug}`,
+      lastModified: item.updated_at ? new Date(item.updated_at) : new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
     }))
 
-    // ── Resources (free downloads, Phase 4 editorial brief content) ────
-    const resourcesIndex: MetadataRoute.Sitemap = [
-        { url: `${BASE_URL}/resources`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
-        { url: `${BASE_URL}/resources/schema-aeo-library`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
-    ]
+  const serviceSlugs = [
+    "custom-software-development",
+    "ai-integration",
+    "nearshore-development",
+    "creative-engineering",
+    "product-strategy-ui",
+    "motion-narrative",
+  ]
+  const servicePages: MetadataRoute.Sitemap = serviceSlugs.map((slug) => ({
+    url: `${BASE_URL}/services/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+  }))
 
-    return [
-        ...staticPages,
-        ...landingPages,
-        ...projectPages,
-        ...productPages,
-        ...servicePages,
-        ...blogIndex,
-        ...blogPostPages,
-        ...blogCategoryPages,
-        ...resourcesIndex,
-    ]
+  const blogIndex: MetadataRoute.Sitemap = [
+    { url: `${BASE_URL}/blog`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+  ]
+  const blogPostPages: MetadataRoute.Sitemap = getAllPosts().map((post) => ({
+    url: `${BASE_URL}/blog/${post.slug}`,
+    lastModified: new Date(post.updatedAt),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }))
+  const blogCategoryPages: MetadataRoute.Sitemap = getAllCategories().map((cat) => ({
+    url: `${BASE_URL}/blog/category/${cat.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.6,
+  }))
+
+  const resourcesIndex: MetadataRoute.Sitemap = [
+    { url: `${BASE_URL}/resources`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE_URL}/resources/schema-aeo-library`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+  ]
+
+  return [
+    ...staticPages,
+    ...landingPages,
+    ...projectPages,
+    ...productPages,
+    ...servicePages,
+    ...blogIndex,
+    ...blogPostPages,
+    ...blogCategoryPages,
+    ...resourcesIndex,
+  ]
 }
