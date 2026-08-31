@@ -42,7 +42,7 @@ Cluster file: `lib/blog/posts/cluster-h-editorial.ts` (append at the end).
       custom wins, when Salesforce wins.
 - [x] **5 Signs You Need Custom Software (Not Another SaaS Tool)** `5-signs-you-need-custom-software`
       Listicle / educational, ~1,800 words. Diagnostic questions.
-- [ ] **Custom Software Development Timeline: From Idea to Launch**
+- [~] **Custom Software Development Timeline: From Idea to Launch**
       Project shape educational, ~2,000 words. Week-by-week breakdown.
 - [ ] **The True Cost of Off-the-Shelf Software**
       Pain-point, ~2,200 words. Hidden costs of subscription stack.
