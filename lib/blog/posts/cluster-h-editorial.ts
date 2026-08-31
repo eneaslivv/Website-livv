@@ -7248,4 +7248,391 @@ export const clusterHEditorial: BlogPost[] = [
     createdAt: "2026-08-24T09:00:00.000Z",
     updatedAt: "2026-08-24T09:00:00.000Z",
   },
+
+  /* ────────────────────────────────────────────────────────────
+   *   Piece 19 — Custom Software Development Timeline
+   * ──────────────────────────────────────────────────────────── */
+  {
+    id: "h-019",
+    slug: "custom-software-development-timeline",
+    title: "Custom Software Development Timeline: From Idea to Launch",
+    excerpt:
+      "Custom software takes longer than most founders expect and less time than they fear. The phase-by-phase reality depends mostly on what happens before the first line of code is written.",
+    content: "",
+    contentBlocks: [
+      {
+        type: "heading",
+        level: 2,
+        id: "key-takeaways",
+        content: "Key takeaways",
+      },
+      {
+        type: "list",
+        ordered: false,
+        items: [
+          "A focused custom software project (an MVP, an internal tool, or a marketing-plus-application combination) runs 16 to 28 weeks from discovery to production deployment.",
+          "Discovery is the phase that most directly determines whether the rest of the project stays on schedule. Scope that surfaces during development costs significantly more to accommodate than scope found during discovery.",
+          "Development takes the longest calendar time but is also the most predictable phase once requirements and designs are locked and approved.",
+          "Most timeline overruns trace to mid-project scope changes, slow stakeholder availability during design review, or third-party integration dependencies outside the team's control.",
+          "Budget 30 to 60 days of post-launch stabilization separately from the build estimate. Most projects need bug fixes, performance tuning, and usage-driven adjustments before the software is settled.",
+        ],
+      },
+      {
+        type: "paragraph",
+        content:
+          "The most common question before commissioning custom software is how long it takes. The honest answer depends on scope, team size, and how quickly stakeholders can make decisions during the project. But the range is narrower than most people assume.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A focused custom software project runs 16 to 28 weeks from the start of discovery to the production launch. A small single-workflow tool might be 8 to 12 weeks. A large product with multiple user roles, a mobile application, and extensive integrations runs 30 to 52 weeks. The phase-by-phase breakdown below maps the middle case, which covers the majority of what small and mid-sized businesses commission from boutique studios.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "discovery-phase",
+        content: "Phase 1: Discovery and requirements (weeks 1 to 4)",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Discovery is the phase where the project team and client determine what the software actually needs to do. Most studios spend two to four weeks here. The output is a requirements document, a prioritized feature list, a data model, and an integration map showing how the new software connects to existing tools.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Two to four weeks can sound short for a project you have been thinking about for months. In practice, getting requirements to a state accurate enough to build from requires scheduling alignment and several rounds of stakeholder review. A team that meets twice a week and can make decisions promptly will complete this phase in two weeks. A team with limited stakeholder availability will stretch it to four.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Discovery matters disproportionately because scope discovered during development is the most expensive scope in any project. A feature requiring a database schema change after the schema is built, or a third-party API that returns different data than expected, adds time that was never in the original estimate.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Typical deliverables from a discovery phase: a written requirements document with prioritized features, wireframes or rough sketches of key flows, a data model, an API integration list with documentation links, and a revised build estimate based on what discovery confirmed.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "For context on how discovery is priced and why it is often a separate engagement from the build, the how-much-does-custom-software-cost-in-2026 piece covers discovery-to-build pricing structures across boutique, mid-tier, and large agency tiers.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "design-phase",
+        content: "Phase 2: Design (weeks 3 to 8)",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Design work typically begins while discovery is wrapping up, overlapping by a week or two. The first outputs are low-fidelity wireframes for the key user flows: account creation, the main dashboard, the primary workflow, settings. These wireframes get reviewed and revised before the team moves to high-fidelity mockups.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "High-fidelity mockups show what the product will look like: colors, typography, component spacing, and interaction states for each screen. A project with an existing design system or brand guidelines reaches this state faster. A new product with no prior design work requires significantly more decisions, and this phase runs proportionally longer.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A focused design phase for a 5-to-10 screen MVP runs three to five weeks. A larger product with distinct user types, multiple primary flows, and a mobile breakpoint designed in parallel runs five to eight weeks.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The most common delay in the design phase is slow feedback. When mockup reviews take five business days to receive comments, and those comments generate another revision round, a three-week design phase becomes a six-week one without any additional complexity being introduced. Studios that have experienced this pattern often structure design reviews as scheduled synchronous meetings rather than asynchronous document reviews.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "development-phase",
+        content: "Phase 3: Development (weeks 8 to 22)",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Development is the longest phase of any custom software project, running eight to sixteen weeks for a focused MVP. The range widens significantly based on two factors: the number of third-party integrations and the complexity of the data model.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Third-party integrations are the most unpredictable element of a development timeline. Integrating with a payment provider such as Stripe is well-documented and typically takes two to four days. Integrating with a legacy ERP that has inconsistent API documentation and a sandbox environment that does not match production can consume two to three weeks on its own. The integration map from discovery should identify these risks before the build estimate is finalized.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Development typically happens in sprints of one to two weeks, with functional builds reviewed by the client at the end of each sprint. This review cadence is worth maintaining even when schedules are tight. Clients who defer all reviews until the end of development consistently find more to change than clients who review each sprint incrementally.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The backend (database, server logic, API layer) and frontend (the user interface) are usually built in parallel by separate developers or small teams. The integration point between them is where bugs appear most often. A clearly defined API contract established before development begins reduces this friction.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Development costs for a focused MVP at US boutique studio rates run $30,000 to $80,000 for eight to fourteen weeks of active build, assuming requirements and design are locked before the build phase starts. Mid-tier agencies charge $70,000 to $150,000 for comparable scope. For a full breakdown of what drives cost at each stage, the custom-software-development-process-what-to-expect piece covers how scope, team size, and revision cycles affect final numbers.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "qa-phase",
+        content: "Phase 4: QA and testing (weeks 20 to 24)",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Quality assurance typically runs alongside the final weeks of development rather than starting only after development finishes. As features are completed, they enter QA, which means the testing phase overlaps with active development by two to four weeks.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A dedicated QA phase for a focused MVP runs two to four weeks. The work covers functional testing (does each feature work as specified), regression testing (did the latest changes break anything previously working), cross-browser and cross-device testing, and load testing for any feature expected to handle significant concurrent usage.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "User acceptance testing (UAT) is a distinct step that happens at the end of QA. UAT puts the software in front of actual end users or stakeholders who test it against real-world workflows, not the requirements document. UAT typically surfaces ten to twenty small fixes and one to three items requiring more significant changes. Plan one to two weeks for UAT corrections after the initial UAT review.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "launch-phase",
+        content: "Phase 5: Launch and post-launch stabilization (weeks 23 to 30)",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Production deployment for a web application covers domain setup, SSL configuration, environment variable management, database migration from development to production, and a first live run of the software. For teams using managed cloud infrastructure such as Vercel, Render, or AWS, this process takes one to three days. For teams deploying to on-premise servers or enterprise infrastructure with approval processes, it can take one to three weeks.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The period after launch is not the end of the project. Most software surfaces five to fifteen bugs in the first week of real usage that did not appear in QA or UAT. These are not signs of poor QA; they are the expected output of real users interacting with the system in ways the test suite did not model. Planning for them is normal, and skipping that planning consistently produces bad surprises.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Plan 30 to 60 days of post-launch support in any software contract. Budget this as a separate line item from the build estimate. A studio that includes 90 days of post-launch support in the base price is accounting for it in the quote. A studio that does not mention post-launch support should be asked about it explicitly before signing a contract.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "For guidance on how post-launch support is typically structured in boutique studio engagements, the hiring-creative-engineering-studio piece covers the contract structures, maintenance terms, and handoff conditions that appear most often in production software projects.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "what-causes-delays",
+        content: "What causes delays",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Timeline overruns in custom software projects follow a consistent pattern across studio types and client sizes. The cause is rarely the development work itself.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Scope changes mid-project are the primary driver of overruns. A feature added after the requirements document is finalized requires re-estimating, re-designing, and re-building parts of the product that were already underway. Studios typically price mid-project scope additions at 1.5x to 2x the cost of the same feature added during requirements, because the disruption to the build sequence costs more than the feature itself.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Unavailable stakeholders during design review or UAT are the second most common cause. A review round that should take three business days extends to ten when the person authorized to approve changes is managing competing priorities. Studios can continue work on other parts of the project during these gaps, but review delays consistently push the delivery date regardless.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Integration dependencies outside the team's control are the third factor. A payment provider that updates its API mid-project, an ERP vendor whose sandbox environment experiences downtime, or a government data API with inconsistent behavior all add time that neither the studio nor the client controls. The integration map from discovery is the primary tool for identifying and sizing these risks before the build begins.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "project-size",
+        content: "How project size changes the numbers",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The week ranges in this post apply to a mid-sized, focused project with two to four developers and one designer. The brackets shift significantly by project size.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A small project, such as a landing page with a custom backend form or a single-workflow internal tool, runs six to twelve weeks from discovery to launch. Design and development overlap heavily at this scale. QA is one to two weeks. Fixed-price engagements are most common at this project size because the scope is narrow enough to estimate with confidence.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A medium project, such as a full MVP with user authentication, a primary workflow, a reporting dashboard, and two to four integrations, runs 16 to 28 weeks. This is the bracket described in detail above. Time-and-materials billing with sprint reviews is the most common structure at this scale.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A large project, such as a multi-module product with distinct user roles, a mobile application, and extensive API integrations, runs 30 to 52 weeks. At this scale, the team is typically larger (four to eight developers, two designers, a project manager), and the project is often structured in phases so that an initial version can launch while subsequent phases remain in development.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "For a framework on deciding whether to build at each scale or to buy an existing solution instead, the build-vs-buy-decision-framework-for-founders piece covers the cost-of-ownership math that should precede any large custom build.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "week-by-week-summary",
+        content: "A week-by-week summary",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The table below maps the phases above to approximate week ranges for a mid-sized MVP project. These are planning numbers, not guarantees. The actual week count depends on the scope confirmed during discovery and the team's decision-making cadence.",
+      },
+      {
+        type: "list",
+        ordered: false,
+        items: [
+          "Weeks 1-2: Stakeholder interviews, requirements gathering, initial scope definition.",
+          "Weeks 2-4: Requirements documentation finalized, integration map complete, build estimate revised.",
+          "Weeks 3-6: Wireframes for key flows reviewed and approved. High-fidelity mockups started.",
+          "Weeks 5-8: High-fidelity mockups complete, client feedback incorporated, design approved for development.",
+          "Weeks 8-14: Backend infrastructure built: database schema, server logic, API layer. Frontend build started.",
+          "Weeks 12-18: Frontend build continues. Backend and frontend integration begins. Sprint reviews every one to two weeks.",
+          "Weeks 16-20: QA starts on completed features while remaining development continues. Regression testing begins.",
+          "Weeks 19-22: Full QA pass complete. User acceptance testing with client team. Corrections addressed.",
+          "Weeks 22-24: Production deployment, final checks, go-live.",
+          "Weeks 24-30: Post-launch stabilization period. Bug fixes, performance tuning, usage-driven adjustments.",
+        ],
+      },
+      {
+        type: "paragraph",
+        content:
+          "The ranges above assume a reasonably available client team and a requirements document that holds through development. Projects where major requirements shift after week four will compress or extend these ranges depending on the nature of the change.",
+      },
+      {
+        type: "faq",
+        items: [
+          {
+            question: "How long does it take to build custom software?",
+            answer:
+              "A focused MVP or internal tool runs 16 to 28 weeks from discovery to production launch. A small single-workflow tool can be 8 to 12 weeks. A large product with multiple user roles, a mobile application, and extensive integrations runs 30 to 52 weeks. The most important variable is the scope confirmed during the discovery phase, not the development team's speed.",
+          },
+          {
+            question: "What is the discovery phase and why does it take weeks?",
+            answer:
+              "Discovery is the phase where the project team and client determine what the software actually needs to do. The output is a requirements document, a prioritized feature list, a data model, and an integration map. It takes two to four weeks because getting requirements accurate enough to build from requires multiple stakeholder review rounds and scheduling alignment. Scope discovered during development costs more to accommodate than scope found during discovery.",
+          },
+          {
+            question: "How long does the development phase take?",
+            answer:
+              "Development for a focused MVP runs eight to sixteen weeks at a boutique studio with two to four developers. The range widens based on third-party integrations (each legacy or poorly-documented API adds time) and data model complexity. Development is the longest phase but also the most predictable once requirements and designs are locked.",
+          },
+          {
+            question: "What causes custom software projects to run over schedule?",
+            answer:
+              "The three most common causes are mid-project scope changes (which require re-estimating, re-designing, and re-building parts of the product already underway), unavailable stakeholders during design review or user acceptance testing, and third-party integration dependencies outside the team's control. Development speed is rarely the root cause of overruns.",
+          },
+          {
+            question: "How much does custom software development cost in 2026?",
+            answer:
+              "A focused MVP from a US boutique studio runs $30,000 to $80,000 for the development phase, assuming requirements and design are locked before the build starts. Discovery and design typically add $8,000 to $25,000. Mid-tier agencies charge $70,000 to $150,000 for comparable scope. Ongoing post-launch support from a boutique studio runs $1,500 to $5,000 per month depending on maintenance needs.",
+          },
+          {
+            question: "What happens after custom software launches?",
+            answer:
+              "Most software surfaces five to fifteen bugs in the first week of real usage that did not appear in QA or user acceptance testing. These are the expected output of real users interacting with the system in ways the test suite did not model. A post-launch stabilization period of 30 to 60 days should be planned and budgeted separately from the build estimate. Most studios offer a post-launch support retainer to cover this period.",
+          },
+          {
+            question: "How do I reduce the risk of my project running late?",
+            answer:
+              "The most effective practices are: complete discovery before starting design, lock requirements before starting development, maintain scheduled sprint reviews throughout development rather than deferring all client feedback, and identify third-party integration risks during discovery rather than during the build. Mid-project scope additions are the single largest driver of timeline overruns, so treating the requirements document as a change-controlled document reduces risk significantly.",
+          },
+        ],
+      },
+    ],
+    coverImage: "/images/blog/creative-engineering.webp",
+    author,
+    category: creativeEngineeringCategory,
+    tags: [
+      "Custom software development",
+      "Software development timeline",
+      "MVP development",
+      "Software project management",
+      "Custom software cost",
+      "Software build process",
+    ],
+    readingTimeMinutes: 11,
+    published: true,
+    featured: true,
+    displayOrder: 19,
+    seoTitle:
+      "Custom Software Development Timeline: From Idea to Launch · LIVV Creative Studio",
+    seoDescription:
+      "A phase-by-phase breakdown of custom software development timelines, from discovery through post-launch stabilization. Real week ranges, cost figures, and what causes projects to run late.",
+    faqSchema: [
+      {
+        question: "How long does it take to build custom software?",
+        answer:
+          "A focused MVP or internal tool runs 16 to 28 weeks from discovery to production launch. A small single-workflow tool can be 8 to 12 weeks. A large product with multiple user roles, a mobile application, and extensive integrations runs 30 to 52 weeks. The most important variable is the scope confirmed during discovery.",
+      },
+      {
+        question: "What is the discovery phase and why does it take weeks?",
+        answer:
+          "Discovery is the phase where the project team and client determine what the software actually needs to do. The output is a requirements document, a prioritized feature list, a data model, and an integration map. It takes two to four weeks because getting requirements accurate enough to build from requires multiple stakeholder review rounds. Scope discovered during development costs more to accommodate than scope found during discovery.",
+      },
+      {
+        question: "How long does the development phase take?",
+        answer:
+          "Development for a focused MVP runs eight to sixteen weeks at a boutique studio with two to four developers. The range widens based on third-party integrations and data model complexity. Development is the longest phase but also the most predictable once requirements and designs are locked.",
+      },
+      {
+        question: "What causes custom software projects to run over schedule?",
+        answer:
+          "The three most common causes are mid-project scope changes, unavailable stakeholders during design review or user acceptance testing, and third-party integration dependencies outside the team's control. Development speed is rarely the root cause of overruns.",
+      },
+      {
+        question: "How much does custom software development cost in 2026?",
+        answer:
+          "A focused MVP from a US boutique studio runs $30,000 to $80,000 for the development phase, assuming requirements and design are locked before build starts. Discovery and design typically add $8,000 to $25,000. Mid-tier agencies charge $70,000 to $150,000 for comparable scope.",
+      },
+      {
+        question: "What happens after custom software launches?",
+        answer:
+          "Most software surfaces five to fifteen bugs in the first week of real usage that did not appear in QA or user acceptance testing. A post-launch stabilization period of 30 to 60 days should be planned and budgeted separately from the build estimate.",
+      },
+      {
+        question: "How do I reduce the risk of my project running late?",
+        answer:
+          "Complete discovery before starting design. Lock requirements before starting development. Maintain scheduled sprint reviews throughout development. Identify third-party integration risks during discovery rather than during the build. Mid-project scope additions are the single largest driver of timeline overruns.",
+      },
+    ],
+    internalLinks: [
+      {
+        slug: "how-much-does-custom-software-cost-in-2026",
+        text: "How Much Does Custom Software Cost in 2026?",
+      },
+      {
+        slug: "custom-software-development-process-what-to-expect",
+        text: "Custom Software Development Process: What to Expect",
+      },
+      {
+        slug: "build-vs-buy-decision-framework-for-founders",
+        text: "The Build vs Buy Decision: A Framework for Founders",
+      },
+      {
+        slug: "hiring-creative-engineering-studio",
+        text: "Hiring a Creative Engineering Studio",
+      },
+    ],
+    cta,
+    relatedPostSlugs: [
+      "custom-software-development-process-what-to-expect",
+      "how-much-does-custom-software-cost-in-2026",
+      "build-vs-buy-decision-framework-for-founders",
+    ],
+    createdAt: "2026-08-31T09:00:00.000Z",
+    updatedAt: "2026-08-31T09:00:00.000Z",
+  },
 ]
