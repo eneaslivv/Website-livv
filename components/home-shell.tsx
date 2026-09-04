@@ -14,10 +14,9 @@ const PortfolioSection = dynamic(() => import("@/components/sections/portfolio-s
 })
 const ServicesSection = dynamic(() => import("@/components/sections/services-section").then((mod) => mod.ServicesSection))
 const MotionReelSection = dynamic(() => import("@/components/sections/motion-reel-section").then((mod) => mod.MotionReelSection))
+const AllReviewsSection = dynamic(() => import("@/components/sections/all-reviews-section").then((mod) => mod.AllReviewsSection))
 const MarketplaceSection = dynamic(() => import("@/components/sections/marketplace-section").then((mod) => mod.MarketplaceSection))
-const TestimonialsSection = dynamic(() => import("@/components/sections/testimonials-section").then((mod) => mod.TestimonialsSection))
 const LogoGridSection = dynamic(() => import("@/components/sections/logo-grid-section").then((mod) => mod.LogoGridSection))
-const ReviewsSection = dynamic(() => import("@/components/sections/reviews-section").then((mod) => mod.ReviewsSection))
 const PricingSection = dynamic(() => import("@/components/sections/pricing-section").then((mod) => mod.PricingSection))
 const AboutSection = dynamic(() => import("@/components/sections/about-section").then((mod) => mod.AboutSection))
 const ImageSliderSection = dynamic(() => import("@/components/sections/image-slider-section").then((mod) => mod.ImageSliderSection))
@@ -37,10 +36,9 @@ export function HomeShell() {
       <PortfolioSection id="work" />
       <MotionReelSection variant="featured" />
       <ServicesSection id="services" />
+      <AllReviewsSection id="reviews" />
       <MarketplaceSection />
-      <TestimonialsSection />
       <LogoGridSection />
-      <ReviewsSection />
       <PricingSection id="blog" />
       <AboutSection id="about" />
       <ImageSliderSection />
