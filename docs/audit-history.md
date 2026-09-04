@@ -121,3 +121,11 @@
 - Newly broken: none
 - Newly fixed: none
 - Notes: Audit skipped — livvvv.com returns 403 via proxy egress (fifteenth consecutive week); cluster-h-editorial.ts touched (new post how-to-build-a-custom-ai-chatbot-for-your-website shipped, 22 slugs total); KRU case study shipped at /projects/kru (PR #41 — rebrand from krufood to livv.page, custom component with draggable B/A comparator + sitemap block); IndexNow ping returned 403 (api.indexnow.org blocked, fourteenth consecutive week); Vercel deploy status unverifiable (no GitHub Actions — Vercel deploys directly)
+
+## 2026-09-04
+- OK: N/A
+- THIN: N/A
+- BROKEN: N/A
+- Newly broken: none
+- Newly fixed: none
+- Notes: Audit skipped — livvvv.com returns 403 via proxy egress (sixteenth consecutive week); cluster-h-editorial.ts touched (new post custom-software-development-timeline shipped 2026-08-31, 23 slugs total); 17 new CPG landing pages shipped (English + Spanish cluster: /cpg, /cpg/food-beverage, /cpg/shopify, /cpg/ecommerce, /cpg/startups, /cpg/web-design, /cpg/website-redesign, /cpg/beverage, /cpg/digital-audit, /cpg/es + 7 ES sub-pages); IndexNow ping returned 403 (api.indexnow.org blocked, fifteenth consecutive week); Vercel deploy status unverifiable (no GitHub Actions — Vercel deploys directly)
