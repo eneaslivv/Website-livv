@@ -62,19 +62,19 @@ export function ReviewsCarouselSection({ id, reviews }: { id?: string; reviews: 
           {/* Author Row */}
           <div className="flex flex-col items-center gap-6">
             {/* Avatars */}
-            <div className="flex flex-wrap justify-center gap-y-2 -space-x-2">
+            <div className="flex flex-wrap justify-center gap-y-3 -space-x-4">
               {reviews.map((t, i) => (
                 <button
                   key={i}
                   onClick={() => setActive(i)}
                   aria-label={`Ver review de ${t.name}`}
                   className={`
-                                        relative w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden ring-2 ring-white shrink-0
+                                        relative w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden ring-2 ring-white shrink-0
                                         transition-all duration-300 ease-out
                                         ${active === i ? "z-10 scale-110" : "grayscale hover:grayscale-0 hover:scale-105"}
                                     `}
                 >
-                  <Image src={t.image} alt={t.name} fill sizes="40px" className="object-cover" />
+                  <Image src={t.image} alt={t.name} fill sizes="64px" className="object-cover" />
                 </button>
               ))}
             </div>
