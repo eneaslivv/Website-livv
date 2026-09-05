@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic"
 import { HeroSection } from "@/components/sections/hero-section"
 import { HeroReveal } from "@/components/ui/hero-reveal"
+import { reviewsEarly, reviewsPrimary, reviewsSecondary } from "@/components/sections/reviews-data"
 
 const ClientLogoSlider = dynamic(() => import("@/components/sections/client-logo-slider").then((mod) => mod.ClientLogoSlider))
 const AnalyticsSection = dynamic(() => import("@/components/sections/analytics-section").then((mod) => mod.AnalyticsSection))
@@ -14,7 +15,7 @@ const PortfolioSection = dynamic(() => import("@/components/sections/portfolio-s
 })
 const ServicesSection = dynamic(() => import("@/components/sections/services-section").then((mod) => mod.ServicesSection))
 const MotionReelSection = dynamic(() => import("@/components/sections/motion-reel-section").then((mod) => mod.MotionReelSection))
-const AllReviewsSection = dynamic(() => import("@/components/sections/all-reviews-section").then((mod) => mod.AllReviewsSection))
+const ReviewsCarouselSection = dynamic(() => import("@/components/sections/all-reviews-section").then((mod) => mod.ReviewsCarouselSection))
 const MarketplaceSection = dynamic(() => import("@/components/sections/marketplace-section").then((mod) => mod.MarketplaceSection))
 const LogoGridSection = dynamic(() => import("@/components/sections/logo-grid-section").then((mod) => mod.LogoGridSection))
 const PricingSection = dynamic(() => import("@/components/sections/pricing-section").then((mod) => mod.PricingSection))
@@ -32,13 +33,15 @@ export function HomeShell() {
       <ClientLogoSlider />
       <AnalyticsSection />
       <BusinessArtSection />
+      <ReviewsCarouselSection id="reviews-early" reviews={reviewsEarly} />
       <WorkModelSection />
       <PortfolioSection id="work" />
       <MotionReelSection variant="featured" />
       <ServicesSection id="services" />
-      <AllReviewsSection id="reviews" />
+      <ReviewsCarouselSection id="reviews" reviews={reviewsPrimary} />
       <MarketplaceSection />
       <LogoGridSection />
+      <ReviewsCarouselSection id="reviews-more" reviews={reviewsSecondary} />
       <PricingSection id="blog" />
       <AboutSection id="about" />
       <ImageSliderSection />
