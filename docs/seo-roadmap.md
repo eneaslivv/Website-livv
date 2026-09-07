@@ -76,7 +76,7 @@ integration`, `RAG vs fine-tuning`, `custom AI chatbot development`,
       Technical accessible, ~2,500 words.
 - [x] **How to Build a Custom AI Chatbot for Your Website** `how-to-build-a-custom-ai-chatbot-for-your-website`
       Tutorial, ~2,800 words. Anthropic Claude API stack.
-- [ ] **Claude API vs OpenAI API: A Builder's Comparison**
+- [~] **Claude API vs OpenAI API: A Builder's Comparison** `claude-api-vs-openai-api-builders-comparison`
       Comparison, ~2,500 words. Same prompt across both, real cost
       and quality differences.
 - [ ] **How to Choose an AI Development Partner**
