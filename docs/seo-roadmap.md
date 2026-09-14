@@ -44,7 +44,7 @@ Cluster file: `lib/blog/posts/cluster-h-editorial.ts` (append at the end).
       Listicle / educational, ~1,800 words. Diagnostic questions.
 - [x] **Custom Software Development Timeline: From Idea to Launch** `custom-software-development-timeline`
       Project shape educational, ~2,000 words. Week-by-week breakdown.
-- [~] **The True Cost of Off-the-Shelf Software**
+- [x] **The True Cost of Off-the-Shelf Software** `the-true-cost-of-off-the-shelf-software`
       Pain-point, ~2,200 words. Hidden costs of subscription stack.
 - [ ] **Airtable + Zapier vs Custom Software: When the No-Code Stack Breaks**
       Comparison, ~2,200 words. Real failure points, cost crossover

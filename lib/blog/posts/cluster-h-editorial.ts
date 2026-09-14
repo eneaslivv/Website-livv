@@ -8053,4 +8053,422 @@ export const clusterHEditorial: BlogPost[] = [
     createdAt: "2026-09-07T09:00:00.000Z",
     updatedAt: "2026-09-07T09:00:00.000Z",
   },
+
+  /* ────────────────────────────────────────────────────────────
+   *   Piece 21 — The True Cost of Off-the-Shelf Software
+   * ──────────────────────────────────────────────────────────── */
+  {
+    id: "h-021",
+    slug: "the-true-cost-of-off-the-shelf-software",
+    title: "The True Cost of Off-the-Shelf Software",
+    excerpt:
+      "Most businesses underestimate what their subscription stack actually costs by 30 to 50 percent. Here is where the money goes beyond the monthly invoice.",
+    content: "",
+    contentBlocks: [
+      {
+        type: "heading",
+        level: 2,
+        id: "key-takeaways",
+        content: "Key takeaways",
+      },
+      {
+        type: "list",
+        ordered: false,
+        items: [
+          "The visible subscription cost represents only 50 to 70 percent of what a business actually spends on off-the-shelf software when training, integration maintenance, and workaround labor are accounted for.",
+          "Per-seat pricing compounds as teams grow, turning a manageable monthly line item into a significant annual expense that scales with every new hire across every tool in the stack.",
+          "A 15-person team running five to seven SaaS tools typically spends $18,000 to $30,000 per year on subscriptions alone, before accounting for the middleware layer that makes those tools share data.",
+          "Switching costs keep most businesses subscribed to underperforming tools for two to three years longer than makes financial sense, because the one-time cost of migration feels higher than the ongoing cost of staying.",
+          "Custom software becomes cost-competitive with a mature subscription stack at year two to year four for most small businesses, depending on the number of seats and how much the existing stack has been extended through paid add-ons.",
+        ],
+      },
+      {
+        type: "paragraph",
+        content:
+          "A 10-person team can sign up for five or six SaaS tools and reach a monthly software bill of $1,500 to $2,500 before anyone treats the number as significant. Each subscription made sense at sign-up. Each one filled a real need. The problem is that the stack compounds, and that the number on the invoice represents only part of what the business actually pays.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The true cost includes the visible subscription fees, and also the cost of moving data between tools that do not connect natively, the cost of features that go unused but cannot be removed from the plan tier, the productivity loss from working around limitations, and the switching cost that keeps businesses subscribed to tools they have outgrown. These costs are real but rarely appear on a single invoice.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The gap is why most businesses underestimate their software spend by 30 to 50 percent when they calculate it by adding up the monthly bills. This piece works through each category and puts numbers on what the total actually looks like.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "what-the-monthly-bill-shows",
+        content: "What the monthly invoice actually captures",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Adding up subscription fees gives you one number: the licensing cost of the tools your team uses. For a 10-person team in 2026, that number often sits between $1,200 and $3,500 per month for a typical stack of four to seven business tools, depending on plan tier and seat count.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A representative lean stack for a 10-person service business might look like this: HubSpot Sales Starter at $20/seat comes to $200/month. Notion Business at $16/user adds $160/month. Airtable Business at $20/user adds $200/month. Slack Pro at $7.25/user adds $73/month. A project management tool at $12/user adds $120/month. A basic automation plan at $49/month rounds it out. The total is roughly $800/month, or $9,600/year in licensing.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "This is a conservative estimate for a business that has been thoughtful about its stack. Many teams end up with more tools because different departments adopted different solutions at different times, and consolidation never happened.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The licensing number does not capture what it costs to make the stack functional. Tools designed independently rarely share data the way a team expects. Fields that need to flow from a project management tool into a CRM and from there into a billing system require either manual transfer, a middleware automation, or a custom integration. That work has a cost regardless of how it gets handled.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "per-seat-pricing",
+        content: "Per-seat pricing and how it compounds",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Per-seat pricing means software costs grow directly with headcount. Each new hire increases the total software bill, often across every tool in the stack simultaneously.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The math is more significant than it appears on a monthly basis. A team that grows from 10 to 25 people over two years will see their software licensing costs roughly 2.5x before adding any new tools. If that team was paying $1,000/month in licensing at 10 people, they are paying $2,500/month at 25 people. Over the two years of growth, the accumulated licensing spend rises substantially.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The pricing tier structure makes this more expensive. Most SaaS vendors charge more per seat on the plan tier that growing teams need. Plans designed for small teams often cap at 10 or 15 seats and lack features that larger teams require. The next tier costs more per seat in addition to being more expensive in aggregate.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Moving from Airtable Free to Business, for example, goes from $0 to $20/user/month on an annual plan. Moving from HubSpot Free to Sales Pro goes from $0 to $90/user/month. These jumps are driven partly by the feature set, but the pricing structure means teams pay for the full bundle at that tier regardless of which features they actually activate.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The per-seat model also creates an incentive for vendors to keep plans bundled. A team using HubSpot Sales Pro primarily for pipeline management and email sequences is paying for built-in calling tools, document tracking, forecasting, and predictive lead scoring they may never open. The vendor has no financial incentive to offer a stripped-down version at a lower price.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "feature-tax",
+        content: "The feature tax: paying for what you never open",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Most SaaS subscriptions are priced to include a complete feature set at each tier. Businesses pay for that feature set regardless of which parts their team actually uses. Studies of SaaS adoption patterns consistently find that most teams activate 30 to 50 percent of the features available in their plan.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "This matters financially. A team paying $90/user/month for a CRM where they use pipeline tracking, email sequences, and basic reporting is paying the same amount as a team that uses every feature in the plan. The unused calling tool, the documents library, the forecasting module: each contributes to the license fee regardless of activation.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Vendors design bundled pricing intentionally. Removing a feature from a plan does not reduce the price, so customers pay for the possibility of using a feature, not the actuality of it. The practice also creates retention: a team that was shown a comprehensive demo often believes it will eventually use the advanced features, and the expectation of future use makes the current price feel more justified than it is.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A practical approach before renewal: audit actual feature usage through the admin portal or a dedicated analytics tool. Most business software exposes usage data somewhere in settings. A team that discovers 60 percent of their licensed features are inactive is in a much stronger position to negotiate for a lower tier or to make a more honest comparison against alternatives.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "integration-costs",
+        content: "Integration costs and the middleware layer",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Most SaaS tools were not designed to share data with each other. The standard workarounds are manual transfer, automation middleware, and custom integrations. Each approach carries a cost that rarely appears in the software budget.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Manual data transfer is pure labor. An employee who spends 30 minutes per day moving data between tools spends about 10 hours per month on transfers that produce no business output. At $35/hour in fully loaded cost for a mid-level employee, that is $350/month or $4,200/year for one person doing one transfer task. Most businesses doing this manually have more than one transfer task and more than one person doing them.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Automation middleware reduces labor but adds subscription cost and its own maintenance burden. Zapier Business plans run from $49/month for 10,000 tasks to $799/month for 2 million tasks. Make Business plans run from $9/month to $299/month depending on operations volume. A team with moderate automation needs typically lands at $100 to $300/month in middleware fees.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The maintenance cost of automation infrastructure is often underestimated. When a SaaS vendor updates their API, changes a field name, or adjusts their data model, the automations that depend on that structure break silently or throw errors. A moderately complex automation stack connecting four or five tools with 15 to 30 workflows requires 2 to 5 hours of maintenance per month when those breaks occur. At $85 to $175/hour for a developer or technical contractor, that is $170 to $875/month in maintenance labor not visible in any subscription line item.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Custom integrations built by a developer have a higher upfront cost, typically $2,000 to $8,000 per integration depending on complexity, and lower ongoing maintenance cost if the underlying APIs remain stable. They also require diagnosis and repair time when a vendor API changes, which can run 4 to 12 hours of developer time at those same hourly rates.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The total annual cost of an integration layer connecting five SaaS tools in a 15-person organization typically runs $4,000 to $18,000 per year when all labor and licensing is included. This number is almost never reflected in software budgets, which tend to track only the subscription lines.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "productivity-cost",
+        content: "The productivity cost no one puts on the invoice",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Employees switching between multiple software tools carry a context-switching cost that shows up as productivity loss rather than as a line item. Each time a person leaves one tool to pick up a task in another, the mental overhead of re-orienting to the new context takes 2 to 5 minutes in established research on task switching.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "For employees who switch tools frequently, a pattern typical of fragmented stacks, this overhead accumulates to 30 to 90 minutes per day. A 15-person team where each member loses 45 minutes per day to context switching loses the equivalent of 6.75 person-hours daily. At $35/hour in fully loaded cost, that is $236/day or roughly $59,000/year for a 15-person team.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "This number is large enough to be implausible on first reading. Even at half the estimate, it is comparable to or larger than the annual licensing spend on the same stack. The mechanism is real, though the exact magnitude depends on how often employees actually cross tools and how much of that crossing is forced by the fragmentation rather than by genuine task variety.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Fragmented data compounds the problem independently of context switching. When client records live in a CRM, project notes live in a project management tool, and invoices live in billing software, answering a basic client question requires checking multiple sources. The data is present; finding it takes time. A unified system eliminates that search cost. A middleware-connected stack reduces it without eliminating it.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "switching-costs",
+        content: "Switching costs and why they keep businesses subscribed",
+      },
+      {
+        type: "paragraph",
+        content:
+          "When a tool stops serving a business well, the perceived cost of switching typically keeps the business subscribed longer than the economics justify. This is not irrational behavior. Switching does cost money and time. The problem is that the cost of switching tends to be overestimated, while the ongoing cost of a poor fit tends to be underestimated.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Data portability is the first friction point. Most SaaS tools allow data export, but the exported format is often a flat CSV file rather than a structured data model. A team migrating a CRM with several thousand contact records, custom fields, activity logs, and deal history will find that the export covers contact records adequately, but that custom fields and relationship data require manual reconstruction in the destination system.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Migration labor is real. An organization migrating from one CRM to another typically spends 40 to 100 hours of internal time on the process: cleaning data before export, mapping old fields to new fields, importing in batches, verifying completeness, and training staff on the new interface. At $35 to $45/hour in fully loaded cost for internal employees, 70 hours costs $2,450 to $3,150 in labor. This is the one-time cost that feels prohibitive.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The comparison that rarely gets made is between that one-time migration cost and the ongoing annual cost of the tool that no longer fits. A business paying $18,000/year for a stack that meets 65 percent of its needs is paying the equivalent of roughly $6,300/year for the gap (the 35 percent that requires workarounds, manual fixes, or additional tools). After one year of paying for the gap, the migration cost has already been matched. After two years, it has been exceeded.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The businesses that stay too long typically rationalize it by comparing the migration cost against the licensing cost rather than against the total cost including friction. The comparison looks different when all of the costs are on the table.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "crossover-point",
+        content: "When custom software becomes cheaper",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Custom software has a different cost profile than a subscription stack. The comparison matters because the framing around these two options is usually inaccurate: subscriptions are presented as affordable, and custom software as expensive. This framing is accurate in year one. It is sometimes accurate in year two. It stops being reliable at year three for businesses with more than 15 employees.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A mid-complexity internal platform built by a boutique studio in 2026 typically costs $40,000 to $90,000 for the initial build, with $4,000 to $12,000/year in maintenance and hosting. This is a custom internal tool covering the specific workflows of one business, not a consumer product or a public-facing SaaS. For detailed current pricing ranges by project type, the post on how much custom software costs in 2026 breaks down the full cost structure.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The crossover calculation depends on the number of seats and the number of tools being replaced. A 15-person team paying $25,000/year in SaaS licensing spends $75,000 in licensing fees over three years. A custom platform covering the same functions costs $60,000 to build and $7,000/year to maintain, totaling $81,000 over the same period. These numbers are close enough that the decision rests on fit and workflow alignment rather than on cost alone.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "For a 25-person team paying $45,000/year in licensing, the three-year licensing spend is $135,000. A custom platform at $70,000 plus $8,000/year maintenance costs $94,000 over the same period. The savings over three years is $41,000, which represents a more decisive financial argument.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Adding integration costs changes the comparison further. A team spending $8,000/year on middleware subscriptions and maintenance adds that to their SaaS total. The same team with a custom platform has integration built into the core system. At $33,000/year in total software spend including the integration layer, the three-year cost is $99,000. The custom platform at $60,000 plus $7,000/year costs $81,000 over the same period.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The decision is not purely financial. The post on the build vs buy decision framework covers the non-financial factors: operational risk during the build period, the time between contract signing and a usable system, and the team's capacity to manage a custom platform over five or more years. These factors shift the calculation and sometimes reverse it. But the financial comparison, done honestly with all costs included, is usually more favorable to custom software than the licensing number alone suggests.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "For businesses that have decided the case for custom software is credible, the post on hiring a creative engineering studio covers how to evaluate potential partners and avoid the common mistakes in the selection process.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "auditing-your-stack",
+        content: "How to audit your current stack",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The starting point for any honest cost assessment is a complete inventory of tools and their actual annual cost. Many businesses have subscriptions running that departments signed up for independently, some of which are no longer actively used.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A practical audit has four steps. First, pull every software subscription from company credit card statements for the last 12 months. Include annual subscriptions that appear once and monthly ones that appear every month. Convert everything to annual cost. Second, for each tool, identify the number of active users (not seats purchased) and the features they actually use. Most admin portals expose both. Third, calculate the integration overhead separately: the cost of any middleware tools, plus a time estimate for manual data transfers and integration maintenance in the last year. Fourth, total all three numbers and compare that total against the licensing number you started with.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The result typically shows two things. The first is a set of tools that are underused and whose subscription can be reduced or eliminated. The second is a clearer picture of the integration overhead, which is almost always larger than expected and which changes the comparison against alternatives.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The audit also surfaces the right scope for a potential custom platform. The goal is not to replace every SaaS tool at once. The highest-value targets are the workflows that currently span multiple tools, require significant manual transfer, and represent core business operations rather than peripheral functions. A custom solution that replaces exactly those workflows is more defensible than a wholesale stack replacement.",
+      },
+      {
+        type: "faq",
+        items: [
+          {
+            question: "How much do small businesses typically spend on SaaS subscriptions per year?",
+            answer:
+              "A 10-person team using a typical stack of five to seven tools spends $9,000 to $18,000 per year in licensing fees alone. A 15-person team with a slightly more mature stack pays $18,000 to $30,000 per year. These figures cover licensing only and exclude integration costs, middleware subscriptions, and the labor cost of manual data transfers between tools.",
+          },
+          {
+            question: "What are the hidden costs of off-the-shelf software?",
+            answer:
+              "The main categories of cost beyond the visible subscription fee are: the integration layer (middleware subscriptions plus developer maintenance time), manual data transfer labor for workflows that tools do not handle natively, the feature tax on plan tiers where most features go unused, the productivity cost of context switching between multiple tools, and the switching cost that keeps businesses subscribed to underperforming tools longer than they should stay.",
+          },
+          {
+            question: "How much does it cost to integrate SaaS tools with each other?",
+            answer:
+              "A middleware automation tool like Zapier or Make typically costs $50 to $300/month for a team with moderate automation needs. The maintenance labor for a stack of 15 to 30 automated workflows costs an additional $170 to $875/month in developer time when API changes break integrations. The total annual cost of an integration layer connecting five tools in a 15-person business typically runs $4,000 to $18,000, including all labor and licensing.",
+          },
+          {
+            question: "When does custom software become cheaper than SaaS subscriptions?",
+            answer:
+              "The crossover typically occurs at year two to year four, depending on the number of seats, the number of tools being replaced, and whether integration costs are included in the comparison. A 15-person team paying $25,000/year in licensing will spend $75,000 over three years; a custom platform at $60,000 to build plus $7,000/year in maintenance costs $81,000 over the same period. At 25 seats paying $45,000/year, the three-year saving from custom software is typically $35,000 to $45,000.",
+          },
+          {
+            question: "How do you calculate the true total cost of your software stack?",
+            answer:
+              "Start with 12 months of credit card statements to capture all subscriptions, including annual ones. Convert everything to annual cost. Then add a time estimate for manual data transfers (hours per month times fully loaded hourly cost), the cost of any middleware tools, and an estimate for integration maintenance time. The total is typically 30 to 50 percent higher than the licensing number alone, and is the accurate figure to use when comparing against custom alternatives.",
+          },
+          {
+            question: "How long does it take to migrate from one SaaS tool to another?",
+            answer:
+              "A CRM migration for a 15-person team typically requires 40 to 100 hours of internal time across data cleaning, field mapping, importing, verification, and staff training. At fully loaded internal costs, this comes to $2,000 to $4,500 in labor. Complex migrations involving custom field structures, activity logs, and third-party integrations take longer. Most businesses overestimate this cost, which is one reason they stay with underperforming tools longer than the math justifies.",
+          },
+          {
+            question: "What is the cost of feature bloat in SaaS plans?",
+            answer:
+              "Most teams activate 30 to 50 percent of the features in their current plan tier. The cost of the unused 50 to 70 percent is embedded in the subscription fee and cannot be removed without downgrading. For teams at a mid-tier plan (such as HubSpot Sales Pro at $90/user/month), this means paying for calling tools, document tracking, forecasting, and predictive scoring that may never be opened. The practical response is to audit actual feature usage before renewal and negotiate for a tier that fits actual usage.",
+          },
+          {
+            question: "What is the best approach for auditing a company's software stack?",
+            answer:
+              "Pull all software subscriptions from 12 months of credit card statements and convert to annual totals. For each tool, identify active user counts and which features are actually used. Calculate integration overhead separately: middleware subscription costs plus an estimate of developer or employee time spent on maintenance and manual data transfers. The resulting total gives you an accurate baseline for comparing against alternatives, including custom software.",
+          },
+        ],
+      },
+    ],
+    coverImage: "/images/blog/creative-engineering.webp",
+    author,
+    category: creativeEngineeringCategory,
+    tags: [
+      "SaaS costs",
+      "Software subscriptions",
+      "Custom software",
+      "Build vs buy",
+      "Software ROI",
+      "Business software",
+      "Software pricing",
+      "Subscription stack",
+    ],
+    readingTimeMinutes: 12,
+    published: true,
+    featured: true,
+    displayOrder: 21,
+    seoTitle:
+      "The True Cost of Off-the-Shelf Software (2026) · LIVV Creative Studio",
+    seoDescription:
+      "What your subscription stack actually costs beyond the monthly invoice: per-seat compounding, integration overhead, switching costs, and when custom software crosses over on total cost.",
+    faqSchema: [
+      {
+        question: "How much do small businesses typically spend on SaaS subscriptions per year?",
+        answer:
+          "A 10-person team using a typical stack of five to seven tools spends $9,000 to $18,000 per year in licensing fees. A 15-person team pays $18,000 to $30,000 per year. These figures cover licensing only and exclude integration costs, middleware subscriptions, and the labor cost of manual data transfers.",
+      },
+      {
+        question: "What are the hidden costs of off-the-shelf software?",
+        answer:
+          "The main categories beyond the visible subscription fee are: integration middleware subscriptions plus developer maintenance time, manual data transfer labor, the feature tax on unused plan tier features, productivity loss from context switching between tools, and the switching cost that keeps businesses subscribed to underperforming tools. Together these typically add 30 to 50 percent to the visible licensing number.",
+      },
+      {
+        question: "How much does it cost to integrate SaaS tools with each other?",
+        answer:
+          "A middleware tool like Zapier or Make costs $50 to $300/month for a team with moderate automation needs. Maintenance labor for a stack of 15 to 30 workflows adds $170 to $875/month in developer time. The total annual cost of connecting five tools in a 15-person business typically runs $4,000 to $18,000, including all labor and licensing.",
+      },
+      {
+        question: "When does custom software become cheaper than SaaS subscriptions?",
+        answer:
+          "The crossover typically occurs at year two to year four, depending on seat count and the number of tools being replaced. A 15-person team at $25,000/year in licensing spends $75,000 over three years. A custom platform at $60,000 to build plus $7,000/year maintenance costs $81,000. At 25 seats, the three-year saving from custom software is typically $35,000 to $45,000 when integration costs are included.",
+      },
+      {
+        question: "How do you calculate the true total cost of your software stack?",
+        answer:
+          "Pull 12 months of credit card statements to capture all subscriptions and convert to annual totals. Add a time estimate for manual data transfers, the cost of middleware tools, and developer time for integration maintenance. The total is typically 30 to 50 percent higher than the licensing number alone, and that is the accurate figure to use when comparing against custom alternatives.",
+      },
+      {
+        question: "How long does it take to migrate from one SaaS tool to another?",
+        answer:
+          "A CRM migration for a 15-person team typically requires 40 to 100 hours of internal time across data cleaning, field mapping, importing, verification, and training. At fully loaded internal costs, this comes to $2,000 to $4,500 in labor. Most businesses overestimate this cost, which is one reason they stay with underperforming tools longer than the economics justify.",
+      },
+      {
+        question: "What is the cost of feature bloat in SaaS plans?",
+        answer:
+          "Most teams activate 30 to 50 percent of the features in their plan tier. The unused portion is embedded in the subscription fee and cannot be removed without downgrading. Auditing actual feature usage before renewal and negotiating for a lower tier when usage does not justify the current one can meaningfully reduce annual software spend.",
+      },
+    ],
+    internalLinks: [
+      {
+        slug: "custom-software-vs-saas-when-to-build",
+        text: "Custom Software vs SaaS: When to Build Your Own",
+      },
+      {
+        slug: "build-vs-buy-decision-framework-for-founders",
+        text: "The Build vs Buy Decision: A Framework for Founders",
+      },
+      {
+        slug: "how-much-does-custom-software-cost-in-2026",
+        text: "How Much Does Custom Software Cost in 2026?",
+      },
+      {
+        slug: "hiring-creative-engineering-studio",
+        text: "Hiring a Creative Engineering Studio",
+      },
+    ],
+    cta,
+    relatedPostSlugs: [
+      "custom-software-vs-saas-when-to-build",
+      "build-vs-buy-decision-framework-for-founders",
+      "how-much-does-custom-software-cost-in-2026",
+    ],
+    createdAt: "2026-09-14T09:00:00.000Z",
+    updatedAt: "2026-09-14T09:00:00.000Z",
+  },
 ]
