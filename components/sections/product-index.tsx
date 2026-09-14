@@ -9,39 +9,26 @@ import type { Project } from "@/lib/marketplace-data"
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
-/** The section's plate colour, as specified. */
-export const PRODUCT_INDEX_BG = "#1e2a27"
-
-
 /**
- * Dark grid of numbered product cells.
+ * Grid of numbered product cells on the page's light ground.
  *
- * Flat by default — number, name, description, nothing else. Hovering a cell
- * brings in its image as the cell background with a scrim and an arrow chip,
- * which is where all the visual interest lives. No mockups, no cards, no
- * shadows.
- *
- * On the colour change: the plate is #1e2a27, painted unconditionally, with no
- * entrance animation at all. Two earlier attempts gated it on whileInView — once
- * animating backgroundColor between tones, once animating opacity — and both
- * left the section stuck: wrong tone in one case, fully invisible in the other.
- * The colour change a visitor perceives is the dark plate arriving against the
- * cream page as they scroll, which needs no JavaScript to work. Animation here
- * buys very little and can cost the whole section.
+ * Flat by default — number, name, description, price, hairline rules. Hovering
+ * a cell brings in its image (when it has one) under a dark scrim and flips
+ * the copy to cream so it stays legible; cells without art just show the arrow
+ * chip.
  */
 export function ProductIndex({ products }: { products: Project[] }) {
     const reduced = useReducedMotion()
     const [active, setActive] = useState<string | null>(null)
 
     return (
-        <div
-            className="relative overflow-hidden rounded-2xl"
-            style={{ backgroundColor: PRODUCT_INDEX_BG }}
-        >
+        <div className="relative overflow-hidden border-t border-[#2c2420]/10">
             <div className="grid grid-cols-1 md:grid-cols-2">
                 {products.map((product, i) => {
                     const isActive = active === product.slug
                     const hasImage = Boolean(product.heroImage)
+                    // Copy sits on the photograph only while its art is showing
+                    const onArt = isActive && hasImage
 
                     return (
                         <Link
@@ -51,7 +38,7 @@ export function ProductIndex({ products }: { products: Project[] }) {
                             onMouseLeave={() => setActive((s) => (s === product.slug ? null : s))}
                             onFocus={() => setActive(product.slug)}
                             onBlur={() => setActive((s) => (s === product.slug ? null : s))}
-                            className="group relative flex min-h-[300px] md:min-h-[360px] flex-col justify-between overflow-hidden p-7 md:p-9 focus-visible:outline-none border-white/10 border-b md:[&:nth-child(odd)]:border-r"
+                            className="group relative flex min-h-[240px] md:min-h-[360px] flex-col justify-between overflow-hidden p-7 md:p-9 focus-visible:outline-none border-[#2c2420]/10 border-b md:[&:nth-child(odd)]:border-r transition-colors duration-300 hover:bg-[#2c2420]/[0.02]"
                         >
                             {/* Hover art. Absent art keeps the cell flat, as intended. */}
                             {hasImage && (
@@ -69,16 +56,13 @@ export function ProductIndex({ products }: { products: Project[] }) {
                                         sizes="(max-width: 768px) 100vw, 50vw"
                                         className="object-cover"
                                     />
-                                    {/* Legibility without smothering the art.
-                                        A flat scrim over the whole cell buried the
-                                        image; instead the top stays almost clear and
-                                        a masked blur band sits under the copy, so the
-                                        photograph reads and the text still holds. */}
+                                    {/* Legibility without smothering the art: the top stays
+                                        almost clear and a masked blur band sits under the copy. */}
                                     <div
                                         className="absolute inset-0"
                                         style={{
                                             background:
-                                                "linear-gradient(180deg, rgba(30,42,39,0.55) 0%, rgba(30,42,39,0.10) 26%, rgba(30,42,39,0.14) 46%, rgba(30,42,39,0.52) 78%, rgba(30,42,39,0.80) 100%)",
+                                                "linear-gradient(180deg, rgba(26,23,20,0.55) 0%, rgba(26,23,20,0.10) 26%, rgba(26,23,20,0.14) 46%, rgba(26,23,20,0.52) 78%, rgba(26,23,20,0.80) 100%)",
                                         }}
                                     />
                                     <div
@@ -95,31 +79,34 @@ export function ProductIndex({ products }: { products: Project[] }) {
                             )}
 
                             <div className="relative flex items-start justify-between gap-4">
-                                <span className="text-[22px] md:text-[26px] font-light tabular-nums text-white/35">
+                                <span className={`text-[22px] md:text-[26px] font-light tabular-nums transition-colors duration-500 ${onArt ? "text-white/55" : "text-[#2c2420]/30"}`}>
                                     {String(i + 1).padStart(2, "0")}
                                 </span>
-                                <span className="text-[9.5px] font-semibold uppercase text-white/40" style={{ letterSpacing: "0.14em" }}>
+                                <span
+                                    className={`text-[9.5px] font-semibold uppercase transition-colors duration-500 ${onArt ? "text-white/70" : "text-[#8a7e74]"}`}
+                                    style={{ letterSpacing: "0.14em" }}
+                                >
                                     {product.category}
                                 </span>
                             </div>
 
                             <div className="relative flex items-end justify-between gap-6">
                                 <div className="min-w-0">
-                                    <h3 className="text-[clamp(1.4rem,2.4vw,1.85rem)] font-light tracking-tight text-[#f5f0eb] leading-none">
+                                    <h3 className={`text-[clamp(1.4rem,2.4vw,1.85rem)] font-light tracking-tight leading-none transition-colors duration-500 ${onArt ? "text-[#f5f0eb]" : "text-[#2c2420]"}`}>
                                         {product.title}
                                     </h3>
-                                    <p className="mt-3 text-[14px] font-light leading-relaxed text-white/60 max-w-sm">
+                                    <p className={`mt-3 text-[14px] font-light leading-relaxed max-w-sm transition-colors duration-500 ${onArt ? "text-white/75" : "text-[#6b625b]"}`}>
                                         {product.outcome}
                                     </p>
-                                    <p className="mt-4 text-[12px] text-white/45">
-                                        From <span className="font-medium text-white/70">${product.licenseFrom}</span>/mo
+                                    <p className={`mt-4 text-[12px] transition-colors duration-500 ${onArt ? "text-white/60" : "text-[#8a7e74]"}`}>
+                                        From <span className={`font-medium ${onArt ? "text-white/85" : "text-[#2c2420]/80"}`}>${product.licenseFrom}</span>/mo
                                     </p>
                                 </div>
 
-                                {/* Arrow chip, revealed with the art */}
+                                {/* Arrow chip, revealed on hover */}
                                 <span
                                     aria-hidden
-                                    className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#f5f0eb] text-[#1e2a27] opacity-0 translate-y-2 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:translate-y-0 group-focus-visible:opacity-100 group-focus-visible:translate-y-0"
+                                    className={`grid h-12 w-12 shrink-0 place-items-center rounded-xl opacity-0 translate-y-2 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:translate-y-0 group-focus-visible:opacity-100 group-focus-visible:translate-y-0 ${onArt ? "bg-[#f5f0eb] text-[#1a1714]" : "bg-[#1a1714] text-[#f5f0eb]"}`}
                                 >
                                     <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.4}>
                                         <path d="M3 8h10M9 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
