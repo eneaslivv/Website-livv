@@ -79,7 +79,7 @@ integration`, `RAG vs fine-tuning`, `custom AI chatbot development`,
 - [x] **Claude API vs OpenAI API: A Builder's Comparison** `claude-api-vs-openai-api-builders-comparison`
       Comparison, ~2,500 words. Same prompt across both, real cost
       and quality differences.
-- [ ] **How to Choose an AI Development Partner**
+- [~] **How to Choose an AI Development Partner** `how-to-choose-an-ai-development-partner`
       Buyer's guide style, ~3,000 words. Mirrors the existing
       Hiring a Creative Engineering Studio piece.
 - [ ] **Building AI Features That Users Actually Use**
