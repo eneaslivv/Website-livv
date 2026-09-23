@@ -85,16 +85,16 @@ const FALLBACK_PROJECTS: PortfolioItem[] = [
     },
     {
         id: "pr-tool",
-        title: "Pr Tool",
-        subtitle: "Content Monetization",
+        title: "PR Tool",
+        subtitle: "Brands and creators in one place",
         category: "Content Tech",
-        services: "App for content creators, affiliate links, Tienda Nube integrations",
-        year: "2024",
-        image: "/images/pr-tool.png",
+        services: "Product, UX/UI, design system",
+        year: "2025",
+        image: "/images/pr-tool/hero-dashboard.webp",
         featured: true,
         slug: "pr-tool",
-        color: "#E6E6E6",
-        description: "App for content creators, affiliate links y Tienda nube full custom integrations"
+        color: "#FFBFD3",
+        description: "PR Tool connects brands and agencies with content creators — profile search, campaigns, proposals and payments in one place, on web, iOS and Android."
     },
     {
         id: "sacoa",
