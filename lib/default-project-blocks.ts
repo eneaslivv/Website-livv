@@ -82,6 +82,7 @@ function frameForItem(item: PortfolioItem): string | undefined {
  * cover URL fails to load.
  */
 export function pickPosterCover(item: PortfolioItem): string {
+    if (item.slug === "pr-tool") return "/images/pr-tool.png"
     const thumb = normalizeCoverUrl(item.thumbnail)
     if (thumb && !isVideoCoverUrl(thumb)) return thumb
 
@@ -118,6 +119,8 @@ export function pickPosterCover(item: PortfolioItem): string {
  * detail page never diverge.
  */
 export function pickDisplayCover(item: PortfolioItem): string | undefined {
+    // Approved portfolio artwork; the editorial dashboard remains inside the case study.
+    if (item.slug === "pr-tool") return "/images/pr-tool.png"
     const heroBlock = (item.content_blocks || []).find(
         (b): b is Extract<ContentBlock, { type: "hero_image" }> =>
             b?.type === "hero_image" && Boolean((b as { image_url?: string }).image_url),

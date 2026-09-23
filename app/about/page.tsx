@@ -1,11 +1,12 @@
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowUpRight, Plus } from "lucide-react"
+import { ArrowUpRight, Linkedin, Plus } from "lucide-react"
 import { Navbar } from "@/components/layout/navbar"
 import { FooterSection } from "@/components/sections/footer-section"
 import { WorkHeaderDots } from "@/components/sections/work-header-dots"
 import { ABOUT_FAQS } from "./content"
 import { PixelCanvas } from "@/components/ui/pixel-canvas"
+import RotatingEarth from "@/components/ui/wireframe-dotted-globe"
 
 const services = [
     { name: "Product strategy & design", href: "/services/product-strategy-ui" },
@@ -41,8 +42,20 @@ export default function AboutPage() {
                         <div className="overflow-hidden rounded-lg bg-[#e9e8df]">
                             <Image src="/images/senior-team-eneas.jpg" alt="Eneas Aldabe, founder of LIVV, in Buenos Aires" width={1024} height={682} sizes="(max-width: 767px) 90vw, 460px" priority quality={95} className="aspect-[6/5] w-full object-cover object-[55%_45%]" />
                         </div>
-                        <figcaption className="mt-4 flex flex-wrap items-center justify-between gap-2 text-xs">
-                            <span>Eneas Aldabe</span><span className="text-[#787168]">Founder · Design & development</span>
+                        <figcaption className="mt-4 text-xs">
+                            <div className="flex flex-wrap items-center justify-between gap-2">
+                                <span>Eneas Aldabe</span><span className="text-[#787168]">Founder · Design & development</span>
+                            </div>
+                            <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1">
+                                <a href="https://www.linkedin.com/in/eneasaldabe/" target="_blank" rel="noopener noreferrer" aria-label="Eneas Aldabe on LinkedIn (opens in a new tab)" className="group inline-flex min-h-11 items-center gap-2 rounded-sm text-[#625d55] transition-colors hover:text-[#642531] focus-visible:outline-2 focus-visible:outline-offset-4">
+                                    <Linkedin size={15} aria-hidden="true" />
+                                    <span>LinkedIn</span>
+                                    <ArrowUpRight size={13} aria-hidden="true" className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transform-none" />
+                                </a>
+                                <a href="https://contra.com/eneas_aldabe" target="_blank" rel="noopener noreferrer" aria-label="Hire Eneas on Contra (opens in a new tab)" className="inline-flex min-h-11 items-center rounded-md transition-[opacity,transform] hover:-translate-y-0.5 hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-4 motion-reduce:transform-none">
+                                    <Image src="/badges/contra-hire-me-light.png" alt="Hire Me on Contra" width={230} height={44} className="h-8 w-auto" />
+                                </a>
+                            </div>
                         </figcaption>
                     </figure>
                 </header>
@@ -91,7 +104,7 @@ export default function AboutPage() {
                     </p>
                 </section>
 
-                <section aria-labelledby="location-heading" className="relative isolate grid items-center gap-6 border-y border-[#e3ded5] py-14 md:grid-cols-[1.1fr_1fr] md:gap-16 md:py-16">
+                <section id="world" aria-labelledby="location-heading" className="relative isolate grid items-center gap-2 overflow-clip border-y border-[#e3ded5] pt-14 md:min-h-[390px] md:grid-cols-[1.1fr_1fr] md:gap-10 md:py-16">
                     <WorkHeaderDots />
                     <div className="relative z-10">
                         <span className={eyebrow}>Based in Argentina / Working everywhere</span>
@@ -99,16 +112,8 @@ export default function AboutPage() {
                         <p className="mt-5 max-w-sm text-sm leading-relaxed text-[#625d55]">A shared working day with the Americas and Europe. Clear communication, in English or Spanish.</p>
                         <span className="mt-6 inline-flex items-center gap-2 text-xs text-[#625d55]"><span className="h-1.5 w-1.5 rounded-full bg-[#a58b61]" />Buenos Aires · UTC−3</span>
                     </div>
-                    <div className="relative z-10">
-                        <svg viewBox="0 0 460 230" className="h-auto w-full" role="img" aria-labelledby="connections-title">
-                            <title id="connections-title">Buenos Aires, connected to Toronto, New York and London</title>
-                            <g fill="none" stroke="#b8ad9d" strokeWidth="1">
-                                <path d="M65 163 C165 163 170 48 290 48" /><path d="M65 163 C165 163 180 113 290 113" /><path d="M65 163 C165 163 195 178 290 178" />
-                            </g>
-                            <circle cx="65" cy="163" r="10" fill="#a58b61" opacity="0.12" /><circle cx="65" cy="163" r="3" fill="#967b52" />
-                            <g fill="#967b52"><circle cx="290" cy="48" r="2.5" /><circle cx="290" cy="113" r="2.5" /><circle cx="290" cy="178" r="2.5" /></g>
-                            <g fill="#625d55" fontSize="12" fontFamily="inherit"><text x="306" y="52">Toronto</text><text x="306" y="117">New York</text><text x="306" y="182">London</text><text x="24" y="197">Buenos Aires</text></g>
-                        </svg>
+                    <div className="relative z-10 h-[300px] md:absolute md:inset-y-0 md:right-[-32px] md:m-0 md:h-auto md:w-[52%]">
+                        <RotatingEarth />
                     </div>
                 </section>
 
