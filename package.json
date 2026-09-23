@@ -73,6 +73,7 @@
     "recharts": "2.15.4",
     "resend": "^6.9.1",
     "shaders": "^2.1.1",
+    "shaders-livv": "npm:shaders@3.2.470",
     "sonner": "^1.7.4",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",

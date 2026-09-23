@@ -10,7 +10,7 @@ import { Instrument_Serif, Inter } from "next/font/google"
  */
 export const editorialSans = Inter({
     subsets: ["latin"],
-    weight: ["400", "500", "700"],
+    weight: ["300", "400", "500", "700"],
     display: "swap",
 })
 

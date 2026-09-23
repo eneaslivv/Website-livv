@@ -14,7 +14,7 @@ export interface Project {
     /** Core modules, shown as a single meta line */
     modules: string[]
     /** Monthly white-label license, starting price */
-    licenseFrom: number
+    licenseFrom?: number
     /** Which UI mock to render in the card's visual area */
     screen: ScreenVariant
     accent: string
@@ -86,33 +86,17 @@ export const projects: Project[] = [
     },
     {
         id: "4",
-        slug: "registrar",
-        title: "Registrar",
-        category: "Finance · Personal OS",
+        slug: "cms-livv",
+        title: "CMS LIVV",
+        category: "Content · Website Management",
         description:
-            "Voice-first app to log income and expenses. Automatically categorizes movements and helps you understand your finances without friction.",
-        outcome: "Log income and expenses by voice.",
-        modules: ["Voice input", "Categories", "Reports"],
-        licenseFrom: 39,
-        screen: "finance",
-        accent: "#a0694f",
-        clipCount: 5,
-        createdAt: "2024-11-25",
-    },
-    {
-        id: "5",
-        slug: "pm-agent",
-        title: "PM Agent",
-        category: "AI Agent · Project Management",
-        description:
-            "AI project manager that breaks work into tasks, assigns owners, sets deadlines and follows up automatically.",
-        outcome: "Turn goals into tasks, owners and deadlines.",
-        modules: ["Tasks", "Owners", "Follow-ups"],
-        licenseFrom: 19,
+            "Manage website content, portfolio projects and products from one workspace.",
+        outcome: "Manage your website content in one place.",
+        modules: ["Portfolio", "Products", "Categories"],
         screen: "board",
-        accent: "#b8836e",
-        clipCount: 8,
-        createdAt: "2024-11-20",
+        accent: "#a0694f",
+        clipCount: 0,
+        createdAt: "2026-09-23",
     },
 ]
 

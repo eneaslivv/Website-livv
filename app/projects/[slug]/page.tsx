@@ -11,6 +11,7 @@ import { BlockRenderer } from "@/components/project-blocks/BlockRenderer"
 import { withPatternDefaults } from "@/lib/default-project-blocks"
 import { EditorialCaseStudy } from "@/components/case-study/EditorialCaseStudy"
 import { findEditorialDoc } from "@/types/case-study-editorial"
+import { preparePRToolCaseStudy } from "@/lib/pr-tool-case-study"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -62,7 +63,10 @@ export default function ProjectPage() {
     // `editorial` en la fila. Se lee de `content_blocks` en crudo porque
     // `withPatternDefaults` reconstruye la lista a partir de los tipos viejos
     // y descartaría el bloque nuevo.
-    const editorial = item ? findEditorialDoc(item.content_blocks) : null
+    const editorialSource = item ? findEditorialDoc(item.content_blocks) : null
+    const editorial = editorialSource && slug === "pr-tool"
+        ? preparePRToolCaseStudy(editorialSource)
+        : editorialSource
     const blocks = item && !editorial ? withPatternDefaults(item, item.content_blocks) : []
 
     return (
@@ -93,7 +97,7 @@ export default function ProjectPage() {
                 </div>
             ) : editorial ? (
                 <div className="pt-28 md:pt-36 pb-10">
-                    <EditorialCaseStudy doc={editorial} />
+                    <EditorialCaseStudy doc={editorial} heroVariant={slug === "pr-tool" ? "pr-tool" : "default"} />
                 </div>
             ) : (
                 <div className="pt-40 md:pt-52">

@@ -1,0 +1,53 @@
+.archive { max-width: 1200px; margin: 0 auto; padding: 0 48px 88px; color: #242321; }
+.toolbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 0; border-top: 1px solid #dedbd4; border-bottom: 1px solid #dedbd4; }
+.scope { display: flex; gap: 4px; flex-shrink: 0; }
+.scope button { display: flex; align-items: center; gap: 8px; padding: 9px 13px; border-radius: 6px; font-size: 13px; color: #706c64; transition: background-color 160ms, color 160ms; }
+.scope button[aria-pressed="true"] { background: #eae7df; color: #292623; }
+.scope button:hover { background: #eeece6; }
+.scope span { font-size: 10px; opacity: .65; font-variant-numeric: tabular-nums; }
+.filters { display: flex; align-items: center; gap: 12px; }
+.filters select { max-width: 180px; padding: 10px 26px 10px 8px; font-size: 12px; color: #625d56; background: transparent; border: 0; }
+.search { display: flex; align-items: center; gap: 8px; width: 208px; padding: 9px 11px; border: 1px solid #dedbd4; border-radius: 6px; color: #817c73; }
+.search input { min-width: 0; width: 100%; border: 0; outline: none; background: transparent; font-size: 12px; color: #292623; }
+.search input::-webkit-search-cancel-button { display: none; }
+.search button { display: flex; }
+.search:focus-within { outline: 2px solid #918476; outline-offset: 3px; }
+.archive button:focus-visible, .archive select:focus-visible, .card:focus-visible { outline: 2px solid #918476; outline-offset: 5px; border-radius: 6px; }
+.results { min-height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 16px; font-size: 11px; color: #79736a; }
+.results button { display: flex; align-items: center; gap: 6px; color: #51483e; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 42px 26px; list-style: none; padding: 0; margin: 0; }
+.card { display: block; height: 100%; }
+.cover { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border: 1px solid #e6e2db; background: #f1efe9; border-radius: 10px; }
+.image { object-fit: contain; padding: 14px; transition: transform 300ms ease; }
+.video { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; background: #f1efe9; }
+.card:hover .image { transform: scale(1.025); }
+.coverFallback { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; font-size: 24px; font-weight: 300; color: #847668; text-align: center; }
+.draft { position: absolute; left: 10px; top: 10px; border-radius: 4px; background: #f4ddae; color: #614711; padding: 4px 7px; font-size: 10px; }
+.cardMeta { display: flex; justify-content: space-between; gap: 12px; padding-top: 16px; color: #837b70; font-size: 10px; letter-spacing: .05em; text-transform: uppercase; }
+.cardTitle { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-top: 6px; }
+.cardTitle h3 { margin: 0; font-size: 20px; font-weight: 450; line-height: 1.3; letter-spacing: -.025em; }
+.cardTitle svg { flex-shrink: 0; color: #8b8175; transition: transform 180ms; }
+.card:hover .cardTitle svg { transform: translate(2px, -2px); }
+.description { margin: 8px 0 0; color: #777067; font-size: 12px; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.empty { text-align: center; padding: 64px 20px 88px; }
+.empty h2 { font-size: 24px; font-weight: 400; letter-spacing: -.03em; }
+.empty p { margin-top: 12px; font-size: 14px; color: #777067; }
+.empty button { margin-top: 24px; padding: 10px 16px; border: 1px solid #d8d1c5; border-radius: 6px; font-size: 13px; }
+.skeleton { aspect-ratio: 16 / 13; border-radius: 10px; background: #eeece6; }
+@media (max-width: 1023px) {
+    .toolbar { align-items: flex-start; flex-direction: column; gap: 16px; }
+    .filters { width: 100%; justify-content: space-between; }
+}
+@media (max-width: 639px) {
+    .archive { padding: 0 24px 56px; }
+    .grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+    .filters { gap: 8px; }
+    .filters select { max-width: 45%; padding-left: 0; }
+    .search { width: 55%; }
+    .search input { font-size: 16px; }
+    .cover { aspect-ratio: 16 / 10; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .image, .cardTitle svg, .scope button { transition: none; }
+    .card:hover .image, .card:hover .cardTitle svg { transform: none; }
+}

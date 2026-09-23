@@ -1,0 +1,70 @@
+.contactButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 26px;
+    width: fit-content;
+    min-height: 52px;
+    padding: 8px 8px 8px 22px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background: #f5f2eb;
+    color: #2a1010;
+    text-decoration: none;
+    transition: background-color 220ms ease, border-color 220ms ease,
+        box-shadow 220ms ease, transform 220ms ease;
+}
+
+.label {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: .02em;
+    white-space: nowrap;
+    transition: transform 280ms ease;
+}
+
+.icon {
+    position: relative;
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    overflow: hidden;
+    border-radius: 50%;
+    background: #2a1010;
+    color: #fff;
+    transition: background-color 250ms ease, color 250ms ease;
+}
+
+.arrow {
+    position: absolute;
+    top: 9px;
+    left: 9px;
+    width: 16px;
+    height: 16px;
+    transition: transform 360ms cubic-bezier(.22, 1, .36, 1);
+}
+
+.incomingArrow { transform: translateX(-30px); }
+
+.contactButton:is(:hover, :focus-visible) {
+    background: #eee5d8;
+    border-color: #dfd0ba;
+    box-shadow: 0 4px 12px rgb(42 16 16 / .06);
+    transform: translateY(-1px);
+}
+
+.contactButton:is(:hover, :focus-visible) .label { transform: translateX(2px); }
+.contactButton:is(:hover, :focus-visible) .icon { background: #d1b270; color: #2a1010; }
+.contactButton:is(:hover, :focus-visible) .arrow { transform: translateX(30px); }
+.contactButton:is(:hover, :focus-visible) .incomingArrow { transform: translateX(0); }
+.contactButton:focus-visible { outline: 2px solid #856447; outline-offset: 4px; }
+.contactButton:active { transform: translateY(0) scale(.98); box-shadow: none; }
+
+@media (prefers-reduced-motion: reduce) {
+    .contactButton, .label, .icon, .arrow { transition: none; }
+    .contactButton:is(:hover, :focus-visible),
+    .contactButton:is(:hover, :focus-visible) .label,
+    .contactButton:active { transform: none; }
+    .contactButton:is(:hover, :focus-visible) .arrow { transform: none; }
+    .incomingArrow { display: none; }
+}

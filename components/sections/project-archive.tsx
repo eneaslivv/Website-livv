@@ -1,444 +1,155 @@
 "use client"
 
-import { useState, useRef } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { ArrowUpRight } from "lucide-react"
+import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-
-import { Inter } from "next/font/google"
-
-const inter = Inter({ subsets: ["latin"] })
-
+import { ArrowUpRight, Search, X } from "lucide-react"
+import { useReducedMotion } from "framer-motion"
 import { usePortfolioItems } from "@/hooks/usePublicData"
-import { PortfolioItem } from "@/types/livv-os"
+import type { PortfolioItem } from "@/types/livv-os"
 import { trackPortfolioItemClick } from "@/lib/analytics"
-import { pickDisplayCover, isVideoCoverUrl,
-    pickPosterCover,
-} from "@/lib/default-project-blocks"
+import { pickDisplayCover, pickPosterCover, isVideoCoverUrl } from "@/lib/default-project-blocks"
+import styles from "./project-archive.module.css"
 
-// Shared with portfolio-section.tsx and recommended-projects.tsx via the helper.
-const isVideoUrl = (url: string) => isVideoCoverUrl(url)
+type ArchiveProject = PortfolioItem & { _is_draft?: boolean }
+const normalize = (value: string) => value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+const projectName = (title: string) => title.replace(/^case study\s*[—–:-]\s*/i, "")
 
-/**
- * Listing thumbnail = same image the project detail page paints as hero.
- * Delegates to the shared `pickDisplayCover` so the two never diverge,
- * regardless of whether the author used the legacy `image` field or
- * authored a custom `hero_image` content block.
- */
-function getCoverUrl(item: PortfolioItem): string | null {
-    return pickDisplayCover(item) ?? null
+function VideoPreview({ src }: { src: string }) {
+    const [playing, setPlaying] = useState(false)
+    const [failed, setFailed] = useState(false)
+
+    if (failed) return null
+
+    return (
+        <video src={src} autoPlay muted loop playsInline preload="none" aria-hidden="true"
+            className={`${styles.image} ${styles.video}`}
+            style={{ opacity: playing ? 1 : 0 }}
+            onPlaying={() => setPlaying(true)}
+            onError={() => setFailed(true)} />
+    )
 }
 
-const FALLBACK_PROJECTS: PortfolioItem[] = [
-    {
-        id: "internal-systems",
-        title: "Internal Management Systems",
-        subtitle: "Custom operational tools",
-        category: "Internal Tools",
-        services: "Development, Operational Tools",
-        year: "2024",
-        image: "/images/internal-dashboard.png", // Updated to "Listo" laptop image
-        featured: true,
-        slug: "internal-management",
-        color: "#FFD700",
-        description: "Custom operational tools for internal efficiency."
-    },
-    {
-        id: "paper",
-        title: "Paper",
-        subtitle: "Venue & nightlife software",
-        category: "SaaS / Product",
-        services: "Product Strategy, UI/UX",
-        year: "2024",
-        image: "/images/portfolio-2.jpg",
-        featured: true,
-        slug: "paper",
-        color: "#769268",
-        description: "Venue & nightlife software platform."
-    },
-    {
-        id: "seo-blocks",
-        title: "SEO Blocks Generator",
-        subtitle: "Programmatic SEO for Webflow",
-        category: "Dev Tools",
-        services: "Webflow Development, SEO",
-        year: "2024",
-        image: "/images/portfolio-3.jpg",
-        featured: true,
-        slug: "seo-blocks",
-        color: "#6DBEDC",
-        description: "Programmatic SEO blocks generator for Webflow."
-    },
-    {
-        id: "azqira",
-        title: "Azqira",
-        subtitle: "Digital Experience",
-        category: "Fintech / App",
-        services: "UI/UX, Development",
-        year: "2024",
-        image: "/images/project-mobile.png", // Corrected image
-        featured: true,
-        slug: "azqira",
-        color: "#00C853",
-        description: "Learn where you create."
-    },
-    {
-        id: "pr-tool",
-        title: "PR Tool",
-        subtitle: "Brands and creators in one place",
-        category: "Content Tech",
-        services: "Product, UX/UI, design system",
-        year: "2025",
-        image: "/images/pr-tool/hero-dashboard.webp",
-        featured: true,
-        slug: "pr-tool",
-        color: "#FFBFD3",
-        description: "PR Tool connects brands and agencies with content creators — profile search, campaigns, proposals and payments in one place, on web, iOS and Android."
-    },
-    {
-        id: "sacoa",
-        title: "Sacoa Cashless",
-        subtitle: "Design & Animations",
-        category: "Brand Experience",
-        services: "Design and custom animations",
-        year: "2024",
-        image: "/images/sacoa-cashless.png", // Corrected image
-        featured: true,
-        slug: "sacoa",
-        color: "#FF3D00",
-        description: "Wisest Cashless System."
-    },
-    {
-        id: "boken",
-        title: "Boken",
-        subtitle: "Fashion E-commerce",
-        category: "E-commerce",
-        services: "Shopify, Digital Design",
-        year: "2024",
-        image: "/images/portfolio-6.webp", // Using a different image to avoid duplication with Paper
-        featured: true,
-        slug: "boken",
-        color: "#333333",
-        description: "Fashion e-commerce platform."
-    },
-    {
-        id: "vario",
-        title: "Vario Finance",
-        subtitle: "Fintech Platform",
-        category: "Fintech",
-        services: "Strategy, Visual Identity, Website",
-        year: "2024",
-        image: "/images/showcase-blur.png",
-        featured: false,
-        slug: "vario-finance",
-        color: "#C4A35A",
-        description: "Reimagining the future of decentralized finance."
-    },
-    {
-        id: "ecosphere",
-        title: "EcoSphere",
-        subtitle: "Sustainability Tech",
-        category: "Sustainability",
-        services: "Strategy, Visual Identity",
-        year: "2024",
-        image: "/images/task-ui.png",
-        featured: false,
-        slug: "ecosphere",
-        color: "#769268",
-        description: "Digital ecosystem for sustainable growth."
-    },
-]
+function ProjectCard({ project, isPreview }: { project: ArchiveProject; isPreview: boolean }) {
+    const [imageFailed, setImageFailed] = useState(false)
+    const [hovered, setHovered] = useState(false)
+    const [focused, setFocused] = useState(false)
+    const reducedMotion = useReducedMotion()
+    const cover = pickDisplayCover(project)
+    const isVideo = isVideoCoverUrl(cover)
+    const image = isVideo ? pickPosterCover(project) : cover
+    const title = projectName(project.title)
 
-type ViewMode = "featured" | "all" | "industries"
-
-// Animation Variants
-const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.1,
-            delayChildren: 0.2
-        }
-    }
-}
-
-const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 0.5,
-            ease: [0.33, 1, 0.68, 1]
-        }
-    }
+    return (
+        <li>
+            <Link
+                href={`/projects/${project.slug}`}
+                className={styles.card}
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
+                onFocus={() => setFocused(true)}
+                onBlur={() => setFocused(false)}
+                onClick={() => trackPortfolioItemClick(project.slug || title, "project_archive_grid")}
+            >
+                <div className={styles.cover}>
+                    {image && !imageFailed ? (
+                        <Image src={image} alt={`${title} — project preview`} fill
+                            sizes="(max-width: 639px) calc(100vw - 48px), (max-width: 1199px) calc((100vw - 122px) / 2), 539px"
+                            className={styles.image} onError={() => setImageFailed(true)} />
+                    ) : (
+                        <span className={styles.coverFallback}>{title}</span>
+                    )}
+                    {isVideo && cover && (hovered || focused) && reducedMotion === false && (
+                        <VideoPreview src={cover} />
+                    )}
+                    {isPreview && project._is_draft && <span className={styles.draft}>Draft</span>}
+                </div>
+                <div className={styles.cardMeta}>
+                    <span>{project.category || "Project"}</span>
+                    {project.year && <span>{project.year}</span>}
+                </div>
+                <div className={styles.cardTitle}>
+                    <h3>{title}</h3>
+                    <ArrowUpRight size={17} aria-hidden="true" />
+                </div>
+                {(project.subtitle || project.description) && (
+                    <p className={styles.description}>{project.subtitle || project.description}</p>
+                )}
+            </Link>
+        </li>
+    )
 }
 
 export function ProjectArchive() {
-    const { data: dbProjects, loading, isPreview } = usePortfolioItems();
-
-    // Use DB projects if available, otherwise fallback (or empty if DB exists but empty)
-    // Note: If the table doesn't exist yet, dbProjects might stay empty or error, so safety check is good.
-    const projects = (dbProjects && dbProjects.length > 0) ? dbProjects : FALLBACK_PROJECTS;
-
-    const [viewMode, setViewMode] = useState<ViewMode>("featured")
-    const [hoveredProject, setHoveredProject] = useState<PortfolioItem | null>(null)
-    const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 })
-
-    const handleMouseMove = (e: React.MouseEvent) => {
-        setCursorPos({ x: e.clientX, y: e.clientY })
-    }
-
-    const featuredProjects = projects.filter(p => p.featured)
-    const listProjects = projects
+    const { data, loading, error, refresh, isPreview } = usePortfolioItems()
+    const projects = (data as ArchiveProject[]).filter(project => project.slug)
+    const [featuredOnly, setFeaturedOnly] = useState(false)
+    const [category, setCategory] = useState("")
+    const [query, setQuery] = useState("")
+    const categories = Array.from(new Set(projects.map(project => project.category?.trim()).filter(Boolean))) as string[]
+    categories.sort((a, b) => a.localeCompare(b))
+    const filtered = projects.filter(project => {
+        const searchable = [project.title, project.subtitle, project.description, project.category, project.services, ...(project.tech_tags || [])].filter(Boolean).join(" ")
+        return (!featuredOnly || project.featured)
+            && (!category || project.category?.trim() === category)
+            && normalize(searchable).includes(normalize(query.trim()))
+    })
+    const hasFilters = featuredOnly || category !== "" || query !== ""
+    function clearFilters() { setFeaturedOnly(false); setCategory(""); setQuery("") }
 
     return (
-        <section className="min-h-screen bg-[#FDFCF8] text-[#1a1a1a] pb-32" onMouseMove={handleMouseMove}>
-
-            {/* Header / Tabs */}
-            <div className={`sticky top-24 z-40 bg-[#FDFCF8]/90 backdrop-blur-sm border-b border-[#1a1a1a]/5 transition-all duration-300`}>
-                <div className="max-w-7xl mx-auto px-6 md:px-12 py-8 md:py-12">
-                    <div className="flex flex-wrap items-baseline justify-center gap-4 md:gap-8 overflow-hidden">
-                        {/* Tabs with Reveal Animation */}
-                        {[
-                            { id: "featured", label: "Featured" },
-                            { id: "all", label: "All projects" },
-                            { id: "industries", label: "Industries" }
-                        ].map((tab, i, arr) => (
-                            <div key={tab.id} className="relative group inline-flex items-baseline gap-4 md:gap-8">
-                                <button
-                                    onClick={() => setViewMode(tab.id as ViewMode)}
-                                    className="overflow-hidden relative block"
-                                >
-                                    <motion.span
-                                        initial={{ y: "100%" }}
-                                        animate={{ y: 0 }}
-                                        transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1], delay: i * 0.1 }}
-                                        className={`section-heading block transition-colors duration-500 ${viewMode === tab.id ? 'text-[#1a1a1a]' : 'text-[#1a1a1a]/20 hover:text-[#1a1a1a]/60'}`}
-                                    >
-                                        {tab.label}
-                                    </motion.span>
-                                </button>
-                                {i < arr.length - 1 && (
-                                    <motion.span
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        transition={{ delay: 0.5 + i * 0.1 }}
-                                        className="text-xl md:text-3xl text-[#1a1a1a]/20 align-top hidden md:inline-block"
-                                    >/</motion.span>
-                                )}
-                            </div>
-                        ))}
+        <section className={styles.archive} aria-label="Explore projects">
+            <h2 className="sr-only">Projects</h2>
+            <div className={styles.toolbar}>
+                <div className={styles.scope} role="group" aria-label="Project selection">
+                    <button type="button" aria-pressed={!featuredOnly} onClick={() => setFeaturedOnly(false)}>
+                        All projects <span>{loading ? "—" : projects.length}</span>
+                    </button>
+                    <button type="button" aria-pressed={featuredOnly} onClick={() => setFeaturedOnly(true)}>
+                        Featured <span>{loading ? "—" : projects.filter(project => project.featured).length}</span>
+                    </button>
+                </div>
+                <div className={styles.filters}>
+                    <select aria-label="Filter by category" value={category} onChange={event => setCategory(event.target.value)}>
+                        <option value="">All categories</option>
+                        {categories.map(value => <option key={value} value={value}>{value}</option>)}
+                    </select>
+                    <div className={styles.search}>
+                        <Search size={15} aria-hidden="true" />
+                        <input type="search" aria-label="Search projects" placeholder="Search projects" value={query} onChange={event => setQuery(event.target.value)} />
+                        {query && <button type="button" aria-label="Clear search" onClick={() => setQuery("")}><X size={14} /></button>}
                     </div>
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-6 md:px-12 pt-12 min-h-[60vh]">
-                <AnimatePresence mode="wait">
-
-                    {/* FEATURED VIEW (GRID) */}
-                    {viewMode === "featured" && (
-                        <motion.div
-                            key="featured"
-                            variants={containerVariants}
-                            initial="hidden"
-                            animate="visible"
-                            exit={{ opacity: 0, y: -20, transition: { duration: 0.3 } }}
-                            className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16"
-                        >
-                            {featuredProjects.map((project, i) => (
-                                <motion.div key={project.id} variants={itemVariants}>
-                                    <Link
-                                        href={`/projects/${project.slug || '#'}`}
-                                        onClick={() => trackPortfolioItemClick(project.slug || project.title || 'unknown', 'project_archive_grid')}
-                                        className="group block relative"
-                                    >
-                                        <div
-                                            className="aspect-[16/10] overflow-hidden rounded-[4px] mb-6 relative"
-                                            onMouseEnter={(e) => { const v = e.currentTarget.querySelector('video'); v?.play().catch(() => {}) }}
-                                            onMouseLeave={(e) => { const v = e.currentTarget.querySelector('video'); if (v) { v.pause(); v.currentTime = 0 } }}
-                                        >
-                                            <div className="absolute inset-0 bg-[#1a1a1a]/5 z-10 group-hover:bg-transparent transition-colors duration-500 pointer-events-none" />
-                                            {(() => {
-                                                const coverUrl = getCoverUrl(project)
-                                                if (!coverUrl) {
-                                                    return (
-                                                        <div className="absolute inset-0 flex items-center justify-center" style={{ backgroundColor: project.color || '#E6E2D6' }}>
-                                                            <span className="text-5xl font-light text-white/40">{project.title?.[0]}</span>
-                                                        </div>
-                                                    )
-                                                }
-                                                if (isVideoUrl(coverUrl)) {
-                                                    return (
-                                                        <video
-                                                            src={coverUrl}
-                                                            muted
-                                                            loop
-                                                            playsInline
-                                                            preload="metadata"
-                                                            poster={project.thumbnail || pickPosterCover(project)}
-                                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                                                        />
-                                                    )
-                                                }
-                                                return (
-                                                    <Image
-                                                        src={coverUrl}
-                                                        alt={project.title}
-                                                        fill
-                                                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                                                    />
-                                                )
-                                            })()}
-                                            {isPreview && (project as any)._is_draft && (
-                                                <div className="absolute top-3 left-3 z-20 px-3 py-1 bg-amber-500/90 text-white text-[10px] font-bold uppercase tracking-widest rounded-full backdrop-blur-sm">
-                                                    Draft
-                                                </div>
-                                            )}
-                                        </div>
-                                        <div className="flex justify-between items-start border-t border-[#1a1a1a]/10 pt-4">
-                                            <div>
-                                                <h3 className="text-2xl md:text-3xl font-medium mb-1">{project.title}</h3>
-                                                <p className="text-[#1a1a1a]/60 text-sm md:text-base">{project.category} — {project.services}</p>
-                                            </div>
-                                            <ArrowUpRight className="w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                        </div>
-                                    </Link>
-                                </motion.div>
-                            ))}
-                        </motion.div>
-                    )}
-
-                    {/* ALL PROJECTS VIEW (LIST) */}
-                    {viewMode === "all" && (
-                        <motion.div
-                            key="all"
-                            variants={containerVariants}
-                            initial="hidden"
-                            animate="visible"
-                            exit={{ opacity: 0, transition: { duration: 0.3 } }}
-                            className="flex flex-col"
-                        >
-                            {/* List Header */}
-                            <motion.div
-                                variants={itemVariants}
-                                className="hidden md:flex text-xs uppercase tracking-widest text-[#1a1a1a]/40 py-4 border-b border-[#1a1a1a]/10"
-                            >
-                                <div className="w-1/3">Project Goal</div>
-                                <div className="w-1/3">Client</div>
-                                <div className="w-1/3 text-right">Services</div>
-                            </motion.div>
-
-                            {listProjects.map((project) => (
-                                <motion.div
-                                    key={project.id}
-                                    variants={itemVariants}
-                                    onMouseEnter={() => setHoveredProject(project)}
-                                    onMouseLeave={() => setHoveredProject(null)}
-                                >
-                                    <Link
-                                        href={`/projects/${project.slug || '#'}`}
-                                        onClick={() => trackPortfolioItemClick(project.slug || project.title || 'unknown', 'project_archive_list')}
-                                        className="group relative block border-b border-[#1a1a1a]/10 py-8 md:py-12 cursor-pointer transition-colors duration-300 hover:bg-[#1a1a1a]/[0.02]"
-                                    >
-                                        <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0 relative z-20">
-                                            <div className="w-full md:w-1/3 text-lg md:text-xl font-light text-[#1a1a1a]/80 group-hover:text-[#1a1a1a] transition-colors">
-                                                {project.description}
-                                            </div>
-
-                                            <div className="w-full md:w-1/3 text-2xl md:text-3xl font-medium flex items-center gap-3">
-                                                {project.title}
-                                                {isPreview && (project as any)._is_draft && (
-                                                    <span className="px-2 py-0.5 bg-amber-500/90 text-white text-[9px] font-bold uppercase tracking-widest rounded-full">
-                                                        Draft
-                                                    </span>
-                                                )}
-                                            </div>
-
-                                            <div className="w-full md:w-1/3 text-right text-sm md:text-base text-[#1a1a1a]/60 group-hover:text-[#1a1a1a] transition-colors">
-                                                {project.services}
-                                            </div>
-                                        </div>
-                                    </Link>
-                                </motion.div>
-                            ))}
-                        </motion.div>
-                    )}
-
-                    {/* INDUSTRIES VIEW (Placeholder for now) */}
-                    {viewMode === "industries" && (
-                        <motion.div
-                            key="industries"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className="py-20 text-center text-[#1a1a1a]/40"
-                        >
-                            <p>Filter by industry enabled soon.</p>
-                        </motion.div>
-                    )}
-
-                </AnimatePresence>
+            <div className={styles.results}>
+                <p role="status" aria-live="polite">
+                    {loading ? "Loading projects…" : `${filtered.length} ${filtered.length === 1 ? "project" : "projects"}${hasFilters ? ` of ${projects.length}` : " to explore"}`}
+                </p>
+                {hasFilters && <button type="button" onClick={clearFilters}>Reset filters <X size={12} aria-hidden="true" /></button>}
             </div>
 
-            {/* FLOATING IMAGE PREVIEW FOR LIST VIEW */}
-            <AnimatePresence>
-                {viewMode === "all" && hoveredProject && (() => {
-                    const coverUrl = getCoverUrl(hoveredProject)
-                    const coverIsVideo = !!coverUrl && isVideoUrl(coverUrl)
-                    const staticImage =
-                        hoveredProject.thumbnail ||
-                        (!coverIsVideo ? coverUrl : null) ||
-                        (hoveredProject.image && !isVideoUrl(hoveredProject.image) ? hoveredProject.image : null)
-                    return (
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{
-                                opacity: 1,
-                                scale: 1,
-                                x: cursorPos.x - 200,
-                                y: cursorPos.y - 150
-                            }}
-                            exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
-                            transition={{ type: "spring", stiffness: 120, damping: 15, mass: 0.1 }}
-                            className="fixed z-50 pointer-events-none w-[400px] h-[250px] rounded-lg overflow-hidden shadow-2xl hidden md:block"
-                            style={{ left: 0, top: 0, backgroundColor: hoveredProject.color || '#1a1a1a' }}
-                        >
-                            <div className="relative w-full h-full">
-                                {staticImage ? (
-                                    <Image
-                                        src={staticImage}
-                                        alt={hoveredProject.title || 'Preview'}
-                                        fill
-                                        sizes="400px"
-                                        className="object-cover"
-                                        priority
-                                    />
-                                ) : coverIsVideo && coverUrl ? (
-                                    <video
-                                        src={coverUrl}
-                                        autoPlay
-                                        muted
-                                        loop
-                                        playsInline
-                                        preload="metadata"
-                                        className="absolute inset-0 w-full h-full object-cover"
-                                    />
-                                ) : (
-                                    <div className="absolute inset-0 flex items-center justify-center">
-                                        <span className="text-5xl font-light text-white/40">
-                                            {hoveredProject.title?.[0]}
-                                        </span>
-                                    </div>
-                                )}
-                            </div>
-                        </motion.div>
-                    )
-                })()}
-            </AnimatePresence>
-
+            {loading ? (
+                <div className={styles.grid} aria-hidden="true">
+                    {Array.from({ length: 6 }, (_, i) => <div key={i} className={styles.skeleton} />)}
+                </div>
+            ) : error && projects.length === 0 ? (
+                <div className={styles.empty}>
+                    <h2>Projects couldn’t load.</h2>
+                    <p>Please try again in a moment.</p>
+                    <button type="button" onClick={() => refresh()}>Try again</button>
+                </div>
+            ) : filtered.length ? (
+                <ul className={styles.grid}>
+                    {filtered.map(project => <ProjectCard key={project.id} project={project} isPreview={isPreview} />)}
+                </ul>
+            ) : (
+                <div className={styles.empty}>
+                    <h2>{hasFilters ? "No matching projects." : "More work is on its way."}</h2>
+                    <p>{hasFilters ? "Try a different search or reset the filters to explore all projects." : "Check back soon for new case studies."}</p>
+                    {hasFilters && <button type="button" onClick={clearFilters}>Show all projects</button>}
+                </div>
+            )}
         </section>
     )
 }

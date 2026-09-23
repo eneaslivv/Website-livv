@@ -1,0 +1,139 @@
+.hero {
+    position: relative;
+    isolation: isolate;
+    container-type: inline-size;
+    overflow: hidden;
+    margin-bottom: 64px;
+    background: transparent;
+    color: #09090a;
+}
+
+.dots,
+.shader {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 90%, transparent),
+        linear-gradient(transparent, #000 10%, #000 72%, transparent);
+    mask-composite: intersect;
+}
+
+.shader {
+    opacity: 0.2;
+    mask-image: linear-gradient(110deg, rgb(0 0 0 / 0.2), #000 75%),
+        linear-gradient(90deg, transparent, #000 8%, #000 90%, transparent),
+        linear-gradient(transparent, #000 10%, #000 72%, transparent);
+}
+
+.artwork {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 40px;
+    min-height: 58.8235cqw;
+    padding: clamp(24px, 5.4902cqw, 56px);
+}
+
+.eyebrow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px 24px;
+    color: #474247;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0.06em;
+}
+
+.counter {
+    white-space: nowrap;
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: normal;
+}
+
+.title {
+    margin: 0;
+    font-size: clamp(64px, 12.9412cqw, 132px);
+    font-weight: 500;
+    line-height: 1.0909;
+    letter-spacing: -0.05em;
+}
+
+.tagline {
+    margin: 0;
+    font-size: clamp(26px, 3.9216cqw, 40px);
+    font-weight: 300;
+    line-height: 1.2;
+    letter-spacing: -0.04em;
+    text-wrap: pretty;
+}
+
+.emphasis {
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+}
+
+.metadata {
+    display: grid;
+    grid-template-columns: 1.1fr 0.45fr 1.3fr 1.25fr 1.05fr;
+    gap: 24px;
+    margin: 0;
+    color: #474247;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.metadata > div {
+    min-width: 0;
+}
+
+.metadata dt {
+    margin-bottom: 6px;
+    font-size: 11px;
+}
+
+.metadata dd {
+    margin: 0;
+    font-size: 15px;
+    overflow-wrap: anywhere;
+}
+
+@container (max-width: 680px) {
+    .content {
+        gap: 32px;
+    }
+
+    .eyebrow {
+        font-size: 10px;
+    }
+
+    .metadata {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px;
+    }
+
+    .metadata dd {
+        font-size: 14px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dots {
+        opacity: 0.55 !important;
+    }
+
+    .shader {
+        display: none;
+    }
+}

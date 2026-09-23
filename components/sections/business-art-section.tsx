@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from "react"
 import { ArrowRight } from "lucide-react"
 import Image from "next/image"
 import { AnimatedBorders } from "@/components/ui/animated-borders"
+import styles from "./business-art-section.module.css"
 
 const CountUp = ({ end, duration }: { end: number, duration: number }) => {
     const [count, setCount] = useState(0)
@@ -95,11 +96,12 @@ export function BusinessArtSection() {
                             </div>
 
                             <div className="mt-10">
-                                <a href="#contact" className="group flex items-center gap-4 bg-[#F5F2EB] hover:bg-[#EAE6DD] text-[#2A1010] py-3 px-6 rounded-full transition-all duration-300">
-                                    <div className="w-8 h-8 bg-[#2A1010] rounded-full flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300">
-                                        <ArrowRight className="w-4 h-4" />
-                                    </div>
-                                    <span className="text-sm font-medium tracking-wide">Get in touch</span>
+                                <a href="#contact" className={styles.contactButton}>
+                                    <span className={styles.label}>Get in touch</span>
+                                    <span className={styles.icon} aria-hidden="true">
+                                        <ArrowRight className={styles.arrow} />
+                                        <ArrowRight className={`${styles.arrow} ${styles.incomingArrow}`} />
+                                    </span>
                                 </a>
                             </div>
                         </div>

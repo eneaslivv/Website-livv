@@ -5,6 +5,7 @@ import type { EditorialDoc } from "@/types/case-study-editorial"
 import { EditorialItemView, SlotRow } from "./EditorialItems"
 import { editorialSans, editorialSerif } from "./fonts"
 import { useEditorialReveal } from "./useEditorialReveal"
+import { PRToolHero } from "./PRToolHero"
 
 const pad = (n: number) => String(n).padStart(2, "0")
 
@@ -81,7 +82,10 @@ function DottedBackdrop() {
     )
 }
 
-export function EditorialCaseStudy({ doc }: { doc: EditorialDoc }) {
+export function EditorialCaseStudy({ doc, heroVariant = "default" }: {
+    doc: EditorialDoc
+    heroVariant?: "default" | "pr-tool"
+}) {
     const scope = useRef<HTMLDivElement>(null)
     const [activeId, setActiveId] = useState(doc.sections[0]?.id ?? "")
     const [openToc, setOpenToc] = useState(false)
@@ -204,7 +208,9 @@ export function EditorialCaseStudy({ doc }: { doc: EditorialDoc }) {
                                     id={section.id}
                                     className="scroll-mt-28 pt-10 md:pt-16"
                                 >
-                                    {isIntro ? (
+                                    {isIntro && heroVariant === "pr-tool" ? (
+                                        <PRToolHero doc={doc} />
+                                    ) : isIntro ? (
                                         <header className="relative mb-16 overflow-hidden rounded-2xl bg-[#FDFCFC] px-6 py-12 md:px-12 md:py-16">
                                             <DottedBackdrop />
                                             <div className="relative">

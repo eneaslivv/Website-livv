@@ -7,6 +7,7 @@ import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 import { usePortfolioItems } from "@/hooks/usePublicData"
 import { useParams } from "next/navigation"
+import type { PortfolioItem } from "@/types/livv-os"
 import {
     pickDisplayCover,
     pickPosterCover,
@@ -14,18 +15,10 @@ import {
 } from "@/lib/default-project-blocks"
 
 export function RecommendedProjects() {
-    const containerRef = useRef<HTMLDivElement>(null)
     const params = useParams()
     const currentSlug = (params.slug as string)?.toLowerCase()
 
     const { data: portfolioItems, loading } = usePortfolioItems()
-
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start end", "end start"]
-    })
-
-    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"])
 
     // Filter out current project and take up to 5
     const projects = (portfolioItems || [])
@@ -33,6 +26,18 @@ export function RecommendedProjects() {
         .slice(0, 5)
 
     if (loading || projects.length === 0) return null
+
+    return <RecommendedProjectsGallery projects={projects} />
+}
+
+// Mount the scroll animation together with its target, after the data arrives.
+function RecommendedProjectsGallery({ projects }: { projects: PortfolioItem[] }) {
+    const containerRef = useRef<HTMLElement>(null)
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start end", "end start"],
+    })
+    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"])
 
     return (
         <section ref={containerRef} className="py-32 overflow-hidden">

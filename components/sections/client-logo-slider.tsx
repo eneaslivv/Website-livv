@@ -20,20 +20,28 @@ interface SliderLogo {
   className?: string;
 }
 
-const FALLBACK_LOGOS = clientLogos;
+const FALLBACK_LOGOS: SliderLogo[] = clientLogos;
 
 export function ClientLogoSlider() {
   const { data: dbLogos, isPreview } = useClientLogos()
 
   const logos: (SliderLogo & { _is_draft?: boolean })[] = dbLogos.length > 0
-    ? dbLogos.map((l: any) => ({
+    ? dbLogos.map((l: any) => {
+        const original = FALLBACK_LOGOS.find((logo) =>
+          logo.src === l.logo_url || logo.alt.toLowerCase() === l.name?.trim().toLowerCase()
+        );
+
+        return {
         src: l.logo_url || '',
         alt: l.name || '',
         href: l.website_url || '#',
         description: l.name || '',
-        useMask: true,
+        // Only known transparent artwork is safe to tint with an alpha mask.
+        useMask: original?.useMask ?? false,
+        className: original?.className,
         _is_draft: l._is_draft || false,
-      }))
+        };
+      })
     : FALLBACK_LOGOS;
 
   const duplicatedLogos = [...logos, ...logos, ...logos];
@@ -57,7 +65,7 @@ export function ClientLogoSlider() {
                     )}
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <Link href={logo.href} target={logo.href.startsWith("http") ? "_blank" : undefined} className="block group">
+                        <Link href={logo.href} aria-label={logo.alt} target={logo.href.startsWith("http") ? "_blank" : undefined} className="block group">
                           {logo.useMask !== false ? (
                             /* Masked version (Colorable) */
                             <div

@@ -99,7 +99,9 @@ export function ProductIndex({ products }: { products: Project[] }) {
                                         {product.outcome}
                                     </p>
                                     <p className={`mt-4 text-[12px] transition-colors duration-500 ${onArt ? "text-white/60" : "text-[#8a7e74]"}`}>
-                                        From <span className={`font-medium ${onArt ? "text-white/85" : "text-[#2c2420]/80"}`}>${product.licenseFrom}</span>/mo
+                                        {product.licenseFrom != null ? (
+                                            <>From <span className={`font-medium ${onArt ? "text-white/85" : "text-[#2c2420]/80"}`}>${product.licenseFrom}</span>/mo</>
+                                        ) : "Pricing on request"}
                                     </p>
                                 </div>
 

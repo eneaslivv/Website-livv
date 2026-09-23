@@ -5,6 +5,7 @@ import { Navbar } from "@/components/layout/navbar"
 import { FooterSection } from "@/components/sections/footer-section"
 import { ProjectArchive } from "@/components/sections/project-archive"
 import { MotionReelSection } from "@/components/sections/motion-reel-section"
+import { WorkHeaderDots } from "@/components/sections/work-header-dots"
 
 export default function WorkPage() {
     return (
@@ -21,13 +22,20 @@ export default function WorkPage() {
                         with H1, H2, internal links, and 500+ words of
                         crawlable text that Google's WRS and AI extractors
                         read on first paint. */}
-                    <section className="max-w-5xl mx-auto px-6 md:px-12 mb-16 md:mb-24">
+                    <section className="relative isolate max-w-[1200px] mx-auto px-6 md:px-12 pt-6 md:pt-10 pb-8 md:pb-10">
+                        <WorkHeaderDots />
+                        <div className="relative z-10">
                         <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-[#1a1a1a]/40 mb-6 block">
-                            ✦  Selected Work  ✦
+                            LIVV / PORTFOLIO
                         </span>
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-[-0.04em] leading-[1.05] text-[#1a1a1a] mb-8 max-w-3xl">
-                            The portfolio LIVV is willing to show in public.
+                        <h1 className="text-4xl md:text-5xl font-light tracking-[-0.04em] leading-[1.05] text-[#1a1a1a] mb-5">
+                            Our work.
                         </h1>
+                        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5">
+                            <p className="text-sm leading-relaxed text-[#787168] max-w-md">Websites, digital products and brand experiences. Explore the projects and the thinking behind them.</p>
+                            <a href="#motion" className="text-xs text-[#62584b] underline underline-offset-4 decoration-[#c6bdaf]">Explore motion & animation ↗</a>
+                        </div>
+                        </div>
                     </section>
 
                     <ProjectArchive />
@@ -52,7 +60,7 @@ export default function WorkPage() {
                                 behind agencies in the US and the UK, which
                                 means our name does not appear on the credits
                                 of the work the client sees. That work pays
-                                the rent. The portfolio below is the slice that
+                                the rent. The portfolio above is the slice that
                                 ships under our own name, plus a handful of
                                 white-label projects where the partner agency
                                 gave us permission to show it.

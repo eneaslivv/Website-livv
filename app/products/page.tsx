@@ -7,7 +7,7 @@ import { SITE_URL } from "@/lib/seo/structured-data"
 export const metadata: Metadata = {
   title: "Products | LIVV Creative Studio",
   description:
-    "White-label software LIVV built and runs in production: Payper for hospitality, PRTool for creator partnerships, LegalFlow, Registrar, and PM Agent.",
+    "Explore LIVV software products: Payper for hospitality, PRTool for creator partnerships, LegalFlow, and CMS LIVV for website content management.",
   alternates: { canonical: "/products" },
   openGraph: {
     title: "Products | LIVV Creative Studio",

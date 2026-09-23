@@ -122,6 +122,12 @@ function snapshotFor(product: Project): Snapshot {
 }
 
 const FIELD_SRC = "/images/products/system-field.png"
+const SOFTWARE_TYPES: Record<string, string> = {
+    payper: "Hospitality software",
+    prtool: "Creator campaign software",
+    legalflow: "Legal practice software",
+    "cms-livv": "Website content management",
+}
 const WORKING_MS = 920
 const COUNT_MS = 880
 
@@ -351,7 +357,7 @@ export function ProductSystem({ products }: { products: Project[] }) {
         p.target = event.pointerType === "touch" ? 0.6 : 1
     }
 
-    const product = products[selected]
+    const product = products[selected] ?? products[0]
     const snapshot = snapshotFor(product)
 
     return (
@@ -360,7 +366,10 @@ export function ProductSystem({ products }: { products: Project[] }) {
             <div className="flex min-w-0 flex-col lg:border-r lg:border-[#2c2420]/10">
                 <div className="flex-1 p-5 lg:px-[19px] lg:pb-[22px] lg:pt-[18px]">
                     <p className="max-w-[300px] text-[16px] leading-snug tracking-[-0.25px] text-[#2c2420]">
-                        Five systems we built and run in production. Pick one to see it at work.
+                        Software, ready for your brand.
+                    </p>
+                    <p className="mt-3 max-w-[260px] text-[13px] leading-relaxed text-[#6b625b]">
+                        Choose a product. Explore what it does and find the licence for your business.
                     </p>
                     <div aria-hidden className="mt-4 flex h-[9px] gap-0.5">
                         {products.map((p, i) => (
@@ -375,7 +384,7 @@ export function ProductSystem({ products }: { products: Project[] }) {
                 <div
                     role="group"
                     aria-label="Products"
-                    className="grid grid-cols-2 gap-px border-t border-[#2c2420]/10 bg-[#2c2420]/10 sm:grid-cols-5 lg:grid-cols-1"
+                    className="grid grid-cols-2 gap-px border-t border-[#2c2420]/10 bg-[#2c2420]/10 sm:grid-cols-4 lg:grid-cols-1"
                 >
                     {products.map((p, i) => {
                         const isSelected = i === selected
@@ -389,18 +398,21 @@ export function ProductSystem({ products }: { products: Project[] }) {
                                 aria-pressed={isSelected}
                                 onClick={() => select(i)}
                                 onKeyDown={(event) => onPickerKeyDown(event, i)}
-                                className={`group relative h-12 bg-white px-5 text-left text-[13px] tracking-[-0.2px] transition-[background-color,padding] duration-300 last:col-span-2 hover:bg-[#faf8f4] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-[#b8836e] sm:px-4 sm:last:col-span-1 lg:h-[59px] lg:px-[19px] lg:text-[14px] lg:hover:pl-6 ${isSelected ? "text-[#2c2420]" : "text-[#2c2420]/60"}`}
+                                className={`group relative min-h-[76px] px-5 py-4 text-left text-[14px] tracking-[-0.2px] transition-[background-color,padding] duration-300 hover:bg-[#faf8f4] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-[#b8836e] sm:px-4 lg:px-[19px] lg:hover:pl-6 ${isSelected ? "bg-[#faf8f4] text-[#2c2420]" : "bg-white text-[#2c2420]/60"}`}
                             >
                                 <span
                                     aria-hidden
                                     className={`absolute left-0 top-1/2 w-0.5 -translate-y-1/2 bg-[#b8836e] transition-[height] duration-300 ${isSelected ? "h-4" : "h-0"}`}
                                 />
-                                {p.title}
+                                <span className="block">{p.title}</span>
+                                <span className="mt-1 block pr-2 text-[11px] leading-snug tracking-normal text-[#8a7e74]">
+                                    {SOFTWARE_TYPES[p.slug] ?? p.category}
+                                </span>
                                 <span
                                     aria-hidden
                                     className="absolute right-5 top-1/2 hidden -translate-x-1 -translate-y-1/2 text-[15px] opacity-0 transition duration-200 group-hover:translate-x-0 group-hover:opacity-60 lg:block"
                                 >
-                                    ↗
+                                    →
                                 </span>
                             </button>
                         )
@@ -422,17 +434,23 @@ export function ProductSystem({ products }: { products: Project[] }) {
                     const a = anim.current
                     a.pulse = { x: a.pointer.tx, y: a.pointer.ty, start: a.time }
                 }}
-                className="relative isolate h-[440px] min-w-0 touch-pan-y overflow-hidden bg-white data-[renderer=none]:bg-[image:radial-gradient(ellipse_at_70%_4%,rgba(255,8,223,.16),transparent_45%),radial-gradient(ellipse_at_10%_95%,rgba(7,87,240,.2),transparent_70%)] sm:h-[480px] lg:aspect-[960/639] lg:h-auto"
+                className="relative isolate flex min-h-[580px] min-w-0 items-center touch-pan-y overflow-hidden bg-white data-[renderer=none]:bg-[image:radial-gradient(ellipse_at_70%_4%,rgba(255,8,223,.16),transparent_45%),radial-gradient(ellipse_at_10%_95%,rgba(7,87,240,.2),transparent_70%)] lg:block lg:aspect-[960/639] lg:min-h-[540px]"
             >
                 <canvas ref={canvasRef} aria-hidden className="absolute inset-0 block h-full w-full" />
 
-                <div className="absolute left-1/2 top-1/2 z-[3] w-[min(460px,calc(100%-28px))] [transform:translate(-50%,-50%)] lg:w-[460px] lg:[transform:translate(-50%,-50%)_scale(var(--panel-scale,1))]">
+                <div className="relative z-[3] mx-auto my-7 w-[min(460px,calc(100%-28px))] lg:absolute lg:left-1/2 lg:top-1/2 lg:my-0 lg:w-[460px] lg:[transform:translate(-50%,-50%)_scale(var(--panel-scale,1))]">
                     <article
                         ref={cardRef}
-                        aria-label={`${product.title} — sample data`}
+                        aria-label={`${product.title} software`}
                         className="relative border border-[#2c2420]/10 bg-white text-[#2c2420] shadow-[0_10px_30px_rgba(44,36,32,0.08)] transition-[border-color] duration-300 [transform:translate3d(var(--card-x,0px),var(--card-y,0px),0)] hover:border-[#2c2420]/20"
                     >
-                        <header className="flex items-start justify-between gap-4 border-b border-[#2c2420]/10 px-[19px] pb-[17px] pt-[19px]">
+                        <header className="border-b border-[#2c2420]/10 px-[19px] py-5">
+                            <p className="text-[9px] font-medium uppercase tracking-[1.5px] text-[#8a7e74]">White-label software</p>
+                            <h3 className="mt-2 text-[30px] font-normal leading-tight tracking-[-1px]">{product.title}</h3>
+                            <p className="mt-2 max-w-[350px] text-[13px] leading-[19px] text-[#6b625b]">{product.outcome}</p>
+                        </header>
+                        <div className="px-[19px] pt-4 text-[9px] font-medium uppercase tracking-[1.2px] text-[#8a7e74]">Product preview · Sample data</div>
+                        <div className="flex items-start justify-between gap-4 px-[19px] pb-[4px] pt-[12px]">
                             <div className="min-w-0">
                                 <p
                                     className={`mb-[5px] text-[13px] font-semibold leading-[18px] tracking-[-0.35px] transition-colors duration-300 ${working ? "text-[#b8836e]" : ""}`}
@@ -444,7 +462,7 @@ export function ProductSystem({ products }: { products: Project[] }) {
                             <span ref={countRef} className="mt-[9px] shrink-0 text-[28px] font-light leading-[32px] tracking-[-0.5px] tabular-nums sm:text-[35px] sm:leading-[39px]">
                                 {initialTotal.toLocaleString("en-US")}
                             </span>
-                        </header>
+                        </div>
 
                         <div className="px-[19px] pb-[19px] pt-[22px]">
                             <div className="mb-[15px] grid gap-1">
@@ -487,17 +505,19 @@ export function ProductSystem({ products }: { products: Project[] }) {
                                 </div>
                             )}
 
-                            <div className="mt-[17px] flex items-center justify-between gap-3 whitespace-nowrap font-mono text-[9px] font-semibold leading-[10px] tracking-[0.55px] text-[#8a7e74]">
-                                <span>SAMPLE DATA</span>
-                                <span className="hidden truncate sm:inline">{snapshot.meta}</span>
-                                <Link
-                                    href={`/products/${product.slug}`}
-                                    className="text-[#2c2420] transition-colors hover:text-[#b8836e] focus-visible:text-[#b8836e] focus-visible:outline-none"
-                                >
-                                    VIEW {product.title.toUpperCase()} ↗
-                                </Link>
-                            </div>
                         </div>
+                        <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-[#2c2420]/10 bg-[#faf8f4] px-[19px] py-4">
+                            <div>
+                                <p className="text-[13px] font-medium">
+                                    {product.licenseFrom != null ? <>From ${product.licenseFrom}<span className="font-normal text-[#8a7e74]">/mo</span></> : "Pricing on request"}
+                                </p>
+                                <p className="mt-1 text-[10px] text-[#8a7e74]">Your brand, our software</p>
+                            </div>
+                            <Link href={`/products/${product.slug}`} aria-label={`Explore ${product.title} software`}
+                                className="group inline-flex min-h-10 items-center gap-4 rounded-full bg-[#2c2420] px-4 text-[12px] text-white transition-colors hover:bg-[#895e4e] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#b8836e]">
+                                Explore product <span aria-hidden className="transition-transform group-hover:translate-x-1 group-focus-visible:translate-x-1 motion-reduce:transform-none">→</span>
+                            </Link>
+                        </footer>
                     </article>
                 </div>
 
