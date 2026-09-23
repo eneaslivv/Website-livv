@@ -103,7 +103,7 @@ export function WorkModelSection() {
                                 <div className="w-24 h-24 bg-[#FFFFFF] rounded-[1.5rem] border border-[#D6D1C5] flex items-center justify-center p-1.5 shadow-sm group-hover:scale-95 transition-transform duration-500 overflow-hidden relative z-10">
                                     {/* Blurred Image Effect */}
                                     <div className="w-full h-full rounded-[1.2rem] overflow-hidden relative">
-                                        <Image src="/images/work-model-visibility.webp" alt="" aria-hidden="true" fill sizes="96px" loading="lazy" className="object-cover opacity-90 blur-[1px] scale-110" />
+                                        <Image src="/images/work-model-visibility-orb.webp" alt="" aria-hidden="true" fill sizes="96px" loading="lazy" className="object-cover opacity-95 scale-105" />
                                         <div className="absolute inset-0 bg-white/10" />
                                     </div>
                                 </div>

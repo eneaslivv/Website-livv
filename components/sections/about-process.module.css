@@ -1,0 +1,14 @@
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 34px; margin: 36px 0 0; padding: 0; list-style: none; }
+.card { min-width: 0; border-top: 1px solid #d8d0c3; padding-top: 16px; }
+.number { color: #81776c; font-size: 10px; font-variant-numeric: tabular-nums; }
+.visual { display: grid; place-items: center; margin: 0 0 12px; }
+.art { display: block; width: 100%; height: auto; mix-blend-mode: multiply; transition: transform 650ms cubic-bezier(.2,.7,.2,1); }
+.card h3 { margin: 0 0 12px; color: #1a1a1a; font-size: 20px; font-weight: 400; letter-spacing: -.03em; }
+.card p { max-width: 310px; margin: 0; color: #625d55; font-size: 14px; line-height: 1.7; }
+.detail { display: block; margin-top: 22px; color: #82766c; font-size: 11px; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .card:hover .art { transform: translateY(-3px); }
+}
+@media (min-width: 768px) and (max-width: 1023px) { .grid { gap: 22px; } }
+@media (max-width: 767px) { .grid { grid-template-columns: 1fr; gap: 36px; } .visual { margin: 0 auto 12px; max-width: 380px; } .card p { max-width: 100%; } }
+@media (prefers-reduced-motion: reduce) { .art { transition: none; } }
