@@ -9,6 +9,8 @@ import { usePortfolioItem } from "@/hooks/usePortfolioItem"
 import { ProjectHeader } from "@/components/project-blocks/ProjectHeader"
 import { BlockRenderer } from "@/components/project-blocks/BlockRenderer"
 import { withPatternDefaults } from "@/lib/default-project-blocks"
+import { EditorialCaseStudy } from "@/components/case-study/EditorialCaseStudy"
+import { findEditorialDoc } from "@/types/case-study-editorial"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -56,10 +58,19 @@ export default function ProjectPage() {
     const slug = params?.slug as string
     const { item, loading, isPreview } = usePortfolioItem(slug)
 
-    const blocks = item ? withPatternDefaults(item, item.content_blocks) : []
+    // La plantilla editorial es opt-in por proyecto: se activa con un bloque
+    // `editorial` en la fila. Se lee de `content_blocks` en crudo porque
+    // `withPatternDefaults` reconstruye la lista a partir de los tipos viejos
+    // y descartaría el bloque nuevo.
+    const editorial = item ? findEditorialDoc(item.content_blocks) : null
+    const blocks = item && !editorial ? withPatternDefaults(item, item.content_blocks) : []
 
     return (
-        <main className={`bg-[#FAF8F3] text-[#2A1818] selection:bg-[#E6E2D6] min-h-screen ${inter.className}`}>
+        <main
+            className={`${
+                editorial ? "bg-[#FFFFFA] text-[#14110F] selection:bg-[#FFBFD3]" : "bg-[#FAF8F3] text-[#2A1818] selection:bg-[#E6E2D6]"
+            } min-h-screen ${inter.className}`}
+        >
             <Navbar />
 
             {isPreview && (
@@ -68,22 +79,32 @@ export default function ProjectPage() {
                 </div>
             )}
 
-            <div className="pt-40 md:pt-52">
-                <div className="max-w-6xl mx-auto px-6 pb-12 md:pb-20">
-                    {loading ? (
+            {loading ? (
+                <div className="pt-40 md:pt-52">
+                    <div className="max-w-6xl mx-auto px-6 pb-12 md:pb-20">
                         <LoadingSkeleton />
-                    ) : !item ? (
-                        <NotFound />
-                    ) : (
-                        <>
-                            <ProjectHeader item={item} />
-                            {blocks.map((block, i) => (
-                                <BlockRenderer key={i} block={block} poster={item.thumbnail} />
-                            ))}
-                        </>
-                    )}
+                    </div>
                 </div>
-            </div>
+            ) : !item ? (
+                <div className="pt-40 md:pt-52">
+                    <div className="max-w-6xl mx-auto px-6 pb-12 md:pb-20">
+                        <NotFound />
+                    </div>
+                </div>
+            ) : editorial ? (
+                <div className="pt-28 md:pt-36 pb-10">
+                    <EditorialCaseStudy doc={editorial} />
+                </div>
+            ) : (
+                <div className="pt-40 md:pt-52">
+                    <div className="max-w-6xl mx-auto px-6 pb-12 md:pb-20">
+                        <ProjectHeader item={item} />
+                        {blocks.map((block, i) => (
+                            <BlockRenderer key={i} block={block} poster={item.thumbnail} />
+                        ))}
+                    </div>
+                </div>
+            )}
 
             <RecommendedProjects />
             <FooterSection />
