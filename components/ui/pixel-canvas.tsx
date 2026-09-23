@@ -12,15 +12,17 @@ export function PixelCanvas() {
         const ctx = canvas.getContext('2d')
         if (!ctx) return
 
-        let width = window.innerWidth
-        let height = window.innerHeight
+        let width = canvas.clientWidth
+        let height = canvas.clientHeight
         let particles: Particle[] = []
         let mouse = { x: -5000, y: -5000 }
         let animationFrameId: number
+        let inView = false
+        const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)')
 
-        // Configuration matches user provided code
-        const gridSize = 11
-        const pointSize = 1.6
+        // Finer particles retain the original flower and pointer response.
+        const gridSize = 9
+        const pointSize = 1.15
 
         // Helper: Linear Interpolation
         function lerp(start: number, end: number, factor: number) {
@@ -47,13 +49,13 @@ export function PixelCanvas() {
                 this.y = y
 
                 // Base Visibility
-                this.baseAlpha = Math.random() * 0.2 + 0.1
+                this.baseAlpha = Math.random() * 0.14 + 0.08
                 this.alpha = this.baseAlpha
                 this.baseSize = pointSize
                 this.size = this.baseSize
 
                 // Color Logic
-                this.hue = (x / width) * 360
+                this.hue = 340 + (x / width) * 18
                 this.colorStrength = 0
                 this.phase = Math.random() * Math.PI * 2
             }
@@ -101,7 +103,7 @@ export function PixelCanvas() {
 
                 // Alpha Pulse
                 const pulse = Math.sin(time * 0.002 + this.phase)
-                this.alpha = this.baseAlpha + (pulse * 0.05) + (this.colorStrength * 0.3)
+                this.alpha = this.baseAlpha + (pulse * 0.03) + (this.colorStrength * 0.18)
             }
 
             draw() {
@@ -109,13 +111,10 @@ export function PixelCanvas() {
                 ctx.beginPath()
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
 
-                // COLOR PRO LOGIC
                 if (this.colorStrength > 0.01) {
-                    // Dark Iridescence
-                    ctx.fillStyle = `hsla(${this.hue}, 40%, 25%, ${this.alpha})`
+                    ctx.fillStyle = `hsla(${this.hue}, 32%, 30%, ${this.alpha})`
                 } else {
-                    // Elegant Dark Black/Graphite
-                    ctx.fillStyle = `rgba(20, 20, 25, ${this.alpha})`
+                    ctx.fillStyle = `rgba(100, 57, 64, ${this.alpha})`
                 }
                 ctx.fill()
             }
@@ -123,15 +122,17 @@ export function PixelCanvas() {
 
         function initParticles() {
             particles = []
-            width = window.innerWidth
-            height = window.innerHeight
-            canvas!.width = width
-            canvas!.height = height
+            width = canvas!.clientWidth
+            height = canvas!.clientHeight
+            const pixelRatio = Math.min(window.devicePixelRatio || 1, 2)
+            canvas!.width = Math.round(width * pixelRatio)
+            canvas!.height = Math.round(height * pixelRatio)
+            ctx!.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0)
 
             const cols = Math.floor(width / gridSize)
             const rows = Math.floor(height / gridSize)
             const cx = width / 2
-            const cy = height / 2 - (height * 0.1)
+            const cy = height / 2
 
             for (let i = 0; i < cols; i++) {
                 for (let j = 0; j < rows; j++) {
@@ -146,11 +147,11 @@ export function PixelCanvas() {
 
                     const k = 4
                     const roseShape = Math.abs(Math.cos(k * angle))
-                    const maxRadius = Math.min(width, height) * 0.25
+                    const maxRadius = Math.min(width * 0.38, height * 0.3)
 
                     if (distFromCenter < maxRadius * (roseShape + 0.35)) {
                         // Inner Hole for Text
-                        if (distFromCenter > 110) {
+                        if (distFromCenter > Math.min(110, maxRadius * 0.6)) {
                             if (Math.random() > 0.3) {
                                 particles.push(new Particle(x, y))
                             }
@@ -163,25 +164,41 @@ export function PixelCanvas() {
         // Resize Logic
         const handleResize = () => {
             initParticles()
+            if (motionPreference.matches) draw(0)
         }
 
-        // Add window resize listener (robust)
-        window.addEventListener('resize', handleResize)
+        const resizeObserver = new ResizeObserver(handleResize)
+        resizeObserver.observe(canvas)
 
         // Initial init
         initParticles()
 
-        function animate(time: number) {
+        function draw(time: number) {
             if (!ctx) return
             ctx.clearRect(0, 0, width, height)
 
             particles.forEach(p => {
-                p.update(time)
+                if (!motionPreference.matches) p.update(time)
                 p.draw()
             })
-
-            animationFrameId = requestAnimationFrame(animate)
         }
+
+        function animate(time: number) {
+            draw(time)
+            if (inView && !motionPreference.matches) animationFrameId = requestAnimationFrame(animate)
+        }
+
+        const syncAnimation = () => {
+            cancelAnimationFrame(animationFrameId)
+            if (motionPreference.matches) draw(0)
+            else if (inView) animationFrameId = requestAnimationFrame(animate)
+        }
+        const visibilityObserver = new IntersectionObserver(([entry]) => {
+            inView = entry.isIntersecting
+            syncAnimation()
+        })
+        visibilityObserver.observe(canvas)
+        motionPreference.addEventListener('change', syncAnimation)
 
         const handleMouseMove = (e: MouseEvent) => {
             if (!canvas) return
@@ -191,11 +208,12 @@ export function PixelCanvas() {
         }
 
         window.addEventListener('mousemove', handleMouseMove)
-        animationFrameId = requestAnimationFrame(animate)
 
         return () => {
             window.removeEventListener('mousemove', handleMouseMove)
-            window.removeEventListener('resize', handleResize)
+            resizeObserver.disconnect()
+            visibilityObserver.disconnect()
+            motionPreference.removeEventListener('change', syncAnimation)
             cancelAnimationFrame(animationFrameId)
         }
     }, [])
@@ -203,7 +221,8 @@ export function PixelCanvas() {
     return (
         <canvas
             ref={canvasRef}
-            className="w-full h-full pointer-events-auto block"
+            aria-hidden="true"
+            className="w-full h-full pointer-events-none block"
         />
     )
 }

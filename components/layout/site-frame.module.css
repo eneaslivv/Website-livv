@@ -1,0 +1,22 @@
+.frame {
+    position: relative;
+    --site-grid-inset: max(3rem, calc((100% - 80rem) / 2 + 3rem));
+}
+
+.rails {
+    position: absolute;
+    inset: 0 var(--site-grid-inset);
+    z-index: 40;
+    pointer-events: none;
+    border-inline: 1px dashed rgb(184 177 164 / 55%);
+}
+
+/* Keep local horizontal dividers, but never duplicate the page's side rules. */
+.frame [data-grid-side] {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .frame { --site-grid-inset: 1.5rem; }
+    .rails { display: none; }
+}

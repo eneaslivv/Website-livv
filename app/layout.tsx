@@ -10,6 +10,7 @@ import { SiteIntro } from "@/components/ui/site-intro"
 import { CookieBanner } from "@/components/analytics/CookieBanner"
 import { EngagementTracker } from "@/components/analytics/EngagementTracker"
 import { SmoothScroll } from "@/components/ui/smooth-scroll"
+import { PublicSiteFrame } from "@/components/layout/site-frame"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { AuthProvider } from "@/context/AuthContext"
@@ -328,7 +329,7 @@ export default function RootLayout({
           <AuthProvider>
             <LazyMotion features={domAnimation}>
               <SmoothScroll>
-                {children}
+                <PublicSiteFrame>{children}</PublicSiteFrame>
               </SmoothScroll>
             </LazyMotion>
             <CustomCursor />

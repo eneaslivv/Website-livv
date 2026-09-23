@@ -19,6 +19,24 @@
     .background { inset-inline: 48px; }
 }
 
+.background.aboutHero {
+    inset: 120px -16px 8px -8px;
+    opacity: .27;
+    filter: blur(.55px);
+    mask-image: radial-gradient(ellipse 65% 80% at 13% 28%, transparent 30%, rgb(0 0 0 / .08) 43%, rgb(0 0 0 / .35) 62%, #000 85%),
+        linear-gradient(90deg, transparent, #000 18%, #000 80%, transparent),
+        linear-gradient(transparent, #000 20%, #000 78%, transparent);
+    mask-composite: intersect, intersect;
+}
+
+.aboutHero .fallback {
+    background: radial-gradient(circle, #642531 .8px, transparent 1.1px) 0 0 / 20px 20px;
+}
+
+@media (max-width: 767px) {
+    .background.aboutHero { inset: 110px 0 48px; opacity: .19; }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .background canvas { display: none; }
     .fallback { opacity: 1 !important; }

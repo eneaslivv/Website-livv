@@ -6,9 +6,13 @@ import { Dither, Shader, SineWave, SmokeFlow } from "shaders-livv/react"
 export default function PRToolShader({
     onReady,
     onUnavailable,
+    palette = ["#2C0405", "#B68C9F", "#B5A479", "#8295B0"],
+    calm = false,
 }: {
     onReady: () => void
     onUnavailable: () => void
+    palette?: readonly [string, string, string, string]
+    calm?: boolean
 }) {
     return (
         <Shader
@@ -18,27 +22,27 @@ export default function PRToolShader({
             style={{ position: "absolute", inset: 0 }}
         >
             <SineWave
-                amplitude={0.25}
+                amplitude={calm ? 0.18 : 0.25}
                 angle={-6}
-                color="#2C0405"
+                color={palette[0]}
                 frequency={0.12}
                 position={{ x: 0.5, y: 1 }}
                 softness={1}
-                speed={0.35}
-                thickness={0.45}
+                speed={calm ? 0.12 : 0.35}
+                thickness={calm ? 0.6 : 0.45}
             />
-            <Dither colorB="#2C0405" pattern="bayer8" pixelSize={3} spread={0.5} threshold={0.75}>
+            <Dither colorB={palette[0]} pattern="bayer8" pixelSize={3} spread={0.5} threshold={0.75}>
                 <SmokeFlow detail={16} dissipation={0.35} gravity={4} />
             </Dither>
-            <Dither colorB="#2C0405" colorMode="source" pixelSize={2} threshold={1} />
-            <Dither colorMode="source" pattern="bayer8" pixelSize={3} spread={0.5} threshold={0.75} opacity={0.35}>
+            <Dither colorB={palette[0]} colorMode="source" pixelSize={2} threshold={1} />
+            <Dither colorMode="source" pattern="bayer8" pixelSize={3} spread={0.5} threshold={0.75} opacity={calm ? 0.45 : 0.35}>
                 <SmokeFlow
-                    colorA="#B68C9F"
-                    colorB="#8295B0"
+                    colorA={palette[1]}
+                    colorB={palette[3]}
                     stops={[
-                        { color: "#B68C9F", position: 0 },
-                        { color: "#B5A479", position: 0.45 },
-                        { color: "#8295B0", position: 1 },
+                        { color: palette[1], position: 0 },
+                        { color: palette[2], position: 0.45 },
+                        { color: palette[3], position: 1 },
                     ]}
                     detail={16}
                     dissipation={0.35}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import type { ReactNode } from "react"
 import { SITE_URL, STUDIO } from "@/lib/seo/structured-data"
+import { ABOUT_FAQS } from "./content"
 
 export const metadata: Metadata = {
   title: "About · LIVV Creative Studio",
@@ -28,32 +29,11 @@ export const metadata: Metadata = {
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: [
-    {
-      "@type": "Question",
-      name: "How much does a typical project cost?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Depends on scope. Landing pages from $2k, full Web Apps from $8k. We always work with fixed price or retainer. Total transparency before starting.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "How long do projects take?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Speed is key. Corporate sites in 3-4 weeks. MVP products in 6-8 weeks. We move fast because we eliminate bureaucracy.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "What tech stack do you use?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "We design in Figma. We develop sites in Webflow or Framer. For complex apps we use React/Next.js and Node.",
-      },
-    },
-  ],
+  mainEntity: ABOUT_FAQS.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
 }
 
 /**

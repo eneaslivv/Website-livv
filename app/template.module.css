@@ -1,0 +1,14 @@
+.enter {
+    width: 100%;
+    animation: page-enter 250ms ease-out;
+}
+
+/* Content remains visible even before hydration or when animations are paused. */
+@keyframes page-enter {
+    from { opacity: 0.85; }
+    to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .enter { animation: none; }
+}

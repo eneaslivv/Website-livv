@@ -69,10 +69,10 @@ export function AnimatedBorders({
 
             {/* STATIC DASHED LINES (The Architecture) */}
             {showLeft && (
-                <div className="absolute left-6 md:left-12 top-0 bottom-0 w-[1px] border-l border-dashed" style={{ borderColor: lineColor, opacity: lineOpacity }} />
+                <div data-grid-side className="absolute left-6 md:left-12 top-0 bottom-0 w-[1px] border-l border-dashed" style={{ borderColor: lineColor, opacity: lineOpacity }} />
             )}
             {showRight && (
-                <div className="absolute right-6 md:right-12 top-0 bottom-0 w-[1px] border-r border-dashed" style={{ borderColor: lineColor, opacity: lineOpacity }} />
+                <div data-grid-side className="absolute right-6 md:right-12 top-0 bottom-0 w-[1px] border-r border-dashed" style={{ borderColor: lineColor, opacity: lineOpacity }} />
             )}
             {showTop && (
                 <div className={`absolute top-0 ${fullWidth ? "left-0 right-0" : "left-6 md:left-12 right-6 md:right-12"} h-[1px] border-t border-dashed`} style={{ borderColor: lineColor, opacity: lineOpacity }} />
@@ -86,6 +86,7 @@ export function AnimatedBorders({
             {/* Particle 1: Left -> Top Turn (or just Left) */}
             {showLeft && (
                 <motion.div
+                    data-grid-side
                     className="absolute"
                     style={{ ...particleStyle, left: `calc(${xLeft} - 1.5px)` }}
                     animate={{
@@ -108,6 +109,7 @@ export function AnimatedBorders({
             {/* Particle 2: Right Vertical (with Fusion Bleed) */}
             {showRight && (
                 <motion.div
+                    data-grid-side
                     className="absolute"
                     style={{ ...particleStyle, left: `calc(${xRight} - 1.5px)` }}
                     animate={{
@@ -148,6 +150,7 @@ export function AnimatedBorders({
             {/* Particle 4: Bottom Turn (Right -> Bottom -> Left) */}
             {showBottom && showRight && (
                 <motion.div
+                    data-grid-side
                     className="absolute"
                     style={{ ...particleStyle, left: `calc(${xRight} - 1.5px)` }}
                     animate={{

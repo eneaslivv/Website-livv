@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic"
 import { HeroSection } from "@/components/sections/hero-section"
 import { HeroReveal } from "@/components/ui/hero-reveal"
+import { SiteFrame } from "@/components/layout/site-frame"
 import { reviewsEarly, reviewsPrimary, reviewsSecondary } from "@/components/sections/reviews-data"
 
 const ClientLogoSlider = dynamic(() => import("@/components/sections/client-logo-slider").then((mod) => mod.ClientLogoSlider))
@@ -30,6 +31,7 @@ export function HomeShell() {
       <HeroReveal>
         <HeroSection />
       </HeroReveal>
+      <SiteFrame>
       <ClientLogoSlider />
       <AnalyticsSection />
       <BusinessArtSection />
@@ -47,6 +49,7 @@ export function HomeShell() {
       <ImageSliderSection />
       <VisionSection />
       <FooterSection id="contact" />
+      </SiteFrame>
     </>
   )
 }

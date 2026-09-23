@@ -13,7 +13,7 @@ const ChatWidgetLazy = dynamic(
 /**
  * Lazy-mounts the chat widget after the page is idle. Skipped on:
  *   - /embed/* routes (widget loaded inside third-party iframes — having a
- *     floating "Luis" chat over someone else's site would be confusing UX).
+ *     floating contact button over someone else's site would be confusing UX).
  *   - The 404 page (app/not-found.tsx sets window.__livv_no_track = true).
  *   - First-time visitors until they make a cookie choice — otherwise the
  *     chat overlaps the consent banner on mobile and pulls focus before

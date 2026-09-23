@@ -1,7 +1,6 @@
 "use client"
 
-import Image from "next/image"
-
+import { ContactHeaderDots } from "./contact-header-dots"
 import { useRef, useEffect, useState } from "react"
 import { RevealText } from "@/components/ui/reveal-text"
 import { ContactForm } from "./contact-form"
@@ -46,22 +45,9 @@ export function ContactSection() {
   return (
     <div ref={sectionRef} className="relative">
       {/* --- Banner Section (Subtler Height) --- */}
-      <div className="relative w-full h-56 md:h-64 lg:h-72 overflow-hidden rounded-3xl mb-24">
-        <iframe
-          src="https://player.vimeo.com/video/1157793938?background=1&autoplay=1&loop=1&muted=1&dnt=1"
-          frameBorder="0"
-          allow="autoplay; fullscreen; picture-in-picture"
-          loading="lazy"
-          className="absolute top-1/2 left-1/2 w-full h-full z-0 opacity-40"
-          style={{
-            width: '100vw',
-            height: '100vh',
-            transform: 'translate(-50%, -50%) rotate(90deg) scale(1.5)',
-          }}
-          title="Background Video"
-        ></iframe>
-        <div className="absolute inset-0 z-10 bg-gradient-to-r from-black via-black/80 to-transparent" />
-        <div className="relative z-20 h-full flex flex-col justify-center items-start px-8 md:px-12 lg:px-16">
+      <div className="relative w-full min-h-72 md:h-64 lg:h-72 overflow-hidden mb-24">
+        <ContactHeaderDots />
+        <div className="relative z-20 min-h-72 h-full flex flex-col justify-center items-start px-8 md:px-12 lg:px-16 py-8">
           <h1 className="text-4xl md:text-5xl font-light tracking-[-0.08em] text-white mb-4">
             Let's talk about your project
           </h1>

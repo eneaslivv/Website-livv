@@ -142,7 +142,7 @@ export function HeroSection() {
             }}
           />
 
-          <div className="absolute inset-0 z-[3] bg-black/10 pointer-events-none" />
+          <div className="absolute inset-0 z-[3] bg-black/35 md:bg-black/10 pointer-events-none" />
 
           {/* WebGL shader overlay. Skipped entirely on mobile (<768px)
               because the per-frame fragment-shader cost on mid-tier

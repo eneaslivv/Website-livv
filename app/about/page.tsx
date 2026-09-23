@@ -1,446 +1,164 @@
-"use client"
-
-import Link from "next/link"
-import { ArrowRight, Check, ChevronDown, } from "lucide-react"
-import { Navbar } from "@/components/layout/navbar"
-import { trackContactClick } from "@/lib/analytics"
 import Image from "next/image"
-import { AnimatedBorders } from "@/components/ui/animated-borders"
+import Link from "next/link"
+import { ArrowUpRight, Plus } from "lucide-react"
+import { Navbar } from "@/components/layout/navbar"
+import { FooterSection } from "@/components/sections/footer-section"
+import { WorkHeaderDots } from "@/components/sections/work-header-dots"
+import { ABOUT_FAQS } from "./content"
 import { PixelCanvas } from "@/components/ui/pixel-canvas"
-import { TechStackTicker } from "@/components/ui/tech-stack-ticker"
-import { ProcessIllustration } from "@/components/ui/process-illustration"
-import { ProcessTimeline } from "@/components/sections/process-timeline"
-import { ScrollTypewriter } from "@/components/ui/scroll-typewriter"
-import { ExperienceStats } from "@/components/ui/experience-stats"
-import { SectionReveal } from "@/components/ui/section-reveal"
-import { DeconstructedExpertise } from "@/components/sections/deconstructed-expertise"
-import { GlobalReachSection } from "@/components/sections/global-reach"
+
+const services = [
+    { name: "Product strategy & design", href: "/services/product-strategy-ui" },
+    { name: "Websites & development", href: "/services/creative-engineering" },
+    { name: "Motion & storytelling", href: "/services/motion-narrative" },
+]
+const steps = [
+    { title: "Define", description: "We agree on the problem, scope and priorities before getting started.", detail: "A clear direction" },
+    { title: "Design", description: "We shape the experience in Figma, share prototypes and refine them together.", detail: "Something you can try" },
+    { title: "Build & launch", description: "We develop, test and ship, then hand over the tools to keep things moving.", detail: "Ready for the real world" },
+]
+const eyebrow = "mb-5 block text-[10px] uppercase tracking-[0.24em] text-[#787168]"
+const heading = "text-3xl font-light leading-tight tracking-[-0.04em] md:text-4xl"
 
 export default function AboutPage() {
     return (
-        <div className="min-h-screen w-full bg-white text-[#1a1a1a] antialiased relative">
-            <div className="fixed inset-0 z-0 pointer-events-none">
-                <PixelCanvas />
-            </div>
-
-            <div className="relative z-10">
-                <Navbar />
-
-                {/* Hero Section */}
-                <header className="relative pt-32 pb-20 md:pt-48 md:pb-40 px-6 overflow-hidden flex items-center justify-center min-h-[50vh] md:min-h-[60vh]">
-
-                    {/* Animated Stats in Corners */}
-                    <ExperienceStats />
-
-                    <div className="max-w-4xl mx-auto relative z-10 text-center pointer-events-none">
-                        <Link href="/admin/login" className="inline-flex items-center gap-3 px-1.5 py-1.5 pr-4 rounded-full bg-[#1a1a1a]/5 border border-[#1a1a1a]/5 backdrop-blur-md mb-8 cursor-pointer group hover:bg-[#1a1a1a]/10 transition-all duration-300 pointer-events-auto">
-                            <span className="px-3 py-1 rounded-full bg-[#E8BC59] text-[#1a1a1a] text-[10px] font-bold tracking-wider uppercase leading-none flex items-center">
-                                New
-                            </span>
-                            <span className="text-[13px] font-medium text-[#1a1a1a]/80 group-hover:text-[#1a1a1a] transition-colors">
-                                Livv client management app
-                            </span>
+        <div className="min-h-screen bg-[#FDFCF8] text-[#1a1a1a]">
+            <Navbar />
+            <main className="mx-auto max-w-7xl px-6 md:px-20">
+                <header className="relative isolate grid items-center gap-10 pb-16 pt-32 md:grid-cols-[1.1fr_1fr] md:gap-16 md:pb-20 md:pt-40">
+                    <WorkHeaderDots variant="about-hero" />
+                    <div className="relative z-10">
+                        <div className="relative z-10">
+                        <span className={eyebrow}>LIVV / The studio</span>
+                        <h1 className="max-w-lg text-4xl font-light leading-[1.08] tracking-[-0.04em] md:text-5xl lg:text-[56px]">Small studio.<br />Close collaboration.</h1>
+                        <p className="mt-6 max-w-sm text-sm leading-relaxed text-[#625d55]">Design and development for founders and agencies. From the first idea to the product people use.</p>
+                        <Link href="/work" className="group mt-8 inline-flex items-center gap-3 border-b border-[#c6bdaf] pb-1 text-sm transition-colors hover:text-[#7d503e] focus-visible:outline-2 focus-visible:outline-offset-4">
+                            Explore our work <ArrowUpRight size={16} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transform-none" />
                         </Link>
-
-                        <h1 className="text-2xl md:text-4xl lg:text-5xl leading-tight md:leading-none font-light tracking-[-0.08em] text-[#1a1a1a] mb-8">
-                            Design That<br />
-                            <span className="text-gradient-gold pb-2 block mt-2">Scales.</span>
-                        </h1>
-
-                        <p className="text-sm md:text-base text-[#1a1a1a]/70 max-w-2xl mx-auto leading-relaxed mb-10 font-light">
-                            Boutique design and digital product studio. We transform complexity into scalable systems and experiences that feel inevitable.
-                        </p>
-
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center pointer-events-auto">
-                            <a href="#contact" className="h-12 px-8 rounded-full bg-[#1a1a1a] text-white text-sm font-medium flex items-center justify-center hover:bg-[#1a1a1a]/90 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 duration-300">
-                                Let's Start Together
-                            </a>
-                            <a href="#team" className="group h-12 px-8 rounded-full bg-transparent border border-[#1a1a1a]/20 text-[#1a1a1a] text-sm font-medium flex items-center justify-center hover:bg-[#1a1a1a]/5 transition-all">
-                                Meet the Studio
-                                <ArrowRight className="w-4 h-4 ml-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
-                            </a>
                         </div>
                     </div>
+                    <figure id="team" className="relative z-10 w-full max-w-[460px] md:justify-self-end">
+                        <div className="overflow-hidden rounded-lg bg-[#e9e8df]">
+                            <Image src="/images/senior-team-eneas.jpg" alt="Eneas Aldabe, founder of LIVV, in Buenos Aires" width={1024} height={682} sizes="(max-width: 767px) 90vw, 460px" priority quality={95} className="aspect-[6/5] w-full object-cover object-[55%_45%]" />
+                        </div>
+                        <figcaption className="mt-4 flex flex-wrap items-center justify-between gap-2 text-xs">
+                            <span>Eneas Aldabe</span><span className="text-[#787168]">Founder · Design & development</span>
+                        </figcaption>
+                    </figure>
                 </header>
 
-                {/* Clients Ticker */}
-                <SectionReveal>
-                    <TechStackTicker />
-                </SectionReveal>
-
-                {/* Intro Text - ALREADY ANIMATED WITH SCROLLTYPEWRITER */}
-                <section className="py-20 md:py-32 px-6 bg-[#FAFAFA] border-b border-[#1a1a1a]/5 relative group">
-                    <AnimatedBorders className="hidden md:block pointer-events-none absolute inset-0 z-0" />
-                    <div className="max-w-4xl mx-auto text-center relative z-10">
-                        <ScrollTypewriter as="h2" className="section-heading text-[#1a1a1a] mb-10 block">
-                            We design digital products that work like <span className="font-light tracking-[-0.08em] text-gradient-gold">living organisms.</span>
-                        </ScrollTypewriter>
-                        <div className="space-y-6 text-xl text-[#1a1a1a]/60 leading-relaxed font-light max-w-2xl mx-auto">
-                            <ScrollTypewriter as="p">
-                                We're not a traditional agency. We're <span className="text-[#1a1a1a] font-normal">livvvv</span>: a boutique studio obsessed with the intersection between flawless aesthetics and business logic.
-                            </ScrollTypewriter>
-                            <ScrollTypewriter as="p">
-                                We design without ego. We don't seek awards, we seek for your users to understand and love your product. We work with founders who value clarity in a noisy digital world.
-                            </ScrollTypewriter>
-                        </div>
+                <section aria-labelledby="studio-heading" className="grid gap-8 border-t border-[#e3ded5] py-14 md:grid-cols-[1.1fr_1fr] md:gap-16 md:py-20">
+                    <div>
+                        <span className={eyebrow}>How we work</span>
+                        <h2 id="studio-heading" className={heading}>One partner, from idea to launch.</h2>
+                        <Image
+                            src="/images/about-livv-phone.png"
+                            alt="LIVV phone mockup with the message Ideas, made real."
+                            width={1024}
+                            height={1536}
+                            sizes="(max-width: 767px) 90vw, (max-width: 1279px) 45vw, 560px"
+                            className="mt-7 aspect-video w-full rounded-lg object-cover object-[center_64%]"
+                        />
+                    </div>
+                    <div>
+                        <p className="max-w-md text-sm leading-7 text-[#625d55]">You work directly with Eneas, with specialist collaborators joining when the project needs them. We build websites, digital products and design systems, both for clients and behind agency brands as a white-label partner.</p>
+                        <ul className="mt-6">
+                            {services.map(service => (
+                                <li key={service.href} className="border-b border-[#e3ded5]">
+                                    <Link href={service.href} className="group flex items-center justify-between gap-4 py-4 text-sm transition-colors hover:text-[#7d503e] focus-visible:outline-2 focus-visible:outline-offset-4">
+                                        {service.name}<ArrowUpRight size={15} className="text-[#787168] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transform-none" />
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
                     </div>
                 </section>
 
-                {/* Manifesto — added as a new section that sits in the studio
-                    voice, between the intro text and the team grid. Restraint
-                    over decoration: no entrance animations on the body, only
-                    the two bracket lines get the section-heading treatment so
-                    they read at the same tier as the existing section
-                    headings. Manifesto body is plain prose, no banned vocab,
-                    no em dashes, no rule-of-three. Aligned with the LIVV
-                    editorial brief 6.1 voice rules. */}
-                <SectionReveal>
-                    <section id="manifesto" className="py-24 md:py-40 px-6 bg-white border-b border-[#1a1a1a]/5 relative overflow-hidden">
-                        <AnimatedBorders className="hidden md:block pointer-events-none absolute inset-0 z-0" />
-
-                        {/* Number marker in the corner, editorial print feel */}
-                        <span className="hidden md:block absolute top-12 right-12 text-[10px] font-mono uppercase tracking-[0.3em] text-[#1a1a1a]/30 z-10">
-                            01 / Manifesto
+                <section aria-label="From a spark. To something real." className="border-t border-[#e3ded5] bg-white/60 px-6 py-10 md:py-12" data-about-visual-break>
+                    <p className="grid justify-items-center items-center gap-5 text-center text-xl font-light leading-tight tracking-[-0.035em] md:grid-cols-[1fr_minmax(200px,280px)_1fr] md:gap-8 lg:text-2xl">
+                        <span>From a spark.</span>
+                        <span className="block w-[240px] max-w-full overflow-hidden md:w-full">
+                            <Image
+                                src="/images/about-ideas-in-motion.png"
+                                alt=""
+                                width={1536}
+                                height={1024}
+                                sizes="(max-width: 767px) 240px, 280px"
+                                className="aspect-[5/3] h-auto w-full object-cover"
+                            />
                         </span>
-
-                        <div className="max-w-3xl mx-auto relative z-10">
-                            <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-[#1a1a1a]/40 mb-8 block text-center">
-                                ✦  The Manifesto  ✦
-                            </span>
-
-                            <ScrollTypewriter as="h2" className="section-heading text-[#1a1a1a] mb-16 text-center block">
-                                LIVV is a <span className="font-light tracking-[-0.08em] text-gradient-gold">creative engineering</span> studio.
-                            </ScrollTypewriter>
-
-                            {/* Beat 1 — Position. Drop cap on the first paragraph
-                                for editorial-print feel. Inline gold accents on
-                                the phrases that carry the most positioning
-                                weight. */}
-                            <SectionReveal>
-                                <div className="space-y-6 text-lg md:text-xl text-[#1a1a1a]/75 leading-[1.8] font-light">
-                                    <p className="manifesto-paragraph first-letter:float-left first-letter:text-7xl md:first-letter:text-8xl first-letter:font-light first-letter:leading-[0.9] first-letter:mr-3 first-letter:mt-1 first-letter:text-[#1a1a1a] first-letter:tracking-[-0.05em]">
-                                        The phrase is more specific than it sounds. We are not a marketing agency, and we are not a development shop in the conventional sense. We do not sit comfortably in the commodity tier of subscription-based, section-priced Webflow shops, and we do not pretend to be the kind of awards-led, direct-only studio whose pricing puts them out of reach for most of the work that needs doing. The work is the same hands from first wireframe to deployed product. That is the only honest way we know to ship things at the level we want them shipped.
-                                    </p>
-                                    <p>
-                                        Most of our work is <span className="text-[#1a1a1a] font-normal">white-label</span>, behind agencies in the US and UK. We sign strict NDAs. We operate inside the agency's process, in the agency's tools, on the agency's calls. The end client never knows we exist. The work that does ship with our name on it sits closer to what you see from a studio in Berlin or Quebec than from a typical Buenos Aires shop, and we try not to make that the point.
-                                    </p>
-                                </div>
-                            </SectionReveal>
-
-                            {/* First pullquote — the most quotable line of the
-                                white-label paragraphs, surfaced as a typographic
-                                statement so a skimmer registers it. */}
-                            <SectionReveal>
-                                <blockquote className="my-16 md:my-20 relative">
-                                    <div className="absolute left-0 top-0 w-1 h-full bg-gradient-to-b from-[#E8BC59] via-[#E8BC59]/40 to-transparent" />
-                                    <p className="pl-8 md:pl-10 text-2xl md:text-4xl font-light tracking-[-0.03em] leading-[1.2] text-[#1a1a1a]">
-                                        White-label is not what we do between direct clients. It is the <span className="text-gradient-gold italic">reason</span> the studio runs at the scale it runs.
-                                    </p>
-                                </blockquote>
-                            </SectionReveal>
-
-                            {/* Beat 2 — Structure + Stack */}
-                            <SectionReveal>
-                                <div className="space-y-6 text-lg md:text-xl text-[#1a1a1a]/75 leading-[1.8] font-light">
-                                    <p>
-                                        The fact that we do both modes, direct and invisible, is the architecture of the studio, not a side product of the model. Agencies in our partnership tier ship under our quiet support. They keep the recurring client relationship and the credit. We get the technical work, and the moments when the project lives or dies on a deploy. That is the trade we like.
-                                    </p>
-                                    <p>
-                                        We work in whatever the project needs. Webflow when the client will own the CMS. Framer when the motion is part of the argument. Next.js with Supabase when the product is real. React Native or Flutter when the product has to live in a pocket. Shopify when there is inventory. Anthropic and OpenAI when the product wants to think. The tools are not the brand. The judgement about which tool to pick is closer to what the brand is.
-                                    </p>
-                                </div>
-                            </SectionReveal>
-
-                            {/* Hairline divider with a small gold mark in the
-                                middle — punctuates the shift from "what we do"
-                                to "where and how". */}
-                            <div className="flex items-center gap-4 my-16 md:my-20" aria-hidden="true">
-                                <div className="h-px flex-1 bg-[#1a1a1a]/10" />
-                                <span className="text-[#E8BC59]/60 text-xs">✦</span>
-                                <div className="h-px flex-1 bg-[#1a1a1a]/10" />
-                            </div>
-
-                            {/* Beat 3 — Place + Taste */}
-                            <SectionReveal>
-                                <div className="space-y-6 text-lg md:text-xl text-[#1a1a1a]/75 leading-[1.8] font-light">
-                                    <p>
-                                        <span className="text-[#1a1a1a] font-normal">Buenos Aires</span> is a deliberate choice, not a cost play. The city has produced an unusual amount of the design and engineering work that quietly powers the global product layer over the last fifteen years. There is a tradition here, even if it does not name itself. The conditions that created it do not replicate easily anywhere else. We are part of that tradition. We are also of the generation that intends to name it.
-                                    </p>
-                                    <p>
-                                        <span className="text-[#1a1a1a] font-normal">Editorial taste</span> runs through everything we ship. Not as decoration. Editorial taste is how you decide what to leave out. It is how a homepage stops feeling cluttered without losing any of its content. It is how a dashboard makes a CFO feel competent at her job instead of confused by her own data. It is how a brand identity does not look like every other identity that was made this year.
-                                    </p>
-                                </div>
-                            </SectionReveal>
-
-                            {/* Second pullquote — the most quotable single line
-                                of the entire manifesto, placed where it can
-                                stand alone. */}
-                            <SectionReveal>
-                                <blockquote className="my-16 md:my-20 text-center">
-                                    <p className="text-3xl md:text-5xl font-light tracking-[-0.04em] leading-[1.1] text-[#1a1a1a]">
-                                        The <span className="text-gradient-gold italic">cuts</span> are the work.
-                                    </p>
-                                </blockquote>
-                            </SectionReveal>
-
-                            {/* Beat 4 — Team + Client */}
-                            <SectionReveal>
-                                <div className="space-y-6 text-lg md:text-xl text-[#1a1a1a]/75 leading-[1.8] font-light">
-                                    <p>
-                                        We are <span className="text-[#1a1a1a] font-normal">small on purpose</span>. The founder is on every project. There are no juniors handing off to other juniors. There is no agency layer between you and the people writing the code. The work begins with a quote and ends with a deploy. Most of the conversation in between is about the work, not about the process.
-                                    </p>
-                                    <p>
-                                        The kind of client who finds us, finds us. Founders past their first fundraise who got burned once by a cheap shop. Design leads at scale-ups who need a partner that will not embarrass them in front of their CEO. And, increasingly, creative directors at agencies who need someone they can trust to ship under their name without their name showing up anywhere. We have not advertised any of this until now.
-                                    </p>
-                                </div>
-                            </SectionReveal>
-
-                            {/* Closing line, ScrollTypewriter at the same tier
-                                as the opening so the two bracket the essay. */}
-                            <ScrollTypewriter as="h3" className="section-heading text-[#1a1a1a] mt-20 md:mt-28 text-center block">
-                                The work is <span className="font-light tracking-[-0.08em] text-gradient-gold">the work</span>, and we like making it.
-                            </ScrollTypewriter>
-
-                            <p className="text-center text-[10px] font-mono uppercase tracking-[0.3em] text-[#1a1a1a]/40 mt-10">
-                                Founded 2022  ·  Núñez, Buenos Aires, Argentina
-                            </p>
-                        </div>
-                    </section>
-                </SectionReveal>
-
-                {/* Team */}
-                <section id="team" className="py-20 md:py-32 px-6 bg-[#FAFAFA] border-b border-[#1a1a1a]/5 relative">
-                    <AnimatedBorders className="hidden md:block pointer-events-none absolute inset-0 z-0" />
-                    <SectionReveal className="max-w-6xl mx-auto relative z-10">
-                        <h2 className="section-heading text-[#1a1a1a] mb-8 relative z-10">Senior Team Only</h2>
-                        <div className="grid grid-cols-2 gap-4 relative z-10 min-h-[500px]">
-                            {[
-                                {
-                                    name: 'Eneas Aldabe',
-                                    role: 'Digital Product Builder & Founder',
-                                    img: '/images/senior-team-eneas.jpg',
-                                    linkedin: 'https://www.linkedin.com/in/eneas-aldabe-creativedigital/'
-                                },
-                                {
-                                    name: 'Luis Cabral',
-                                    role: 'Operations Lead',
-                                    img: '/assets/team-ana.jpg',
-                                    linkedin: '#'
-                                }
-                            ].map((member, i) => (
-                                <a
-                                    key={i}
-                                    href={member.linkedin}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="group cursor-pointer flex flex-col gap-4 relative h-full transition-transform duration-500 hover:-translate-y-1"
-                                >
-                                    <div className="w-full h-full bg-[#1a1a1a]/5 overflow-hidden rounded-[4px] relative border border-[#1a1a1a]/5 shadow-sm">
-                                        <Image
-                                            src={member.img}
-                                            alt={member.name}
-                                            fill
-                                            quality={95}
-                                            sizes="(max-width: 768px) 50vw, (max-width: 1200px) 40vw, 33vw"
-                                            className="object-cover object-top grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
-                                        />
-
-                                        {/* Overlay gradient for text readability and to hide low-res artifacts */}
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                                        <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-500"></div>
-
-                                        <div className="absolute bottom-6 left-6 text-white opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500">
-                                            <h3 className="font-medium text-3xl mb-1">{member.name}</h3>
-                                            <p className="text-xs uppercase tracking-[0.2em] font-medium opacity-80">{member.role}</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            ))}
-                        </div>
-                    </SectionReveal>
+                        <span>To something real.</span>
+                    </p>
                 </section>
 
-                {/* Global Reach Section */}
-                <GlobalReachSection />
-
-
-
-
-                {/* Deconstructed Expertise Section */}
-                <DeconstructedExpertise />
-
-
-
-                {/* Process Section */}
-                <SectionReveal>
-                    <section className="py-20 md:py-32 px-6 bg-[#FAFAFA] text-[#1a1a1a] relative border-b border-[#1a1a1a]/5">
-                        <AnimatedBorders className="hidden md:block pointer-events-none absolute inset-0 z-0" />
-                        <div className="max-w-6xl mx-auto relative z-10">
-                            {/* Horizontal Cards Timeline */}
-                            <ProcessTimeline />
-                        </div>
-                    </section>
-                </SectionReveal>
-
-
-
-                {/* FAQ */}
-                <section className="py-20 md:py-32 px-6 bg-[#FAFAFA] relative group">
-                    <AnimatedBorders className="hidden md:block pointer-events-none absolute inset-0 z-0" />
-                    <div className="max-w-3xl mx-auto relative z-10">
-                        <h2 className="section-heading text-[#1a1a1a] mb-12">Frequently Asked Questions</h2>
-                        <div className="space-y-4">
-                            {[
-                                { q: 'How much does a typical project cost?', a: 'Depends on scope. Landing pages from $2k, full Web Apps from $8k. We always work with fixed price or retainer. Total transparency before starting.' },
-                                { q: 'How long do they take?', a: 'Speed is key. Corporate sites in 3-4 weeks. MVP products in 6-8 weeks. We move fast because we eliminate bureaucracy.' },
-                                { q: 'What tech stack do you use?', a: 'We design in Figma. We develop sites in Webflow or Framer. For complex apps we use React/Next.js and Node.' }
-                            ].map((faq, i) => (
-                                <details key={i} className="group border border-[#1a1a1a]/10 rounded-2xl open:bg-[#FAFAFA] transition-all duration-300">
-                                    <summary className="flex justify-between items-center cursor-pointer font-medium text-[#1a1a1a]/80 p-6 select-none hover:text-[#1a1a1a] transition-colors">
-                                        <span className="text-base">{faq.q}</span>
-                                        <ChevronDown className="w-5 h-5 text-[#1a1a1a]/30 group-open:rotate-180 transition-transform duration-300" />
-                                    </summary>
-                                    <div className="px-6 pb-6 text-base text-[#1a1a1a]/60 leading-relaxed font-light">
-                                        {faq.a}
-                                    </div>
-                                </details>
-                            ))}
-                        </div>
+                <section aria-labelledby="location-heading" className="relative isolate grid items-center gap-6 border-y border-[#e3ded5] py-14 md:grid-cols-[1.1fr_1fr] md:gap-16 md:py-16">
+                    <WorkHeaderDots />
+                    <div className="relative z-10">
+                        <span className={eyebrow}>Based in Argentina / Working everywhere</span>
+                        <h2 id="location-heading" className={heading}>From Buenos Aires<br />to the world.</h2>
+                        <p className="mt-5 max-w-sm text-sm leading-relaxed text-[#625d55]">A shared working day with the Americas and Europe. Clear communication, in English or Spanish.</p>
+                        <span className="mt-6 inline-flex items-center gap-2 text-xs text-[#625d55]"><span className="h-1.5 w-1.5 rounded-full bg-[#a58b61]" />Buenos Aires · UTC−3</span>
+                    </div>
+                    <div className="relative z-10">
+                        <svg viewBox="0 0 460 230" className="h-auto w-full" role="img" aria-labelledby="connections-title">
+                            <title id="connections-title">Buenos Aires, connected to Toronto, New York and London</title>
+                            <g fill="none" stroke="#b8ad9d" strokeWidth="1">
+                                <path d="M65 163 C165 163 170 48 290 48" /><path d="M65 163 C165 163 180 113 290 113" /><path d="M65 163 C165 163 195 178 290 178" />
+                            </g>
+                            <circle cx="65" cy="163" r="10" fill="#a58b61" opacity="0.12" /><circle cx="65" cy="163" r="3" fill="#967b52" />
+                            <g fill="#967b52"><circle cx="290" cy="48" r="2.5" /><circle cx="290" cy="113" r="2.5" /><circle cx="290" cy="178" r="2.5" /></g>
+                            <g fill="#625d55" fontSize="12" fontFamily="inherit"><text x="306" y="52">Toronto</text><text x="306" y="117">New York</text><text x="306" y="182">London</text><text x="24" y="197">Buenos Aires</text></g>
+                        </svg>
                     </div>
                 </section>
 
-                {/* Moved below the designed sections (2026-08-10). This is the
-                    crawlable-prose block from the May Search Console fix; it was
-                    sitting between the manifesto and the team, so visitors hit a
-                    wall of copy before reaching the parts of the page that were
-                    actually designed. Relocated rather than deleted, because the
-                    word count is the whole reason it exists. */}
-                {/* Practical detail section — added to fix the indexability
-                    issue flagged by the Search Console advisor (2026-05-14).
-                    Most of /about's existing content lives inside animations,
-                    canvases, or hover-reveals, which Google's WRS may not
-                    extract reliably. This section ships plain prose with
-                    H2/H3 hierarchy, real internal links to /services,
-                    /products, /blog editorial pieces, and /work, so the page
-                    has 500+ words of crawlable, keyword-rich content that
-                    matches the intent queries we want LIVV to rank for:
-                    "creative engineering studio", "white-label web studio",
-                    "Webflow studio Buenos Aires", "design and development
-                    partner for agencies". Voice rules apply — no em dashes,
-                    no banned vocab, no rule-of-three rhetorical. */}
-                <SectionReveal>
-                    <section id="practice" className="py-20 md:py-32 px-6 bg-[#FAFAFA] border-b border-[#1a1a1a]/5 relative">
-                        <AnimatedBorders className="hidden md:block pointer-events-none absolute inset-0 z-0" />
-                        <div className="max-w-4xl mx-auto relative z-10">
-                            <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-[#1a1a1a]/40 mb-6 block">
-                                ✦  How we operate  ✦
-                            </span>
+                <section aria-labelledby="process-heading" className="py-14 md:py-20">
+                    <span className={eyebrow}>The process / 01—03</span><h2 id="process-heading" className={heading}>A clear path to launch.</h2>
+                    <ol className="mt-9 grid gap-8 md:grid-cols-3 md:gap-10">
+                        {steps.map((step, index) => (
+                            <li key={step.title} className="border-t border-[#d8d0c3] pt-5">
+                                <span className="text-xs tabular-nums text-[#787168]">0{index + 1}</span>
+                                <h3 className="mb-3 mt-6 text-xl font-normal tracking-[-0.03em]">{step.title}</h3>
+                                <p className="max-w-xs text-sm leading-relaxed text-[#625d55]">{step.description}</p>
+                                <span className="mt-5 block text-xs text-[#787168]">{step.detail}</span>
+                            </li>
+                        ))}
+                    </ol>
+                </section>
 
-                            <h2 className="section-heading text-[#1a1a1a] mb-12">
-                                Plain talk about <span className="text-gradient-gold">the work</span>.
-                            </h2>
-
-                            <div className="space-y-12 text-base md:text-lg text-[#1a1a1a]/75 leading-[1.8] font-light">
-                                <p>
-                                    LIVV Creative Studio designs and develops digital products for founders and agencies. The studio works in Webflow, Framer, Next.js, React Native, Flutter, and Shopify, both directly and as a <Link href="/blog/white-label-playbook" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">white-label partner</Link>. The team is senior-only. The founder is on every engagement. Most of our client roster is in the United States and the United Kingdom. The catalogue is bilingual: native Spanish, fluent English.
-                                </p>
-
-                                <div>
-                                    <h3 className="text-xl md:text-2xl font-medium text-[#1a1a1a] mb-4 tracking-tight">
-                                        What we build
-                                    </h3>
-                                    <p className="mb-4">
-                                        Marketing sites that read as editorial work, not as templated agency output. Product MVPs that ship to production with the same craft level a top brand agency delivers, on a fraction of the timeline. Design systems that hold together as the product team scales. Mobile applications cross-platform in React Native or Flutter. Custom AI integrations against the Anthropic and OpenAI APIs. White-label SaaS platforms deployed under partner brands.
-                                    </p>
-                                    <p>
-                                        The four canonical service areas: <Link href="/services/creative-engineering" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">Creative Engineering</Link>, <Link href="/services/product-strategy-ui" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">Product Strategy and UI Design</Link>, <Link href="/services/motion-narrative" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">Motion and Narrative</Link>, plus Brand Identity and Visual Systems. Each maps to a specific kind of engagement; the same senior team works across all four.
-                                    </p>
-                                </div>
-
-                                <div>
-                                    <h3 className="text-xl md:text-2xl font-medium text-[#1a1a1a] mb-4 tracking-tight">
-                                        How the engagement runs
-                                    </h3>
-                                    <p className="mb-4">
-                                        Fixed-fee or retainer. Cost transparency before kickoff. No hourly-with-mystery billing, no per-section pricing. Typical timelines: corporate marketing sites ship in three to four weeks, product MVPs in six to eight weeks, design systems in four to ten weeks. Two rounds of revisions per major deliverable. Anything outside the original scope is quoted as a scope adjustment, not absorbed silently.
-                                    </p>
-                                    <p>
-                                        Most of our work is invisible. We sign strict NDAs and ship under partner-agency brands in the US and UK. The agencies present the work in client calls. The studio's name does not appear in case studies, on the credit line, or in public marketing. Both sides prefer the arrangement. The full mechanics are documented in the studio's <Link href="/blog/white-label-playbook" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">White-Label Playbook</Link>.
-                                    </p>
-                                </div>
-
-                                <div>
-                                    <h3 className="text-xl md:text-2xl font-medium text-[#1a1a1a] mb-4 tracking-tight">
-                                        Stack and toolset
-                                    </h3>
-                                    <p className="mb-4">
-                                        Design in Figma. Marketing sites in Webflow when the client owns the CMS, Framer when motion is part of the argument. Product builds in Next.js with Supabase or Postgres. React Native or Flutter for mobile. Shopify for commerce. AI integration via the Anthropic API or OpenAI, with custom agents and vector search when the product needs to think. The tools are not the brand — the judgement about which tool to pick is closer to what the brand is. The trade-offs between Webflow and Framer in 2026 are documented in our <Link href="/blog/webflow-vs-framer-in-2026" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">practitioner's comparison essay</Link>.
-                                    </p>
-                                    <p>
-                                        For studios and founders building their own AEO surface, we publish a free, MIT-licensed <Link href="/resources/schema-aeo-library" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">Schema and AEO Snippet Library</Link> with nine copy-paste-ready JSON-LD templates (Organization, Person, Article, FAQPage, BreadcrumbList, CreativeWork, Service, SoftwareApplication, plus WebSite with SearchAction).
-                                    </p>
-                                </div>
-
-                                <div>
-                                    <h3 className="text-xl md:text-2xl font-medium text-[#1a1a1a] mb-4 tracking-tight">
-                                        Where the studio is based
-                                    </h3>
-                                    <p>
-                                        Buenos Aires, Argentina. Specifically Núñez, in the north of Buenos Aires City. The city has produced an unusual amount of the design and engineering work that quietly powers the global product layer over the last fifteen years — Mercado Libre, Globant, Auth0, Mural, Etermax, and the senior teams at Linear, Stripe, Notion, and Vercel are some of the visible edge. The conditions that produced this tradition do not replicate easily anywhere else. We are part of it. The essay on the studio's read of that tradition lives at <Link href="/blog/argentine-creative-engineering-tradition" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">The Argentine Creative Engineering Tradition</Link>.
-                                    </p>
-                                </div>
-
-                                <div>
-                                    <h3 className="text-xl md:text-2xl font-medium text-[#1a1a1a] mb-4 tracking-tight">
-                                        Who hires us
-                                    </h3>
-                                    <p className="mb-4">
-                                        Founders past their first fundraise who need a marketing site or a product MVP at a craft level that matches the rest of their pitch. Design leads at scale-ups who need a partner who will not embarrass them in front of their CEO. Creative directors at agencies who need someone they can trust to ship under their name without their name showing up anywhere. The decision framework for any of those audiences is laid out in <Link href="/blog/hiring-creative-engineering-studio" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">our Buyer's Guide</Link>.
-                                    </p>
-                                    <p>
-                                        Selected work lives on the <Link href="/work" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">portfolio page</Link>. White-label work, by definition, does not appear there. If you have a project shape that sounds like it could fit, write to us at <a href="mailto:hola@livv.systems" className="text-[#1a1a1a] underline decoration-[#E8BC59]/40 underline-offset-4 hover:decoration-[#E8BC59]">hola@livv.systems</a> or book a fifteen-minute call.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </SectionReveal>
-
-                {/* Footer CTA */}
-                <footer id="contact" className="relative py-20 md:py-32 px-6 overflow-hidden">
-                    <div className="absolute inset-0 bg-[#1a1a1a] -z-20"></div>
-                    <div className="max-w-5xl mx-auto text-center relative z-10">
-                        <h2 className="text-3xl md:text-5xl lg:text-6xl font-light tracking-[-0.08em] text-white mb-8">
-                            Tell Us What<br />You're <span className="text-gradient-gold pb-2">Building.</span>
-                        </h2>
-                        <p className="text-white/50 text-xl mb-16 max-w-xl mx-auto font-light leading-relaxed">
-                            Let's see if we're the right fit. No commitment.
-                        </p>
-                        <div className="flex flex-col sm:flex-row gap-5 justify-center items-center mb-24">
-                            <a
-                                href="mailto:hola@livv.systems"
-                                onClick={() => trackContactClick("email", "about_page")}
-                                className="group h-14 px-10 rounded-full bg-white text-[#1a1a1a] font-medium flex items-center justify-center hover:bg-white/90 transition-all w-full sm:w-auto hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] duration-300"
-                            >
-                                Send an email
-                                <ArrowRight className="w-5 h-5 ml-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
-                            </a>
-                            <a href="https://cal.com/eneas-aldabe-youfep/15min" target="_blank" rel="noopener noreferrer" className="h-14 px-10 rounded-full border border-white/20 text-white font-medium flex items-center justify-center hover:bg-white/5 hover:border-white/40 transition-all w-full sm:w-auto">
-                                Schedule 15 min
-                            </a>
-                        </div>
-
-                        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-white/30 font-light">
-                            <div className="font-medium text-white/40">livvvv © 2025</div>
-                            <div className="flex gap-8">
-                                <a href="https://www.linkedin.com/company/39648193/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
-                                <a href="https://github.com/livvstudio" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GitHub</a>
-                            </div>
+                <section aria-labelledby="faq-heading" className="grid gap-8 border-t border-[#e3ded5] py-14 md:grid-cols-[1.1fr_1fr] md:gap-16 md:py-20">
+                    <div>
+                        <span className={eyebrow}>A few practical things</span><h2 id="faq-heading" className={heading}>Before we start.</h2>
+                        <Link href="/blog/white-label-playbook" className="mt-6 inline-block text-xs text-[#625d55] underline decoration-[#c6bdaf] underline-offset-4 hover:text-[#1a1a1a]">Read our white-label playbook ↗</Link>
+                    </div>
+                    <div>
+                        {ABOUT_FAQS.map(faq => (
+                            <details key={faq.q} className="group border-b border-[#e3ded5] first:border-t">
+                                <summary className="flex cursor-pointer list-none items-center justify-between gap-5 py-5 text-sm focus-visible:outline-2 focus-visible:outline-offset-4 [&::-webkit-details-marker]:hidden">
+                                    {faq.q}<Plus size={15} aria-hidden="true" className="shrink-0 text-[#787168] transition-transform group-open:rotate-45 motion-reduce:transition-none" />
+                                </summary>
+                                <p className="max-w-md pb-5 pr-6 text-sm leading-relaxed text-[#625d55]">{faq.a}</p>
+                            </details>
+                        ))}
+                    </div>
+                </section>
+                <section id="start-a-project" aria-labelledby="about-cta-heading" className="relative isolate flex min-h-[600px] items-center justify-center overflow-hidden border-t border-[#e3ded5] px-4 py-24 md:min-h-[660px]" data-about-closing-cta>
+                    <div className="pointer-events-none absolute inset-0 -z-20 bg-[radial-gradient(ellipse_at_center,rgba(100,37,49,0.035),transparent_65%)]" />
+                    <div className="pointer-events-none absolute inset-0 -z-10" style={{ maskImage: "radial-gradient(ellipse 30% 28% at 50% 50%, transparent 20%, rgba(0,0,0,.2) 60%, #000 100%)" }}><PixelCanvas /></div>
+                    <div className="w-full max-w-2xl text-center">
+                        <span className="mb-7 block text-[10px] font-medium uppercase tracking-[0.26em] text-[#82716b]">LIVV / Your next project</span>
+                        <h2 id="about-cta-heading" className="text-[48px] font-light leading-[1.02] tracking-[-0.055em] sm:text-[60px] md:text-[72px]">Design That<br /><span className="text-[#5c1d18]">Scales.</span></h2>
+                        <p className="mx-auto mt-6 max-w-[340px] text-sm leading-6 text-[#625d55]">Bring us your next idea. We’ll help you design, build and launch it.</p>
+                        <div className="mt-9 flex flex-col items-center justify-center gap-6 sm:flex-row sm:gap-7">
+                            <Link href="/contact" className="group inline-flex min-h-14 items-center justify-center gap-5 rounded-full bg-[#2c1818] py-2 pl-7 pr-2 text-sm font-medium text-white transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-[#542831] hover:shadow-[0_8px_24px_rgba(66,28,34,0.12)] focus-visible:outline-2 focus-visible:outline-offset-4 motion-reduce:transform-none motion-reduce:transition-none">
+                                Let’s start together <span className="grid h-10 w-10 place-items-center rounded-full bg-white/10"><ArrowUpRight size={17} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transform-none" /></span>
+                            </Link>
+                            <Link href="/work" className="group inline-flex min-h-11 items-center gap-2 text-xs text-[#625d55] transition-colors hover:text-[#5c1d18] focus-visible:outline-2 focus-visible:outline-offset-4"><span className="border-b border-[#c6bdaf] pb-1">Explore our work</span><ArrowUpRight size={14} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transform-none" /></Link>
                         </div>
                     </div>
-                </footer>
-
-            </div>
+                </section>
+            </main>
+            <div className="border-t border-[#e3ded5] bg-[#FDFCF8]"><FooterSection id="contact" /></div>
         </div>
     )
 }

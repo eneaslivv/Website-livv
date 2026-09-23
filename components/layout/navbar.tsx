@@ -147,6 +147,9 @@ export function Navbar({ isLoaded = true }: NavbarProps) {
 
                     {/* Mobile Menu Button */}
                     <button
+                        aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+                        aria-expanded={isMobileMenuOpen}
+                        aria-controls="mobile-navigation"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                         className={`md:hidden p-2 rounded-full transition-all duration-300 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"} ${isLightPage ? "text-black hover:bg-black/10" : "text-white hover:bg-white/10"}`}
                     >
@@ -188,7 +191,7 @@ export function Navbar({ isLoaded = true }: NavbarProps) {
             </nav>
 
             {/* Mobile Menu Dropdown */}
-            <div className={`fixed inset-x-0 top-0 z-[99] md:hidden transition-all duration-500 ease-out ${isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
+            <div id="mobile-navigation" inert={!isMobileMenuOpen} className={`fixed inset-x-0 top-0 z-[99] md:hidden transition-all duration-500 ease-out ${isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
                 {/* Backdrop */}
                 <div
                     className={`absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-500 ${isMobileMenuOpen ? "opacity-100" : "opacity-0"}`}
@@ -198,7 +201,7 @@ export function Navbar({ isLoaded = true }: NavbarProps) {
 
                 {/* Menu Panel */}
                 <div className={`relative mx-4 mt-20 rounded-2xl overflow-hidden shadow-2xl transition-all duration-500 transform ${isMobileMenuOpen ? "translate-y-0 opacity-100" : "-translate-y-8 opacity-0"} ${isLightPage ? "bg-white border border-black/10" : "bg-[#1a1a1a] border border-white/10"}`}>
-                    <div className="p-6 space-y-2">
+                    <div className="max-h-[calc(100dvh-6rem)] overflow-y-auto overscroll-contain p-6 space-y-2">
                         {navItems.map((item, index) => (
                             <div key={item.id}>
                                 <Link
