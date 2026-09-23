@@ -68,8 +68,8 @@ function Figure({ item }: { item: Extract<EditorialItem, { kind: "figure" }> }) 
                 <Image
                     src={item.url}
                     alt={item.alt || ""}
-                    width={2000}
-                    height={1200}
+                    width={item.w ?? 2000}
+                    height={item.h ?? 1250}
                     sizes="(max-width: 1024px) 100vw, 1018px"
                     className="w-full h-auto"
                 />
@@ -97,8 +97,8 @@ function Grid({ item }: { item: Extract<EditorialItem, { kind: "grid" }> }) {
                             <Image
                                 src={img.url}
                                 alt={img.alt || ""}
-                                width={img.portrait ? 900 : 1400}
-                                height={img.portrait ? 1350 : 900}
+                                width={img.w ?? (img.portrait ? 900 : 1400)}
+                                height={img.h ?? (img.portrait ? 1350 : 900)}
                                 sizes={`(max-width: 768px) 100vw, ${Math.round(100 / cols)}vw`}
                                 className="w-full h-auto"
                             />
@@ -259,7 +259,9 @@ function TypeScale({ item }: { item: Extract<EditorialItem, { kind: "typescale" 
                     </p>
                     <p
                         className="text-[#14110F] leading-[1.15] tracking-[-0.02em] min-w-0 break-words"
-                        style={{ fontSize: `clamp(18px, ${r.size}, ${r.size})` }}
+                        // El tamaño declarado es el techo: en una pantalla
+                        // angosta 64px se sale de la columna.
+                        style={{ fontSize: `min(${r.size}, 9vw)` }}
                     >
                         {r.text}
                     </p>

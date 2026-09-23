@@ -26,6 +26,9 @@ export type EditorialItem =
     | {
           kind: 'figure'
           url: string
+          /** Medidas reales del archivo: sin ellas la página salta al cargar. */
+          w?: number
+          h?: number
           alt?: string
           caption?: string
           label?: string
@@ -36,7 +39,14 @@ export type EditorialItem =
           kind: 'grid'
           cols?: 2 | 3 | 4
           label?: string
-          items: { url: string; alt?: string; caption?: string; portrait?: boolean }[]
+          items: {
+              url: string
+              w?: number
+              h?: number
+              alt?: string
+              caption?: string
+              portrait?: boolean
+          }[]
       }
     /** Bajada con etiqueta chica arriba: «Manual de identidad», «Onboarding». */
     | { kind: 'note'; label?: string; text: string }

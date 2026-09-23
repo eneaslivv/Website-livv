@@ -149,8 +149,16 @@ export function EditorialCaseStudy({ doc }: { doc: EditorialDoc }) {
                     <div className="min-w-0 pb-10">
                         {doc.sections.map((section, i) => {
                             const isIntro = i === 0
-                            const slots = section.items.filter((it) => it.kind === "slot")
-                            const rest = section.items.filter((it) => it.kind !== "slot")
+                            // Los slots seguidos se agrupan en una fila (los tres
+                            // de Motion van juntos), pero sin sacarlos de su
+                            // lugar: el del walkthrough abre la sección desktop.
+                            const runs: { slots: boolean; items: typeof section.items }[] = []
+                            for (const it of section.items) {
+                                const isSlot = it.kind === "slot"
+                                const last = runs[runs.length - 1]
+                                if (last && last.slots === isSlot) last.items.push(it)
+                                else runs.push({ slots: isSlot, items: [it] })
+                            }
 
                             return (
                                 <section
@@ -233,10 +241,15 @@ export function EditorialCaseStudy({ doc }: { doc: EditorialDoc }) {
                                         </header>
                                     )}
 
-                                    {rest.map((item, j) => (
-                                        <EditorialItemView key={j} item={item} />
-                                    ))}
-                                    {slots.length > 0 && <SlotRow items={slots} />}
+                                    {runs.map((run, r) =>
+                                        run.slots ? (
+                                            <SlotRow key={r} items={run.items} />
+                                        ) : (
+                                            run.items.map((item, j) => (
+                                                <EditorialItemView key={`${r}-${j}`} item={item} />
+                                            ))
+                                        ),
+                                    )}
                                 </section>
                             )
                         })}
