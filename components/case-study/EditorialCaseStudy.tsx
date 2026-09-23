@@ -22,8 +22,8 @@ function Contents({
     onJump: (id: string) => void
 }) {
     return (
-        <nav aria-label="Contenido del case study" className="text-[13px]">
-            <p className="text-[11px] text-[#8A8681] mb-4">Contenido</p>
+        <nav aria-label="Case study contents" className="text-[13px]">
+            <p className="text-[11px] text-[#8A8681] mb-4">Contents</p>
             <ul className="space-y-0.5">
                 {doc.sections.map((s, i) => {
                     const active = s.id === activeId
@@ -57,7 +57,7 @@ function Contents({
                 })}
             </ul>
             <p className="mt-5 text-[11px] text-[#B4AFA8]">
-                {doc.sections.length} secciones
+                {doc.sections.length} sections
             </p>
         </nav>
     )
@@ -84,6 +84,7 @@ function DottedBackdrop() {
 export function EditorialCaseStudy({ doc }: { doc: EditorialDoc }) {
     const scope = useRef<HTMLDivElement>(null)
     const [activeId, setActiveId] = useState(doc.sections[0]?.id ?? "")
+    const [openToc, setOpenToc] = useState(false)
     useEditorialReveal(scope)
 
     useEffect(() => {
@@ -119,6 +120,7 @@ export function EditorialCaseStudy({ doc }: { doc: EditorialDoc }) {
     }, [])
 
     const total = doc.sections.length
+    const activeIndex = Math.max(0, doc.sections.findIndex((s) => s.id === activeId))
 
     return (
         <div
@@ -147,6 +149,42 @@ export function EditorialCaseStudy({ doc }: { doc: EditorialDoc }) {
 
                     {/* Columna de contenido */}
                     <div className="min-w-0 pb-10">
+                        {/* En mobile no hay lugar para la columna del índice,
+                            pero perder la navegación de nueve secciones sería
+                            perder la mitad de la plantilla: se pliega en una
+                            barra pegada arriba que se despliega al tocarla. */}
+                        <div className="lg:hidden sticky top-[84px] z-30 mb-8">
+                            <button
+                                type="button"
+                                onClick={() => setOpenToc((v) => !v)}
+                                aria-expanded={openToc}
+                                className="flex w-full items-center justify-between gap-3 rounded-full border border-[#E4E0D8] bg-[#FFFFFA]/90 px-4 py-2.5 backdrop-blur-md"
+                            >
+                                <span className="flex min-w-0 items-baseline gap-2">
+                                    <span className="shrink-0 text-[11px] tabular-nums text-[#B4AFA8]">
+                                        {pad(activeIndex + 1)} / {pad(total)}
+                                    </span>
+                                    <span className="truncate text-[13px] text-[#14110F]">
+                                        {doc.sections[activeIndex]?.title}
+                                    </span>
+                                </span>
+                                <span className="shrink-0 text-[11px] uppercase tracking-[0.12em] text-[#8A8681]">
+                                    {openToc ? "Close" : "Index"}
+                                </span>
+                            </button>
+                            {openToc && (
+                                <div className="mt-2 rounded-2xl border border-[#E4E0D8] bg-[#FFFFFA] p-4 shadow-[0_18px_40px_rgba(20,17,15,0.10)]">
+                                    <Contents
+                                        doc={doc}
+                                        activeId={activeId}
+                                        onJump={(id) => {
+                                            setOpenToc(false)
+                                            jump(id)
+                                        }}
+                                    />
+                                </div>
+                            )}
+                        </div>
                         {doc.sections.map((section, i) => {
                             const isIntro = i === 0
                             // Los slots seguidos se agrupan en una fila (los tres
