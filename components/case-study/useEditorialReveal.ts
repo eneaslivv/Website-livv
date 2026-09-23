@@ -38,13 +38,22 @@ export function useEditorialReveal(scope: React.RefObject<HTMLElement | null>) {
 
             // Sin motion reducido ni IntersectionObserver, todo se ve y listo.
             if (prefersReducedMotion() || typeof IntersectionObserver === "undefined") {
-                gsap.set([...labels, ...gsap.utils.toArray("[data-reveal-card]", root)], {
-                    clearProps: "all",
-                })
+                gsap.set(
+                    [
+                        ...labels,
+                        ...gsap.utils.toArray<HTMLElement>("[data-reveal-wipe]", root),
+                        ...gsap.utils.toArray<HTMLElement>("[data-reveal-card]", root),
+                    ],
+                    { clearProps: "all" },
+                )
                 return
             }
 
-            gsap.set(labels, { clipPath: "inset(0 100% 0 0)", opacity: 0 })
+            // El recorte va en el span interno, nunca en el elemento que se
+            // observa: un <p> recortado a cero no interseca y no se revela.
+            const wipeOf = (l: HTMLElement) =>
+                (l.querySelector("[data-reveal-wipe]") as HTMLElement | null) ?? l
+            gsap.set(labels.map(wipeOf), { clipPath: "inset(0 100% 0 0)", opacity: 0 })
             groups.forEach((g) =>
                 gsap.set(gsap.utils.toArray("[data-reveal-card]", g), {
                     y: 44,
@@ -58,10 +67,10 @@ export function useEditorialReveal(scope: React.RefObject<HTMLElement | null>) {
                     for (const e of entries) {
                         if (!e.isIntersecting) continue
                         const el = e.target as HTMLElement
-                        io.unobserve(el)
+                        seen(el)
 
                         if (el.hasAttribute("data-reveal-label")) {
-                            gsap.to(el, {
+                            gsap.to(wipeOf(el), {
                                 clipPath: "inset(0 0% 0 0)",
                                 opacity: 1,
                                 duration: 0.9,
@@ -82,8 +91,30 @@ export function useEditorialReveal(scope: React.RefObject<HTMLElement | null>) {
                 },
                 { rootMargin: "0px 0px -10% 0px", threshold: 0.02 },
             )
+            const pending = new Set<HTMLElement>([...labels, ...groups])
+            const seen = (el: HTMLElement) => {
+                io.unobserve(el)
+                pending.delete(el)
+            }
             labels.forEach((l) => io.observe(l))
             groups.forEach((g) => io.observe(g))
+
+            // Red de seguridad. Una animación que no corre es un detalle; un
+            // bloque que queda en opacidad 0 es contenido que el cliente no ve.
+            // Si algo ya pasó por pantalla y sigue escondido, se muestra igual.
+            const watchdog = window.setInterval(() => {
+                if (!pending.size) return window.clearInterval(watchdog)
+                for (const el of [...pending]) {
+                    if (el.getBoundingClientRect().top > window.innerHeight) continue
+                    seen(el)
+                    gsap.set(
+                        el.hasAttribute("data-reveal-label")
+                            ? wipeOf(el)
+                            : gsap.utils.toArray("[data-reveal-card]", el),
+                        { clipPath: "none", opacity: 1, y: 0, scale: 1 },
+                    )
+                }
+            }, 2500)
 
             // Parallax sólo donde hay lugar: en mobile marea más de lo que suma.
             ScrollTrigger.matchMedia({
@@ -107,7 +138,10 @@ export function useEditorialReveal(scope: React.RefObject<HTMLElement | null>) {
                 },
             })
 
-            return () => io.disconnect()
+            return () => {
+                window.clearInterval(watchdog)
+                io.disconnect()
+            }
         },
         { scope },
     )

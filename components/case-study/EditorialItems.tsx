@@ -7,14 +7,23 @@ import type { EditorialField, EditorialItem } from "@/types/case-study-editorial
 
 /* ----------------------------- piezas chicas ---------------------------- */
 
-/** Etiqueta chica en versalitas: «MANUAL DE IDENTIDAD», «ONBOARDING». */
+/**
+ * Etiqueta chica en versalitas: «MANUAL DE IDENTIDAD», «ONBOARDING».
+ *
+ * El texto va envuelto en un span propio porque la entrada lo descubre con
+ * `clip-path`, y Chromium tiene en cuenta ese recorte al calcular si el
+ * elemento entra en pantalla: si el recorte estuviera en el <p> observado,
+ * su área sería cero, nunca intersecaría y nunca se revelaría.
+ */
 export function Label({ children }: { children: React.ReactNode }) {
     return (
         <p
             data-reveal-label
             className="text-[11px] uppercase tracking-[0.14em] text-[#8A8681] mb-3"
         >
-            {children}
+            <span data-reveal-wipe className="inline-block">
+                {children}
+            </span>
         </p>
     )
 }
