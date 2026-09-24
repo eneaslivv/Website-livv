@@ -4,11 +4,17 @@ import { useState } from "react"
 import dynamic from "next/dynamic"
 import { useReducedMotion } from "framer-motion"
 import type { EditorialDoc } from "@/types/case-study-editorial"
+import { DEFAULT_HERO_PALETTE } from "@/types/case-study-editorial"
 import { editorialSerif } from "./fonts"
-import styles from "./PRToolHero.module.css"
+import styles from "./EditorialHero.module.css"
 
 const PRToolShader = dynamic(() => import("./PRToolShader"), { ssr: false })
 
+// El fondo de puntos es una textura decorativa del sistema, la misma en el
+// Figma de todos los proyectos (el nombre de la capa —"puntos burdeos"— no
+// se recolorea por marca; se verificó igual en Sacoa y en PR Tool). Lo que sí
+// cambia por proyecto es el color del shader que va encima, y ese fondo
+// desaparece apenas el shader carga: importa poco que sea genérico.
 const dotLayers = [
     { file: "dots-bottom.svg", y: 564.42, width: 1015.86, height: 31.86 },
     { file: "dots-lower.svg", y: 534.42, width: 1015.86, height: 28.86 },
@@ -17,7 +23,19 @@ const dotLayers = [
     { file: "dots-main.svg", y: 0.42, width: 1018.86, height: 481.86 },
 ]
 
-export function PRToolHero({ doc }: { doc: EditorialDoc }) {
+/**
+ * El hero animado de cada case study: nació para PR Tool —de ahí el nombre
+ * de los archivos de assets, `/images/case-studies/pr-tool/dots-*.svg`— y
+ * ahora lo usan los doce. `palette` sólo cambia el color del shader; sin ella
+ * usa la paleta original de PR Tool (así esa página queda pixel-igual).
+ */
+export function EditorialHero({
+    doc,
+    palette = DEFAULT_HERO_PALETTE,
+}: {
+    doc: EditorialDoc
+    palette?: readonly [string, string, string, string]
+}) {
     const reducedMotion = useReducedMotion()
     const [shaderReady, setShaderReady] = useState(false)
     const [shaderUnavailable, setShaderUnavailable] = useState(false)
@@ -41,6 +59,7 @@ export function PRToolHero({ doc }: { doc: EditorialDoc }) {
             {showShader && (
                 <div aria-hidden="true" className={styles.shader} data-shader-ready={shaderReady}>
                     <PRToolShader
+                        palette={palette}
                         onReady={() => setShaderReady(true)}
                         onUnavailable={() => setShaderUnavailable(true)}
                     />

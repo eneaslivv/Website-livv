@@ -14,16 +14,46 @@ import {
     isVideoCoverUrl,
 } from "@/lib/default-project-blocks"
 
+/**
+ * Baraja estable, sembrada por texto (sin dependencias): misma semilla,
+ * mismo orden siempre — así cada proyecto tiene su propio "Our Projects" y
+ * no cambia en cada render, pero dos proyectos distintos no repiten la
+ * misma terna. Antes de esto, el empate en `display_order` entre varias
+ * filas del portfolio viejo hacía que TODAS las páginas mostraran siempre
+ * los mismos tres proyectos (el corte `.slice(0, 5)` sin barajar tomaba
+ * siempre el mismo principio de la lista).
+ */
+function seededShuffle<T>(items: T[], seed: string): T[] {
+    let h = 1779033703 ^ seed.length
+    for (let i = 0; i < seed.length; i++) {
+        h = Math.imul(h ^ seed.charCodeAt(i), 3432918353)
+        h = (h << 13) | (h >>> 19)
+    }
+    const next = () => {
+        h = Math.imul(h ^ (h >>> 16), 2246822507)
+        h = Math.imul(h ^ (h >>> 13), 3266489909)
+        h ^= h >>> 16
+        return (h >>> 0) / 4294967296
+    }
+    const out = items.slice()
+    for (let i = out.length - 1; i > 0; i--) {
+        const j = Math.floor(next() * (i + 1))
+        ;[out[i], out[j]] = [out[j], out[i]]
+    }
+    return out
+}
+
 export function RecommendedProjects() {
     const params = useParams()
     const currentSlug = (params.slug as string)?.toLowerCase()
 
     const { data: portfolioItems, loading } = usePortfolioItems()
 
-    // Filter out current project and take up to 5
-    const projects = (portfolioItems || [])
-        .filter((item: any) => item.slug?.toLowerCase() !== currentSlug)
-        .slice(0, 5)
+    // Fuera el proyecto actual, barajado por su propio slug, tope 5.
+    const projects = seededShuffle(
+        (portfolioItems || []).filter((item: any) => item.slug && item.slug.toLowerCase() !== currentSlug),
+        currentSlug || "x",
+    ).slice(0, 5)
 
     if (loading || projects.length === 0) return null
 
