@@ -178,9 +178,12 @@ function Palette({ item }: { item: Extract<EditorialItem, { kind: "palette" }> }
     return (
         <div className="mb-14 md:mb-20" data-reveal-group>
             {item.label && <Label>{item.label}</Label>}
+            {/* Tantas columnas como colores (tope 6): con una paleta de tres,
+                la mitad de la caja quedaba vacía. */}
             <div
                 data-reveal-card
-                className="grid grid-cols-3 md:grid-cols-6 overflow-hidden rounded-2xl border border-[#EAE7E1]"
+                className="grid grid-cols-3 md:[grid-template-columns:repeat(var(--n),minmax(0,1fr))] overflow-hidden rounded-2xl border border-[#EAE7E1]"
+                style={{ "--n": Math.min(item.colors.length, 6) } as React.CSSProperties}
             >
                 {item.colors.map((c) => {
                     // Un hex claro necesita texto oscuro encima: se decide por

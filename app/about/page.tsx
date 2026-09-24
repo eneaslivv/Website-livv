@@ -7,16 +7,12 @@ import { WorkHeaderDots } from "@/components/sections/work-header-dots"
 import { ABOUT_FAQS } from "./content"
 import { PixelCanvas } from "@/components/ui/pixel-canvas"
 import RotatingEarth from "@/components/ui/wireframe-dotted-globe"
+import { AboutProcess } from "@/components/sections/about-process"
 
 const services = [
     { name: "Product strategy & design", href: "/services/product-strategy-ui" },
     { name: "Websites & development", href: "/services/creative-engineering" },
     { name: "Motion & storytelling", href: "/services/motion-narrative" },
-]
-const steps = [
-    { title: "Define", description: "We agree on the problem, scope and priorities before getting started.", detail: "A clear direction" },
-    { title: "Design", description: "We shape the experience in Figma, share prototypes and refine them together.", detail: "Something you can try" },
-    { title: "Build & launch", description: "We develop, test and ship, then hand over the tools to keep things moving.", detail: "Ready for the real world" },
 ]
 const eyebrow = "mb-5 block text-[10px] uppercase tracking-[0.24em] text-[#787168]"
 const heading = "text-3xl font-light leading-tight tracking-[-0.04em] md:text-4xl"
@@ -117,18 +113,9 @@ export default function AboutPage() {
                     </div>
                 </section>
 
-                <section aria-labelledby="process-heading" className="py-14 md:py-20">
+                <section id="process" aria-labelledby="process-heading" className="py-14 md:py-20">
                     <span className={eyebrow}>The process / 01—03</span><h2 id="process-heading" className={heading}>A clear path to launch.</h2>
-                    <ol className="mt-9 grid gap-8 md:grid-cols-3 md:gap-10">
-                        {steps.map((step, index) => (
-                            <li key={step.title} className="border-t border-[#d8d0c3] pt-5">
-                                <span className="text-xs tabular-nums text-[#787168]">0{index + 1}</span>
-                                <h3 className="mb-3 mt-6 text-xl font-normal tracking-[-0.03em]">{step.title}</h3>
-                                <p className="max-w-xs text-sm leading-relaxed text-[#625d55]">{step.description}</p>
-                                <span className="mt-5 block text-xs text-[#787168]">{step.detail}</span>
-                            </li>
-                        ))}
-                    </ol>
+                    <AboutProcess />
                 </section>
 
                 <section aria-labelledby="faq-heading" className="grid gap-8 border-t border-[#e3ded5] py-14 md:grid-cols-[1.1fr_1fr] md:gap-16 md:py-20">

@@ -1,20 +1,28 @@
 .archive { max-width: 1200px; margin: 0 auto; padding: 0 48px 88px; color: #242321; }
-.toolbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 0; border-top: 1px solid #dedbd4; border-bottom: 1px solid #dedbd4; }
-.scope { display: flex; gap: 4px; flex-shrink: 0; }
-.scope button { display: flex; align-items: center; gap: 8px; padding: 9px 13px; border-radius: 6px; font-size: 13px; color: #706c64; transition: background-color 160ms, color 160ms; }
-.scope button[aria-pressed="true"] { background: #eae7df; color: #292623; }
-.scope button:hover { background: #eeece6; }
-.scope span { font-size: 10px; opacity: .65; font-variant-numeric: tabular-nums; }
+.toolbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 12px; background: #450f19; border: 1px solid #450f19; border-radius: 0; }
+.scope { display: flex; gap: 8px; flex-shrink: 0; }
+.scope button { display: flex; align-items: center; gap: 9px; min-height: 44px; padding: 9px 16px; border: 1px solid #c0c99845; border-radius: 999px; font-size: 13px; color: #d3d9b5; transition: background-color 180ms, color 180ms, border-color 180ms; }
+.scope button:hover { background: #c0c9981a; border-color: #c0c99880; }
+.scope button[aria-pressed="true"] { background: #bac593; border-color: #bac593; color: #450f19; }
+.scope button[aria-pressed="true"]:hover { background: #cbd4ab; border-color: #cbd4ab; }
+.scope span { display: grid; place-items: center; min-width: 21px; height: 21px; padding-inline: 4px; border-radius: 999px; background: #909d681a; font-size: 10px; font-variant-numeric: tabular-nums; }
+.scope button[aria-pressed="true"] span { background: #450f1914; }
 .filters { display: flex; align-items: center; gap: 12px; }
-.filters select { max-width: 180px; padding: 10px 26px 10px 8px; font-size: 12px; color: #625d56; background: transparent; border: 0; }
-.search { display: flex; align-items: center; gap: 8px; width: 208px; padding: 9px 11px; border: 1px solid #dedbd4; border-radius: 6px; color: #817c73; }
-.search input { min-width: 0; width: 100%; border: 0; outline: none; background: transparent; font-size: 12px; color: #292623; }
+.filters select { max-width: 190px; min-height: 44px; padding: 10px 32px 10px 16px; border-radius: 999px; font-size: 12px; color: #d3d9b5; background-color: transparent; border: 1px solid #c0c99845; cursor: pointer; transition: background-color 180ms, border-color 180ms; }
+.filters select:hover { background-color: #c0c9981a; border-color: #c0c99880; }
+.filters select option { background: #fdfcf8; color: #450f19; }
+.search { display: flex; align-items: center; gap: 8px; width: 208px; min-height: 44px; padding: 9px 15px; border: 1px solid #c0c99866; border-radius: 999px; color: #cdd4af; background: #c0c9980d; transition: border-color 180ms, background-color 180ms; }
+.search input { min-width: 0; width: 100%; border: 0; outline: none; background: transparent; font-size: 12px; color: #f1f2e7; }
 .search input::-webkit-search-cancel-button { display: none; }
-.search button { display: flex; }
-.search:focus-within { outline: 2px solid #918476; outline-offset: 3px; }
-.archive button:focus-visible, .archive select:focus-visible, .card:focus-visible { outline: 2px solid #918476; outline-offset: 5px; border-radius: 6px; }
+.search input::placeholder { color: #c9cbb4; }
+.search button { display: grid; place-items: center; flex-shrink: 0; width: 26px; height: 26px; margin: -3px -5px -3px 0; border-radius: 999px; }
+.search button:hover { background: #e3e7d1; color: #450f19; }
+.search:focus-within { outline: 2px solid #8f9d67; outline-offset: 3px; border-color: #8f9d67; }
+.archive button:focus-visible, .archive select:focus-visible, .card:focus-visible { outline: 2px solid #8f9d67; outline-offset: 5px; }
+.toolbar button:focus-visible, .toolbar select:focus-visible, .toolbar .search:focus-within { outline-color: #d8e1b8; outline-offset: 3px; }
 .results { min-height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 16px; font-size: 11px; color: #79736a; }
-.results button { display: flex; align-items: center; gap: 6px; color: #51483e; }
+.results button { display: flex; align-items: center; gap: 6px; min-height: 36px; padding: 6px 12px; border-radius: 999px; color: #571e27; }
+.results button:hover { background: #e7e9d9; }
 .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 42px 26px; list-style: none; padding: 0; margin: 0; }
 .card { display: block; height: 100%; }
 .cover { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border: 1px solid #e6e2db; background: #f1efe9; border-radius: 10px; }
@@ -32,22 +40,22 @@
 .empty { text-align: center; padding: 64px 20px 88px; }
 .empty h2 { font-size: 24px; font-weight: 400; letter-spacing: -.03em; }
 .empty p { margin-top: 12px; font-size: 14px; color: #777067; }
-.empty button { margin-top: 24px; padding: 10px 16px; border: 1px solid #d8d1c5; border-radius: 6px; font-size: 13px; }
+.empty button { margin-top: 24px; min-height: 44px; padding: 10px 18px; border: 1px solid #450f19; border-radius: 999px; background: #450f19; color: #c0c998; font-size: 13px; }
 .skeleton { aspect-ratio: 16 / 13; border-radius: 10px; background: #eeece6; }
 @media (max-width: 1023px) {
-    .toolbar { align-items: flex-start; flex-direction: column; gap: 16px; }
+    .toolbar { align-items: flex-start; flex-direction: column; gap: 12px; }
     .filters { width: 100%; justify-content: space-between; }
 }
 @media (max-width: 639px) {
     .archive { padding: 0 24px 56px; }
     .grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
     .filters { gap: 8px; }
-    .filters select { max-width: 45%; padding-left: 0; }
+    .filters select { max-width: 45%; padding-left: 12px; padding-right: 16px; }
     .search { width: 55%; }
     .search input { font-size: 16px; }
     .cover { aspect-ratio: 16 / 10; }
 }
 @media (prefers-reduced-motion: reduce) {
-    .image, .cardTitle svg, .scope button { transition: none; }
+    .image, .cardTitle svg, .scope button, .filters select, .search { transition: none; }
     .card:hover .image, .card:hover .cardTitle svg { transform: none; }
 }
