@@ -43,9 +43,10 @@ export function ZoomableImage({ src, alt, width, height, sizes, className }: Pro
         }
     }, [open, close])
 
-    // Las pantallas anchas se abren al doble del ancho de un celular para que
-    // el texto se lea; se recorren con scroll horizontal.
-    const wide = width / height > 1.25
+    // En el celular, todo lo que no es un vertical (pantallas, tarjetas,
+    // filas de componentes) se abre al doble del ancho de la pantalla para que
+    // el texto se lea; se recorre con scroll y se puede pellizcar.
+    const wide = width / height > 0.9
 
     return (
         <>
@@ -71,14 +72,17 @@ export function ZoomableImage({ src, alt, width, height, sizes, className }: Pro
                         role="dialog"
                         aria-modal="true"
                         aria-label={alt || "Imagen ampliada"}
-                        className="fixed inset-0 z-[1000] bg-[#0B0A09]/95"
+                        className="fixed inset-0 z-[2147483000] bg-[#0B0A09]"
                         onClick={close}
                     >
                         <button
                             type="button"
-                            onClick={close}
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                close()
+                            }}
                             aria-label="Cerrar"
-                            className="fixed top-4 right-4 z-[1001] h-10 w-10 rounded-full bg-[#FFFFFA] text-[#14110F] text-[20px] leading-none flex items-center justify-center"
+                            className="fixed top-4 right-4 z-[2147483001] h-10 w-10 rounded-full bg-[#FFFFFA] text-[#14110F] text-[20px] leading-none flex items-center justify-center"
                         >
                             ×
                         </button>
