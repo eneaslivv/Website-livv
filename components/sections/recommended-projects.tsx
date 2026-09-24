@@ -20,9 +20,9 @@ export function RecommendedProjects() {
 
     const { data: portfolioItems, loading } = usePortfolioItems()
 
-    // Filter out current project and take up to 5
+    // Filter out items without a slug (would link to /projects) and the current project, take up to 5
     const projects = (portfolioItems || [])
-        .filter((item: any) => item.slug?.toLowerCase() !== currentSlug)
+        .filter((item: any) => item.slug && item.slug.toLowerCase() !== currentSlug)
         .slice(0, 5)
 
     if (loading || projects.length === 0) return null
