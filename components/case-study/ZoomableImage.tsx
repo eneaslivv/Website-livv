@@ -91,7 +91,7 @@ export function ZoomableImage({ src, alt, width, height, sizes, className }: Pro
                             style={{ touchAction: "pan-x pan-y pinch-zoom" }}
                         >
                             <div
-                                className={`m-auto p-4 md:p-10 ${
+                                className={`m-auto shrink-0 p-4 md:p-10 ${
                                     wide ? "w-[200vw] md:w-auto" : "w-full md:w-auto"
                                 }`}
                                 onClick={(e) => e.stopPropagation()}
