@@ -1,11 +1,12 @@
 "use client"
 
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import type { EditorialDoc } from "@/types/case-study-editorial"
+import { pickHeroPalette } from "@/types/case-study-editorial"
 import { EditorialItemView, SlotRow } from "./EditorialItems"
-import { editorialSans, editorialSerif } from "./fonts"
+import { editorialSans } from "./fonts"
 import { useEditorialReveal } from "./useEditorialReveal"
-import { PRToolHero } from "./PRToolHero"
+import { EditorialHero } from "./EditorialHero"
 
 const pad = (n: number) => String(n).padStart(2, "0")
 
@@ -64,24 +65,6 @@ function Contents({
     )
 }
 
-/**
- * El fondo de puntos del intro, con el pulso que el Figma declara como
- * animación: opacidad 0.44 → 0.64 → 0.44 en 12s, en loop.
- */
-function DottedBackdrop() {
-    return (
-        <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 editorial-dots"
-            style={{
-                backgroundImage:
-                    "radial-gradient(circle at 1px 1px, rgba(44,4,5,0.28) 1px, transparent 0)",
-                backgroundSize: "22px 22px",
-            }}
-        />
-    )
-}
-
 export function EditorialCaseStudy({ doc, heroVariant = "default" }: {
     doc: EditorialDoc
     heroVariant?: "default" | "pr-tool"
@@ -90,6 +73,14 @@ export function EditorialCaseStudy({ doc, heroVariant = "default" }: {
     const [activeId, setActiveId] = useState(doc.sections[0]?.id ?? "")
     const [openToc, setOpenToc] = useState(false)
     useEditorialReveal(scope)
+
+    // El shader del hero necesita 4 colores; para PR Tool queda undefined y
+    // EditorialHero usa su paleta original (la página no cambia un píxel).
+    // Para el resto, sale de las paletas reales del doc — ver pickHeroPalette.
+    const heroPalette = useMemo(
+        () => (heroVariant === "pr-tool" ? undefined : pickHeroPalette(doc)),
+        [doc, heroVariant],
+    )
 
     useEffect(() => {
         const nodes = doc.sections
@@ -131,12 +122,6 @@ export function EditorialCaseStudy({ doc, heroVariant = "default" }: {
             ref={scope}
             className={`${editorialSans.className} bg-[#FFFFFA] text-[#14110F]`}
         >
-            <style>{`
-                @keyframes editorialDots { 0%,100% { opacity: .44 } 50% { opacity: .64 } }
-                .editorial-dots { opacity: .44; animation: editorialDots 12s ease-in-out infinite }
-                @media (prefers-reduced-motion: reduce) { .editorial-dots { animation: none } }
-            `}</style>
-
             <div className="mx-auto max-w-[1440px] px-6 md:px-10 lg:px-16">
                 <div className="lg:grid lg:grid-cols-[232px_1fr] lg:gap-[72px]">
                     {/* Columna del índice */}
@@ -208,62 +193,8 @@ export function EditorialCaseStudy({ doc, heroVariant = "default" }: {
                                     id={section.id}
                                     className="scroll-mt-28 pt-10 md:pt-16"
                                 >
-                                    {isIntro && heroVariant === "pr-tool" ? (
-                                        <PRToolHero doc={doc} />
-                                    ) : isIntro ? (
-                                        <header className="relative mb-16 overflow-hidden rounded-2xl bg-[#FDFCFC] px-6 py-12 md:px-12 md:py-16">
-                                            <DottedBackdrop />
-                                            <div className="relative">
-                                                <div className="flex items-baseline justify-between gap-6 text-[11px] uppercase tracking-[0.14em] text-[#8A8681]">
-                                                    <span>{doc.kicker}</span>
-                                                    <span className="tabular-nums whitespace-nowrap">
-                                                        Case study · {pad(1)} / {pad(total)}
-                                                    </span>
-                                                </div>
-
-                                                <h1 className="mt-10 text-[64px] leading-[0.95] tracking-[-0.045em] md:text-[104px]">
-                                                    {doc.title}
-                                                </h1>
-
-                                                {doc.tagline && (
-                                                    <p className="mt-8 max-w-[820px] text-[24px] leading-[1.25] tracking-[-0.02em] md:text-[34px]">
-                                                        {doc.tagline.before}
-                                                        {doc.tagline.em && (
-                                                            <span className={`${editorialSerif.className} italic`}>
-                                                                {doc.tagline.em}
-                                                            </span>
-                                                        )}
-                                                        {doc.tagline.after}
-                                                    </p>
-                                                )}
-
-                                                {doc.meta?.length ? (
-                                                    <div className="mt-12 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-[#E4E0D8] pt-7 md:grid-cols-5">
-                                                        {doc.meta.map((m) => (
-                                                            <div key={m.label} className="min-w-0">
-                                                                <p className="mb-1.5 text-[11px] text-[#8A8681]">
-                                                                    {m.label}
-                                                                </p>
-                                                                <p
-                                                                    className={`text-[15px] leading-snug ${
-                                                                        m.pending
-                                                                            ? "italic text-[#B4AFA8]"
-                                                                            : "text-[#14110F]"
-                                                                    }`}
-                                                                    title={
-                                                                        m.pending
-                                                                            ? "Pendiente en el Figma"
-                                                                            : undefined
-                                                                    }
-                                                                >
-                                                                    {m.value}
-                                                                </p>
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                ) : null}
-                                            </div>
-                                        </header>
+                                    {isIntro ? (
+                                        <EditorialHero doc={doc} palette={heroPalette} />
                                     ) : (
                                         <header className="mb-10 md:mb-14">
                                             <div className="flex items-baseline justify-between gap-6 border-b border-[#E4E0D8] pb-3 text-[12px] text-[#8A8681]">
