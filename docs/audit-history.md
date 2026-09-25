@@ -145,3 +145,11 @@
 - Newly broken: none
 - Newly fixed: none
 - Notes: Audit skipped — livvvv.com returns 403 via proxy egress (eighteenth consecutive week); node_modules not installed (playwright unavailable); cluster-h-editorial.ts touched (new post the-true-cost-of-off-the-shelf-software shipped 2026-09-14, 21 post slugs total); products section redesigned (interactive white-label system with WebGL particle field, shipped 2026-09-14); GitHub Actions indexnow workflow confirmed operational (run #48 succeeded 2026-09-16); IndexNow ping returned 403 (api.indexnow.org blocked by egress policy, seventeenth consecutive week); Vercel deploy status unverifiable (no GitHub Actions deploy workflow — Vercel deploys directly)
+
+## 2026-09-25
+- OK: N/A
+- THIN: N/A
+- BROKEN: N/A
+- Newly broken: none
+- Newly fixed: none
+- Notes: Audit skipped — livvvv.com returns 403 via proxy egress (nineteenth consecutive week); playwright installed; cluster-h-editorial.ts touched (new post how-to-choose-an-ai-development-partner shipped 2026-09-21, 22 post slugs total); app/about + app/work touched (interactive globe, profile links, PR Tool hero, imagery refresh); 2 PRs merged (#42 case-studies Figma, #43 PR Tool hero + empty-slug fix); IndexNow ping returned 403 (api.indexnow.org blocked by egress policy, eighteenth consecutive week); GitHub Actions indexnow run #59 succeeded 2026-09-24 (post-deploy ping operational); Vercel deploy status unverifiable (no GitHub Actions deploy workflow — Vercel deploys directly)
