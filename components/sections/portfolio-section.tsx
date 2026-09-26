@@ -130,15 +130,16 @@ function PortfolioGrid() {
                          * But "metadata" alone does NOT paint a first frame on
                          * mobile, and these items have no thumbnail, so the
                          * cards rendered as black rectangles on phones. The
-                         * poster is therefore never left undefined: it falls
-                         * back through pickPosterCover, which always returns a
-                         * real static URL. A brand image beats a black hole.
+                         * poster is therefore never left undefined: it is
+                         * pickPosterCover, which always returns a real static
+                         * URL — the clip's own committed first frame when
+                         * there is one. A brand image beats a black hole.
                          * The clip itself loads on hover or tap.
                          *
                          * For items with no cover URL at all (a real edge
                          * case, almost never hits production), fall back
                          * to pickPosterCover which always returns a real
-                         * static URL ending in og-image.png at worst.
+                         * static URL ending in logo-bg-1.jpg at worst.
                          */}
                         {(() => {
                             const coverUrl = getCoverUrl(item)
@@ -168,7 +169,7 @@ function PortfolioGrid() {
                                            downloading a video per card on first paint,
                                            which was the heaviest thing on mobile. */
                                         preload="metadata"
-                                        poster={item.thumbnail || pickPosterCover(item)}
+                                        poster={pickPosterCover(item)}
                                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover/card:scale-110"
                                     />
                                 )
