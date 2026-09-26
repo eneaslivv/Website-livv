@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import type { EditorialDoc } from "@/types/case-study-editorial"
 import { pickHeroPalette, siteOfDoc } from "@/types/case-study-editorial"
 import { EditorialItemView, ScreenSiteContext, SlotRow } from "./EditorialItems"
+import { getIsPreview } from "@/hooks/usePublicData"
 import { editorialSans } from "./fonts"
 import { useEditorialReveal } from "./useEditorialReveal"
 import { EditorialHero } from "./EditorialHero"
@@ -65,10 +66,20 @@ function Contents({
     )
 }
 
-export function EditorialCaseStudy({ doc, heroVariant = "default" }: {
+export function EditorialCaseStudy({ doc: source, heroVariant = "default" }: {
     doc: EditorialDoc
     heroVariant?: "default" | "pr-tool"
 }) {
+    // Los huecos reservados se ven sólo en preview, donde sirven para completar
+    // el case study; a un visitante le decían que la pieza todavía no existe.
+    // Una sección que queda sin nada sale también del índice (el intro no: es el hero).
+    const doc = useMemo(() => {
+        if (getIsPreview()) return source
+        const sections = source.sections
+            .map((s) => ({ ...s, items: s.items.filter((it) => it.kind !== "slot") }))
+            .filter((s, i) => i === 0 || s.items.length > 0)
+        return { ...source, sections }
+    }, [source])
     const scope = useRef<HTMLDivElement>(null)
     const [activeId, setActiveId] = useState(doc.sections[0]?.id ?? "")
     const [openToc, setOpenToc] = useState(false)
