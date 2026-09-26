@@ -33,8 +33,11 @@
   // /work and /projects/[slug]. If the author wrote a `hero_image` block
   // in content_blocks, that wins (same image the project detail page
   // paints as hero). Otherwise fall back to media[is_cover] → image →
-  // media[0] → thumbnail.
+  // media[0] → thumbnail. PR Tool is pinned before all of that, as in
+  // pickDisplayCover.
   function getCoverUrl(item) {
+    // Approved portfolio artwork; the editorial dashboard remains inside the case study.
+    if (item.slug === 'pr-tool') return '/images/pr-tool.png';
     const blocks = (item && item.content_blocks) || [];
     for (let i = 0; i < blocks.length; i++) {
       const b = blocks[i];
