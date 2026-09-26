@@ -32,35 +32,40 @@ function pickCover(item: PortfolioItem): string | undefined {
 }
 
 /**
- * First frames extracted from CMS video covers that have no static media of
- * their own, keyed by the video's filename (stable in Supabase storage).
+ * First frames extracted from CMS video covers, keyed by the video's filename
+ * (stable in Supabase storage). pickPosterCover prefers them over any static
+ * media in the CMS.
  *
- * Without these the poster fell all the way through to /assets/og-image.png,
- * which does not exist in /public and 404s. A failed poster paints nothing, so
- * on mobile — where preload="metadata" does not render a first frame — those
- * cards showed as black rectangles.
+ * A poster attribute bypasses Next's image optimizer, so a CMS still goes out
+ * at upload size — Azqira's was a 4500×4500 JPG of 5.26MB, fetched on every
+ * visit — and nothing ties it to the clip: Azqira's is a mockup collage, so
+ * the card jumped to a different picture when the video started. A frame is
+ * what the video opens on.
  *
- * Frames are committed at ~50-60KB each, against 24MB and 36MB source videos.
+ * They also stand in for covers with no static media at all. Before them the
+ * poster fell through to /assets/og-image.png, which does not exist in /public
+ * and 404s; a failed poster paints nothing, so on mobile — where
+ * preload="metadata" does not render a first frame — those cards showed as
+ * black rectangles.
+ *
+ * Frames are committed at ~45-65KB each, against 2.5MB-38MB source videos.
  */
 const VIDEO_COVER_FRAMES: Record<string, string> = {
     "1773862659218": "/images/portfolio-posters/1773862659218.jpg",
     "1773673216180": "/images/portfolio-posters/1773673216180.jpg",
+    "1773422491174": "/images/portfolio-posters/1773422491174.jpg",
 }
 
-/** Matches an extracted frame against any video URL on the item. */
-function frameForItem(item: PortfolioItem): string | undefined {
-    const urls = [
-        item.thumbnail,
-        item.image,
-        ...(item.media?.map((m) => m.url) ?? []),
-    ].filter(Boolean) as string[]
-
-    for (const url of urls) {
-        if (!isVideoCoverUrl(url)) continue
-        const id = url.split("/").pop()?.replace(/\.[a-z0-9]+$/i, "")
-        if (id && VIDEO_COVER_FRAMES[id]) return VIDEO_COVER_FRAMES[id]
-    }
-    return undefined
+/**
+ * The committed frame for the video the card actually plays. That is
+ * pickDisplayCover's result, which can come from a hero_image block rather
+ * than from the item's own fields — Azqira's does.
+ */
+function frameForCover(item: PortfolioItem): string | undefined {
+    const cover = pickDisplayCover(item)
+    if (!cover || !isVideoCoverUrl(cover)) return undefined
+    const id = cover.split(/[?#]/)[0].split("/").pop()?.replace(/\.[a-z0-9]+$/i, "")
+    return id ? VIDEO_COVER_FRAMES[id] : undefined
 }
 
 /**
@@ -70,19 +75,26 @@ function frameForItem(item: PortfolioItem): string | undefined {
  * by iOS Low Power Mode, Data Saver, or simply not yet user-gestured).
  *
  * Priority:
- *   1. `item.thumbnail` if it is a static image (not a video URL).
- *   2. The first non-video URL in `item.media[]`.
- *   3. `item.image` if it itself is a static image.
- *   4. A first frame extracted from the item's own video cover, if one has
- *      been committed for it.
+ *   1. A first frame extracted from the item's own video cover, if one has
+ *      been committed for it (see VIDEO_COVER_FRAMES).
+ *   2. `item.thumbnail` if it is a static image (not a video URL).
+ *   3. The first non-video URL in `item.media[]`.
+ *   4. `item.image` if it itself is a static image.
  *   5. `/assets/logo-bg-1.jpg` — a real file in /public, branded.
  *
  * This guarantees every visible card has SOMETHING to show instead of a
  * blank white box while a video element fails to autoplay or while a
- * cover URL fails to load.
+ * cover URL fails to load. Pass the result to `poster` as is: putting
+ * `item.thumbnail` or `item.image` in front of it skips the frame, and
+ * either field can itself be a video URL.
  */
 export function pickPosterCover(item: PortfolioItem): string {
     if (item.slug === "pr-tool") return "/images/pr-tool.png"
+
+    // The clip's own first frame beats any CMS still (see VIDEO_COVER_FRAMES).
+    const frame = frameForCover(item)
+    if (frame) return frame
+
     const thumb = normalizeCoverUrl(item.thumbnail)
     if (thumb && !isVideoCoverUrl(thumb)) return thumb
 
@@ -94,10 +106,6 @@ export function pickPosterCover(item: PortfolioItem): string {
 
     const image = normalizeCoverUrl(item.image)
     if (image && !isVideoCoverUrl(image)) return image
-
-    // A frame pulled from the item's own video beats any generic brand art.
-    const frame = frameForItem(item)
-    if (frame) return frame
 
     // Last resort. This used to point at /assets/og-image.png, which is not in
     // /public — the poster 404'd and the card rendered black. logo-bg-1.jpg is
