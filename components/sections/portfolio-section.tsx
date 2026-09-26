@@ -99,6 +99,7 @@ function PortfolioGrid() {
     const { data: dbItems, isPreview } = useFeaturedPortfolioItems()
 
     const displayedItems = ((dbItems.length > 0 ? dbItems : FALLBACK_ITEMS) as (PortfolioItem & { _is_draft?: boolean })[])
+        .filter(item => item.slug)
         .sort((a, b) => (a.display_order || 0) - (b.display_order || 0))
 
     const handleCardClick = (link: string) => {
