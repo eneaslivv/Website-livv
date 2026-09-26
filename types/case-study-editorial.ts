@@ -14,6 +14,14 @@
  * camino anterior.
  */
 
+/**
+ * Marco que la plantilla dibuja alrededor de una captura cruda. Va explícito
+ * por imagen porque muchas capturas ya traen su mockup desde el Figma
+ * («Navegador · …», «Laptop · …»): enmarcarlas por nombre de archivo las
+ * dejaría con marco doble.
+ */
+export type ScreenFrame = 'browser' | 'phone'
+
 /** Un valor que el Figma todavía no tiene: se muestra, pero se ve que falta. */
 export interface EditorialField {
     label: string
@@ -34,6 +42,7 @@ export type EditorialItem =
           label?: string
           /** `bleed` = sin tarjeta ni padding, la imagen ocupa todo el ancho. */
           tone?: 'light' | 'dark' | 'bleed'
+          frame?: ScreenFrame
       }
     | {
           kind: 'grid'
@@ -46,6 +55,7 @@ export type EditorialItem =
               alt?: string
               caption?: string
               portrait?: boolean
+              frame?: ScreenFrame
           }[]
       }
     /** Bajada con etiqueta chica arriba: «Manual de identidad», «Onboarding». */
@@ -101,6 +111,16 @@ export function findEditorialDoc(blocks: unknown): EditorialDoc | null {
         (x) => x && typeof x === 'object' && (x as { type?: string }).type === 'editorial',
     ) as EditorialBlock | undefined
     return b?.doc?.sections?.length ? b.doc : null
+}
+
+/** Dominio del proyecto, si la ficha lo nombra («Live at freneticpace.com»): va en la barra del navegador dibujado. */
+export function siteOfDoc(doc: EditorialDoc): string | undefined {
+    for (const f of doc.meta ?? []) {
+        if (f.pending) continue
+        const m = f.value.match(/\b((?:[a-z0-9-]+\.)+[a-z]{2,})\b/i)
+        if (m) return m[1].toLowerCase()
+    }
+    return undefined
 }
 
 /* --------------------------- paleta del hero ----------------------------- */

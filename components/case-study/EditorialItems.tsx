@@ -1,9 +1,13 @@
 "use client"
 
+import { createContext, useContext } from "react"
 import { SiteMapSection } from "@/components/project-blocks/SiteMapSection"
 import { editorialSerif } from "./fonts"
 import { ZoomableImage } from "./ZoomableImage"
-import type { EditorialField, EditorialItem } from "@/types/case-study-editorial"
+import type { EditorialField, EditorialItem, ScreenFrame } from "@/types/case-study-editorial"
+
+/** Dominio del proyecto para la barra del navegador dibujado (ver siteOfDoc). */
+export const ScreenSiteContext = createContext<string | undefined>(undefined)
 
 /* ----------------------------- piezas chicas ---------------------------- */
 
@@ -53,10 +57,97 @@ function Caption({ children }: { children: React.ReactNode }) {
     )
 }
 
+/* -------------------------- marcos de captura --------------------------- */
+
+/*
+ * Una captura cruda a todo el ancho se lee como un recorte con zoom; dentro de
+ * una ventana, sobre un fondo con aire, se lee como el sitio. El marco lo
+ * dibuja la plantilla (nítido a cualquier densidad) y sólo cuando el documento
+ * lo pide: las capturas que ya traen mockup desde el Figma quedan como están.
+ */
+function BrowserWindow({ dark, children }: { dark: boolean; children: React.ReactNode }) {
+    const site = useContext(ScreenSiteContext)
+    return (
+        <div
+            className={`overflow-hidden rounded-[10px] md:rounded-xl border shadow-[0_30px_70px_-34px_rgba(20,17,15,0.55)] ${
+                dark ? "border-white/10 bg-[#0E0D0C]" : "border-black/10 bg-white"
+            }`}
+        >
+            <div
+                className={`grid grid-cols-[1fr_auto_1fr] items-center h-7 md:h-9 px-3 md:px-4 border-b ${
+                    dark ? "bg-[#211F1D] border-white/[0.06]" : "bg-[#F4F2ED] border-black/[0.06]"
+                }`}
+            >
+                <span className="flex gap-1.5" aria-hidden>
+                    {[0, 1, 2].map((i) => (
+                        <span
+                            key={i}
+                            className={`size-[7px] md:size-2.5 rounded-full ${dark ? "bg-white/15" : "bg-black/[0.12]"}`}
+                        />
+                    ))}
+                </span>
+                <span
+                    className={`h-4 md:h-5 min-w-[112px] md:min-w-[240px] rounded-md px-3 text-center text-[9px] md:text-[11px] leading-4 md:leading-5 ${
+                        dark ? "bg-white/[0.06] text-white/45" : "bg-white text-[#8A8681] border border-black/[0.05]"
+                    }`}
+                >
+                    {site}
+                </span>
+                <span aria-hidden />
+            </div>
+            {/* Los recortes del Figma traen las esquinas de su tarjeta redondeadas
+                sobre el fondo crema: bajo la barra quedaban dos puntas claras. */}
+            <div className="[&_img]:rounded-[2.4%]">{children}</div>
+        </div>
+    )
+}
+
+function PhoneShell({ children }: { children: React.ReactNode }) {
+    return (
+        <div className="mx-auto w-full max-w-[300px] rounded-[2.1rem] bg-[#141312] p-[3.2%] shadow-[0_30px_70px_-34px_rgba(20,17,15,0.6)]">
+            <div className="overflow-hidden rounded-[1.7rem] bg-black">{children}</div>
+        </div>
+    )
+}
+
+function Framed({ frame, dark, children }: { frame: ScreenFrame; dark: boolean; children: React.ReactNode }) {
+    return frame === "phone" ? (
+        <PhoneShell>{children}</PhoneShell>
+    ) : (
+        <BrowserWindow dark={dark}>{children}</BrowserWindow>
+    )
+}
+
 /* --------------------------------- items -------------------------------- */
 
 function Figure({ item }: { item: Extract<EditorialItem, { kind: "figure" }> }) {
     const bleed = item.tone === "bleed"
+    if (item.frame) {
+        const dark = item.tone === "dark"
+        return (
+            <figure className="mb-14 md:mb-20" data-reveal-group>
+                {item.label && <Label>{item.label}</Label>}
+                <div
+                    data-reveal-card
+                    className={`relative w-full overflow-hidden rounded-2xl px-[5%] py-[5%] md:px-[7%] md:py-[6%] ${
+                        dark ? "bg-[#171514]" : "bg-[#EEEBE4]"
+                    }`}
+                >
+                    <Framed frame={item.frame} dark={dark}>
+                        <ZoomableImage
+                            src={item.url}
+                            alt={item.alt || ""}
+                            width={item.w ?? 2000}
+                            height={item.h ?? 1250}
+                            sizes="(max-width: 1024px) 90vw, 880px"
+                            className="block w-full h-auto"
+                        />
+                    </Framed>
+                </div>
+                {item.caption && <Caption>{item.caption}</Caption>}
+            </figure>
+        )
+    }
     return (
         <figure className="mb-14 md:mb-20" data-reveal-group>
             {item.label && <Label>{item.label}</Label>}
@@ -100,25 +191,36 @@ function Grid({ item }: { item: Extract<EditorialItem, { kind: "grid" }> }) {
         <div className="mb-14 md:mb-20" data-reveal-group>
             {item.label && <Label>{item.label}</Label>}
             <div className={`grid ${gridCls} gap-4 md:gap-5`}>
-                {item.items.map((img, i) => (
-                    <figure key={i} data-reveal-card className="min-w-0">
-                        <div className="relative w-full overflow-hidden rounded-xl border border-[#EAE7E1] bg-[#F7F6F3]">
-                            <ZoomableImage
-                                src={img.url}
-                                alt={img.alt || ""}
-                                width={img.w ?? (img.portrait ? 900 : 1400)}
-                                height={img.h ?? (img.portrait ? 1350 : 900)}
-                                sizes={
-                                    cols === 4
-                                        ? "(max-width: 768px) 50vw, 25vw"
-                                        : `(max-width: 768px) 100vw, ${Math.round(100 / cols)}vw`
-                                }
-                                className="w-full h-auto"
-                            />
-                        </div>
-                        {img.caption && <Caption>{img.caption}</Caption>}
-                    </figure>
-                ))}
+                {item.items.map((img, i) => {
+                    const image = (
+                        <ZoomableImage
+                            src={img.url}
+                            alt={img.alt || ""}
+                            width={img.w ?? (img.portrait ? 900 : 1400)}
+                            height={img.h ?? (img.portrait ? 1350 : 900)}
+                            sizes={
+                                cols === 4
+                                    ? "(max-width: 768px) 50vw, 25vw"
+                                    : `(max-width: 768px) 100vw, ${Math.round(100 / cols)}vw`
+                            }
+                            className={img.frame ? "block w-full h-auto" : "w-full h-auto"}
+                        />
+                    )
+                    return (
+                        <figure key={i} data-reveal-card className="min-w-0">
+                            {img.frame ? (
+                                <div className="relative w-full overflow-hidden rounded-xl bg-[#EEEBE4] p-[7%]">
+                                    <Framed frame={img.frame} dark={false}>{image}</Framed>
+                                </div>
+                            ) : (
+                                <div className="relative w-full overflow-hidden rounded-xl border border-[#EAE7E1] bg-[#F7F6F3]">
+                                    {image}
+                                </div>
+                            )}
+                            {img.caption && <Caption>{img.caption}</Caption>}
+                        </figure>
+                    )
+                })}
             </div>
         </div>
     )

@@ -2,8 +2,8 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import type { EditorialDoc } from "@/types/case-study-editorial"
-import { pickHeroPalette } from "@/types/case-study-editorial"
-import { EditorialItemView, SlotRow } from "./EditorialItems"
+import { pickHeroPalette, siteOfDoc } from "@/types/case-study-editorial"
+import { EditorialItemView, ScreenSiteContext, SlotRow } from "./EditorialItems"
 import { editorialSans } from "./fonts"
 import { useEditorialReveal } from "./useEditorialReveal"
 import { EditorialHero } from "./EditorialHero"
@@ -116,8 +116,10 @@ export function EditorialCaseStudy({ doc, heroVariant = "default" }: {
 
     const total = doc.sections.length
     const activeIndex = Math.max(0, doc.sections.findIndex((s) => s.id === activeId))
+    const site = useMemo(() => siteOfDoc(doc), [doc])
 
     return (
+        <ScreenSiteContext.Provider value={site}>
         <div
             ref={scope}
             className={`${editorialSans.className} bg-[#FFFFFA] text-[#14110F]`}
@@ -232,5 +234,6 @@ export function EditorialCaseStudy({ doc, heroVariant = "default" }: {
                 </div>
             </div>
         </div>
+        </ScreenSiteContext.Provider>
     )
 }
