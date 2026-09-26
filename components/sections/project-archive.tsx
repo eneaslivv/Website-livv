@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowUpRight, Search, X } from "lucide-react"
+import { ArrowUpRight, ChevronDown, Search, X } from "lucide-react"
 import { useReducedMotion } from "framer-motion"
 import { usePortfolioItems } from "@/hooks/usePublicData"
 import type { PortfolioItem } from "@/types/livv-os"
@@ -14,6 +14,8 @@ import styles from "./project-archive.module.css"
 type ArchiveProject = PortfolioItem & { _is_draft?: boolean }
 const normalize = (value: string) => value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
 const projectName = (title: string) => title.replace(/^case study\s*[—–:-]\s*/i, "")
+// Featured first, video covers ahead of stills; the sort is stable, so the CMS display_order holds inside each group.
+const priority = (project: ArchiveProject) => (project.featured ? 0 : 2) + (isVideoCoverUrl(pickDisplayCover(project)) ? 0 : 1)
 
 function VideoPreview({ src }: { src: string }) {
     const [playing, setPlaying] = useState(false)
@@ -82,7 +84,7 @@ function ProjectCard({ project, isPreview }: { project: ArchiveProject; isPrevie
 
 export function ProjectArchive() {
     const { data, loading, error, refresh, isPreview } = usePortfolioItems()
-    const projects = (data as ArchiveProject[]).filter(project => project.slug)
+    const projects = (data as ArchiveProject[]).filter(project => project.slug).sort((a, b) => priority(a) - priority(b))
     const [featuredOnly, setFeaturedOnly] = useState(false)
     const [category, setCategory] = useState("")
     const [query, setQuery] = useState("")
@@ -110,10 +112,13 @@ export function ProjectArchive() {
                     </button>
                 </div>
                 <div className={styles.filters}>
-                    <select aria-label="Filter by category" value={category} onChange={event => setCategory(event.target.value)}>
-                        <option value="">All categories</option>
-                        {categories.map(value => <option key={value} value={value}>{value}</option>)}
-                    </select>
+                    <div className={styles.select}>
+                        <select aria-label="Filter by category" value={category} onChange={event => setCategory(event.target.value)}>
+                            <option value="">All categories</option>
+                            {categories.map(value => <option key={value} value={value}>{value}</option>)}
+                        </select>
+                        <ChevronDown size={14} aria-hidden="true" />
+                    </div>
                     <div className={styles.search}>
                         <Search size={15} aria-hidden="true" />
                         <input type="search" aria-label="Search projects" placeholder="Search projects" value={query} onChange={event => setQuery(event.target.value)} />
