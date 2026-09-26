@@ -249,23 +249,23 @@ export function generateDefaultBlocks(item: PortfolioItem): ContentBlock[] {
         }
     }
 
+    // Sin sistema de diseño por defecto: sin datos del proyecto, la sección se
+    // rellenaba con tipografía, botones y colores de muestra que parecían suyos.
     const palette = (item.colors || []).filter(Boolean)
-    const hasPalette = palette.length > 0 || !!item.color
-    const colors = hasPalette
-        ? (palette.length ? palette : [item.color!]).slice(0, 6).map((hex, i) => ({
-              name: i === 0 ? "Primary" : i === 1 ? "Accent" : i === 2 ? "Surface" : `Color ${i + 1}`,
-              hex,
-          }))
-        : []
-    blocks.push({
-        type: "design_system",
-        label: "Design Language",
-        heading: "System & Assets",
-        description:
-            "A comprehensive set of foundational elements defining the visual hierarchy and interaction patterns.",
-        colors,
-        sort_order: order++,
-    })
+    if (palette.length > 0) {
+        blocks.push({
+            type: "design_system",
+            label: "Design Language",
+            heading: "System & Assets",
+            description:
+                "A comprehensive set of foundational elements defining the visual hierarchy and interaction patterns.",
+            colors: palette.slice(0, 6).map((hex, i) => ({
+                name: i === 0 ? "Primary" : i === 1 ? "Accent" : i === 2 ? "Surface" : `Color ${i + 1}`,
+                hex,
+            })),
+            sort_order: order++,
+        })
+    }
 
     blocks.push({
         type: "banner",
@@ -314,9 +314,10 @@ function hydrateBlock(block: ContentBlock, item: PortfolioItem): ContentBlock | 
         case "design_system": {
             const authored = Array.isArray(block.colors) ? block.colors.filter(Boolean) : []
             if (authored.length > 0) return { ...block, colors: authored }
+            // `item.color` sola no es una paleta (en varias filas es el dorado por defecto de LIVV).
             const palette = (item.colors || []).filter(Boolean)
-            if (palette.length === 0 && !item.color) return block
-            const colors = (palette.length ? palette : [item.color!]).slice(0, 6).map((hex, i) => ({
+            if (palette.length === 0) return null
+            const colors = palette.slice(0, 6).map((hex, i) => ({
                 name: i === 0 ? "Primary" : i === 1 ? "Accent" : i === 2 ? "Surface" : `Color ${i + 1}`,
                 hex,
             }))
