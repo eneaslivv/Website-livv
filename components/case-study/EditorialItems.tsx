@@ -1,8 +1,8 @@
 "use client"
 
-import Image from "next/image"
 import { SiteMapSection } from "@/components/project-blocks/SiteMapSection"
 import { editorialSerif } from "./fonts"
+import { ZoomableImage } from "./ZoomableImage"
 import type { EditorialField, EditorialItem } from "@/types/case-study-editorial"
 
 /* ----------------------------- piezas chicas ---------------------------- */
@@ -74,7 +74,7 @@ function Figure({ item }: { item: Extract<EditorialItem, { kind: "figure" }> }) 
             >
                 {/* Sin caja de proporción fija: la imagen impone su alto, que es
                     lo que hace que la página respire como el Figma. */}
-                <Image
+                <ZoomableImage
                     src={item.url}
                     alt={item.alt || ""}
                     width={item.w ?? 2000}
@@ -103,12 +103,16 @@ function Grid({ item }: { item: Extract<EditorialItem, { kind: "grid" }> }) {
                 {item.items.map((img, i) => (
                     <figure key={i} data-reveal-card className="min-w-0">
                         <div className="relative w-full overflow-hidden rounded-xl border border-[#EAE7E1] bg-[#F7F6F3]">
-                            <Image
+                            <ZoomableImage
                                 src={img.url}
                                 alt={img.alt || ""}
                                 width={img.w ?? (img.portrait ? 900 : 1400)}
                                 height={img.h ?? (img.portrait ? 1350 : 900)}
-                                sizes={`(max-width: 768px) 100vw, ${Math.round(100 / cols)}vw`}
+                                sizes={
+                                    cols === 4
+                                        ? "(max-width: 768px) 50vw, 25vw"
+                                        : `(max-width: 768px) 100vw, ${Math.round(100 / cols)}vw`
+                                }
                                 className="w-full h-auto"
                             />
                         </div>
