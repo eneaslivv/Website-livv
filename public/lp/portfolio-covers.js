@@ -6,6 +6,8 @@
    `pickDisplayCover` in lib/default-project-blocks.ts so listings
    on /for-* landings, on /work, and on the project detail page
    never diverge.
+   Video covers paint a static poster and only fetch the clip once
+   the card is on screen or hovered (see watchVideo).
    ============================================================ */
 (function () {
   const SUPABASE_URL = 'https://ngswutcpsgdgmmjnfddi.supabase.co';
@@ -44,6 +46,28 @@
     const first = item.media && item.media[0];
     if (first && first.url) return normalizeUrl(first.url);
     return normalizeUrl(item.thumbnail) || null;
+  }
+
+  // First frames of CMS video covers, committed under /public and keyed by
+  // the video's filename. The home keeps its own list in VIDEO_COVER_FRAMES
+  // (lib/default-project-blocks.ts).
+  const VIDEO_COVER_FRAMES = {
+    '1773862659218': '/images/portfolio-posters/1773862659218.jpg',
+    '1773673216180': '/images/portfolio-posters/1773673216180.jpg',
+    '1773422491174': '/images/portfolio-posters/1773422491174.jpg',
+  };
+
+  // Still image a video cover shows until the clip is wanted. The video's
+  // own first frame wins: it is ~50 KB and playback starts without a jump.
+  // CMS media and item.image are skipped on purpose — they are uploaded
+  // originals (Azqira's is a 5 MB JPG, twice its video) and a poster is
+  // fetched on load, not lazily. Last resort: the card's own placeholder.
+  function getPosterUrl(item, videoUrl, placeholder) {
+    const id = videoUrl.split('?')[0].split('/').pop().replace(/\.[a-z0-9]+$/i, '');
+    if (VIDEO_COVER_FRAMES[id]) return VIDEO_COVER_FRAMES[id];
+    const thumb = normalizeUrl(item.thumbnail);
+    if (thumb && !isVideoUrl(thumb)) return thumb;
+    return placeholder || '/assets/logo-bg-1.jpg';
   }
 
   function norm(str) {
@@ -120,31 +144,84 @@
     return wrap;
   }
 
+  // A video cover plays only while its card is on screen or under the
+  // mouse, and never under prefers-reduced-motion (the poster stays). The
+  // clip gets its src the first time it is wanted: with autoplay +
+  // preload="auto" every visit used to download the full clips on load
+  // (36 MB for Sacoa) with the cards still far below the fold.
+  const IN_VIEW_RATIO = 0.25;
+  const reducedMotion = window.matchMedia
+    ? window.matchMedia('(prefers-reduced-motion: reduce)')
+    : null;
+  const watched = [];
+  let observer = null;
+
+  function syncVideo(entry) {
+    const v = entry.video;
+    const motionOk = !(reducedMotion && reducedMotion.matches);
+    if (motionOk && (entry.inView || entry.hovered)) {
+      if (!v.getAttribute('src')) v.src = v.dataset.src;
+      v.play().catch(() => {});
+    } else if (!v.paused) {
+      v.pause();
+    }
+  }
+
+  function watchVideo(card, video) {
+    const entry = { card, video, inView: false, hovered: false };
+    watched.push(entry);
+    // Mouse only: a tap fires enter without a matching leave, which would
+    // keep the clip playing after the card scrolls away.
+    const onHover = (hovered) => (e) => {
+      if (e.pointerType !== 'mouse') return;
+      entry.hovered = hovered;
+      syncVideo(entry);
+    };
+    card.addEventListener('pointerenter', onHover(true));
+    card.addEventListener('pointerleave', onHover(false));
+    if (!('IntersectionObserver' in window)) return;
+    if (!observer) {
+      observer = new IntersectionObserver((records) => {
+        records.forEach((r) => {
+          const e = watched.find((w) => w.card === r.target);
+          if (!e) return;
+          e.inView = r.isIntersecting && r.intersectionRatio >= IN_VIEW_RATIO;
+          syncVideo(e);
+        });
+      }, { threshold: IN_VIEW_RATIO });
+    }
+    observer.observe(card);
+  }
+
+  if (reducedMotion) {
+    const onMotionChange = () => watched.forEach(syncVideo);
+    if (reducedMotion.addEventListener) reducedMotion.addEventListener('change', onMotionChange);
+    else if (reducedMotion.addListener) reducedMotion.addListener(onMotionChange);
+  }
+
   function renderCover(card, item) {
     const visual = ensureVisual(card);
     if (!visual) return;
     const coverUrl = getCoverUrl(item);
     if (!coverUrl) return;
+    const placeholder = visual.querySelector('img');
+    const placeholderUrl = placeholder && placeholder.getAttribute('src');
     visual.innerHTML = '';
     if (isVideoUrl(coverUrl)) {
       const v = document.createElement('video');
-      v.src = coverUrl;
+      v.dataset.src = coverUrl;
+      v.preload = 'none';
+      v.poster = getPosterUrl(item, coverUrl, placeholderUrl);
       v.muted = true;
       v.loop = true;
-      v.autoplay = true;
-      v.preload = 'auto';
       v.setAttribute('playsinline', '');
       v.setAttribute('muted', '');
-      if (item.thumbnail) v.poster = item.thumbnail;
-      else if (item.image) v.poster = item.image;
       v.className = 'bg-img';
       v.style.width = '100%';
       v.style.height = '100%';
       v.style.objectFit = 'cover';
       visual.appendChild(v);
-      const tryPlay = () => v.play().catch(() => {});
-      if (v.readyState >= 2) tryPlay();
-      else v.addEventListener('loadeddata', tryPlay, { once: true });
+      watchVideo(card, v);
     } else {
       const img = document.createElement('img');
       img.src = coverUrl;
