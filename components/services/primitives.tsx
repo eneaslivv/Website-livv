@@ -1,26 +1,52 @@
 "use client"
 
 import type { ReactNode } from "react"
+import Link from "next/link"
 import { motion, useReducedMotion } from "framer-motion"
 import { AnimatedBorders } from "@/components/ui/animated-borders"
+import type { GrainSurface, TwoTone } from "@/lib/service-pages-data"
 
 /**
  * Shared editorial primitives for the service page sections.
  * Thin lines, small uppercase labels, restrained reveals — no new visual language.
+ * Motion follows the brand guide (09): the house curve, 550 ms entries, and
+ * nothing that moves for users who asked for less motion.
  */
 
 export const SERVICE_ACCENT = "#2C0405"
-const EASE = [0.22, 1, 0.36, 1] as const
+export const EASE = [0.22, 1, 0.36, 1] as const
 
-/** Small uppercase editorial label. */
-export function Label({ children, accent = false }: { children: ReactNode; accent?: boolean }) {
+/** Grain gradients exported from the brand mockup library (LIVV Hub · 04.1 · 10). */
+export const GRAIN: Record<GrainSurface, string> = {
+  burdeos: "/images/grain/burdeos.webp",
+  salvia: "/images/grain/salvia.webp",
+  acero: "/images/grain/acero.webp",
+}
+
+/** Small uppercase editorial label. With `n`, it reads «01 · Name» (brand guide 10.5). */
+export function Label({ children, accent = false, n }: { children: ReactNode; accent?: boolean; n?: number }) {
   return (
     <span
       className={`block text-[10px] font-semibold uppercase tracking-[0.2em] ${accent ? "" : "text-stone-400"}`}
       style={accent ? { color: SERVICE_ACCENT } : undefined}
     >
+      {n !== undefined && <span className="tabular-nums">{String(n).padStart(2, "0")} · </span>}
       {children}
     </span>
+  )
+}
+
+/**
+ * Two-tone headline (brand guide 04.4): same face, the second part in the muted
+ * foreground token. It is the page's one editorial device, so it stays quiet.
+ */
+export function TwoToneHeading({ text, className = "" }: { text: TwoTone; className?: string }) {
+  return (
+    <h2
+      className={`text-[1.75rem] md:text-[2.5rem] font-light leading-[1.12] tracking-[-0.03em] text-stone-900 text-balance ${className}`}
+    >
+      {text[0]} <span className="text-muted-foreground">{text[1]}</span>
+    </h2>
   )
 }
 
@@ -33,7 +59,14 @@ export function Index({ n }: { n: number }) {
   )
 }
 
-/** 1px rule that draws itself from 0% to 100% as the section enters view. */
+/**
+ * 1px rule that draws itself from 0% to 100% as the section enters view.
+ *
+ * Every viewport margin here is vertical only («-60px 0px»). A rule at scaleX(0)
+ * has no width, so its box collapses onto its left edge — 24px from the screen
+ * on a phone. A plain «-60px» also shrinks the viewport from the sides, which
+ * left that point outside it forever: on mobile the rules never drew.
+ */
 export function DrawLine({ className = "", delay = 0 }: { className?: string; delay?: number }) {
   const reduced = useReducedMotion()
   return (
@@ -42,7 +75,7 @@ export function DrawLine({ className = "", delay = 0 }: { className?: string; de
       className={`h-px bg-stone-200 origin-left ${className}`}
       initial={reduced ? { scaleX: 1 } : { scaleX: 0 }}
       whileInView={{ scaleX: 1 }}
-      viewport={{ once: true, margin: "-60px" }}
+      viewport={{ once: true, margin: "-60px 0px" }}
       transition={{ duration: reduced ? 0 : 0.7, delay: reduced ? 0 : delay, ease: EASE }}
     />
   )
@@ -67,7 +100,7 @@ export function Reveal({
       className={className}
       initial={reduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
+      viewport={{ once: true, margin: "-60px 0px" }}
       transition={{ duration: reduced ? 0 : 0.55, delay: reduced ? 0 : delay, ease: EASE }}
     >
       {children}
@@ -94,18 +127,33 @@ export function ArrowLink({ children }: { children: ReactNode }) {
   )
 }
 
+/** The site's dark pill button («Explore the products»), as a link with the arrow. */
+export function PillLink({ href, children, onClick }: { href: string; children: ReactNode; onClick?: () => void }) {
+  return (
+    <Link
+      href={href}
+      onClick={onClick}
+      className="group inline-flex items-center justify-center text-[13px] font-medium tracking-tight text-[#f5f0eb] bg-[#1a1714] rounded-full px-6 py-3.5 transition-opacity duration-300 hover:opacity-90 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-stone-500"
+    >
+      <ArrowLink>{children}</ArrowLink>
+    </Link>
+  )
+}
+
 /** Section shell: shared container width, vertical rhythm and top rule. */
 export function ServiceSection({
   children,
   className = "",
   ariaLabel,
+  id,
 }: {
   children: ReactNode
   className?: string
   ariaLabel: string
+  id?: string
 }) {
   return (
-    <section aria-label={ariaLabel} className={`w-full relative z-20 ${className}`}>
+    <section id={id} aria-label={ariaLabel} className={`w-full relative z-20 ${className}`}>
       {/* The site-wide dashed grid. Every service block routes through this
           shell, so adding it once keeps the rules continuous down the page
           instead of cutting out across the service sections. */}

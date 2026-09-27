@@ -125,6 +125,24 @@ export const serviceFaqs: Record<string, ServiceFaq[]> = {
       a: "The structure comes before any frame is designed: what the story has to prove, in what order, and what gets left out. A video without that decision needs a narrator; one with it lands the first time it is seen.",
     },
   ],
+
+  // Restates what the nearshore page already said in prose before it moved to
+  // the shared layout. The time zone is stated correctly: Argentina keeps UTC-3
+  // all year, so New York is one hour behind under EDT and two under EST.
+  "nearshore-development": [
+    {
+      q: "What time zone does LIVV work in?",
+      a: "LIVV Creative Studio works from Buenos Aires, which is UTC-3 all year: one hour ahead of New York from March to November and two hours ahead the rest of the year. That gives US East Coast teams an effectively full overlap with the studio's working day, including 9am Eastern kickoff calls.",
+    },
+    {
+      q: "Does LIVV work in English?",
+      a: "Yes. LIVV Creative Studio runs bilingual operations in English and Spanish by default, with senior people on every call instead of an account manager translating between the client and the team.",
+    },
+    {
+      q: "How is a nearshore engagement priced?",
+      a: "As a fixed fee or a retainer, with transparent pricing agreed before kickoff. A 15-minute first call is enough to know whether LIVV Creative Studio is the right partner for the work.",
+    },
+  ],
 }
 
 export function getServiceFaqs(slug: string): ServiceFaq[] {
