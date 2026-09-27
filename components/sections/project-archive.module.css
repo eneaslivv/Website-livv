@@ -26,9 +26,13 @@
 .results button:hover { background: #1a1a1a0d; }
 .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 42px 26px; list-style: none; padding: 0; margin: 0; }
 .card { display: block; height: 100%; }
-.cover { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border: 1px solid #e6e2db; background: #f1efe9; border-radius: 10px; }
-.image { object-fit: contain; padding: 14px; transition: transform 300ms ease; }
-.video { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; background: #f1efe9; }
+/* Covers fill the card at 3:2, the same ratio as the home and the landings, so
+   one cover file works everywhere. The beige only shows while it loads: with
+   contain + padding each cover floated in its own beige frame, a second frame
+   around the one most covers already bring. */
+.cover { position: relative; aspect-ratio: 3 / 2; overflow: hidden; border: 1px solid #e6e2db; background: #f1efe9; border-radius: 10px; }
+.image { object-fit: cover; transition: transform 300ms ease; }
+.video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; background: #f1efe9; }
 .card:hover .image { transform: scale(1.025); }
 .coverFallback { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; font-size: 24px; font-weight: 300; color: #847668; text-align: center; }
 .draft { position: absolute; left: 10px; top: 10px; border-radius: 4px; background: #f4ddae; color: #614711; padding: 4px 7px; font-size: 10px; }
@@ -59,7 +63,6 @@
     .select select { width: 100%; max-width: none; padding-left: 14px; padding-right: 32px; font-size: 16px; }
     .select svg { right: 12px; }
     .search input { font-size: 16px; }
-    .cover { aspect-ratio: 16 / 10; }
 }
 @media (prefers-reduced-motion: reduce) {
     .image, .cardTitle svg, .scope button, .select select, .search { transition: none; }

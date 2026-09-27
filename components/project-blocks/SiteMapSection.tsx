@@ -125,9 +125,9 @@ export function SiteMapSection({ label, heading, description, slugs, rootLabel }
 
                 <div className="absolute top-3 right-3 z-20 flex gap-1.5">
                     {[
-                        { icon: Minus, fn: () => setZoom((z) => Math.max(0.5, +(z - 0.25).toFixed(2))), label: 'Alejar' },
-                        { icon: Plus, fn: () => setZoom((z) => Math.min(2.5, +(z + 0.25).toFixed(2))), label: 'Acercar' },
-                        { icon: Maximize2, fn: reset, label: 'Encuadrar' },
+                        { icon: Minus, fn: () => setZoom((z) => Math.max(0.5, +(z - 0.25).toFixed(2))), label: 'Zoom out' },
+                        { icon: Plus, fn: () => setZoom((z) => Math.min(2.5, +(z + 0.25).toFixed(2))), label: 'Zoom in' },
+                        { icon: Maximize2, fn: reset, label: 'Reset view' },
                     ].map(({ icon: Icon, fn, label: l }) => (
                         <button
                             key={l}
@@ -220,7 +220,8 @@ export function SiteMapSection({ label, heading, description, slugs, rootLabel }
                 </div>
 
                 <div className="absolute bottom-3 left-4 z-20 text-[10px] uppercase tracking-widest text-[#5A3E3E]/50 pointer-events-none">
-                    {nodes.length - 1} páginas · arrastrá para explorar
+                    {/* Los nodos incluyen los grupos que arma el árbol: páginas son los slugs. */}
+                    {new Set(slugs).size} pages · drag to explore
                 </div>
             </div>
         </div>

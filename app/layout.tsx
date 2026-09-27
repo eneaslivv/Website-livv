@@ -27,6 +27,10 @@ const SITE_DESCRIPTION =
   "Creative engineering studio in Buenos Aires building custom software, AI integrations, and digital products for founders and agencies worldwide."
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || "GTM-NC96QG65"
+// The one Meta Pixel for the whole site. public/lp/tracking-init.js repeats
+// it for the static landings (they can't read this file); change both, and
+// META_PIXEL_ID in the lead-ingest function secrets, together.
+const META_PIXEL_ID = "1797006294606049"
 
 export const metadata: Metadata = {
   title: {
@@ -167,6 +171,14 @@ export default function RootLayout({
           The inline gtag() shim is the official Google pattern; it's separate
           from lib/analytics.ts (which pushes event-shaped objects, not consent
           commands).
+
+          The same rule covers every vendor: what the visitor answered in the
+          cookie banner wins; if they never answered, regulated regions are
+          denied and everywhere else granted. The stored answer is applied
+          here, before GTM and Meta load, so no tag fires in the default state
+          for someone who already said no. Meta has no regional default of its
+          own, so this script resolves one for it in window.__livvMarketingConsent.
+          Keep in sync with public/lp/tracking-init.js.
         */}
         <Script
           id="consent-default"
@@ -202,6 +214,32 @@ export default function RootLayout({
               });
               gtag('set', 'ads_data_redaction', true);
               gtag('set', 'url_passthrough', true);
+
+              (function(){
+                var stored = null;
+                try {
+                  var parsed = JSON.parse(localStorage.getItem('livv_consent_v1') || 'null');
+                  if (parsed && parsed.analytics && parsed.marketing) stored = parsed;
+                } catch (e) {}
+                if (stored) {
+                  gtag('consent', 'update', {
+                    ad_storage: stored.marketing,
+                    ad_user_data: stored.marketing,
+                    ad_personalization: stored.marketing,
+                    analytics_storage: stored.analytics,
+                    personalization_storage: stored.marketing,
+                  });
+                }
+                // Google knows the region from the IP; Meta doesn't, so its
+                // default comes from the time zone. European zones (plus
+                // Cyprus, the EU islands in the Atlantic and Svalbard) and an
+                // unknown or UTC zone count as regulated: when in doubt, deny.
+                var tz = '';
+                try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+                var regulated = !tz || tz === 'UTC' || /^(Europe|Etc)\\//.test(tz) ||
+                  /^(Asia\\/(Nicosia|Famagusta)|Atlantic\\/(Azores|Canary|Faroe|Madeira|Reykjavik)|Arctic\\/Longyearbyen)$/.test(tz);
+                window.__livvMarketingConsent = stored ? stored.marketing : (regulated ? 'denied' : 'granted');
+              })();
             `,
           }}
         />
@@ -276,7 +314,13 @@ export default function RootLayout({
             />
           </>
         )}
-        {/* TODO(tracking): unify Meta Pixel — currently 2 different IDs across routes (this layout uses 1797006294606049, public/lp/tracking-init.js uses 1495620938814274). Decide which one to keep and consolidate. */}
+        {/*
+          Meta Pixel starts in the consent state resolved by consent-default
+          above; the cookie banner (lib/consent.ts) grants or revokes it later.
+          There is no <noscript> pixel on purpose: an image request can't ask
+          for consent, so it would track visitors who never had the chance to
+          say no.
+        */}
         <Script
           id="meta-pixel"
           strategy="afterInteractive"
@@ -293,23 +337,13 @@ export default function RootLayout({
                 t.src=v;s=b.getElementsByTagName(e)[0];
                 s.parentNode.insertBefore(t,s)}(window, document,'script',
                 'https://connect.facebook.net/en_US/fbevents.js');
-                fbq('consent', 'revoke');
-                fbq('init', '1797006294606049');
+                fbq('consent', window.__livvMarketingConsent === 'granted' ? 'grant' : 'revoke');
+                fbq('init', '${META_PIXEL_ID}');
                 fbq('track', 'PageView');
               })();
             `,
           }}
         />
-        {/* TODO(tracking): unify Meta Pixel — currently 2 different IDs across routes (this fallback uses 1797006294606049, public/lp/tracking-init.js uses 1495620938814274). */}
-        <noscript>
-          <img
-            height="1"
-            width="1"
-            style={{ display: "none" }}
-            src="https://www.facebook.com/tr?id=1797006294606049&ev=PageView&noscript=1"
-            alt=""
-          />
-        </noscript>
       </head>
       <body className={`${inter.className} antialiased`} suppressHydrationWarning>
         <noscript>

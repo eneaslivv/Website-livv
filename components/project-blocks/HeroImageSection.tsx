@@ -33,14 +33,14 @@ export function HeroImageSection({ image_url, alt, poster }: Props) {
                                 playsInline
                                 preload="metadata"
                                 poster={poster || undefined}
-                                className="absolute inset-0 w-full h-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105"
+                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                             />
                         ) : (
                             <Image
                                 src={image_url}
                                 alt={alt || "Project screenshot"}
                                 fill
-                                className="object-cover opacity-90 transition-transform duration-700 group-hover:scale-105"
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
                             />
                         )}
                     </div>

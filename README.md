@@ -24,11 +24,37 @@ project settings.
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL (used by the portal/admin) |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon key |
 
+## Portfolio covers
+
+A project's cover is the `image` of its `portfolio_items` row (or its
+`is_cover` video in `media`). The same file is shown on `/work`, the home, the
+landings and the "Our Projects" carousel. Every one of those cards **fills**
+with the cover (`object-fit: cover`) at **3:2**, except the landing bento,
+which crops some cards closer to 4:3. So a cover that isn't 3:2 gets cropped,
+and one that brings its own margins gets a frame inside the card.
+
+For a new cover:
+
+- **3:2, 2400×1600**, WebP around 80 quality. Images are served as-is
+  (`images.unoptimized`: the Vercel optimization quota ran out), so export at
+  the final size and keep the file under ~400 KB.
+- **Full-bleed**: the cover is the whole card. A mockup (browser, phone) goes
+  on its own background, and that background reaches the edges.
+- **Safe area**: keep text and the mockup inside the central ~85% of the width
+  so the 4:3 crop on the landings doesn't cut it.
+- **Grain or noise on large flat areas stays subtle.** Recompressed, it turns
+  into blotches: that was Quintflow's background while the Vercel optimizer
+  re-encoded covers to AVIF.
+- **Video covers** follow the same frame and need a poster (first frame) so
+  the card isn't black before it plays.
+
 ## Analytics & Tracking
 
-> **TL;DR — there is exactly one tracking entry-point: GTM.**
-> Do not add `gtag.js`, `fbq`, Microsoft Clarity, GA4 measurement IDs, or any
+> **TL;DR — vendor tags go in GTM. The one exception is the Meta Pixel.**
+> Do not add `gtag.js`, Microsoft Clarity, TikTok, GA4 measurement IDs, or any
 > other vendor SDK directly to the codebase. Configure them inside GTM.
+> The Meta Pixel is loaded from code (see [Meta Pixel](#meta-pixel)); don't
+> add a second one in GTM.
 
 ### Architecture
 
@@ -36,9 +62,10 @@ project settings.
 ┌──────────────────────────────────────────────────┐
 │                  livvvv.com                      │
 │                                                  │
-│  app/layout.tsx ──► loads ONLY GTM-NC96QG65      │
-│       │            (consent default = denied,    │
-│       │             then GTM, then Meta Pixel)   │
+│  app/layout.tsx ──► 1. consent (default + the    │
+│       │               banner answer, if any)     │
+│       │            2. GTM-NC96QG65               │
+│       │            3. Meta Pixel 1797006294606049│
 │       ▼                                          │
 │  lib/analytics.ts ──► dataLayer.push({ event })  │
 │       │                                          │
@@ -53,12 +80,15 @@ project settings.
                               │   ├─► GA4 (G-N2BMLKVJJJ)  │
                               │   ├─► Google Ads          │
                               │   │   (AW-18096615687)    │
-                              │   └─► Other tags…         │
+                              │   ├─► Microsoft Clarity   │
+                              │   └─► TikTok (to add)     │
                               └──────────────────────────┘
 ```
 
 The same model applies to static landing pages under `/for-*`, which load
 `/public/lp/tracking-init.js` instead of going through the Next.js layout.
+That file also renders the cookie banner on the landings (a copy of
+`components/analytics/CookieBanner.tsx`), since they don't get React.
 
 ### Adding a new tracked event
 
@@ -83,10 +113,10 @@ The same model applies to static landing pages under `/for-*`, which load
 
 | Event | Source | Notes |
 |---|---|---|
-| `lead_form_submit` | [lib/lead-ingest.ts](lib/lead-ingest.ts) `submitLead()` | Includes hashed `lead_email_hash` / `lead_phone_hash` for Enhanced Conversions |
-| `generate_lead` | same | GA4-canonical companion event |
+| `lead_form_submit` | [lib/lead-ingest.ts](lib/lead-ingest.ts) `submitLead()` and `public/lp/lead-ingest.js` | Includes hashed `lead_email_hash` / `lead_phone_hash` for Enhanced Conversions |
+| `generate_lead` | same | GA4-canonical companion event. Both lead events carry `value`, `currency` (USD), and the same id in `event_id` and `transaction_id` — the id Meta deduplicates with |
+| `consent_update` | [lib/consent.ts](lib/consent.ts) `writeConsent()` and `tracking-init.js` | The visitor just answered the cookie banner: `analytics_consent`, `marketing_consent`. Not pushed when a stored answer is re-applied |
 | `scroll_depth` | [components/analytics/EngagementTracker.tsx](components/analytics/EngagementTracker.tsx) | Fires at 25 / 50 / 75 / 90 % |
-| `engagement_time` | same | Fires at 15 / 30 / 60 / 120 s of active time |
 
 When you add new wrappers, document them in this table.
 
@@ -97,23 +127,59 @@ When you add new wrappers, document them in this table.
 - ❌ Don't call `window.gtag('event','conversion',...)` from React code.
   Push the semantic event (`lead_form_submit`, `purchase`, etc.) and let GTM
   decide which conversion tags to fire.
-- ❌ Don't add Meta Pixel / Microsoft Clarity / Hotjar / TikTok / LinkedIn
-  Insight `<Script>` blocks. All of those go in GTM.
+- ❌ Don't add Microsoft Clarity / Hotjar / TikTok / LinkedIn Insight
+  `<Script>` blocks. All of those go in GTM.
 - ❌ Don't hardcode container or measurement IDs in components. Use
-  `NEXT_PUBLIC_GTM_ID` (or, for static `/lp/*` pages, the single string at
-  the top of `tracking-init.js`).
+  `NEXT_PUBLIC_GTM_ID` (or, for static `/lp/*` pages, the strings at the top
+  of `tracking-init.js`).
 
-### Consent Mode v2
+### Consent
 
-Default state is **denied** for all categories before GTM loads.
-[lib/consent.ts](lib/consent.ts) handles updates from the cookie banner.
-A migration plan to fully roll this out (banner UX, geo-gating, per-tag
-consent in GTM) lives in [docs/consent-mode-v2-plan.md](docs/consent-mode-v2-plan.md).
+One rule for every vendor, on every page:
 
-### Known issue — Meta Pixel
+1. If the visitor answered the cookie banner, that answer wins. It lives in
+   `localStorage['livv_consent_v1']` and is applied in the first inline script
+   (`consent-default` in `app/layout.tsx`, the top of `tracking-init.js`),
+   before GTM or Meta load.
+2. Otherwise, regulated regions (EEA + UK + CH + EFTA) start **denied** and
+   everywhere else starts **granted**. Google resolves the region from the IP
+   (Consent Mode `region`). Meta has no regional default, so the same script
+   resolves one from the time zone: European zones, and an unknown or UTC
+   zone, count as regulated.
+3. The banner can change it at any time: [lib/consent.ts](lib/consent.ts)
+   updates Consent Mode and Meta, and pushes `consent_update`.
 
-There are currently **two different Meta Pixel IDs** firing depending on
-the route (`1797006294606049` from `app/layout.tsx`, `1495620938814274`
-from `public/lp/tracking-init.js`). This fragments Meta Ads audiences and
-should be unified. Search the repo for `TODO(tracking)` to find every site
-that needs an update once a decision is made.
+The history of the rollout lives in
+[docs/consent-mode-v2-plan.md](docs/consent-mode-v2-plan.md).
+
+### Meta Pixel
+
+One pixel for the whole site: `1797006294606049`. It is set in two places
+that must stay equal — `META_PIXEL_ID` in `app/layout.tsx` and in
+`public/lp/tracking-init.js` — and it has to be the `META_PIXEL_ID` secret of
+the `lead-ingest` Supabase function, which sends the same `Lead` server-side
+(Conversions API) with the browser's `event_id` so Meta counts it once. That
+server-side send only happens when the function has both `META_PIXEL_ID` and
+`META_CAPI_ACCESS_TOKEN`; otherwise its response carries
+`capi: { skipped: … }`.
+
+Until 2026-09 the landings used a second pixel (`1495620938814274`) and
+never granted it consent, so it received nothing from the browser.
+
+### TikTok Pixel (via GTM)
+
+TikTok goes in GTM, not in code. Once the pixel exists in TikTok Ads Manager:
+
+1. **Base tag**: TikTok Pixel template, page view, with the pixel ID.
+   Triggers: *All Pages* **and** Custom Event `consent_update` where
+   `marketing_consent` equals `granted`. Tag firing: once per page.
+2. **Lead tag**: event `SubmitForm`, trigger Custom Event `generate_lead`.
+   Map `value` and `currency` from the dataLayer, and `event_id` to the
+   event ID (for deduplication if the Events API is added later).
+3. **Consent** on both tags: *Require additional consent for tag to fire* →
+   `ad_storage`. That makes TikTok follow the same rule as Google and Meta.
+4. Publish, and check it in TikTok's Events Manager with the Pixel Helper.
+
+The second trigger in step 1 is what makes an EEA visitor who accepts the
+banner count on that same page: GTM doesn't re-fire a tag that consent
+blocked at page load.
