@@ -98,7 +98,7 @@ function RecommendedProjectsGallery({ projects }: { projects: PortfolioItem[] })
                         <Link
                             key={project.id || i}
                             href={`/projects/${project.slug}`}
-                            className="group relative w-[85vw] md:w-[600px] aspect-[4/3] md:aspect-[16/9] rounded-[2rem] overflow-hidden shadow-lg"
+                            className="group relative w-[85vw] md:w-[600px] aspect-[3/2] rounded-[2rem] overflow-hidden shadow-lg"
                             onMouseEnter={(e) => { const v = e.currentTarget.querySelector('video'); v?.play().catch(() => {}) }}
                             onMouseLeave={(e) => { const v = e.currentTarget.querySelector('video'); if (v) { v.pause(); v.currentTime = 0 } }}
                         >
