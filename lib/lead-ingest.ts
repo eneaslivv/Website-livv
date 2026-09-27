@@ -133,9 +133,13 @@ async function trackLeadConversion(payload: LeadPayload, attribution: Attributio
         visit_count: attribution.visit_count,
     };
 
-    trackLeadFormSubmit(sharedParams);
+    // event_id and transaction_id carry the same id on both events, here and
+    // in public/lp/lead-ingest.js, so a GTM tag (Google Ads, TikTok) can read
+    // either one on any page. It's also the id Meta uses to deduplicate.
+    trackLeadFormSubmit({ ...sharedParams, event_id: eventId });
     trackGenerateLead({
         form_name: payload.origin,
+        event_id: eventId,
         transaction_id: eventId,
         value,
         currency: LEAD_CURRENCY,
@@ -147,8 +151,6 @@ async function trackLeadConversion(payload: LeadPayload, attribution: Attributio
     // `lead_form_submit` / `generate_lead` events above. The hashed user_data
     // for Enhanced Conversions is included in the lead_form_submit payload.
 
-    // TODO(tracking): unify Meta Pixel — currently 2 different IDs across routes
-    // (app/layout.tsx uses 1797006294606049, public/lp/tracking-init.js uses 1495620938814274).
     const w = window as { fbq?: (...args: unknown[]) => void };
     if (typeof w.fbq === 'function') {
         w.fbq(

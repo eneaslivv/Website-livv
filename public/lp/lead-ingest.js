@@ -16,7 +16,10 @@
   var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5nc3d1dGNwc2dkZ21tam5mZGRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc1NzY3NDUsImV4cCI6MjA4MzE1Mjc0NX0.fd_OLVMTOMqN1EF-Ca1EV0MeclzM24kY0rOFDihvzd8';
   var TENANT_SLUG = 'livvv';
 
-  var LEAD_CURRENCY = 'EUR';
+  // Same currency as lib/lead-ingest.ts and the Meta CAPI call in the
+  // lead-ingest function: USD everywhere, or the same lead reaches Meta with
+  // two different values.
+  var LEAD_CURRENCY = 'USD';
   var LEAD_VALUE_BY_CATEGORY = {
     contact: 500, quote: 800, partner: 1000, lead: 400, newsletter: 50,
   };
@@ -177,6 +180,8 @@
     w.dataLayer.push({
       event: 'generate_lead',
       event_id: eventId,
+      transaction_id: eventId,
+      form_name: payload.origin,
       currency: LEAD_CURRENCY,
       value: value,
       lead_category: category,
@@ -188,8 +193,6 @@
     // For Enhanced Conversions, GTM reads lead_email_hash / lead_phone_hash
     // from the dataLayer.
 
-    // TODO(tracking): unify Meta Pixel — currently 2 different IDs across routes
-    // (app/layout.tsx uses 1797006294606049, this file uses 1495620938814274).
     if (typeof w.fbq === 'function') {
       w.fbq('track', 'Lead', {
         content_name: payload.origin,

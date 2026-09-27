@@ -52,8 +52,8 @@ export function CookieBanner() {
             {showDetails && (
                 <ul className="text-[10px] text-white/55 mt-2 mb-2.5 space-y-1 border-l border-white/10 pl-2">
                     <li><span className="text-white/90">Esenciales</span> — siempre activas.</li>
-                    <li><span className="text-white/90">Analítica</span> — Google Analytics anónimo.</li>
-                    <li><span className="text-white/90">Marketing</span> — Ads y Meta Pixel.</li>
+                    <li><span className="text-white/90">Analítica</span> — Google Analytics y Microsoft Clarity.</li>
+                    <li><span className="text-white/90">Marketing</span> — Google Ads, Meta y TikTok.</li>
                 </ul>
             )}
 

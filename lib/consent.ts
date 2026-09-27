@@ -40,8 +40,6 @@ function pushGtagConsent(record: ConsentRecord) {
     })
 }
 
-// TODO(tracking): unify Meta Pixel — currently 2 different IDs across routes
-// (app/layout.tsx uses 1797006294606049, public/lp/tracking-init.js uses 1495620938814274).
 function applyMetaConsent(record: ConsentRecord) {
     if (typeof window === 'undefined') return
     const w = window as any
@@ -61,6 +59,22 @@ export function applyConsent(record: ConsentRecord) {
     }
 }
 
+// Tells GTM the visitor just answered the banner. Tags blocked by consent at
+// page load (e.g. TikTok for an EEA visitor) don't fire on their own once
+// consent is granted; a trigger on this event lets them fire on that same
+// page. Only pushed on a real answer, not when a stored one is re-applied,
+// so it never doubles a page view.
+function pushConsentAnswered(record: ConsentRecord) {
+    if (typeof window === 'undefined') return
+    const w = window as any
+    w.dataLayer = w.dataLayer || []
+    w.dataLayer.push({
+        event: 'consent_update',
+        analytics_consent: record.analytics,
+        marketing_consent: record.marketing,
+    })
+}
+
 export function writeConsent(partial: Partial<Omit<ConsentRecord, 'updated_at'>>) {
     const next: ConsentRecord = {
         ...DENIED,
@@ -72,6 +86,7 @@ export function writeConsent(partial: Partial<Omit<ConsentRecord, 'updated_at'>>
         localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify(next))
     } catch { }
     applyConsent(next)
+    pushConsentAnswered(next)
     return next
 }
 

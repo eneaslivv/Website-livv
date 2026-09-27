@@ -90,7 +90,7 @@ export function FooterSection({ id }: { id?: string }) {
                                 <div className="space-y-4">
                                     <h4 className="text-xs uppercase tracking-widest text-[#1a1a1a]/40">Socials</h4>
                                     <div className="flex gap-4">
-                                        <a href="https://www.instagram.com/p/C5-FziFN5zM/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-[#1a1a1a]/10 flex items-center justify-center text-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-white transition-all duration-300 group">
+                                        <a href="https://www.instagram.com/livv.creativv/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-[#1a1a1a]/10 flex items-center justify-center text-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-white transition-all duration-300 group">
                                             <Instagram className="w-4 h-4" />
                                         </a>
                                         <a href="https://www.youtube.com/@livvagency5936" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-[#1a1a1a]/10 flex items-center justify-center text-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-white transition-all duration-300 group">
