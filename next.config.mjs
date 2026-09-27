@@ -74,6 +74,10 @@ const nextConfig = {
     ]
   },
   images: {
+    // La cuota de Image Optimization de Vercel se agotó: toda variante que no
+    // estaba en caché volvía 402 y la imagen salía rota en retina y celulares.
+    // Las imágenes del sitio ya se exportan en webp a 2-3x, así que se sirven tal cual.
+    unoptimized: true,
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 31536000,
     remotePatterns: [

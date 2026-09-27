@@ -165,7 +165,7 @@ export function ImageShowcaseSection({ label, layout, images }: Props) {
                     <div data-reveal-label className="flex justify-between items-end mb-4 md:mb-6">
                         <h3 className="text-[11px] md:text-sm font-medium text-[#2A1818] uppercase tracking-widest">{label}</h3>
                         <span className="text-[10px] md:text-xs text-[#5A3E3E]/60 tabular-nums">
-                            {images.length} {images.length === 1 ? 'pieza' : 'piezas'}
+                            {images.length} {images.length === 1 ? 'piece' : 'pieces'}
                         </span>
                     </div>
                 )}
