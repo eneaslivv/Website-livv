@@ -37,7 +37,8 @@ export interface ServiceWorkItem {
 }
 
 export type ServiceVisual =
-  | { kind: "image"; src: string; caption: string; href?: string }
+  /** Landscape, near 16:10: it fills the frame. `phoneOn` puts a raw phone screenshot on a grain. */
+  | { kind: "image"; src: string; caption: string; href?: string; phoneOn?: GrainSurface }
   | { kind: "video"; src: string; poster: string; caption: string; href?: string }
   | { kind: "timezones"; caption: string }
 
@@ -107,7 +108,7 @@ const azqira: ServiceWorkItem = {
   meta: "Fintech · UI/UX & web development",
   year: "2024",
   line: "Taking part in hotels, explained step by step.",
-  image: "/images/azqira/mobile-celulares-earn-votacion-y-ganancias.webp",
+  image: "/images/azqira/desktop-laptop-earn-where-you.webp",
 }
 
 const livvWeb: ServiceWorkItem = {
@@ -163,8 +164,8 @@ export const servicePages: Record<string, ServicePageContent> = {
           deliverables: ["Interface and design system", "Full-stack implementation"],
           visual: {
             kind: "image",
-            src: "/images/frenetic-pace/desktop-live-scores.webp",
-            caption: "Frenetic Pace · live scores",
+            src: "/images/frenetic-pace/desktop-evento.webp",
+            caption: "Frenetic Pace · an event page, with ticket sales",
             href: "/projects/frenetic-pace",
           },
         },
@@ -174,8 +175,8 @@ export const servicePages: Record<string, ServicePageContent> = {
           deliverables: ["Production deployment", "Technical documentation"],
           visual: {
             kind: "image",
-            src: "/images/frenetic-pace/mobile-sitio-mobile-home-eventos-y-tienda.webp",
-            caption: "Frenetic Pace · home, events and store on mobile",
+            src: "/images/frenetic-pace/desktop-laptop-home.webp",
+            caption: "Frenetic Pace · live at freneticpace.com",
             href: "/projects/frenetic-pace",
           },
         },
@@ -259,6 +260,7 @@ export const servicePages: Record<string, ServicePageContent> = {
           visual: {
             kind: "image",
             src: "/images/kru/mobile-assistant.webp",
+            phoneOn: "salvia",
             caption: "KRU · the same assistant inside the store, on mobile",
             href: "/projects/kru",
           },
@@ -307,6 +309,8 @@ export const servicePages: Record<string, ServicePageContent> = {
           { label: "Status", value: "Live at pliego.shop" },
         ],
       },
+      // The phone on the rock: portrait, but the phone sits in the middle and
+      // survives the 3:2 crop whole.
       more: [livvWeb, { ...azqira, image: "/images/project-mobile.png" }],
     },
     capabilities: {
@@ -340,8 +344,8 @@ export const servicePages: Record<string, ServicePageContent> = {
           deliverables: ["Production implementation", "Performance budget"],
           visual: {
             kind: "image",
-            src: "/images/livv-web/mobile-celulares-reels-servicios-y-estudio.webp",
-            caption: "LIVV web · the same build on mobile",
+            src: "/images/livv-web/desktop-macbook-products-captura-original.webp",
+            caption: "LIVV web · live at livvvv.com",
             href: "/projects/livv-web",
           },
         },
@@ -405,8 +409,8 @@ export const servicePages: Record<string, ServicePageContent> = {
           deliverables: ["Information architecture", "End-to-end flows"],
           visual: {
             kind: "image",
-            src: "/images/wortise/steps-pasos-creacion-de-promociones.webp",
-            caption: "Wortise · creating a promotion, step by step",
+            src: "/images/wortise/desktop-generar-reporte.webp",
+            caption: "Wortise · generating a report",
             href: "/projects/wortise",
           },
         },
@@ -416,8 +420,8 @@ export const servicePages: Record<string, ServicePageContent> = {
           deliverables: ["UI design system", "Validation prototype"],
           visual: {
             kind: "image",
-            src: "/images/pr-tool/mobile-perfil.webp",
-            caption: "PR Tool · the same system, on mobile",
+            src: "/images/pr-tool/desktop-campana-datos.webp",
+            caption: "PR Tool · campaign performance, from the same system",
             href: "/projects/pr-tool",
           },
         },
@@ -582,8 +586,8 @@ export const servicePages: Record<string, ServicePageContent> = {
           deliverables: ["Founder on every project", "Fixed fee or retainer"],
           visual: {
             kind: "image",
-            src: "/images/sunnyside/mobile-celulares-sobre-ambar.webp",
-            caption: "Sunnyside · the same site on mobile",
+            src: "/images/sunnyside/desktop-how-it-works.webp",
+            caption: "Sunnyside · how it works",
             href: "/projects/sunnyside",
           },
         },

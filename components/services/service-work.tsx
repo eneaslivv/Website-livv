@@ -12,9 +12,10 @@ import { ArrowLink, GRAIN, Label, Reveal, ServiceSection, TwoToneHeading } from 
 
 /**
  * 01 · Selected work. The references carry the page: one lead case with the
- * facts from its own case study, and two more in the /work card language —
- * same stone frame, same contained mockup, same meta — so a project looks
- * identical here and in the portfolio.
+ * facts from its own case study, and two more in the /work card language.
+ * Like every portfolio card on the site (README · Portfolio covers), the image
+ * fills the card at 3:2: the beige only shows while it loads, so a mockup never
+ * floats in a second frame around the background it already brings.
  *
  * Images skip the optimizer (`unoptimized`): /_next/image answers 402 once
  * Vercel's quota runs out, and these webps are already exported for retina.
@@ -87,7 +88,7 @@ function Cover({ item, className, sizes }: { item: ServiceWorkItem; className: s
         <LoopVideo
           src={item.video}
           poster={item.image}
-          className="absolute inset-0 h-full w-full object-contain p-3.5 md:p-5 transition-transform duration-300 ease-out group-hover:scale-[1.02]"
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.025]"
         />
       ) : item.image ? (
         <Image
@@ -96,7 +97,7 @@ function Cover({ item, className, sizes }: { item: ServiceWorkItem; className: s
           fill
           unoptimized
           sizes={sizes}
-          className="object-contain p-3.5 md:p-5 transition-transform duration-300 ease-out group-hover:scale-[1.02]"
+          className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.025]"
         />
       ) : null}
     </div>
@@ -158,7 +159,7 @@ export function ServiceWork({ content, location }: { content: ServicePageContent
           onClick={track(lead.name)}
           className="group block rounded-[12px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-8 focus-visible:ring-stone-400"
         >
-          <Cover item={lead} className="aspect-[4/3] md:aspect-[3/2]" sizes="(max-width: 768px) 100vw, 976px" />
+          <Cover item={lead} className="aspect-[3/2]" sizes="(max-width: 768px) 100vw, 976px" />
           <div className="mt-6 grid grid-cols-1 md:grid-cols-[1.15fr_1fr] gap-6 md:gap-12">
             <div>
               <CardText item={lead} lead />
@@ -185,7 +186,7 @@ export function ServiceWork({ content, location }: { content: ServicePageContent
               onClick={track(item.name)}
               className="group block rounded-[12px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-8 focus-visible:ring-stone-400"
             >
-              <Cover item={item} className="aspect-[16/10]" sizes="(max-width: 768px) 100vw, 488px" />
+              <Cover item={item} className="aspect-[3/2]" sizes="(max-width: 768px) 100vw, 488px" />
               <div className="pt-4">
                 <CardText item={item} />
               </div>

@@ -15,7 +15,9 @@ import { LoopVideo } from "./service-work"
  * each — the detail lives in the FAQ.
  */
 
-const FRAME = "relative aspect-[4/3] overflow-hidden rounded-[10px] border border-[#e6e2db] bg-[#f1efe9]"
+// Images fill the frame, as covers do across the site (README · Portfolio
+// covers): the visuals are picked landscape, near 16:10, so the crop is small.
+const FRAME = "relative aspect-[16/10] overflow-hidden rounded-[10px] border border-[#e6e2db] bg-[#f1efe9]"
 
 /** Buenos Aires against New York, computed live: the overlap claim, shown instead of told. */
 function TimezonesVisual() {
@@ -68,10 +70,24 @@ function VisualLayer({ visual, active = true, sizes }: { visual: ServiceVisual; 
         src={visual.src}
         poster={visual.poster}
         active={active}
-        className="absolute inset-0 h-full w-full object-contain p-3.5 md:p-5"
+        className="absolute inset-0 h-full w-full object-cover"
       />
     )
-  return <Image src={visual.src} alt={visual.caption} fill unoptimized sizes={sizes} className="object-contain p-3.5 md:p-5" />
+  if (visual.phoneOn)
+    // A raw phone screenshot becomes the brand's «phone on grain» mockup
+    // (LIVV Hub · 04.1 Mockups · 10 + 11.3): the grain reaches the edges and
+    // the screen sits on it with the glass rim.
+    return (
+      <div className="absolute inset-0">
+        <Image src={GRAIN[visual.phoneOn]} alt="" fill unoptimized sizes={sizes} className="object-cover" />
+        <div className="absolute inset-0 flex items-center justify-center py-[5%]">
+          <div className="relative h-full aspect-[9/19.5] overflow-hidden rounded-[20px] md:rounded-[26px] border-[3px] border-white/80 shadow-[0_24px_60px_-24px_rgba(28,25,23,0.5)]">
+            <Image src={visual.src} alt={visual.caption} fill unoptimized sizes="260px" className="object-cover object-top" />
+          </div>
+        </div>
+      </div>
+    )
+  return <Image src={visual.src} alt={visual.caption} fill unoptimized sizes={sizes} className="object-cover" />
 }
 
 function Caption({ visual }: { visual: ServiceVisual }) {
