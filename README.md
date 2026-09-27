@@ -24,6 +24,30 @@ project settings.
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL (used by the portal/admin) |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon key |
 
+## Portfolio covers
+
+A project's cover is the `image` of its `portfolio_items` row (or its
+`is_cover` video in `media`). The same file is shown on `/work`, the home, the
+landings and the "Our Projects" carousel. Every one of those cards **fills**
+with the cover (`object-fit: cover`) at **3:2**, except the landing bento,
+which crops some cards closer to 4:3. So a cover that isn't 3:2 gets cropped,
+and one that brings its own margins gets a frame inside the card.
+
+For a new cover:
+
+- **3:2, 2400×1600**, WebP around 80 quality. Images are served as-is
+  (`images.unoptimized`: the Vercel optimization quota ran out), so export at
+  the final size and keep the file under ~400 KB.
+- **Full-bleed**: the cover is the whole card. A mockup (browser, phone) goes
+  on its own background, and that background reaches the edges.
+- **Safe area**: keep text and the mockup inside the central ~85% of the width
+  so the 4:3 crop on the landings doesn't cut it.
+- **Grain or noise on large flat areas stays subtle.** Recompressed, it turns
+  into blotches: that was Quintflow's background while the Vercel optimizer
+  re-encoded covers to AVIF.
+- **Video covers** follow the same frame and need a poster (first frame) so
+  the card isn't black before it plays.
+
 ## Analytics & Tracking
 
 > **TL;DR — vendor tags go in GTM. The one exception is the Meta Pixel.**
