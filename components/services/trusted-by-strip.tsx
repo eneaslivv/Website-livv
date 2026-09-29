@@ -5,17 +5,19 @@ import { clientLogos } from "@/components/data/client-logos"
 import { DrawLine, Reveal, ServiceSection } from "./primitives"
 
 /**
- * The trusted-by logos, folded into the page flow as a quiet strip
- * instead of a standalone section.
+ * The client logos, folded into the page flow as a quiet strip right under the
+ * hero: the first proof a visitor meets, before any copy asks for their time.
+ * Same wording as the home («Some of our clients») — they are clients, not all
+ * of them engineering teams.
  */
-export function TrustedByStrip() {
+export function TrustedByStrip({ className = "pb-16 md:pb-24" }: { className?: string }) {
   return (
-    <ServiceSection ariaLabel="Trusted by" className="pb-16 md:pb-24">
+    <ServiceSection ariaLabel="Some of our clients" className={className}>
       <DrawLine className="w-full" />
       <Reveal>
         <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-12 py-8">
           <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-stone-400 shrink-0">
-            Trusted by engineering teams at
+            Some of our clients
           </p>
           <div className="flex items-center gap-8 flex-wrap">
             {clientLogos.map((logo) => (

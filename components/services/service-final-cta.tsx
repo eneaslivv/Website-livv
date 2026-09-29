@@ -1,14 +1,31 @@
 "use client"
 
+import { useRef } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { useInView } from "framer-motion"
+
 import type { ServiceFinalCta } from "@/lib/service-pages-data"
+import { LiquidMetalButton } from "@/components/button-styling/liquid-metal-button"
+import { trackCTAClick } from "@/lib/analytics"
 import { ArrowLink, DrawLine, Label, Reveal, ServiceSection } from "./primitives"
 
 /**
- * Service-specific closing CTA. Routes into the existing /contact flow —
- * no separate form system is introduced.
+ * Service-specific closing CTA. It ends on the same liquid-metal «start scoping»
+ * button the hero opens with, so the page starts and closes on one action.
+ * The button mounts only near the viewport: its shader is a WebGL canvas.
+ * Routes into the existing /contact flow — no separate form system.
  */
-export function ServiceFinalCTA({ content }: { content: ServiceFinalCta }) {
+export function ServiceFinalCTA({ content, location }: { content: ServiceFinalCta; location: string }) {
+  const router = useRouter()
+  const slot = useRef<HTMLDivElement>(null)
+  const near = useInView(slot, { once: true, margin: "300px 0px" })
+
+  const start = () => {
+    trackCTAClick("start_scoping", `${location}:final`)
+    router.push("/contact")
+  }
+
   return (
     <ServiceSection ariaLabel="Next step" className="pb-24 md:pb-36">
       <DrawLine className="w-full" />
@@ -24,7 +41,7 @@ export function ServiceFinalCTA({ content }: { content: ServiceFinalCta }) {
             {content.headlineAccent && (
               <>
                 <br />
-                <span className="text-stone-400">{content.headlineAccent}</span>
+                <span className="text-muted-foreground">{content.headlineAccent}</span>
               </>
             )}
           </h2>
@@ -36,12 +53,19 @@ export function ServiceFinalCTA({ content }: { content: ServiceFinalCta }) {
 
         <Reveal delay={0.24}>
           <div className="mt-10 flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-8">
-            <Link
-              href="/contact"
-              className="group inline-flex items-center justify-center text-[13px] font-medium tracking-tight text-stone-50 bg-stone-900 rounded-full px-7 py-3.5 hover:bg-stone-800 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-stone-500"
-            >
-              <ArrowLink>{content.action}</ArrowLink>
-            </Link>
+            {/* Same footprint before and after the shader mounts, so nothing jumps */}
+            <div ref={slot} className="min-h-[52px] min-w-[160px]">
+              {near ? (
+                <LiquidMetalButton label="start scoping" onClick={start} />
+              ) : (
+                <Link
+                  href="/contact"
+                  className="inline-flex h-[52px] items-center rounded-full bg-stone-900 px-8 text-[13px] text-stone-50"
+                >
+                  start scoping
+                </Link>
+              )}
+            </div>
 
             {content.secondary && (
               <Link
