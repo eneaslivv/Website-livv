@@ -17,6 +17,7 @@ interface SliderLogo {
   href: string;
   description: string;
   useMask: boolean;
+  maskSrc?: string;
   className?: string;
 }
 
@@ -38,6 +39,8 @@ export function ClientLogoSlider() {
         description: l.name || '',
         // Only known transparent artwork is safe to tint with an alpha mask.
         useMask: original?.useMask ?? false,
+        // A mask twin only stands in while the row still points at the file it was cut from.
+        maskSrc: original?.maskSrc && l.logo_url === original.src ? original.maskSrc : undefined,
         className: original?.className,
         _is_draft: l._is_draft || false,
         };
@@ -66,16 +69,16 @@ export function ClientLogoSlider() {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <Link href={logo.href} aria-label={logo.alt} target={logo.href.startsWith("http") ? "_blank" : undefined} className="block group">
-                          {logo.useMask !== false ? (
+                          {logo.maskSrc || logo.useMask !== false ? (
                             /* Masked version (Colorable) */
                             <div
                               className={`w-28 h-12 transition-colors duration-300 bg-[#2C0405] group-hover:bg-gray-400`}
                               style={{
-                                maskImage: `url(${logo.src})`,
+                                maskImage: `url(${logo.maskSrc ?? logo.src})`,
                                 maskSize: "contain",
                                 maskRepeat: "no-repeat",
                                 maskPosition: "center",
-                                WebkitMaskImage: `url(${logo.src})`,
+                                WebkitMaskImage: `url(${logo.maskSrc ?? logo.src})`,
                                 WebkitMaskSize: "contain",
                                 WebkitMaskRepeat: "no-repeat",
                                 WebkitMaskPosition: "center",
@@ -117,6 +120,11 @@ export function ClientLogoSlider() {
         }
         .animate-scroll {
           animation: scroll 40s linear infinite; /* Slower animation for better readability */
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .animate-scroll {
+            animation: none;
+          }
         }
         .animate-scroll:hover {
           animation-play-state: paused; /* Pause on hover for easier interaction */
