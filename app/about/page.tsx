@@ -14,8 +14,8 @@ const services = [
     { name: "Websites & development", href: "/services/creative-engineering" },
     { name: "Motion & storytelling", href: "/services/motion-narrative" },
 ]
-const eyebrow = "mb-5 block text-[10px] uppercase tracking-[0.24em] text-[#787168]"
-const heading = "text-3xl font-light leading-tight tracking-[-0.04em] md:text-4xl"
+const eyebrow = "mb-5 block text-[10px] uppercase tracking-[0.24em] text-[#787168] max-md:text-balance"
+const heading = "text-3xl font-light leading-tight tracking-[-0.04em] md:text-4xl max-md:text-balance"
 
 export default function AboutPage() {
     return (
@@ -29,7 +29,7 @@ export default function AboutPage() {
                         <span className={eyebrow}>LIVV / The studio</span>
                         <h1 className="max-w-lg text-4xl font-light leading-[1.08] tracking-[-0.04em] md:text-5xl lg:text-[56px]">Small studio.<br />Close collaboration.</h1>
                         <p className="mt-6 max-w-sm text-sm leading-relaxed text-[#625d55]">Design and development for founders and agencies. From the first idea to the product people use.</p>
-                        <Link href="/work" className="group mt-8 inline-flex items-center gap-3 border-b border-[#c6bdaf] pb-1 text-sm transition-colors hover:text-[#7d503e] focus-visible:outline-2 focus-visible:outline-offset-4">
+                        <Link href="/work" className="group relative mt-8 inline-flex items-center gap-3 border-b border-[#c6bdaf] pb-1 text-sm after:absolute after:-inset-3 after:content-[''] transition-colors hover:text-[#7d503e] focus-visible:outline-2 focus-visible:outline-offset-4">
                             Explore our work <ArrowUpRight size={16} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transform-none" />
                         </Link>
                         </div>
@@ -121,7 +121,7 @@ export default function AboutPage() {
                 <section aria-labelledby="faq-heading" className="grid gap-8 border-t border-[#e3ded5] py-14 md:grid-cols-[1.1fr_1fr] md:gap-16 md:py-20">
                     <div>
                         <span className={eyebrow}>A few practical things</span><h2 id="faq-heading" className={heading}>Before we start.</h2>
-                        <Link href="/blog/white-label-playbook" className="mt-6 inline-block text-xs text-[#625d55] underline decoration-[#c6bdaf] underline-offset-4 hover:text-[#1a1a1a]">Read our white-label playbook ↗</Link>
+                        <Link href="/blog/white-label-playbook" className="relative mt-6 inline-block text-xs text-[#625d55] after:absolute after:-inset-3 after:content-[''] underline decoration-[#c6bdaf] underline-offset-4 hover:text-[#1a1a1a]">Read our white-label playbook ↗</Link>
                     </div>
                     <div>
                         {ABOUT_FAQS.map(faq => (
@@ -134,7 +134,7 @@ export default function AboutPage() {
                         ))}
                     </div>
                 </section>
-                <section id="start-a-project" aria-labelledby="about-cta-heading" className="relative isolate flex min-h-[600px] items-center justify-center overflow-hidden border-t border-[#e3ded5] px-4 py-24 md:min-h-[660px]" data-about-closing-cta>
+                <section id="start-a-project" aria-labelledby="about-cta-heading" className="relative isolate flex min-h-0 items-center justify-center overflow-hidden border-t border-[#e3ded5] px-4 py-16 sm:min-h-[600px] sm:py-24 md:min-h-[660px]" data-about-closing-cta>
                     <div className="pointer-events-none absolute inset-0 -z-20 bg-[radial-gradient(ellipse_at_center,rgba(100,37,49,0.035),transparent_65%)]" />
                     <div className="pointer-events-none absolute inset-0 -z-10" style={{ maskImage: "radial-gradient(ellipse 30% 28% at 50% 50%, transparent 20%, rgba(0,0,0,.2) 60%, #000 100%)" }}><PixelCanvas /></div>
                     <div className="w-full max-w-2xl text-center">

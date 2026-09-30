@@ -13,7 +13,7 @@ export default function WorkPage() {
             <div className="relative z-10">
                 <Navbar />
 
-                <div className="pt-32">
+                <div className="pt-24 md:pt-32">
                     {/* Hero / intro — added 2026-05-14 to give /work
                         crawlable text content. The advisor's Search Console
                         audit flagged /work as <100 visible words because the
@@ -33,7 +33,7 @@ export default function WorkPage() {
                         </h1>
                         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5">
                             <p className="text-sm leading-relaxed text-[#787168] max-w-md">Websites, digital products and brand experiences. Explore the projects and the thinking behind them.</p>
-                            <a href="#motion" className="text-xs text-[#62584b] underline underline-offset-4 decoration-[#c6bdaf]">Explore motion & animation ↗</a>
+                            <a href="#motion" className="inline-flex min-h-11 items-center self-start text-xs text-[#62584b] underline underline-offset-4 decoration-[#c6bdaf] md:min-h-0 md:self-auto">Explore motion & animation ↗</a>
                         </div>
                         </div>
                     </section>
@@ -47,7 +47,7 @@ export default function WorkPage() {
                         so /work has crawlable body text (Search Console flagged the
                         page as thin in May), but reading two paragraphs before seeing
                         a single project was the wrong order. */}
-                    <section className="max-w-5xl mx-auto px-6 md:px-12 pt-16 md:pt-24">
+                    <section className="max-w-5xl mx-auto px-6 md:px-12 pt-8 md:pt-24">
                         <div className="max-w-2xl space-y-5 text-base md:text-lg text-[#1a1a1a]/75 leading-[1.75] font-light">
                             <p>
                                 Most of what we ship is invisible. We work as a{" "}
@@ -85,7 +85,7 @@ export default function WorkPage() {
                         300-400 words of crawlable text with H2 / H3 plus
                         internal links to /about, /services/*, /blog editorial
                         pieces. */}
-                    <section className="max-w-3xl mx-auto px-6 md:px-12 py-20 md:py-32">
+                    <section className="max-w-3xl mx-auto px-6 md:px-12 pt-14 pb-12 md:py-32">
                         <h2 className="text-2xl md:text-3xl font-semibold text-[#1a1a1a] tracking-tight mb-6">
                             How to read this portfolio
                         </h2>

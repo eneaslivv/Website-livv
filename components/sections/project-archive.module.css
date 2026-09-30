@@ -54,15 +54,17 @@
     .search { flex: 1; width: auto; }
 }
 @media (max-width: 639px) {
-    .archive { padding: 0 24px 56px; }
+    .archive { padding: 0 24px 40px; }
     .grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
     .scope { align-self: stretch; }
-    .scope button { flex: 1; }
-    .filters { gap: 8px; }
-    .select { flex: 0 0 46%; min-width: 0; }
+    .scope button { flex: 1; min-height: 44px; }
+    .filters { flex-direction: column; align-items: stretch; gap: 8px; }
+    .select { flex: none; min-width: 0; }
     .select select { width: 100%; max-width: none; padding-left: 14px; padding-right: 32px; font-size: 16px; }
     .select svg { right: 12px; }
-    .search input { font-size: 16px; }
+    .search { flex: none; }
+    .search input { align-self: stretch; font-size: 16px; }
+    .description { font-size: 13px; -webkit-line-clamp: 3; }
 }
 @media (prefers-reduced-motion: reduce) {
     .image, .cardTitle svg, .scope button, .select select, .search { transition: none; }
