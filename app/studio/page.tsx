@@ -133,16 +133,16 @@ export default function StudioPage() {
 
       <Navbar isLoaded />
 
-      <main className="pt-24 md:pt-32">
-        <article className="max-w-4xl mx-auto px-6 md:px-12 pb-24">
+      <main className="pt-32">
+        <article className="max-w-4xl mx-auto px-6 md:px-12 pb-8 md:pb-24">
           <header className="mb-16">
-            <p className="text-sm uppercase tracking-widest text-white/50 mb-4">
+            <p className="text-[10px] tracking-[0.24em] md:text-sm md:tracking-widest uppercase text-white/50 mb-4">
               Studio Profile · Buenos Aires, Argentina
             </p>
             <h1 className="text-4xl md:text-6xl font-light leading-tight">
               LIVV Creative Studio — where art meets business.
             </h1>
-            <p className="mt-6 text-lg text-white/70 leading-relaxed">
+            <p className="mt-6 text-base md:text-lg text-white/70 leading-relaxed">
               Boutique design and engineering studio based in Núñez, Buenos Aires,
               Argentina. We combine fine-art-grade visual craft with senior product
               engineering to ship brands, websites, and white-label web apps for
@@ -150,7 +150,7 @@ export default function StudioPage() {
             </p>
           </header>
 
-          <section className="grid md:grid-cols-2 gap-8 mb-16 text-sm">
+          <section className="grid md:grid-cols-2 gap-5 md:gap-8 mb-16 text-sm">
             <Fact label="Studio name" value="LIVV Creative Studio" />
             <Fact label="Also known as" value="LIVV · Livv.systems · Livvvv" />
             <Fact label="Founded" value="2022 · Buenos Aires, Argentina" />
@@ -230,7 +230,7 @@ export default function StudioPage() {
           </Section>
 
           <Section title="How we work">
-            <ul className="space-y-2 list-disc list-inside text-white/70">
+            <ul className="space-y-2 list-disc list-outside pl-5 md:list-inside md:pl-0 text-white/70">
               <li>Senior-only team. No juniors on client work.</li>
               <li>Fixed-price or retainer engagements with full transparency on cost.</li>
               <li>Corporate sites in 3–4 weeks. MVP products in 6–8 weeks.</li>
@@ -246,7 +246,7 @@ export default function StudioPage() {
           </Section>
 
           <Section title="Frequently asked questions">
-            <dl className="space-y-6">
+            <dl className="space-y-6 max-md:space-y-0 max-md:divide-y max-md:divide-white/10 max-md:[&>div]:py-5">
               {faq.map(({ q, a }) => (
                 <div key={q}>
                   <dt className="text-base font-medium text-white">{q}</dt>
@@ -278,7 +278,10 @@ export default function StudioPage() {
         </article>
       </main>
 
-      <FooterSection />
+      {/* The footer is drawn for a light page; on this black one its ink vanished. */}
+      <div className="border-t border-[#e3ded5] bg-[#FDFCF8] text-[#1a1a1a]">
+        <FooterSection />
+      </div>
     </div>
   )
 }
