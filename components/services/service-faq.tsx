@@ -34,7 +34,7 @@ export function ServiceFaqSection({ faqs, serviceName }: { faqs: readonly Servic
             const isOpen = open === i
             return (
               // dl > div > dt/dd: the Reveal is the group wrapper itself
-              <Reveal key={faq.q} delay={Math.min(i * 0.05, 0.25)} className="border-t border-stone-200 last:border-b">
+              <Reveal key={faq.q} delay={Math.min(i * 0.05, 0.25)} className="border-t border-stone-200 md:last:border-b">
                 <dt>
                   <button
                     type="button"

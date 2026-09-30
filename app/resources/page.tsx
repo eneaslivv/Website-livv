@@ -50,9 +50,9 @@ export default function ResourcesIndexPage() {
           </div>
         </header>
 
-        <section className="max-w-6xl mx-auto px-6 pb-24">
+        <section className="max-w-6xl mx-auto px-6 pb-12 md:pb-24">
           <ul className="grid gap-12 md:gap-16 border-t border-[#2A1818]/10 pt-12 list-none pl-0">
-            <li className="border-b border-[#2A1818]/10 pb-12 last:border-b-0">
+            <li className="border-b border-[#2A1818]/10 pb-12 last:border-b-0 max-md:last:pb-0">
               <a
                 href="/resources/schema-aeo-library"
                 className="block group"
@@ -64,11 +64,12 @@ export default function ResourcesIndexPage() {
                   Schema + AEO Snippet Library
                 </h2>
                 <p className="text-base text-[#5A3E3E]/70 leading-relaxed max-w-2xl">
-                  Nine copy-paste-ready Schema.org JSON-LD templates for
+                  Nine copy-paste-ready Schema.org JSON‑LD templates for
                   creative studios, agencies, and founders. The same ones we
                   ship on LIVV. Organization, Person, Article, FAQPage,
                   BreadcrumbList, CreativeWork, Service, SoftwareApplication.
                 </p>
+                <span className="mt-5 inline-flex items-center gap-2 text-sm text-[#2A1818] md:hidden">Open the library →</span>
               </a>
             </li>
           </ul>

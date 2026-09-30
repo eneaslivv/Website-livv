@@ -19,7 +19,7 @@ export function TrustedByStrip({ className = "pb-16 md:pb-24" }: { className?: s
           <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-stone-400 shrink-0">
             Some of our clients
           </p>
-          <div className="flex items-center gap-8 flex-wrap">
+          <div className="grid grid-cols-2 items-center gap-x-8 gap-y-6 md:flex md:flex-wrap md:gap-8">
             {clientLogos.map((logo) => (
               <Image
                 key={logo.alt}
@@ -28,7 +28,7 @@ export function TrustedByStrip({ className = "pb-16 md:pb-24" }: { className?: s
                 width={120}
                 height={24}
                 loading="lazy"
-                className="h-5 w-auto object-contain grayscale opacity-40 hover:opacity-60 transition-opacity duration-300"
+                className="h-5 w-auto max-w-[104px] object-contain object-left md:max-w-none grayscale opacity-40 hover:opacity-60 transition-opacity duration-300"
               />
             ))}
           </div>

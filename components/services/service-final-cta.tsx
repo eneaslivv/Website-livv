@@ -71,7 +71,7 @@ export function ServiceFinalCTA({ content, location }: { content: ServiceFinalCt
             {content.secondary && (
               <Link
                 href={content.secondary.href}
-                className="group inline-flex text-[13px] text-stone-500 hover:text-stone-900 transition-colors duration-300 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-4 focus-visible:ring-stone-400"
+                className="group inline-flex min-h-11 items-center md:min-h-0 text-[13px] text-stone-500 hover:text-stone-900 transition-colors duration-300 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-4 focus-visible:ring-stone-400"
               >
                 <ArrowLink>{content.secondary.text}</ArrowLink>
               </Link>

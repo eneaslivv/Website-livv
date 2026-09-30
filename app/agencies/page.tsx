@@ -145,7 +145,7 @@ export default function AgenciesPage() {
 
             {/* Hero Section */}
             <header className="relative pt-32 pb-24 md:pt-48 md:pb-40 px-6 overflow-hidden min-h-screen flex flex-col justify-center">
-                <div className="absolute inset-0 z-0 pointer-events-none" ref={containerRef}>
+                <div className="absolute inset-0 z-0 pointer-events-none opacity-40 md:opacity-100" ref={containerRef}>
                     <canvas ref={canvasRef} className="w-full h-full" />
                 </div>
                 <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-white/80 via-transparent to-white/90 z-[1]" />
@@ -185,7 +185,7 @@ export default function AgenciesPage() {
                         </a>
                     </div>
 
-                    <div className="border-t border-[#1a1a1a]/10 pt-8 max-w-md mx-auto">
+                    <div className="hidden md:block border-t border-[#1a1a1a]/10 pt-8 max-w-md mx-auto">
                         <p className="text-[10px] uppercase tracking-widest text-[#1a1a1a]/40 font-medium mb-5">Powering Next-Gen Stacks</p>
                         <div className="flex justify-center items-center gap-8 opacity-40">
                             <svg className="w-5 h-5" viewBox="0 0 76 65" fill="currentColor"><path d="M37.5 0L75 65H0L37.5 0z" /></svg>
@@ -217,7 +217,7 @@ export default function AgenciesPage() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.1 }}
-                            className="lg:col-span-2 bg-white rounded-2xl border border-[#1a1a1a]/5 p-8 relative overflow-hidden h-[380px] flex flex-col hover:border-[#1a1a1a]/20 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
+                            className="lg:col-span-2 bg-white rounded-2xl border border-[#1a1a1a]/5 p-8 relative overflow-hidden h-auto md:h-[380px] flex flex-col hover:border-[#1a1a1a]/20 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
                         >
                             <div className="relative z-10 max-w-md">
                                 <div className="w-10 h-10 bg-[#1a1a1a] text-white rounded-lg flex items-center justify-center mb-5">
@@ -230,18 +230,18 @@ export default function AgenciesPage() {
                             </div>
 
                             <div className="absolute right-0 bottom-0 left-0 h-48 flex items-center justify-center pointer-events-none">
-                                <div className="flex items-center gap-4 translate-y-4">
-                                    <div className="w-20 h-20 bg-white border border-[#1a1a1a]/10 rounded-xl flex items-center justify-center shadow-sm">
+                                <div className="flex items-center gap-2 md:gap-4 translate-y-4">
+                                    <div className="w-14 h-14 md:w-20 md:h-20 bg-white border border-[#1a1a1a]/10 rounded-xl flex items-center justify-center shadow-sm">
                                         <Figma className="text-[#1a1a1a]/40" size={24} />
                                     </div>
-                                    <div className="w-12 h-[1px] bg-[#1a1a1a]/10" />
-                                    <div className="w-20 h-20 bg-white border border-[#1a1a1a]/10 rounded-xl flex items-center justify-center shadow-sm">
+                                    <div className="w-6 md:w-12 h-[1px] bg-[#1a1a1a]/10" />
+                                    <div className="w-14 h-14 md:w-20 md:h-20 bg-white border border-[#1a1a1a]/10 rounded-xl flex items-center justify-center shadow-sm">
                                         <Code2 className="text-[#1a1a1a]/40" size={24} />
                                     </div>
-                                    <div className="w-12 h-[2px] bg-emerald-100 relative overflow-hidden">
+                                    <div className="w-6 md:w-12 h-[2px] bg-emerald-100 relative overflow-hidden">
                                         <div className="absolute inset-0 bg-emerald-400 animate-pulse" />
                                     </div>
-                                    <div className="w-20 h-20 bg-white border border-emerald-500/30 rounded-xl flex items-center justify-center shadow-lg">
+                                    <div className="w-14 h-14 md:w-20 md:h-20 bg-white border border-emerald-500/30 rounded-xl flex items-center justify-center shadow-lg">
                                         <Globe className="text-emerald-500" size={24} />
                                         <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
                                     </div>
@@ -254,7 +254,7 @@ export default function AgenciesPage() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.2 }}
-                            className="bg-white rounded-2xl border border-[#1a1a1a]/5 p-8 relative overflow-hidden h-[380px] hover:border-[#1a1a1a]/20 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
+                            className="bg-white rounded-2xl border border-[#1a1a1a]/5 p-8 relative overflow-hidden h-auto md:h-[380px] hover:border-[#1a1a1a]/20 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
                         >
                             <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px] opacity-50" />
                             <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent" />
@@ -266,7 +266,7 @@ export default function AgenciesPage() {
                                 <p className="text-sm text-[#1a1a1a]/60 leading-relaxed mb-auto">
                                     We sign strict NDAs. We operate completely under your brand identity as your technical department.
                                 </p>
-                                <div className="flex-1 flex items-center justify-center relative opacity-30 mt-8">
+                                <div className="hidden md:flex flex-1 items-center justify-center relative opacity-30 mt-8">
                                     <div className="w-32 h-32 border border-dashed border-[#1a1a1a]/20 rounded-full flex items-center justify-center animate-spin" style={{ animationDuration: '12s' }}>
                                         <div className="w-24 h-24 border border-dashed border-[#1a1a1a]/20 rounded-full" />
                                     </div>
@@ -278,13 +278,13 @@ export default function AgenciesPage() {
             </section>
 
             {/* Philosophy Section */}
-            <section id="philosophy" className="bg-[#0a0a0a] text-white py-32 px-6 relative overflow-hidden">
+            <section id="philosophy" className="bg-[#0a0a0a] text-white py-20 md:py-32 px-6 relative overflow-hidden">
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f1f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-20 pointer-events-none" />
 
                 <div className="max-w-6xl mx-auto">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
-                        <div className="hidden lg:block">
-                            <div className="sticky top-32">
+                        <div className="block md:hidden lg:block">
+                            <div className="lg:sticky lg:top-32">
                                 <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center mb-6">
                                     <Quote className="text-white/40" size={16} />
                                 </div>
@@ -314,7 +314,7 @@ export default function AgenciesPage() {
                                 >
                                     <span className={`text-[10px] font-mono text-${item.color}-500 mb-2 block`}>{item.num} / {item.label}</span>
                                     <h3 className="text-2xl md:text-3xl font-light tracking-tight mb-4">{item.title}</h3>
-                                    <p className="text-white/40 leading-relaxed text-sm md:text-base border-l border-white/10 pl-4">
+                                    <p className="text-white/50 md:text-white/40 leading-relaxed text-sm md:text-base border-l border-white/10 pl-4">
                                         {item.desc}
                                     </p>
                                 </motion.div>
@@ -324,7 +324,7 @@ export default function AgenciesPage() {
                                 <p className="text-[10px] text-white/30 uppercase tracking-widest mb-6">Built With Best-in-Class</p>
                                 <div className="flex flex-wrap gap-3">
                                     {['Next.js 14', 'TypeScript', 'Turborepo', 'Supabase', 'Prisma', 'Vercel Edge'].map(tech => (
-                                        <span key={tech} className="px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[10px] text-white/50 hover:border-white/30 hover:text-white transition-colors cursor-default">{tech}</span>
+                                        <span key={tech} className="px-3 py-1 rounded-full border border-white/10 bg-white/5 text-xs md:text-[10px] text-white/50 hover:border-white/30 hover:text-white transition-colors cursor-default">{tech}</span>
                                     ))}
                                 </div>
                             </div>
@@ -362,8 +362,8 @@ export default function AgenciesPage() {
                         viewport={{ once: true }}
                         className="relative w-full rounded-2xl bg-[#FAFAFA] border border-[#1a1a1a]/5 p-2 md:p-4 shadow-2xl"
                     >
-                        <div className="bg-white rounded-xl border border-[#1a1a1a]/10 shadow-sm overflow-hidden flex flex-col md:flex-row h-[500px] md:h-[550px]">
-                            <div className="w-full md:w-56 border-b md:border-b-0 md:border-r border-[#1a1a1a]/5 bg-[#FAFAFA] flex flex-col p-4">
+                        <div className="bg-white rounded-xl border border-[#1a1a1a]/10 shadow-sm overflow-hidden flex flex-col md:flex-row h-auto md:h-[550px]">
+                            <div className="hidden md:flex w-full md:w-56 border-b md:border-b-0 md:border-r border-[#1a1a1a]/5 bg-[#FAFAFA] flex-col p-4">
                                 <div className="flex items-center gap-2 mb-8 px-2">
                                     <div className="w-6 h-6 bg-[#1a1a1a] rounded-[4px] flex items-center justify-center text-white">
                                         <Command size={14} />
@@ -411,7 +411,7 @@ export default function AgenciesPage() {
                                             { label: 'Avg. Latency', value: '34ms' },
                                             { label: 'Success Rate', value: '99.9%' },
                                         ].map((stat, i) => (
-                                            <div key={i} className="border border-[#1a1a1a]/5 rounded-lg p-4">
+                                            <div key={i} className="border border-[#1a1a1a]/5 rounded-lg p-3 md:p-4">
                                                 <div className="text-[10px] text-[#1a1a1a]/50 uppercase tracking-wide mb-1">{stat.label}</div>
                                                 <div className="text-xl font-semibold text-[#1a1a1a]">{stat.value}</div>
                                             </div>
@@ -435,7 +435,7 @@ export default function AgenciesPage() {
             {/* Partner Section / Footer */}
             <section id="partner" className="py-24 px-6 bg-[#0a0a0a] text-white relative overflow-hidden">
                 <div className="max-w-5xl mx-auto text-center relative z-10">
-                    <h2 className="text-3xl md:text-5xl lg:text-6xl font-light tracking-[-0.08em] text-white mb-8">
+                    <h2 className="text-3xl md:text-5xl lg:text-6xl font-light tracking-[-0.04em] md:tracking-[-0.08em] text-white mb-8">
                         Scale your operation.<br />Not your problems.
                     </h2>
                     <p className="text-white/50 text-xl mb-16 max-w-xl mx-auto font-light leading-relaxed">
@@ -448,7 +448,7 @@ export default function AgenciesPage() {
                             className="group h-14 px-10 rounded-full bg-white text-[#1a1a1a] font-medium flex items-center justify-center hover:bg-white/90 transition-all w-full sm:w-auto hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] duration-300"
                         >
                             Start Conversation
-                            <ArrowRight className="w-5 h-5 ml-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                            <ArrowRight className="max-md:hidden w-5 h-5 ml-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
                         </a>
                     </div>
 
@@ -466,11 +466,11 @@ export default function AgenciesPage() {
                     </div>
 
                     <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-white/30 font-light">
-                        <div className="font-medium text-white/40">LIVV Creative Studio © 2025</div>
+                        <div className="font-medium text-white/40">LIVV Creative Studio © {new Date().getFullYear()}</div>
                         <div className="flex gap-8">
-                            <a href="#" className="hover:text-white transition-colors">LinkedIn</a>
-                            <a href="#" className="hover:text-white transition-colors">Twitter</a>
-                            <a href="#" className="hover:text-white transition-colors">Instagram</a>
+                            <a href="https://www.linkedin.com/company/39648193/" target="_blank" rel="noopener noreferrer" className="py-3 text-white/50 hover:text-white transition-colors">LinkedIn</a>
+                            <a href="https://www.instagram.com/livv.creativv/" target="_blank" rel="noopener noreferrer" className="py-3 text-white/50 hover:text-white transition-colors">Instagram</a>
+                            <a href="https://www.youtube.com/@livvagency5936" target="_blank" rel="noopener noreferrer" className="py-3 text-white/50 hover:text-white transition-colors">YouTube</a>
                         </div>
                     </div>
                 </div>

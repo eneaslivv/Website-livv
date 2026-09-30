@@ -92,12 +92,12 @@ function VisualLayer({ visual, active = true, sizes }: { visual: ServiceVisual; 
 
 function Caption({ visual }: { visual: ServiceVisual }) {
   return (
-    <p className="mt-3 flex items-baseline justify-between gap-4 text-[11px] tracking-[0.02em] text-stone-500">
+    <p className="mt-3 flex flex-col items-start gap-1 text-xs tracking-[0.02em] text-stone-500 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4 md:text-[11px]">
       <span>{visual.caption}</span>
       {"href" in visual && visual.href && (
         <Link
           href={visual.href}
-          className="group shrink-0 text-stone-600 transition-colors duration-300 hover:text-stone-900 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-stone-400"
+          className="group shrink-0 inline-flex min-h-11 items-center sm:min-h-0 text-stone-600 transition-colors duration-300 hover:text-stone-900 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-stone-400"
         >
           <ArrowLink>View case</ArrowLink>
         </Link>
@@ -124,7 +124,7 @@ export function ServiceCapabilities({ content }: { content: ServicePageContent["
       </div>
 
       <div className="mt-10 md:mt-14 grid grid-cols-1 md:grid-cols-[1fr_1.12fr] gap-12 lg:gap-16">
-        <ol className="flex flex-col gap-12 md:gap-0">
+        <ol className="flex flex-col gap-16 md:gap-0">
           {items.map((item, i) => {
             const isActive = active === i
             return (
@@ -154,7 +154,7 @@ export function ServiceCapabilities({ content }: { content: ServicePageContent["
                   >
                     <Index n={i + 1} />
                     <span
-                      className={`text-xl lg:text-[1.375rem] font-light leading-snug tracking-tight transition-colors duration-300 ${
+                      className={`text-xl lg:text-[1.375rem] font-light leading-snug tracking-tight max-md:text-pretty transition-colors duration-300 ${
                         isActive ? "text-stone-900" : "text-stone-900 md:text-stone-400 md:group-hover:text-stone-700"
                       }`}
                     >
@@ -176,7 +176,7 @@ export function ServiceCapabilities({ content }: { content: ServicePageContent["
                       {item.deliverables.map((d) => (
                         <li
                           key={d}
-                          className="rounded-full border border-stone-200 bg-white/60 px-2.5 py-1 text-[11px] text-stone-600"
+                          className="rounded-full border border-stone-200 bg-white/60 px-2.5 py-1 text-xs md:text-[11px] text-stone-600"
                         >
                           {d}
                         </li>

@@ -167,7 +167,7 @@ export function ServiceWork({ content, location }: { content: ServicePageContent
             {lead.facts && (
               <dl className="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-4 border-t border-stone-200 pt-5 md:border-t-0 md:pt-0">
                 {lead.facts.map((fact) => (
-                  <div key={fact.label}>
+                  <div key={fact.label} className="last:odd:col-span-2 md:last:odd:col-span-1">
                     <dt className="text-[10px] font-semibold uppercase tracking-[0.16em] text-stone-400">{fact.label}</dt>
                     <dd className="mt-1.5 text-[13px] leading-snug text-stone-700">{fact.value}</dd>
                   </div>
@@ -197,7 +197,7 @@ export function ServiceWork({ content, location }: { content: ServicePageContent
 
       <Link
         href="/work"
-        className="group mt-10 inline-flex md:hidden text-[13px] text-stone-600 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-4 focus-visible:ring-stone-400"
+        className="group mt-10 inline-flex min-h-11 items-center md:hidden text-[13px] text-stone-600 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-4 focus-visible:ring-stone-400"
       >
         <ArrowLink>See all work</ArrowLink>
       </Link>

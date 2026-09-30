@@ -61,7 +61,7 @@ export function ServiceTestimonial({ testimonial }: { testimonial: NonNullable<S
             {testimonial.project && (
               <Link
                 href={testimonial.project.href}
-                className="group sm:ml-auto text-[13px] text-stone-600 transition-colors duration-300 hover:text-stone-900 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-4 focus-visible:ring-stone-400"
+                className="group sm:ml-auto inline-flex min-h-11 items-center md:min-h-0 text-[13px] text-stone-600 transition-colors duration-300 hover:text-stone-900 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-4 focus-visible:ring-stone-400"
               >
                 <ArrowLink>{testimonial.project.name}</ArrowLink>
               </Link>
