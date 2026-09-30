@@ -14,9 +14,9 @@ export function ChatWidget() {
     const [compact, setCompact] = useState(false)
 
     return (
-        <aside className="fixed bottom-[max(16px,env(safe-area-inset-bottom))] right-[max(16px,env(safe-area-inset-right))] z-[997] max-w-[calc(100vw-40px)] md:bottom-[max(20px,env(safe-area-inset-bottom))] md:right-[max(20px,env(safe-area-inset-right))]" aria-label="Contact Eneas" data-compact={compact}>
+        <aside className="fixed bottom-[max(16px,env(safe-area-inset-bottom))] right-[max(16px,env(safe-area-inset-right))] z-[997] max-w-[calc(100vw-40px)] transition-opacity duration-300 md:bottom-[max(20px,env(safe-area-inset-bottom))] md:right-[max(20px,env(safe-area-inset-right))] [html[data-menu-open]_&]:pointer-events-none [html[data-menu-open]_&]:invisible [html[data-menu-open]_&]:opacity-0" aria-label="Contact Eneas" data-compact={compact}>
             <a
-                className={`group flex min-h-16 items-center gap-3 rounded-full border border-[#333] bg-[#0a0a0a] p-2 text-[#f7f4ee] shadow-[0_6px_26px_rgb(0_0_0/12%)] transition-[background-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:bg-[#1b1916] hover:shadow-[0_10px_30px_rgb(0_0_0/16%)] focus-visible:outline-2 focus-visible:outline-[#b38b4b] focus-visible:outline-offset-4 motion-reduce:transform-none motion-reduce:transition-none ${compact ? "" : "pr-[18px]"}`}
+                className={`group flex min-h-16 max-md:min-h-0 items-center gap-3 rounded-full border border-[#333] bg-[#0a0a0a] p-2 text-[#f7f4ee] shadow-[0_6px_26px_rgb(0_0_0/12%)] transition-[background-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:bg-[#1b1916] hover:shadow-[0_10px_30px_rgb(0_0_0/16%)] focus-visible:outline-2 focus-visible:outline-[#b38b4b] focus-visible:outline-offset-4 motion-reduce:transform-none motion-reduce:transition-none ${compact ? "" : "md:pr-[18px]"}`}
                 href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -38,16 +38,16 @@ export function ChatWidget() {
                     />
                 </span>
                 {!compact && <>
-                    <span className="flex flex-col gap-[3px]">
+                    <span className="flex flex-col gap-[3px] max-md:hidden">
                         <span className="text-[13px] font-medium leading-[18px]">Chat with Eneas</span>
                         <span className="text-[10px] leading-[14px] text-[#aaa39a]">LIVV · WhatsApp</span>
                     </span>
-                    <ArrowUpRight className="ml-[3px] transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-focus-visible:-translate-y-0.5 group-focus-visible:translate-x-0.5 motion-reduce:transform-none motion-reduce:transition-none" size={17} aria-hidden="true" />
+                    <ArrowUpRight className="ml-[3px] max-md:hidden transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-focus-visible:-translate-y-0.5 group-focus-visible:translate-x-0.5 motion-reduce:transform-none motion-reduce:transition-none" size={17} aria-hidden="true" />
                 </>}
             </a>
             <button
                 type="button"
-                className="absolute -right-1 -top-2.5 grid h-7 w-7 place-items-center rounded-full border border-[#333] bg-[#0a0a0a] text-[#aaa39a] hover:bg-[#26221d] hover:text-[#f7f4ee] focus-visible:outline-2 focus-visible:outline-[#b38b4b] focus-visible:outline-offset-4"
+                className="absolute -right-1 -top-2.5 grid h-7 w-7 place-items-center rounded-full max-md:hidden border border-[#333] bg-[#0a0a0a] text-[#aaa39a] hover:bg-[#26221d] hover:text-[#f7f4ee] focus-visible:outline-2 focus-visible:outline-[#b38b4b] focus-visible:outline-offset-4"
                 onClick={() => setCompact(value => !value)}
                 aria-label={compact ? "Expand contact button" : "Minimize contact button"}
                 aria-expanded={!compact}

@@ -100,7 +100,7 @@ export function LogoGridSection() {
 
     return (
         <section ref={sectionRef} className="relative w-full">
-            <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 py-24 md:py-32">
+            <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 py-16 md:py-32">
                 <AnimatedBorders className="hidden md:block z-20" />
 
                 {/* Horizontal Top Line */}
@@ -108,14 +108,14 @@ export function LogoGridSection() {
                     <AnimatedBorders showLeft={false} showRight={false} showTop={true} fullWidth={true} />
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
                     {logos.map((logo, index) => (
                         <a
                             key={index}
                             href={logo.href}
                             target="_blank"
                             rel="noreferrer"
-                            className="group relative h-32 md:h-40 flex items-center justify-center border border-[#E8E4DC] overflow-hidden cursor-pointer bg-white"
+                            className="group relative h-24 sm:h-32 md:h-40 flex items-center justify-center border border-[#E8E4DC] overflow-hidden cursor-pointer bg-white"
                         >
                             <style jsx>{`
                                 @media (max-width: 767px) {

@@ -41,7 +41,7 @@ export function ImageSliderSection() {
             ref={sectionRef}
             className="relative w-full overflow-hidden"
         >
-            <div className="max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32 relative z-10">
+            <div className="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-32 relative z-10">
                 <AnimatedBorders className="hidden md:block" />
 
                 {/* Header */}

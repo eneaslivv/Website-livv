@@ -40,6 +40,14 @@ export function Navbar({ isLoaded = true }: NavbarProps) {
         setIsServicesOpen(false)
     }, [pathname])
 
+    // The floating contact button sits above everything (z 997): with the mobile menu
+    // open it covered the menu's own "Get in touch". It hides while this flag is on.
+    useEffect(() => {
+        const root = document.documentElement
+        root.toggleAttribute("data-menu-open", isMobileMenuOpen)
+        return () => root.removeAttribute("data-menu-open")
+    }, [isMobileMenuOpen])
+
     const getLink = (item: { id: string; isPage?: boolean; link?: string }) => {
         if (item.link) return item.link
         if (item.id === "contact") return "/contact"
@@ -77,7 +85,7 @@ export function Navbar({ isLoaded = true }: NavbarProps) {
                 <div className={`backdrop-blur-3xl border rounded-full px-3 py-1.5 pl-4 flex items-center justify-between gap-4 md:gap-10 shadow-2xl transition-all duration-500 ${isScrolled
                     ? isLightPage ? "bg-white/80 border-black/10 shadow-black/5" : "bg-black/40 border-white/10 shadow-black/20"
                     : isLightPage ? "bg-white/40 border-black/10 shadow-black/5" : "bg-black/15 border-white/20 shadow-black/10"
-                    }`}>
+                    } ${!isLightPage && (isScrolled || pathname !== "/") ? "max-md:bg-[#1a1a1a]/80 max-md:border-white/10" : ""}`}>
                     {/* Logo Area */}
                     <div className={`transition-all duration-800 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}>
                         <Link href="/" className="flex items-center">
@@ -151,7 +159,7 @@ export function Navbar({ isLoaded = true }: NavbarProps) {
                         aria-expanded={isMobileMenuOpen}
                         aria-controls="mobile-navigation"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        className={`md:hidden p-2 rounded-full transition-all duration-300 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"} ${isLightPage ? "text-black hover:bg-black/10" : "text-white hover:bg-white/10"}`}
+                        className={`md:hidden relative p-2 rounded-full transition-all duration-300 after:absolute after:-inset-1.5 after:rounded-full after:content-[''] ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"} ${isLightPage ? "text-black hover:bg-black/10" : "text-white hover:bg-white/10"}`}
                     >
                         {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                     </button>

@@ -90,6 +90,9 @@ export function MotionReelSection({
                                 {rest.slice(0, 3).map((piece, i) => (
                                     <motion.div
                                         key={piece.slug}
+                                        /* Two columns on phones: a third clip would sit alone on its
+                                           own row. It is one tap away in the full reel below. */
+                                        className={i === 2 ? "max-sm:hidden" : undefined}
                                         initial={{ opacity: 0, y: 48, scale: 0.94 }}
                                         whileInView={{ opacity: 1, y: 0, scale: 1 }}
                                         viewport={{ once: true, margin: "-60px" }}
@@ -105,7 +108,7 @@ export function MotionReelSection({
                                             title={piece.title}
                                             duration={piece.duration}
                                         />
-                                        <p className="mt-3 text-[10px] uppercase tracking-[0.14em] text-stone-400 truncate">
+                                        <p className="mt-3 text-[10px] uppercase tracking-[0.14em] text-stone-400 truncate max-sm:whitespace-normal">
                                             {piece.category}
                                         </p>
                                     </motion.div>
