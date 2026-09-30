@@ -10,5 +10,5 @@
     .card:hover .art { transform: translateY(-3px); }
 }
 @media (min-width: 768px) and (max-width: 1023px) { .grid { gap: 22px; } }
-@media (max-width: 767px) { .grid { grid-template-columns: 1fr; gap: 36px; } .visual { margin: 0 auto 12px; max-width: 380px; } .card p { max-width: 100%; } }
+@media (max-width: 767px) { .grid { grid-template-columns: 1fr; gap: 36px; } .visual { margin: 0 auto 12px; max-width: none; aspect-ratio: 12 / 5; overflow: hidden; } .art { scale: 1.4; } .card p { max-width: 100%; } .detail { font-size: 12px; } }
 @media (prefers-reduced-motion: reduce) { .art { transition: none; } }

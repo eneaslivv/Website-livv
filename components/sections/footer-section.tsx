@@ -46,31 +46,25 @@ export function FooterSection({ id }: { id?: string }) {
             {/* Top Header Content - Replaced with Merged Contact Info & Meta */}
             <div className="w-full max-w-7xl mx-auto px-6 md:px-12 pt-12 md:pt-24 relative z-30 flex flex-col justify-between h-full">
 
-                {/* Main Contact Area */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 mb-20 md:mb-32">
-                    {/* Left Column: Title */}
-                    <div className="pl-0 lg:pl-[10%]">
+                {/* Main Contact Area, in three pieces: A title, B contact, C Contra + seals.
+                    The markup follows the phone order, so the studio email comes before a
+                    third-party button. From lg they sit as before: A and C on the left, B on
+                    the right across both rows; the 1fr row takes B's extra height, so C stays
+                    right under the title. */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-[auto_1fr] gap-10 sm:gap-16 lg:gap-x-24 lg:gap-y-0 mb-12 md:mb-32">
+                    {/* A · Title */}
+                    <div className="pl-0 lg:pl-[10%] lg:col-start-1 lg:row-start-1">
                         <span className="inline-block text-[11px] tracking-[0.3em] uppercase text-[#C4A35A] font-medium mb-4">
                             Get in Touch
                         </span>
-                        <h2 className="section-heading text-gradient-gold mb-6">
+                        <h2 className="section-heading text-gradient-gold mb-0">
                             Let's work together
                         </h2>
-
-                        <div className="mt-8 flex flex-col gap-4">
-                            <div
-                                className="contra-hire-me-button"
-                                data-analyticsuserid="451cfc1e-e897-46ed-a701-9dd0533e7ec6"
-                                data-theme="dark"
-                                data-username="eneas_aldabe"
-                            />
-                            <TrustBadges tone="light" goodfirmsSize={150} sealHeight={96} />
-                        </div>
                     </div>
 
-                    {/* Right Column: Contact Info */}
-                    <div className="pr-0 lg:pr-[10%] pt-4 lg:pt-12">
-                        <div className="space-y-12">
+                    {/* B · Contact Info */}
+                    <div className="pr-0 lg:pr-[10%] pt-0 lg:pt-12 lg:col-start-2 lg:row-start-1 lg:row-span-2">
+                        <div className="space-y-8 md:space-y-12">
                             <p className="text-xl md:text-2xl font-light text-[#1a1a1a] leading-relaxed max-w-md">
                                 Have a project in mind? We'd love to hear about it.
                             </p>
@@ -86,7 +80,7 @@ export function FooterSection({ id }: { id?: string }) {
                                 </a>
                             </div>
 
-                            <div className="flex gap-8 pt-8">
+                            <div className="flex gap-8 pt-0 md:pt-8">
                                 <div className="space-y-4">
                                     <h4 className="text-xs uppercase tracking-widest text-[#1a1a1a]/40">Socials</h4>
                                     <div className="flex gap-4">
@@ -105,6 +99,19 @@ export function FooterSection({ id }: { id?: string }) {
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    {/* C · Contra + seals */}
+                    <div className="pl-0 lg:pl-[10%] lg:col-start-1 lg:row-start-2 lg:self-start">
+                        <div className="lg:mt-8 flex flex-col gap-4">
+                            <div
+                                className="contra-hire-me-button"
+                                data-analyticsuserid="451cfc1e-e897-46ed-a701-9dd0533e7ec6"
+                                data-theme="dark"
+                                data-username="eneas_aldabe"
+                            />
+                            <TrustBadges tone="light" goodfirmsSize={150} sealHeight={96} />
                         </div>
                     </div>
                 </div>

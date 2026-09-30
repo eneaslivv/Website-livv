@@ -25,6 +25,10 @@ export function LogoGridSection() {
         return () => observer.disconnect()
     }, [])
 
+    // Every logo is an alpha mask filled with the brand bordó, like the client slider
+    // above: one exact tint at rest, white over the photo on hover. Gio and S.Rpro
+    // point at their -mask twins (gio.png is an opaque black square; srpro.png
+    // carries half its canvas as empty margin).
     const logos = [
         {
             src: "/logos-header/logo-6.png",
@@ -83,14 +87,14 @@ export function LogoGridSection() {
             hoverBg: "/assets/logo-bg-2.webp",
         },
         {
-            src: "/logos-header/gio.png",
+            src: "/logos-header/gio-mask.png",
             alt: "Gio",
             href: "#",
             description: "Gio",
             hoverBg: "/assets/logo-bg-1.webp",
         },
         {
-            src: "/logos-header/srpro.png",
+            src: "/logos-header/srpro-mask.png",
             alt: "S.Rpro Marketing",
             href: "#",
             description: "S.Rpro Marketing",
@@ -100,7 +104,7 @@ export function LogoGridSection() {
 
     return (
         <section ref={sectionRef} className="relative w-full">
-            <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 py-24 md:py-32">
+            <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 py-16 md:py-32">
                 <AnimatedBorders className="hidden md:block z-20" />
 
                 {/* Horizontal Top Line */}
@@ -108,14 +112,15 @@ export function LogoGridSection() {
                     <AnimatedBorders showLeft={false} showRight={false} showTop={true} fullWidth={true} />
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
                     {logos.map((logo, index) => (
                         <a
                             key={index}
                             href={logo.href}
                             target="_blank"
                             rel="noreferrer"
-                            className="group relative h-32 md:h-40 flex items-center justify-center border border-[#E8E4DC] overflow-hidden cursor-pointer bg-white"
+                            aria-label={logo.alt}
+                            className="group relative h-24 sm:h-32 md:h-40 flex items-center justify-center border border-[#E8E4DC] overflow-hidden cursor-pointer bg-white"
                         >
                             <style jsx>{`
                                 @media (max-width: 767px) {
@@ -126,33 +131,35 @@ export function LogoGridSection() {
                                 }
                             `}</style>
 
-                            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out z-0">
+                            {/* The photo only exists where hover does: phones never download it */}
+                            <div className="absolute inset-0 hidden [@media(hover:hover)]:block opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out z-0">
                                 <Image
                                     src={logo.hoverBg!}
-                                    alt="Background"
+                                    alt=""
                                     fill
+                                    sizes="(min-width: 1024px) 20vw, 33vw"
                                     className="object-cover transition-transform duration-1000 ease-in-out group-hover:scale-110"
                                 />
                                 <div className="absolute inset-0 bg-black/40" />
                             </div>
 
                             <div
-                                className={`relative z-10 ${logo.alt === "Gio" ? "w-20 h-20" : logo.alt === "Sacoa" ? "w-32 h-16" : "w-28 h-12"} transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+                                className={`relative z-10 ${logo.alt === "Sacoa" ? "w-32 h-16" : "w-28 h-12"} transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
                                 style={{ transitionDelay: `${500 + index * 100}ms` }}
                             >
-                                <Image
-                                    src={logo.src}
-                                    alt={logo.alt}
-                                    fill
-                                    sizes="128px"
-                                    className={`object-contain filter transition-all duration-500 ${logo.alt === "Gio" ? "opacity-90 group-hover:opacity-100" : "group-hover:invert"}`}
-                                    style={
-                                        logo.alt === "Sunbird" || logo.alt === "S.Rpro Marketing"
-                                            ? { filter: "brightness(0) saturate(100%) invert(8%) sepia(35%) saturate(5451%) hue-rotate(334deg) brightness(88%) contrast(108%)" }
-                                            : logo.alt === "Gio"
-                                                ? { filter: "contrast(1.1)" }
-                                                : {}
-                                    }
+                                <div
+                                    aria-hidden
+                                    className="absolute inset-0 bg-[#2C0405] transition-colors duration-500 group-hover:bg-white"
+                                    style={{
+                                        maskImage: `url(${logo.src})`,
+                                        maskSize: "contain",
+                                        maskRepeat: "no-repeat",
+                                        maskPosition: "center",
+                                        WebkitMaskImage: `url(${logo.src})`,
+                                        WebkitMaskSize: "contain",
+                                        WebkitMaskRepeat: "no-repeat",
+                                        WebkitMaskPosition: "center",
+                                    }}
                                 />
                             </div>
                         </a>

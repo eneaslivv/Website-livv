@@ -65,6 +65,8 @@ export const clientLogos = [
   },
   {
     src: "/logos-header/gio.png",
+    // gio.png is an opaque black square: the slider masks this letters-only twin
+    maskSrc: "/logos-header/gio-mask.png",
     alt: "Gio",
     href: "#",
     description: "Gio",
@@ -73,6 +75,8 @@ export const clientLogos = [
   },
   {
     src: "/logos-header/srpro.png",
+    // cropped to the drawing (the original is half empty margin, 79 KB)
+    maskSrc: "/logos-header/srpro-mask.png",
     alt: "S.Rpro Marketing",
     href: "#",
     description: "S.Rpro Marketing",

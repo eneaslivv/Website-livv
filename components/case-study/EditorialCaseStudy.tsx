@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import type { EditorialDoc } from "@/types/case-study-editorial"
 import { pickHeroPalette, siteOfDoc } from "@/types/case-study-editorial"
 import { EditorialItemView, ScreenSiteContext, SlotRow } from "./EditorialItems"
@@ -35,7 +35,7 @@ function Contents({
                             <button
                                 type="button"
                                 onClick={() => onJump(s.id)}
-                                className={`group flex w-full items-start gap-3 rounded-md py-1.5 pr-2 text-left transition-colors ${
+                                className={`group flex w-full items-start gap-3 rounded-md py-2.5 lg:py-1.5 pr-2 text-left transition-colors ${
                                     active ? "text-[#14110F]" : "text-[#6F6B66] hover:text-[#14110F]"
                                 }`}
                                 aria-current={active ? "true" : undefined}
@@ -129,6 +129,46 @@ export function EditorialCaseStudy({ doc: source, heroVariant = "default" }: {
     const activeIndex = Math.max(0, doc.sections.findIndex((s) => s.id === activeId))
     const site = useMemo(() => siteOfDoc(doc), [doc])
 
+    // En mobile no hay lugar para la columna del índice, pero perder la navegación
+    // de nueve secciones sería perder la mitad de la plantilla: se pliega en una
+    // barra pegada arriba que se despliega al tocarla. Va después del hero (encima
+    // de él repetía el «01 / 09» de la portada), es opaca, y una banda de papel
+    // tapa los 12 px entre el navbar y la barra, por donde asomaba el contenido.
+    const mobileToc = (
+        <div className="lg:hidden sticky top-[84px] z-30 mb-8 before:absolute before:-inset-x-6 before:-top-3 before:bottom-0 before:-z-10 before:bg-[#FFFFFA] before:content-['']">
+            <button
+                type="button"
+                onClick={() => setOpenToc((v) => !v)}
+                aria-expanded={openToc}
+                className="flex w-full items-center justify-between gap-3 rounded-full border border-[#E4E0D8] bg-[#FFFFFA] px-4 py-2.5"
+            >
+                <span className="flex min-w-0 items-baseline gap-2">
+                    <span className="shrink-0 text-[11px] tabular-nums text-[#6F6B66]">
+                        {pad(activeIndex + 1)} / {pad(total)}
+                    </span>
+                    <span className="truncate text-[13px] text-[#14110F]">
+                        {doc.sections[activeIndex]?.title}
+                    </span>
+                </span>
+                <span className="shrink-0 text-[11px] uppercase tracking-[0.12em] text-[#8A8681]">
+                    {openToc ? "Close" : "Index"}
+                </span>
+            </button>
+            {openToc && (
+                <div className="mt-2 rounded-2xl border border-[#E4E0D8] bg-[#FFFFFA] p-4 shadow-[0_18px_40px_rgba(20,17,15,0.10)]">
+                    <Contents
+                        doc={doc}
+                        activeId={activeId}
+                        onJump={(id) => {
+                            setOpenToc(false)
+                            jump(id)
+                        }}
+                    />
+                </div>
+            )}
+        </div>
+    )
+
     return (
         <ScreenSiteContext.Provider value={site}>
         <div
@@ -151,42 +191,6 @@ export function EditorialCaseStudy({ doc: source, heroVariant = "default" }: {
 
                     {/* Columna de contenido */}
                     <div className="min-w-0 pb-10">
-                        {/* En mobile no hay lugar para la columna del índice,
-                            pero perder la navegación de nueve secciones sería
-                            perder la mitad de la plantilla: se pliega en una
-                            barra pegada arriba que se despliega al tocarla. */}
-                        <div className="lg:hidden sticky top-[84px] z-30 mb-8">
-                            <button
-                                type="button"
-                                onClick={() => setOpenToc((v) => !v)}
-                                aria-expanded={openToc}
-                                className="flex w-full items-center justify-between gap-3 rounded-full border border-[#E4E0D8] bg-[#FFFFFA]/90 px-4 py-2.5 backdrop-blur-md"
-                            >
-                                <span className="flex min-w-0 items-baseline gap-2">
-                                    <span className="shrink-0 text-[11px] tabular-nums text-[#B4AFA8]">
-                                        {pad(activeIndex + 1)} / {pad(total)}
-                                    </span>
-                                    <span className="truncate text-[13px] text-[#14110F]">
-                                        {doc.sections[activeIndex]?.title}
-                                    </span>
-                                </span>
-                                <span className="shrink-0 text-[11px] uppercase tracking-[0.12em] text-[#8A8681]">
-                                    {openToc ? "Close" : "Index"}
-                                </span>
-                            </button>
-                            {openToc && (
-                                <div className="mt-2 rounded-2xl border border-[#E4E0D8] bg-[#FFFFFA] p-4 shadow-[0_18px_40px_rgba(20,17,15,0.10)]">
-                                    <Contents
-                                        doc={doc}
-                                        activeId={activeId}
-                                        onJump={(id) => {
-                                            setOpenToc(false)
-                                            jump(id)
-                                        }}
-                                    />
-                                </div>
-                            )}
-                        </div>
                         {doc.sections.map((section, i) => {
                             const isIntro = i === 0
                             // Los slots seguidos se agrupan en una fila (los tres
@@ -201,8 +205,8 @@ export function EditorialCaseStudy({ doc: source, heroVariant = "default" }: {
                             }
 
                             return (
+                                <Fragment key={section.id}>
                                 <section
-                                    key={section.id}
                                     id={section.id}
                                     className="scroll-mt-28 pt-10 md:pt-16"
                                 >
@@ -211,10 +215,10 @@ export function EditorialCaseStudy({ doc: source, heroVariant = "default" }: {
                                     ) : (
                                         <header className="mb-10 md:mb-14">
                                             <div className="flex items-baseline justify-between gap-6 border-b border-[#E4E0D8] pb-3 text-[12px] text-[#8A8681]">
-                                                <span className="truncate">
+                                                <span className="hidden md:inline truncate">
                                                     {doc.title} · {section.title}
                                                 </span>
-                                                <span className="tabular-nums whitespace-nowrap">
+                                                <span className="hidden md:inline tabular-nums whitespace-nowrap">
                                                     {pad(i + 1)} / {pad(total)}
                                                 </span>
                                             </div>
@@ -239,6 +243,8 @@ export function EditorialCaseStudy({ doc: source, heroVariant = "default" }: {
                                         ),
                                     )}
                                 </section>
+                                {isIntro && mobileToc}
+                                </Fragment>
                             )
                         })}
                     </div>

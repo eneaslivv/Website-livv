@@ -5,16 +5,38 @@ import { acceptAll, applyConsent, readConsent, rejectAll } from '@/lib/consent'
 
 export function CookieBanner() {
     const [visible, setVisible] = useState(false)
+    const [entered, setEntered] = useState(false)
     const [showDetails, setShowDetails] = useState(false)
 
     useEffect(() => {
         const stored = readConsent()
-        if (!stored) {
+        if (stored) {
+            applyConsent(stored)
+            return
+        }
+        // On a first visit to the home the brand intro is running: the banner used to
+        // mount under the panel and be the first thing revealed with the hero. It
+        // waits for the intro to finish, then slides in.
+        const root = document.documentElement
+        const introBusy = () => ["run", "leaving"].includes(root.getAttribute("data-intro") ?? "")
+        if (!introBusy()) {
             setVisible(true)
             return
         }
-        applyConsent(stored)
+        const observer = new MutationObserver(() => {
+            if (introBusy()) return
+            observer.disconnect()
+            setVisible(true)
+        })
+        observer.observe(root, { attributes: true, attributeFilter: ["data-intro"] })
+        return () => observer.disconnect()
     }, [])
+
+    useEffect(() => {
+        if (!visible) return
+        const id = requestAnimationFrame(() => setEntered(true))
+        return () => cancelAnimationFrame(id)
+    }, [visible])
 
     if (!visible) return null
 
@@ -28,7 +50,7 @@ export function CookieBanner() {
             // Mobile: a slim card pinned to the bottom, full-width with margins.
             // Desktop: pinned to the bottom-LEFT corner, max 280px so it never
             // collides with the chat widget in the bottom-right.
-            className="fixed bottom-3 left-3 right-3 sm:bottom-5 sm:left-5 sm:right-auto sm:max-w-[280px] z-[100] p-3 sm:p-3 rounded-xl bg-black/95 backdrop-blur-xl border border-white/10 text-white shadow-2xl"
+            className={`fixed bottom-3 left-3 right-3 sm:bottom-5 sm:left-5 sm:right-auto sm:max-w-[280px] z-[100] p-3 sm:p-3 rounded-xl bg-black/95 backdrop-blur-xl border border-white/10 text-white shadow-2xl transition-[opacity,transform] duration-500 ease-[cubic-bezier(.22,1,.36,1)] motion-reduce:transition-none ${entered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"}`}
         >
             <div className="flex items-start gap-3 sm:block">
                 <div className="flex-1 min-w-0">

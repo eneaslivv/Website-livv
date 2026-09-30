@@ -26,7 +26,7 @@ export function MotionReelSection({
     const rest = motionPieces.filter((p) => p.slug !== featuredMotionPiece.slug)
 
     return (
-        <section id={id} className="w-full bg-[#FDFBF9] py-20 md:py-28 relative">
+        <section id={id} className="w-full bg-[#FDFBF9] py-12 md:py-28 relative">
             {/* Site-wide dashed grid. This section was created without it, which
                 is why the side rules visibly stopped here. */}
             <AnimatedBorders className="hidden md:block" />
@@ -90,6 +90,9 @@ export function MotionReelSection({
                                 {rest.slice(0, 3).map((piece, i) => (
                                     <motion.div
                                         key={piece.slug}
+                                        /* Two columns on phones: a third clip would sit alone on its
+                                           own row. It is one tap away in the full reel below. */
+                                        className={i === 2 ? "max-sm:hidden" : undefined}
                                         initial={{ opacity: 0, y: 48, scale: 0.94 }}
                                         whileInView={{ opacity: 1, y: 0, scale: 1 }}
                                         viewport={{ once: true, margin: "-60px" }}
@@ -105,7 +108,7 @@ export function MotionReelSection({
                                             title={piece.title}
                                             duration={piece.duration}
                                         />
-                                        <p className="mt-3 text-[10px] uppercase tracking-[0.14em] text-stone-400 truncate">
+                                        <p className="mt-3 text-[10px] uppercase tracking-[0.14em] text-stone-400 truncate max-sm:whitespace-normal">
                                             {piece.category}
                                         </p>
                                     </motion.div>
@@ -152,7 +155,7 @@ export function MotionReelSection({
                                 <h3 className="mt-1.5 text-[15px] md:text-base font-light tracking-tight text-stone-900 text-balance">
                                     {piece.title}
                                 </h3>
-                                <p className="mt-1.5 text-[13px] text-stone-500 font-light leading-relaxed">
+                                <p className="mt-1.5 hidden sm:block text-[13px] text-stone-500 font-light leading-relaxed">
                                     {piece.blurb}
                                 </p>
                             </motion.div>

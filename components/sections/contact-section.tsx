@@ -45,30 +45,47 @@ export function ContactSection() {
   return (
     <div ref={sectionRef} className="relative">
       {/* --- Banner Section (Subtler Height) --- */}
-      <div className="relative w-full min-h-72 md:h-64 lg:h-72 overflow-hidden mb-24">
+      <div className="relative w-full min-h-0 md:min-h-72 md:h-64 lg:h-72 overflow-hidden mb-10 md:mb-24">
         <ContactHeaderDots />
-        <div className="relative z-20 min-h-72 h-full flex flex-col justify-center items-start px-8 md:px-12 lg:px-16 py-8">
-          <h1 className="text-4xl md:text-5xl font-light tracking-[-0.08em] text-white mb-4">
+        <div className="relative z-20 min-h-0 md:min-h-72 h-full flex flex-col justify-center items-start px-0 md:px-12 lg:px-16 py-8">
+          <h1 className="text-4xl md:text-5xl font-light tracking-[-0.04em] md:tracking-[-0.08em] text-white mb-4">
             Let's talk about your project
           </h1>
           <p className="text-white/60 max-w-md mb-8">
-            Start a conversation to create something amazing together. Fill out the form or send us an email.
+            Start a conversation to create something amazing together. Fill out the form or email us at{" "}
+            <a href="mailto:hola@livv.systems" className="text-white underline underline-offset-4">hola@livv.systems</a>.
           </p>
         </div>
       </div>
 
       {/* --- Form Section --- */}
-      <div className="relative z-20 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 mb-96 px-6 md:px-12">
-        <div className="pl-[10%] lg:pl-[10%]">
+      <div className="relative z-20 grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-[auto_1fr] gap-10 lg:gap-x-24 lg:gap-y-0 mb-16 md:mb-96 px-0 md:px-12">
+        {/* A · title */}
+        <div className="pl-0 md:pl-[10%] lg:col-start-1 lg:row-start-1">
           <div
             className={`transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
           >
             <span className="inline-block text-[11px] tracking-[0.3em] uppercase text-white font-medium mb-4">
               Contact Form
             </span>
-            <h2 className="section-heading mb-8 text-white">
+            <h2 className="section-heading mb-0 lg:mb-8 text-white">
               <RevealText text="Send your details" className="text-white" isVisible={isVisible} />
             </h2>
+          </div>
+        </div>
+        {/* B · form: right after the title on a phone */}
+        <div className="pr-0 md:pr-[5%] lg:pr-[10%] lg:col-start-2 lg:row-start-1 lg:row-span-2">
+          <div
+            className={`transition-all duration-1000 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
+          >
+            <ContactForm />
+          </div>
+        </div>
+        {/* C · address, Contra and seals */}
+        <div className="pl-0 md:pl-[10%] lg:col-start-1 lg:row-start-2 lg:self-start">
+          <div
+            className={`transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+          >
             <div className="space-y-4">
               <p className="text-sm text-white/60">
                 Núñez, Buenos Aires, Argentina
@@ -85,17 +102,10 @@ export function ContactSection() {
             </div>
           </div>
         </div>
-        <div className="pr-[5%] lg:pr-[10%]">
-          <div
-            className={`transition-all duration-1000 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
-          >
-            <ContactForm />
-          </div>
-        </div>
       </div>
 
       {/* --- Footer Bottom --- */}
-      <div className="relative z-20 flex flex-col md:flex-row justify-between items-center pt-8 pb-32 border-t border-dashed border-white/20 px-6 md:px-12">
+      <div className="relative z-20 flex flex-col md:flex-row justify-between items-center pt-8 pb-24 md:pb-32 border-t border-dashed border-white/20 px-0 md:px-12">
         <p className="text-[10px] uppercase tracking-widest text-white/40 mb-4 md:mb-0">
           © 2026 Livv Design. All rights reserved.
         </p>

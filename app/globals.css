@@ -125,6 +125,14 @@
     @apply font-light text-[40px] leading-[49px] tracking-[-2.6px];
     word-spacing: -0.05em;
   }
+
+  /* At phone sizes the negative word spacing left ~6 px between words
+     ("Let's work together" read as one word). */
+  @media (max-width: 767px) {
+    .section-heading {
+      word-spacing: normal;
+    }
+  }
 }
 
 @layer utilities {

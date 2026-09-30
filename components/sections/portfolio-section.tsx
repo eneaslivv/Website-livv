@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react"
 import { AnimatedBorders } from "@/components/ui/animated-borders"
 import { Playfair_Display } from "next/font/google"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 import { RevealText } from "@/components/ui/reveal-text"
 import Image from "next/image"
 import { useFeaturedPortfolioItems } from "@/hooks/usePublicData"
@@ -108,10 +109,10 @@ function PortfolioGrid() {
 
     return (
         <div className="relative w-full px-6 md:px-12">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-[2px] w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-[2px] max-md:gap-y-8 w-full">
                 {displayedItems.map((item) => (
+                    <div key={item.id}>
                     <div
-                        key={item.id}
                         onClick={() => handleCardClick(`/projects/${item.slug}`)}
                         onMouseEnter={(e) => { const v = e.currentTarget.querySelector('video'); v?.play().catch(() => {}) }}
                         onMouseLeave={(e) => { const v = e.currentTarget.querySelector('video'); if (v) { v.pause(); v.currentTime = 0 } }}
@@ -231,6 +232,19 @@ function PortfolioGrid() {
                             </div>
                         )}
                     </div>
+
+                    {/* Phones have no hover, so the overlay above never shows there and the
+                        covers read as anonymous images. Name and category go under the
+                        cover instead. The subtitle comes from the portfolio and is often a
+                        whole sentence, so it goes in sentence case under the name, in the
+                        section's own muted brown, not as an uppercase label. */}
+                    <Link href={`/projects/${item.slug}`} className="md:hidden mt-3.5 block">
+                        <span className="block text-[15px] font-light tracking-tight text-stone-900 text-balance">{item.title}</span>
+                        {item.subtitle && (
+                            <span className="mt-1 block text-[13px] leading-relaxed font-light text-[#5A3E3E]/70">{item.subtitle}</span>
+                        )}
+                    </Link>
+                    </div>
                 ))}
             </div>
         </div>
@@ -240,13 +254,13 @@ function PortfolioGrid() {
 export function PortfolioSection({ id }: { id?: string }) {
     return (
         <section id={id} className={`relative w-full text-slate-900 overflow-hidden`}>
-            <div className="max-w-7xl mx-auto py-24 md:py-32 relative z-10">
+            <div className="max-w-7xl mx-auto py-16 md:py-32 relative z-10">
                 <AnimatedBorders className="hidden md:block" />
 
                 {/* Section Header */}
                 <div className="mx-6 md:mx-12 border-t border-dashed border-[#B8B1A4]/60 relative z-10" />
 
-                <div className="w-full pt-24 md:pt-32 flex flex-col md:flex-row justify-between items-center gap-8 mb-12 md:mb-16 px-10 md:px-24 relative z-10">
+                <div className="w-full pt-16 md:pt-32 flex flex-col md:flex-row justify-between items-center gap-8 mb-12 md:mb-16 px-10 md:px-24 relative z-10">
                     <div>
                         <h2 className="section-heading mb-4 md:mb-0">
                             <RevealText text="Our Projects" className="text-gradient-gold" />

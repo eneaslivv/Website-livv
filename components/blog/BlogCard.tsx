@@ -17,22 +17,27 @@ function getOgImageUrl(post: BlogCardPost): string {
 interface BlogCardProps {
   post: BlogCardPost
   featured?: boolean
+  className?: string
 }
 
-export function BlogCard({ post, featured = false }: BlogCardProps) {
+export function BlogCard({ post, featured = false, className = "" }: BlogCardProps) {
   const formattedDate = new Date(post.createdAt).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
+    // Posts are dated at UTC midnight or evening. Formatted in the reader's zone,
+    // Argentina saw the day before (and Asia the day after), and the server HTML,
+    // rendered in UTC, stopped matching the client: React error #418.
+    timeZone: "UTC",
   })
 
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className={`group block bg-white rounded-2xl overflow-hidden border border-[#E6E2D6] hover:border-[#C4A35A]/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${featured ? "md:col-span-2" : ""}`}
+      className={`group block bg-white rounded-2xl overflow-hidden border border-[#E6E2D6] hover:border-[#C4A35A]/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${featured ? "md:col-span-2" : ""} ${className}`}
     >
       {/* Cover Image */}
-      <div className={`relative overflow-hidden bg-[#1a2332] ${featured ? "aspect-[2/1]" : "aspect-[16/10]"}`}>
+      <div className={`relative overflow-hidden bg-[#1a2332] ${featured ? "aspect-[2/1]" : "hidden md:block aspect-[16/10]"}`}>
         <Image
           src={getOgImageUrl(post)}
           alt={post.title}
@@ -49,7 +54,7 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
           <span className="text-[10px] font-semibold uppercase tracking-widest text-[#C4A35A] bg-[#C4A35A]/10 px-2.5 py-1 rounded-full">
             {post.category.name}
           </span>
-          <span className="text-[11px] text-[#5A3E3E]/40">
+          <span className="text-[11px] text-[#5A3E3E]/60 md:text-[#5A3E3E]/40">
             {post.readingTimeMinutes} min read
           </span>
         </div>
@@ -62,13 +67,13 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
         </h3>
 
         {/* Excerpt */}
-        <p className="text-sm text-[#5A3E3E]/60 leading-relaxed line-clamp-2 mb-4">
+        <p className="text-sm text-[#5A3E3E]/75 md:text-[#5A3E3E]/60 leading-relaxed line-clamp-2 mb-4">
           {post.excerpt}
         </p>
 
         {/* Footer */}
         <div className="flex items-center justify-between pt-4 border-t border-[#E6E2D6]">
-          <span className="text-xs text-[#5A3E3E]/40">{formattedDate}</span>
+          <span className="text-xs text-[#5A3E3E]/60 md:text-[#5A3E3E]/40">{formattedDate}</span>
           <span className="text-xs font-medium text-[#C4A35A] group-hover:translate-x-1 transition-transform duration-300">
             Read more →
           </span>

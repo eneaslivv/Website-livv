@@ -60,49 +60,52 @@ export function ContactForm() {
   return (
      <form onSubmit={handleSubmit} className="space-y-6 max-w-md">
        <div>
-         <label htmlFor="name" className="block text-xs uppercase tracking-widest text-white/40 mb-2">Name</label>
+         <label htmlFor="name" className="block text-xs uppercase tracking-widest text-white/60 mb-2">Name</label>
          <input
            type="text"
+           autoComplete="name"
            id="name"
            required
            value={formData.name}
            onChange={e => setFormData(prev => ({ ...prev, name: e.target.value }))}
-           className="w-full bg-transparent border-b border-white/20 py-2 text-white outline-none focus:border-[#C4A35A] transition-colors placeholder:text-white/20"
+           className="w-full bg-transparent border-b border-white/20 py-2 text-white outline-none focus:border-[#C4A35A] transition-colors placeholder:text-white/35"
            placeholder="Jane Doe"
          />
        </div>
        <div>
-         <label htmlFor="email" className="block text-xs uppercase tracking-widest text-white/40 mb-2">Email</label>
+         <label htmlFor="email" className="block text-xs uppercase tracking-widest text-white/60 mb-2">Email</label>
          <input
            type="email"
+           autoComplete="email"
            id="email"
            required
            value={formData.email}
            onChange={e => setFormData(prev => ({ ...prev, email: e.target.value }))}
-           className="w-full bg-transparent border-b border-white/20 py-2 text-white outline-none focus:border-[#C4A35A] transition-colors placeholder:text-white/20"
+           className="w-full bg-transparent border-b border-white/20 py-2 text-white outline-none focus:border-[#C4A35A] transition-colors placeholder:text-white/35"
            placeholder="jane@example.com"
          />
        </div>
        <div>
-         <label htmlFor="phone" className="block text-xs uppercase tracking-widest text-white/40 mb-2">Phone (Optional)</label>
+         <label htmlFor="phone" className="block text-xs uppercase tracking-widest text-white/60 mb-2">Phone (Optional)</label>
          <input
            type="tel"
+           autoComplete="tel"
            id="phone"
            value={formData.phone}
            onChange={e => setFormData(prev => ({ ...prev, phone: e.target.value }))}
-           className="w-full bg-transparent border-b border-white/20 py-2 text-white outline-none focus:border-[#C4A35A] transition-colors placeholder:text-white/20"
+           className="w-full bg-transparent border-b border-white/20 py-2 text-white outline-none focus:border-[#C4A35A] transition-colors placeholder:text-white/35"
            placeholder="+1 (555) 123-4567"
          />
        </div>
        <div>
-         <label htmlFor="message" className="block text-xs uppercase tracking-widest text-white/40 mb-2">Message</label>
+         <label htmlFor="message" className="block text-xs uppercase tracking-widest text-white/60 mb-2">Message</label>
          <textarea
            id="message"
            required
            rows={4}
            value={formData.message}
            onChange={e => setFormData(prev => ({ ...prev, message: e.target.value }))}
-           className="w-full bg-transparent border-b border-white/20 py-2 text-white outline-none focus:border-[#C4A35A] transition-colors placeholder:text-white/20 resize-none"
+           className="w-full bg-transparent border-b border-white/20 py-2 text-white outline-none focus:border-[#C4A35A] transition-colors placeholder:text-white/35 resize-none"
            placeholder="Tell us about your project..."
          />
        </div>

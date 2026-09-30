@@ -71,7 +71,7 @@ export function BusinessArtSection() {
             className="relative w-full"
         >
             {/* Main Content */}
-            <div className="max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32 relative z-10">
+            <div className="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-32 relative z-10">
                 <AnimatedBorders className="hidden md:block" />
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
@@ -170,19 +170,19 @@ export function BusinessArtSection() {
                                         <div className="text-2xl md:text-3xl font-thin text-[#F2F0EA] mb-1 flex items-baseline group-hover/stat:text-[#FFB8E0] transition-colors group-hover/stat:translate-y-[-2px] duration-300">
                                             {isVisible ? <CountUp end={98} duration={2} /> : 0}%
                                         </div>
-                                        <div className="text-[9px] md:text-[10px] font-medium text-[#9A8A8A] uppercase tracking-widest leading-tight">Client<br />Retention</div>
+                                        <div className="text-[10px] font-medium text-[#9A8A8A] uppercase tracking-widest leading-tight">Client<br />Retention</div>
                                     </div>
                                     <div className="group/stat">
                                         <div className="text-2xl md:text-3xl font-thin text-[#F2F0EA] mb-1 flex items-baseline group-hover/stat:text-[#FFB8E0] transition-colors group-hover/stat:translate-y-[-2px] duration-300">
                                             {isVisible ? <CountUp end={12} duration={2} /> : 0}
                                         </div>
-                                        <div className="text-[9px] md:text-[10px] font-medium text-[#9A8A8A] uppercase tracking-widest leading-tight">Industry<br />Awards</div>
+                                        <div className="text-[10px] font-medium text-[#9A8A8A] uppercase tracking-widest leading-tight">Industry<br />Awards</div>
                                     </div>
                                     <div className="group/stat">
                                         <div className="text-2xl md:text-3xl font-thin text-[#F2F0EA] mb-1 flex items-baseline group-hover/stat:text-[#FFB8E0] transition-colors group-hover/stat:translate-y-[-2px] duration-300">
                                             {isVisible ? <CountUp end={10} duration={2.5} /> : 0}M+
                                         </div>
-                                        <div className="text-[9px] md:text-[10px] font-medium text-[#9A8A8A] uppercase tracking-widest leading-tight">Users<br />Reached</div>
+                                        <div className="text-[10px] font-medium text-[#9A8A8A] uppercase tracking-widest leading-tight">Users<br />Reached</div>
                                     </div>
                                 </div>
 

@@ -19,7 +19,7 @@ export function ReviewsCarouselSection({ id, reviews }: { id?: string; reviews: 
   const activeRating = Math.round(reviews[active].rating)
 
   return (
-    <section id={id} className="w-full relative bg-white py-20">
+    <section id={id} className="w-full relative bg-white py-16 md:py-20">
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         <AnimatedBorders className="hidden md:block" />
 
@@ -46,7 +46,7 @@ export function ReviewsCarouselSection({ id, reviews }: { id?: string; reviews: 
                 key={i}
                 style={{ gridArea: "1 / 1 / 2 / 2" }}
                 className={`
-                                    text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]
+                                    self-center text-base md:text-xl font-light leading-relaxed text-[#1a1a1a]
                                     transition-all duration-700 ease-out
                                     ${active === i
                     ? "opacity-100 translate-y-0 blur-0"
@@ -74,7 +74,13 @@ export function ReviewsCarouselSection({ id, reviews }: { id?: string; reviews: 
                                         ${active === i ? "z-10 scale-110" : "grayscale hover:grayscale-0 hover:scale-105"}
                                     `}
                 >
-                  <Image src={t.image} alt={t.name} fill sizes="64px" className="object-cover" />
+                  {t.image && !t.image.includes("placeholder") ? (
+                    <Image src={t.image} alt={t.name} fill sizes="64px" className="object-cover" />
+                  ) : (
+                    <span aria-hidden="true" className="absolute inset-0 grid place-items-center bg-[#E8E4DC] text-base font-medium text-[#5A3E3E]">
+                      {t.name.trim().charAt(0).toUpperCase()}
+                    </span>
+                  )}
                 </button>
               ))}
             </div>

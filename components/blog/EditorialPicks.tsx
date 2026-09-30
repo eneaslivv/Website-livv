@@ -52,7 +52,7 @@ export function EditorialPicks({ currentSlug }: { currentSlug?: string }) {
   return (
     <section
       aria-labelledby="editorial-picks-heading"
-      className="max-w-5xl mx-auto mt-20 mb-12 px-6"
+      className="max-w-5xl mx-auto mt-12 md:mt-20 mb-12 px-6"
     >
       <div className="border-t border-[#1a1a1a]/10 pt-12">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-8 gap-4">
@@ -69,7 +69,7 @@ export function EditorialPicks({ currentSlug }: { currentSlug?: string }) {
           </div>
           <Link
             href="/blog"
-            className="group inline-flex items-center gap-2 text-xs font-medium text-[#1a1a1a]/60 hover:text-[#1a1a1a] transition-colors"
+            className="group inline-flex items-center gap-2 py-3 md:py-0 text-xs font-medium text-[#1a1a1a]/60 hover:text-[#1a1a1a] transition-colors"
           >
             <span className="border-b border-[#1a1a1a]/20 group-hover:border-[#1a1a1a] transition-colors">
               All writing
@@ -98,7 +98,7 @@ export function EditorialPicks({ currentSlug }: { currentSlug?: string }) {
               >
                 {piece.title}
               </h3>
-              <p className="text-xs md:text-sm text-[#1a1a1a]/55 leading-relaxed font-light line-clamp-2">
+              <p className="text-sm text-[#1a1a1a]/55 leading-relaxed font-light line-clamp-2">
                 {piece.excerpt}
               </p>
               <div className="mt-4 flex items-center gap-2 text-[11px] text-[#1a1a1a]/40">

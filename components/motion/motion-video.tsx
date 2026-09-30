@@ -89,9 +89,12 @@ export function MotionVideo({
         <div
             className={`group relative overflow-hidden rounded-xl bg-[#F2EEE7] ${className}`}
             style={{ aspectRatio: "9 / 16" }}
-            onMouseEnter={start}
-            onMouseLeave={stop}
-            onFocus={start}
+            /* Hover plays only for a real mouse, and focus only when it comes from the
+               keyboard. A phone fires the hover and focus events right before the click,
+               so the first tap started the clip and the click paused it again. */
+            onPointerEnter={(e) => { if (e.pointerType === "mouse") start() }}
+            onPointerLeave={(e) => { if (e.pointerType === "mouse") stop() }}
+            onFocus={(e) => { if ((e.target as HTMLElement).matches(":focus-visible")) start() }}
             onBlur={stop}
         >
             <video
@@ -122,7 +125,7 @@ export function MotionVideo({
                 type="button"
                 onClick={toggleSound}
                 aria-label={muted ? `Unmute ${title}` : `Mute ${title}`}
-                className="absolute top-3 right-3 grid place-items-center w-7 h-7 rounded-full text-white/90 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+                className={`absolute top-3 right-3 grid place-items-center w-7 h-7 rounded-full text-white/90 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 ${playing ? "pointer-coarse:opacity-100" : ""} transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70`}
                 style={{ background: "rgba(9,9,11,0.55)", backdropFilter: "blur(6px)" }}
             >
                 {muted ? (

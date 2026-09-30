@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
 import { Minus, Plus, Maximize2 } from "lucide-react"
 import { buildSiteTree, layoutTree, type LaidOutEdge } from "@/lib/sitemap-tree"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -46,6 +47,10 @@ export function SiteMapSection({ label, heading, description, slugs, rootLabel }
         typeof window !== 'undefined' && window.innerWidth < 768 ? 1.8 : 1,
     )
     const [pan, setPan] = useState({ x: 0, y: 0 })
+    // Escalado desde el centro, el zoom inicial de celular sacaba la raíz ~130 px
+    // a la izquierda: se veían dos curvas y ninguna página. Desde el borde izquierdo
+    // arranca donde empieza el árbol.
+    const isMobile = useIsMobile()
     const drag = useRef<{ x: number; y: number; px: number; py: number } | null>(null)
 
     const { nodes, edges, canvas, nodeH } = useMemo(
@@ -123,7 +128,7 @@ export function SiteMapSection({ label, heading, description, slugs, rootLabel }
                     }}
                 />
 
-                <div className="absolute top-3 right-3 z-20 flex gap-1.5">
+                <div className="absolute top-3 right-3 z-20 flex gap-2 md:gap-1.5">
                     {[
                         { icon: Minus, fn: () => setZoom((z) => Math.max(0.5, +(z - 0.25).toFixed(2))), label: 'Zoom out' },
                         { icon: Plus, fn: () => setZoom((z) => Math.min(2.5, +(z + 0.25).toFixed(2))), label: 'Zoom in' },
@@ -133,7 +138,7 @@ export function SiteMapSection({ label, heading, description, slugs, rootLabel }
                             key={l}
                             onClick={fn}
                             aria-label={l}
-                            className="w-8 h-8 rounded-lg bg-white/90 border border-[#D6D1C5] flex items-center justify-center text-[#2A1818] hover:bg-white transition-colors"
+                            className="size-10 md:size-8 rounded-lg bg-white/90 border border-[#D6D1C5] flex items-center justify-center text-[#2A1818] hover:bg-white transition-colors"
                         >
                             <Icon className="w-3.5 h-3.5" />
                         </button>
@@ -161,7 +166,7 @@ export function SiteMapSection({ label, heading, description, slugs, rootLabel }
                         className="w-full h-[420px] md:h-[620px]"
                         style={{
                             transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
-                            transformOrigin: 'center center',
+                            transformOrigin: isMobile ? '0% 50%' : 'center center',
                             transition: drag.current ? 'none' : 'transform .35s cubic-bezier(.16,1,.3,1)',
                         }}
                     >
@@ -219,7 +224,7 @@ export function SiteMapSection({ label, heading, description, slugs, rootLabel }
                     </svg>
                 </div>
 
-                <div className="absolute bottom-3 left-4 z-20 text-[10px] uppercase tracking-widest text-[#5A3E3E]/50 pointer-events-none">
+                <div className="absolute bottom-3 left-4 z-20 text-[10px] uppercase tracking-widest text-[#5A3E3E]/70 md:text-[#5A3E3E]/50 pointer-events-none">
                     {/* Los nodos incluyen los grupos que arma el árbol: páginas son los slugs. */}
                     {new Set(slugs).size} pages · drag to explore
                 </div>

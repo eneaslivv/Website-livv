@@ -44,7 +44,7 @@ export function BlogContentRenderer({ blocks }: { blocks: BlogContentBlock[] }) 
                 <h2
                   key={i}
                   id={block.id}
-                  className="text-2xl md:text-3xl font-semibold text-[#2A1818] tracking-tight mt-12 mb-4 scroll-mt-24"
+                  className="text-2xl md:text-3xl font-semibold text-[#2A1818] tracking-tight mt-12 first:mt-0 md:first:mt-12 mb-4 scroll-mt-24"
                 >
                   {block.content}
                 </h2>
@@ -72,7 +72,7 @@ export function BlogContentRenderer({ blocks }: { blocks: BlogContentBlock[] }) 
             return (
               <p
                 key={i}
-                className="text-base md:text-lg text-[#5A3E3E]/70 leading-relaxed mb-6"
+                className="text-base md:text-lg text-[#5A3E3E]/80 md:text-[#5A3E3E]/70 leading-relaxed mb-6"
                 suppressHydrationWarning
                 dangerouslySetInnerHTML={{ __html: block.content }}
               />
@@ -81,7 +81,7 @@ export function BlogContentRenderer({ blocks }: { blocks: BlogContentBlock[] }) 
           case "list":
             if (block.ordered) {
               return (
-                <ol key={i} className="list-decimal list-inside space-y-2 mb-6 text-[#5A3E3E]/70 leading-relaxed pl-2">
+                <ol key={i} className="list-decimal list-outside pl-5 space-y-3 md:list-inside md:pl-2 md:space-y-2 mb-6 text-[#5A3E3E]/80 md:text-[#5A3E3E]/70 leading-relaxed">
                   {block.items.map((item, j) => (
                     <li key={j} className="text-base md:text-lg" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: item }} />
                   ))}
@@ -89,7 +89,7 @@ export function BlogContentRenderer({ blocks }: { blocks: BlogContentBlock[] }) 
               )
             }
             return (
-              <ul key={i} className="list-disc list-inside space-y-2 mb-6 text-[#5A3E3E]/70 leading-relaxed pl-2">
+              <ul key={i} className="list-disc list-outside pl-5 space-y-3 md:list-inside md:pl-2 md:space-y-2 mb-6 text-[#5A3E3E]/80 md:text-[#5A3E3E]/70 leading-relaxed">
                 {block.items.map((item, j) => (
                   <li key={j} className="text-base md:text-lg" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: item }} />
                 ))}
@@ -100,7 +100,7 @@ export function BlogContentRenderer({ blocks }: { blocks: BlogContentBlock[] }) 
             return (
               <blockquote
                 key={i}
-                className="border-l-4 border-[#C4A35A] pl-6 py-2 mb-8 italic text-lg text-[#5A3E3E]/70 leading-relaxed"
+                className="border-l-4 border-[#C4A35A] pl-6 py-2 mb-8 italic text-lg text-[#5A3E3E]/80 md:text-[#5A3E3E]/70 leading-relaxed"
               >
                 <p>{block.content}</p>
                 {block.attribution && (
@@ -180,7 +180,7 @@ export function BlogContentRenderer({ blocks }: { blocks: BlogContentBlock[] }) 
                         {row.map((cell, k) => (
                           <td
                             key={k}
-                            className="px-5 py-3 text-[#5A3E3E]/70"
+                            className="px-5 py-3 text-[#5A3E3E]/80 md:text-[#5A3E3E]/70"
                             suppressHydrationWarning
                             dangerouslySetInnerHTML={{ __html: cell }}
                           />

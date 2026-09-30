@@ -39,7 +39,7 @@ const BASE = "/videos/motion"
 export const motionPieces: MotionPiece[] = [
   {
     slug: "citrus-can",
-    title: "Beverage — CGI product animation",
+    title: "Beverage — CGI product animation",
     category: "3D · Product animation",
     blurb: "A can held in suspension while fruit and droplets orbit it, built and lit in 3D.",
     src: `${BASE}/citrus-can.mp4`,
@@ -49,7 +49,7 @@ export const motionPieces: MotionPiece[] = [
   },
   {
     slug: "gin-heredero",
-    title: "Spirits — product film",
+    title: "Spirits — product film",
     category: "Live action · Product film",
     blurb: "Macro passes across glass and label, cut to hold on the craft detail.",
     src: `${BASE}/gin-heredero.mp4`,
@@ -58,7 +58,7 @@ export const motionPieces: MotionPiece[] = [
   },
   {
     slug: "fragrance-bottle",
-    title: "Fragrance — cinematic product film",
+    title: "Fragrance — cinematic product film",
     category: "Live action · Lighting",
     blurb: "A single controlled light source shaping a glass bottle against black.",
     src: `${BASE}/fragrance-bottle.mp4`,
@@ -67,7 +67,7 @@ export const motionPieces: MotionPiece[] = [
   },
   {
     slug: "organica-norte",
-    title: "Natural foods — brand animation",
+    title: "Natural foods — brand animation",
     category: "Motion graphics · Brand",
     blurb: "Type and mark animated into place over a warm, shallow-focus set.",
     src: `${BASE}/organica-norte.mp4`,
@@ -76,7 +76,7 @@ export const motionPieces: MotionPiece[] = [
   },
   {
     slug: "pink-device",
-    title: "Consumer product — animated loop",
+    title: "Consumer product — animated loop",
     category: "3D · Product loop",
     blurb: "A product locked in frame while a patterned backdrop scrolls behind it.",
     src: `${BASE}/pink-device.mp4`,
@@ -85,7 +85,7 @@ export const motionPieces: MotionPiece[] = [
   },
   {
     slug: "portrait-studio",
-    title: "Portrait — studio piece",
+    title: "Portrait — studio piece",
     category: "Live action · Portrait",
     blurb: "Tight studio framing on a dark set, cut for a vertical feed.",
     src: `${BASE}/portrait-studio.mp4`,

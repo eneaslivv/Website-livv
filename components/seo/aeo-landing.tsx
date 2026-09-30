@@ -57,20 +57,28 @@ export function AeoLanding({
 
       <Navbar isLoaded />
 
-      <main className="pt-24 md:pt-32">
-        <article className="max-w-4xl mx-auto px-6 md:px-12 pb-24">
+      <main className="pt-28 md:pt-32">
+        <article className="max-w-4xl mx-auto px-6 md:px-12 pb-8 md:pb-24">
           <header className="mb-16">
-            <p className="text-sm uppercase tracking-widest text-white/50 mb-4">
+            <p className="text-[10px] tracking-[0.24em] md:text-sm md:tracking-widest uppercase text-white/50 mb-4 max-md:text-balance">
               {kicker}
             </p>
-            <h1 className="text-4xl md:text-6xl font-light leading-tight">
+            <h1 className="text-4xl md:text-6xl font-light leading-tight max-md:text-balance">
               {title}
             </h1>
-            <p className="mt-6 text-lg text-white/70 leading-relaxed">{intro}</p>
+            <p className="mt-6 text-base md:text-lg text-white/70 leading-relaxed">{intro}</p>
+            {/* On a phone the only way forward was a sentence with two links, seven
+                screens down: the page gets its own button under the intro. */}
+            <Link
+              href="/contact"
+              className="md:hidden mt-8 inline-flex h-12 items-center rounded-full bg-white px-6 text-sm font-medium text-black"
+            >
+              Empezá tu proyecto
+            </Link>
           </header>
 
           {facts.length > 0 && (
-            <section className="grid md:grid-cols-2 gap-8 mb-16 text-sm">
+            <section className="grid grid-cols-2 gap-x-6 gap-y-6 md:gap-8 mb-16 text-sm">
               {facts.map((f) => (
                 <div key={f.label}>
                   <p className="text-xs uppercase tracking-wider text-white/40 mb-1">
@@ -94,7 +102,7 @@ export function AeoLanding({
                 {related.items.map((item) => (
                   <li key={item.href}>
                     <Link href={item.href} className="block group">
-                      <p className="text-white group-hover:underline underline-offset-4">
+                      <p className="text-white underline md:no-underline md:group-hover:underline underline-offset-4">
                         {item.name}
                       </p>
                       <p className="text-sm text-white/60">{item.description}</p>
@@ -136,11 +144,21 @@ export function AeoLanding({
               </Link>
               .
             </p>
+            <Link
+              href="/contact"
+              className="md:hidden mt-6 inline-flex h-12 items-center rounded-full bg-white px-6 text-sm font-medium text-black"
+            >
+              Empezá tu proyecto
+            </Link>
           </Section>
         </article>
       </main>
 
-      <FooterSection />
+      {/* The footer is drawn for a light page; on this black one its ink vanished
+          (the email and the socials could not be read, at every width). */}
+      <div className="border-t border-[#e3ded5] bg-[#FDFCF8] text-[#1a1a1a]">
+        <FooterSection />
+      </div>
     </div>
   )
 }
@@ -153,11 +171,11 @@ function Section({
   children: React.ReactNode
 }) {
   return (
-    <section className="mb-16">
+    <section className="mb-16 max-md:last:mb-0">
       <h2 className="text-2xl md:text-3xl font-light mb-4 border-b border-white/10 pb-3">
         {title}
       </h2>
-      <div className="text-white/80 leading-relaxed">{children}</div>
+      <div className="text-white/80 leading-relaxed max-md:[&_ul.list-inside]:list-outside max-md:[&_ul.list-inside]:pl-5">{children}</div>
     </section>
   )
 }

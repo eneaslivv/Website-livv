@@ -29,7 +29,7 @@ export function WorkModelSection() {
 
     return (
         <section ref={sectionRef} className="relative w-full overflow-hidden">
-            <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 py-24 md:py-32">
+            <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 py-16 md:py-32">
                 {/* Lateral Borders for this section */}
                 <AnimatedBorders className="hidden md:block" />
 

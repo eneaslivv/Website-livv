@@ -112,6 +112,7 @@
 @container (max-width: 680px) {
     .content {
         gap: 32px;
+        padding-inline: 0;
     }
 
     .eyebrow {
