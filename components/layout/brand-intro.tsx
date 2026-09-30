@@ -24,7 +24,7 @@ import {
  *
  * Length: 2.05 s on desktop (the sequence is 1.75 s plus a beat of stillness) and
  * 1.3 s on phones, where it sits in front of LCP, as long as the hero image and
- * fonts are ready; if not, it lifts at 3.2 s / 2.6 s once the page has parsed.
+ * fonts are ready; if not, it lifts at 3.2 s / 2.6 s. It never lifts before the home has mounted.
  */
 
 /**
@@ -71,12 +71,25 @@ export const INTRO_SCRIPT = `(function(){
     })();
   });
   var fonts = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
-  Promise.all([heroImage, fonts]).then(function(){
-    setTimeout(leave, Math.max(0, minMs - (Date.now() - t0)));
-  });
-  // Soft cap: lifts at capMs, unless the page has not even been parsed yet, in
-  // which case the panel is better than a blank screen. Hard cap for the rest.
-  setTimeout(function(){ if (document.readyState !== 'loading') leave(); }, capMs);
+  var assets = false;
+  Promise.all([heroImage, fonts]).then(function(){ assets = true; });
+  // The home is only final once React has committed it (HomeShell marks <html> from an
+  // effect): before that its HTML can be thrown away and rendered again behind the paper
+  // loader, and a panel that lifts in that gap uncovers the flash. Other routes only need
+  // the parser to be done.
+  function pageReady() {
+    if (location.pathname !== '/') return document.readyState !== 'loading';
+    return d.hasAttribute('data-home-live');
+  }
+  // Leaves when the hero image and fonts are in and the minimum has been shown, or at the
+  // soft cap on a slow network; in both cases only onto a page that is ready. The hard cap
+  // is the last resort, so a page that never mounts cannot keep the panel up.
+  (function tick(){
+    if (gone) return;
+    var t = Date.now() - t0;
+    if (((assets && t >= minMs) || t >= capMs) && pageReady()) return leave();
+    setTimeout(tick, 50);
+  })();
   setTimeout(leave, hardMs);
 })();`
 
