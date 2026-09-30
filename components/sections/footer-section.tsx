@@ -6,7 +6,7 @@ import { useScroll, useTransform, useSpring, motion } from "framer-motion"
 import { Instagram, Linkedin, Github, ArrowUpRight } from "lucide-react"
 import { trackContactClick } from "@/lib/analytics"
 import { AnimatedBorders } from "@/components/ui/animated-borders"
-import { GoodfirmsBadge } from "@/components/ui/goodfirms-badge"
+import { TrustBadges } from "@/components/ui/trust-badges"
 
 export function FooterSection({ id }: { id?: string }) {
     const containerRef = useRef<HTMLDivElement>(null)
@@ -64,7 +64,7 @@ export function FooterSection({ id }: { id?: string }) {
                                 data-theme="dark"
                                 data-username="eneas_aldabe"
                             />
-                            <GoodfirmsBadge size={170} />
+                            <TrustBadges tone="light" goodfirmsSize={150} sealHeight={96} />
                         </div>
                     </div>
 

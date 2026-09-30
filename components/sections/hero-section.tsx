@@ -4,8 +4,9 @@ import dynamic from "next/dynamic"
 import { CSSProperties, useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { Navbar } from "@/components/layout/navbar"
-import { GoodfirmsBadge } from "@/components/ui/goodfirms-badge"
+import { TrustBadges } from "@/components/ui/trust-badges"
 import { trackCTAClick } from "@/lib/analytics"
+import { REVEAL_EVENT, coverIsUp } from "@/lib/page-cover"
 import { useIsMobile } from "@/hooks/use-mobile"
 
 // Vercel Speed Insights showed the home `/` route scoring 31/100 on mobile
@@ -20,7 +21,13 @@ const Swirl = dynamic(() => import("shaders/react").then((mod) => mod.Swirl), { 
 const ChromaFlow = dynamic(() => import("shaders/react").then((mod) => mod.ChromaFlow), { ssr: false })
 
 export function HeroSection() {
+  // Two moments, not one. `isLoaded` is the hero's background (image, vignette,
+  // shader): it fades in at once, so it is already there behind the intro or the
+  // page curtain. `textIn` is everything you read (navbar, headline, copy,
+  // buttons, badges): it waits for the cover to lift, so the headline rises as
+  // the panel uncovers it instead of animating out of sight.
   const [isLoaded, setIsLoaded] = useState(false)
+  const [textIn, setTextIn] = useState(false)
   const shaderContainerRef = useRef<HTMLDivElement>(null)
   const isMobile = useIsMobile()
   const frameRef = useRef<HTMLDivElement>(null)
@@ -35,6 +42,23 @@ export function HeroSection() {
   useEffect(() => {
     // Force loaded state immediately to prevent white screen
     setIsLoaded(true)
+  }, [])
+
+  useEffect(() => {
+    // With nothing covering the page, the text is in right away (never a blank
+    // hero). Otherwise it waits for REVEAL_EVENT; the timeout is only a net in
+    // case the event never comes.
+    if (!coverIsUp()) {
+      setTextIn(true)
+      return
+    }
+    const reveal = () => setTextIn(true)
+    window.addEventListener(REVEAL_EVENT, reveal, { once: true })
+    const net = window.setTimeout(reveal, 6500)
+    return () => {
+      window.removeEventListener(REVEAL_EVENT, reveal)
+      window.clearTimeout(net)
+    }
   }, [])
 
   useEffect(() => {
@@ -89,7 +113,7 @@ export function HeroSection() {
 
   return (
     <>
-      <Navbar isLoaded={isLoaded} />
+      <Navbar isLoaded={textIn} />
 
       <section id="home" className="h-auto w-full p-4 sm:p-6 pt-2 pb-4 md:pb-8 flex items-start justify-center">
         <div
@@ -98,7 +122,7 @@ export function HeroSection() {
           style={frameVars}
         >
           <div
-            className={`absolute top-6 right-6 z-[90] hidden md:flex items-center pointer-events-none transition-all duration-800 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
+            className={`absolute top-6 right-6 z-[90] hidden md:flex items-center pointer-events-none transition-all duration-800 ${textIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
             style={{ transitionDelay: "500ms" }}
           >
             <div className="group relative bg-white/80 backdrop-blur-md rounded-full px-1 py-1 pr-4 flex items-center gap-3 border border-white/40 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-all duration-300 pointer-events-auto cursor-default">
@@ -189,10 +213,10 @@ export function HeroSection() {
           )}
 
           <div className="relative z-10 flex flex-col items-center justify-start h-full text-center px-4 pt-32 md:pt-40">
-            <h1 className="text-2xl md:text-4xl lg:text-5xl leading-tight md:leading-none font-light tracking-[-0.08em] max-w-4xl mx-auto text-gray-100 flex flex-col items-center">
+            <h1 data-own-reveal className="text-2xl md:text-4xl lg:text-5xl leading-tight md:leading-none font-light tracking-[-0.08em] max-w-4xl mx-auto text-gray-100 flex flex-col items-center">
               <span className="block overflow-hidden pb-1">
                 <span
-                  className={`block text-white transition-all duration-1000 ease-[cubic-bezier(0.2,0.65,0.3,0.9)] ${isLoaded ? "opacity-100 translate-y-0 blur-0" : "opacity-0 translate-y-full blur-lg"}`}
+                  className={`block text-white transition-all duration-1000 ease-[cubic-bezier(0.2,0.65,0.3,0.9)] ${textIn ? "opacity-100 translate-y-0 blur-0" : "opacity-0 translate-y-full blur-lg"}`}
                   style={{ transitionDelay: "200ms" }}
                 >
                   We Build Digital Products
@@ -200,7 +224,7 @@ export function HeroSection() {
               </span>
               <span className="block overflow-hidden pb-1">
                 <span
-                  className={`block text-white transition-all duration-1000 ease-[cubic-bezier(0.2,0.65,0.3,0.9)] ${isLoaded ? "opacity-100 translate-y-0 blur-0" : "opacity-0 translate-y-full blur-lg"}`}
+                  className={`block text-white transition-all duration-1000 ease-[cubic-bezier(0.2,0.65,0.3,0.9)] ${textIn ? "opacity-100 translate-y-0 blur-0" : "opacity-0 translate-y-full blur-lg"}`}
                   style={{ transitionDelay: "350ms" }}
                 >
                   that Feel Like Art
@@ -208,7 +232,7 @@ export function HeroSection() {
               </span>
               <span className="block overflow-hidden pb-1">
                 <span
-                  className={`block text-white transition-all duration-1000 ease-[cubic-bezier(0.2,0.65,0.3,0.9)] ${isLoaded ? "opacity-100 translate-y-0 blur-0" : "opacity-0 translate-y-full blur-lg"}`}
+                  className={`block text-white transition-all duration-1000 ease-[cubic-bezier(0.2,0.65,0.3,0.9)] ${textIn ? "opacity-100 translate-y-0 blur-0" : "opacity-0 translate-y-full blur-lg"}`}
                   style={{ transitionDelay: "500ms" }}
                 >
                   and Perform Like Engines.
@@ -217,14 +241,14 @@ export function HeroSection() {
             </h1>
 
             <p
-              className={`mt-8 text-sm md:text-base text-white max-w-2xl mx-auto font-light leading-relaxed transition-all duration-800 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
+              className={`mt-8 text-sm md:text-base text-white max-w-2xl mx-auto font-light leading-relaxed transition-all duration-800 ${textIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
               style={{ transitionDelay: "500ms" }}
             >
               The white-label creative partner for agencies, startups and ecommerce sites. We merge aesthetic design, motion storytelling, and state of the art development strategies to turn your ideas into scalable businesses.
             </p>
 
             <div
-              className={`mt-10 flex flex-wrap justify-center gap-3 transition-all duration-800 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
+              className={`mt-10 flex flex-wrap justify-center gap-3 transition-all duration-800 ${textIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
               style={{ transitionDelay: "500ms" }}
             >
               <a
@@ -246,12 +270,12 @@ export function HeroSection() {
               </a>
             </div>
 
-            {/* DesignRush Award Badge */}
+            {/* GoodFirms and DesignRush */}
             <div
-              className={`mt-16 transition-all duration-1000 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+              className={`mt-14 transition-all duration-1000 ${textIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
               style={{ transitionDelay: "700ms" }}
             >
-              <GoodfirmsBadge size={140} variant="dark" />
+              <TrustBadges tone="dark" goodfirmsSize={140} sealHeight={88} className="justify-center" />
             </div>
           </div>
         </div>

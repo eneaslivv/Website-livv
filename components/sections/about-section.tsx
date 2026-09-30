@@ -4,7 +4,7 @@ import { useRef, useEffect, useState } from "react"
 import { AnimatedBorders } from "@/components/ui/animated-borders"
 import { RevealText } from "@/components/ui/reveal-text"
 import { motion, useScroll, useTransform } from "framer-motion"
-import { GoodfirmsBadge } from "@/components/ui/goodfirms-badge"
+import { TrustBadges } from "@/components/ui/trust-badges"
 import Image from "next/image"
 
 const stats = [
@@ -183,7 +183,7 @@ export function AboutSection({ id }: { id?: string }) {
                     {(stat as any).isBadge ? (
                       /* SVG Badge */
                       <div className="flex items-center justify-center h-full py-4 -ml-6 md:-ml-16 lg:-ml-24">
-                        <GoodfirmsBadge size={170} variant="dark" />
+                        <TrustBadges tone="dark" goodfirmsSize={150} sealHeight={96} className="flex-wrap justify-center" />
                       </div>
                     ) : (
                       /* Regular Stat Card */

@@ -1,0 +1,343 @@
+/*
+ * Brand motion: the first-visit intro, the curtain between pages, the loader
+ * and the entrance of headings.
+ *
+ * Source: brand guide 09 · Movimiento (LIVV Hub, Figma). «Trazar, expandir,
+ * resolver» for the sign; the house curve cubic-bezier(.22, 1, .36, 1) for
+ * entrances; a stronger in-out for panels; «entrada suave, salida breve»; and
+ * nothing that moves for people who asked for less motion. Colours are the
+ * brand's (bordó #440C15, blush #ECD2CC, paper #FDFBF7), not the site's older
+ * oxblood, because this is the brand's own opening.
+ */
+
+:root {
+  --livv-bordo: #440c15;
+  --livv-blush: #ecd2cc;
+  --livv-paper: #fdfbf7;
+  --livv-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --livv-panel: cubic-bezier(0.76, 0, 0.24, 1);
+  /* Height of the wavy leading edge of the curtain */
+  --livv-wave: clamp(44px, 9vh, 96px);
+}
+
+/* ─────────────────────────── 1 · First-visit intro ───────────────────────────
+ * html[data-intro] is written by the script in <head> before first paint:
+ *   run      the sequence plays; the page underneath cannot scroll
+ *   leaving  the panel lifts and hands over to the hero
+ *   done     removed
+ *   skip     never shown (not the home, repeat visit in the session, reduced motion)
+ *   (absent) JavaScript is off: nobody decided, so it never shows
+ */
+
+.livv-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--livv-bordo);
+  color: var(--livv-blush);
+  will-change: transform;
+}
+
+html:not([data-intro]) .livv-intro,
+html[data-intro="skip"] .livv-intro,
+html[data-intro="done"] .livv-intro {
+  display: none;
+}
+
+html[data-intro="run"] {
+  overflow: hidden;
+}
+
+html[data-intro="leaving"] .livv-intro {
+  transform: translateY(-100%);
+  transition: transform 1000ms var(--livv-panel);
+  pointer-events: none;
+}
+
+.livv-intro__stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+/* The content leaves ahead of the panel, so the two read as one move with depth */
+html[data-intro="leaving"] .livv-intro__stage {
+  transform: translateY(-56px);
+  opacity: 0;
+  transition:
+    transform 700ms cubic-bezier(0.4, 0, 1, 1),
+    opacity 450ms cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* Trazar: the letters are there, the curve is drawn out of them */
+.livv-intro__sign {
+  width: clamp(176px, 22vw, 300px);
+  height: auto;
+  overflow: visible;
+  fill: currentColor;
+  animation: livv-intro-settle 1500ms var(--livv-ease) 80ms both;
+}
+
+.livv-intro__letters {
+  animation: livv-intro-in 520ms var(--livv-ease) 60ms both;
+}
+
+/* Expandir: pen and outline swap as the curve lands, so the sign ends exact */
+.livv-intro__pen {
+  /* A gap longer than the path and an offset a little over 1: nothing, not even a round cap, shows before it starts */
+  stroke-dasharray: 1 3;
+  stroke-dashoffset: 1.05;
+  animation:
+    livv-intro-draw 1000ms cubic-bezier(0.65, 0, 0.35, 1) 200ms forwards,
+    livv-intro-out 160ms linear 1200ms forwards;
+}
+
+.livv-intro__curve {
+  opacity: 0;
+  animation:
+    livv-intro-in 160ms linear 1200ms forwards,
+    /* If the page is slow to load the sign waits, alive, instead of freezing */
+    livv-intro-breathe 2600ms ease-in-out 1900ms infinite;
+}
+
+/* Resolver: the line enters and stays still */
+.livv-intro__line {
+  margin: 0;
+  font-size: clamp(15px, 1.35vw, 19px);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  color: var(--livv-paper);
+  opacity: 0;
+  animation: livv-intro-rise 700ms var(--livv-ease) 1050ms forwards;
+}
+
+.livv-intro__line span {
+  color: var(--livv-blush);
+}
+
+@media (max-width: 767px) {
+  .livv-intro__stage {
+    gap: 22px;
+  }
+  .livv-intro__sign {
+    animation-duration: 1100ms;
+  }
+  .livv-intro__pen {
+    animation:
+      livv-intro-draw 700ms cubic-bezier(0.65, 0, 0.35, 1) 160ms forwards,
+      livv-intro-out 140ms linear 860ms forwards;
+  }
+  .livv-intro__curve {
+    animation:
+      livv-intro-in 140ms linear 860ms forwards,
+      livv-intro-breathe 2600ms ease-in-out 1500ms infinite;
+  }
+  .livv-intro__line {
+    animation-duration: 560ms;
+    animation-delay: 700ms;
+  }
+  html[data-intro="leaving"] .livv-intro {
+    transition-duration: 850ms;
+  }
+}
+
+@keyframes livv-intro-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes livv-intro-out {
+  to { opacity: 0; }
+}
+
+@keyframes livv-intro-breathe {
+  50% { opacity: 0.74; }
+}
+
+@keyframes livv-intro-settle {
+  from { transform: scale(0.94) translateY(6px); }
+}
+
+@keyframes livv-intro-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes livv-intro-rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ───────────────────────── 2 · Curtain between pages ─────────────────────────
+ * components/layout/page-transition.tsx drives data-phase and
+ * html[data-transition]. A bordó panel with a wavy leading edge rises over the
+ * page, the route changes underneath, and the panel keeps going up to uncover
+ * the new one while its heading is revealed (section 4).
+ */
+
+.livv-wipe {
+  position: fixed;
+  inset: 0;
+  z-index: 8800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  pointer-events: none;
+  background: var(--livv-bordo);
+  color: var(--livv-blush);
+  /* At rest it waits below the screen, wavy edge included */
+  transform: translateY(calc(100% + var(--livv-wave)));
+  will-change: transform;
+}
+
+.livv-wipe[data-phase="covering"],
+.livv-wipe[data-phase="covered"] {
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+  transition: transform var(--livv-cover-ms, 580ms) var(--livv-panel);
+}
+
+.livv-wipe[data-phase="revealing"] {
+  visibility: visible;
+  pointer-events: none;
+  transform: translateY(calc(-100% - var(--livv-wave)));
+  transition: transform var(--livv-reveal-ms, 800ms) var(--livv-panel);
+}
+
+.livv-wipe__edge {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: var(--livv-wave);
+  display: block;
+  fill: var(--livv-bordo);
+}
+
+.livv-wipe__edge--top {
+  bottom: 100%;
+}
+
+.livv-wipe__edge--bottom {
+  top: 100%;
+  transform: scaleY(-1);
+}
+
+.livv-wipe__mark {
+  width: clamp(128px, 13vw, 190px);
+  opacity: 0;
+  transition: opacity 200ms ease-out;
+}
+
+.livv-wipe__mark svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  fill: currentColor;
+}
+
+.livv-wipe__label {
+  position: absolute;
+  left: 30px;
+  bottom: 26px;
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 200ms ease-out;
+}
+
+.livv-wipe__label i {
+  font-style: normal;
+  opacity: 0.6;
+}
+
+.livv-wipe[data-phase="covering"] .livv-wipe__mark,
+.livv-wipe[data-phase="covered"] .livv-wipe__mark,
+.livv-wipe[data-phase="covering"] .livv-wipe__label,
+.livv-wipe[data-phase="covered"] .livv-wipe__label {
+  opacity: 1;
+  transition: opacity 320ms ease-out 260ms;
+}
+
+@media (max-width: 767px) {
+  .livv-wipe {
+    --livv-wave: clamp(36px, 7vh, 64px);
+  }
+  .livv-wipe__label {
+    left: 20px;
+    bottom: 22px;
+  }
+}
+
+/* ─────────────────────────────── 3 · Loader ───────────────────────────────
+ * app/loading.tsx: the fallback while a route streams in. The old one was a
+ * white screen with a grey spinner. This one is the paper colour, and the sign
+ * only shows if the wait is long enough to notice, so a fast load never flashes it.
+ */
+
+.livv-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--livv-paper);
+}
+
+.livv-loader__sign {
+  width: 88px;
+  height: auto;
+  fill: var(--livv-bordo);
+  opacity: 0;
+  animation:
+    livv-loader-in 500ms ease-out 450ms forwards,
+    livv-loader-breathe 1800ms ease-in-out 1000ms infinite;
+}
+
+@keyframes livv-loader-in {
+  to { opacity: 0.9; }
+}
+
+@keyframes livv-loader-breathe {
+  50% { opacity: 0.35; }
+}
+
+/* ──────────────────────── 4 · Heading entrance ────────────────────────
+ * The page's own h1 rises as the cover lifts (intro or curtain), like the
+ * reference's headline. Only while the attribute is set, and the animation
+ * ends on the element's natural state, so nothing can stay hidden.
+ * The home hero animates its own headline and opts out with data-own-reveal.
+ */
+
+html[data-transition="revealing"] h1:not([data-own-reveal]),
+html[data-intro="leaving"] h1:not([data-own-reveal]) {
+  animation: livv-h1-in 1000ms var(--livv-ease) 240ms both;
+}
+
+@keyframes livv-h1-in {
+  from { opacity: 0; transform: translateY(26px); filter: blur(6px); }
+}
+
+/* ───────────────────────────── Reduced motion ───────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .livv-intro,
+  .livv-wipe {
+    display: none !important;
+  }
+  .livv-loader__sign {
+    animation: none;
+    opacity: 0.5;
+  }
+  html[data-transition="revealing"] h1:not([data-own-reveal]),
+  html[data-intro="leaving"] h1:not([data-own-reveal]) {
+    animation: none;
+  }
+}

@@ -11,6 +11,7 @@ import { Navbar } from "@/components/layout/navbar"
 import { FooterSection } from "@/components/sections/footer-section"
 import { AnimatedBorders } from "@/components/ui/animated-borders"
 import { useProduct } from "@/hooks/useProduct"
+import { navigateWithCover } from "@/lib/page-cover"
 
 // --- Data & Configuration ---
 
@@ -346,7 +347,7 @@ export default function ProductDetailPage() {
                         </p>
                         <div className="flex justify-start md:justify-end">
                             <button
-                                onClick={() => router.push("/contact")}
+                                onClick={() => navigateWithCover("/contact", () => router.push("/contact"))}
                                 className="group relative px-8 py-3 bg-white rounded-full flex items-center space-x-3 transition-all duration-300 hover:bg-zinc-50 hover:scale-105 border border-[#E6E2D8] shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)]"
                             >
                                 <span className="w-8 h-8 rounded-full bg-[#09090B] flex items-center justify-center text-[#E8BC59] group-hover:bg-[#E8BC59] group-hover:text-[#09090B] transition-colors duration-300">
@@ -486,7 +487,7 @@ export default function ProductDetailPage() {
                                     </div>
 
                                     <button
-                                        onClick={() => router.push("/contact")}
+                                        onClick={() => navigateWithCover("/contact", () => router.push("/contact"))}
                                         className="w-full group relative px-8 py-5 bg-[#09090B] flex items-center justify-between transition-all duration-300 hover:bg-black border border-[#09090B] rounded-full"
                                     >
                                         <span className="text-[#FDFBF7] text-sm font-medium tracking-wide uppercase text-center w-full relative z-10">

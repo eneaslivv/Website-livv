@@ -1,8 +1,8 @@
 "use client"
 
+import { useEffect } from "react"
 import dynamic from "next/dynamic"
 import { HeroSection } from "@/components/sections/hero-section"
-import { HeroReveal } from "@/components/ui/hero-reveal"
 import { SiteFrame } from "@/components/layout/site-frame"
 import { reviewsEarly, reviewsPrimary, reviewsSecondary } from "@/components/sections/reviews-data"
 
@@ -26,11 +26,20 @@ const VisionSection = dynamic(() => import("@/components/sections/vision-section
 const FooterSection = dynamic(() => import("@/components/sections/footer-section").then((mod) => mod.FooterSection))
 
 export function HomeShell() {
+  // The intro panel waits for this mark. The server HTML of the home is painted first,
+  // but React can throw it away before hydrating it (a provider above the boundary
+  // changes while the section chunks are still loading) and render it again behind
+  // the paper loader. An effect only runs on the tree that stays, so once it runs
+  // what is on screen is final and the panel can lift without uncovering a flash.
+  useEffect(() => {
+    const root = document.documentElement
+    root.setAttribute("data-home-live", "")
+    return () => root.removeAttribute("data-home-live")
+  }, [])
+
   return (
     <>
-      <HeroReveal>
-        <HeroSection />
-      </HeroReveal>
+      <HeroSection />
       <SiteFrame>
       <ClientLogoSlider />
       <AnalyticsSection />
