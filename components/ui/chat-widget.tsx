@@ -14,7 +14,7 @@ export function ChatWidget() {
     const [compact, setCompact] = useState(false)
 
     return (
-        <aside className="fixed bottom-[max(16px,env(safe-area-inset-bottom))] right-[max(16px,env(safe-area-inset-right))] z-[997] max-w-[calc(100vw-40px)] transition-opacity duration-300 md:bottom-[max(20px,env(safe-area-inset-bottom))] md:right-[max(20px,env(safe-area-inset-right))] [html[data-menu-open]_&]:pointer-events-none [html[data-menu-open]_&]:invisible [html[data-menu-open]_&]:opacity-0" aria-label="Contact Eneas" data-compact={compact}>
+        <aside className="fixed bottom-[max(16px,env(safe-area-inset-bottom))] right-[max(16px,env(safe-area-inset-right))] z-[997] max-w-[calc(100vw-40px)] transition-opacity duration-300 md:bottom-[max(20px,env(safe-area-inset-bottom))] md:right-[max(20px,env(safe-area-inset-right))] [html[data-menu-open]_&]:pointer-events-none [html[data-menu-open]_&]:invisible [html[data-menu-open]_&]:opacity-0 [html[data-intro=run]_&]:opacity-0 [html[data-intro=run]_&]:pointer-events-none [html[data-intro=leaving]_&]:opacity-0 [html[data-intro=leaving]_&]:pointer-events-none" aria-label="Contact Eneas" data-compact={compact}>
             <a
                 className={`group flex min-h-16 max-md:min-h-0 items-center gap-3 rounded-full border border-[#333] bg-[#0a0a0a] p-2 text-[#f7f4ee] shadow-[0_6px_26px_rgb(0_0_0/12%)] transition-[background-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:bg-[#1b1916] hover:shadow-[0_10px_30px_rgb(0_0_0/16%)] focus-visible:outline-2 focus-visible:outline-[#b38b4b] focus-visible:outline-offset-4 motion-reduce:transform-none motion-reduce:transition-none ${compact ? "" : "md:pr-[18px]"}`}
                 href={WHATSAPP_URL}
