@@ -57,7 +57,7 @@ export function FooterSection({ id }: { id?: string }) {
                         <span className="inline-block text-[11px] tracking-[0.3em] uppercase text-[#C4A35A] font-medium mb-4">
                             Get in Touch
                         </span>
-                        <h2 className="section-heading text-gradient-gold mb-0 lg:mb-6">
+                        <h2 className="section-heading text-gradient-gold mb-0">
                             Let's work together
                         </h2>
                     </div>
