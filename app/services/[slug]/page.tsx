@@ -7,9 +7,10 @@ import { useParams, useRouter } from "next/navigation"
 import { LiquidMetalButton } from "@/components/button-styling/liquid-metal-button"
 import { Navbar } from "@/components/layout/navbar"
 import { FooterSection } from "@/components/sections/footer-section"
-import { ServiceTransformation } from "@/components/services/service-transformation"
+import { ServiceWork } from "@/components/services/service-work"
 import { ServiceCapabilities } from "@/components/services/service-capabilities"
-import { ServiceProcessAndProof } from "@/components/services/service-process-proof"
+import { ServiceProcess } from "@/components/services/service-process"
+import { ServiceTestimonial } from "@/components/services/service-testimonial"
 import { TrustedByStrip } from "@/components/services/trusted-by-strip"
 import { ServiceFaqSection } from "@/components/services/service-faq"
 import { MotionReelSection } from "@/components/sections/motion-reel-section"
@@ -148,7 +149,7 @@ const fallbackServiceData: Record<string, any> = {
             "Nearshore software partner for US, UK, and European companies. Bilingual senior team. Time-zone overlap with the US East Coast year-round. Same craft level as top boutique studios in Berlin, Quebec, or Portland.",
         bodyCopy: [
             "Most nearshore software pitches lean on cost. We lead with everything else: time-zone overlap that makes synchronous work actually possible, senior people who can hold their own on a strategy call without an account manager translating, bilingual operations in English and Spanish, and the craft level you would expect from a top studio in Berlin or Quebec. Cost is the door that opens the conversation. The reason agencies and product teams stay with us for years is the work.",
-            "Buenos Aires sits in UTC-3, which is one hour ahead of New York in southern summer and same-time as New York in southern winter. That gives an American team an effectively-full overlap with our standard working hours. We take 9am Eastern kickoff calls without breaking our day. We ship work overnight that lands in your inbox by morning. The friction of working with offshore teams ten or twelve hours displaced is gone.",
+            "Buenos Aires sits in UTC-3 all year, which is one hour ahead of New York from March to November and two hours ahead the rest of the year. That gives an American team an effectively-full overlap with our standard working hours. We take 9am Eastern kickoff calls without breaking our day. We ship work overnight that lands in your inbox by morning. The friction of working with offshore teams ten or twelve hours displaced is gone.",
             "The Argentine software industry has been exporting senior talent to American product companies for two decades. We come out of that tradition. We hire from FADU-UBA design lineage and FCEN / ITBA engineering lineage. Our senior engineers ship code at the level of any Bay Area or NYC product team. The difference is they ship it from Buenos Aires.",
         ],
         listTitle: "Why nearshore from Argentina",
@@ -406,24 +407,23 @@ export default function ServiceDetailPage() {
                 </motion.div>
 
                 {/* ── Below the fold ───────────────────────────────────────
-                 * Four compact blocks driven by lib/service-pages-data.ts.
-                 * Slugs without authored content keep the original prose layout. */}
+                 * Driven by lib/service-pages-data.ts, in the order a visitor
+                 * decides: who we work with, the work, what we do, how, one
+                 * client's words, the questions, and the same button the hero
+                 * opens with. Slugs without authored content keep the old prose. */}
                 {pageContent ? (
                     <>
-                        <ServiceTransformation content={pageContent.transformation} />
-                        <ServiceCapabilities label={pageContent.capabilitiesLabel} capabilities={pageContent.capabilities} />
-                        <ServiceProcessAndProof
-                            processLabel={pageContent.processLabel}
-                            process={pageContent.process}
-                            proof={pageContent.proof}
-                        />
-                        {/* Real motion work is stronger proof than a static
-                            project card, so the reel only renders on this one
-                            service. Carries the editor credit with it. */}
+                        <TrustedByStrip className="pb-12 md:pb-16" />
+                        <ServiceWork content={pageContent.work} location={`service:${slug}`} />
+                        {/* Real motion work is the strongest proof this service
+                            has, so the reel follows the selected work here and
+                            only here. Carries the editor credit with it. */}
                         {slug === "motion-narrative" && <MotionReelSection />}
-                        <TrustedByStrip />
+                        <ServiceCapabilities content={pageContent.capabilities} />
+                        <ServiceProcess content={pageContent.process} accent={data.accentColor} location={`service:${slug}`} />
+                        {pageContent.testimonial && <ServiceTestimonial testimonial={pageContent.testimonial} />}
                         <ServiceFaqSection faqs={faqs} serviceName={data.name} />
-                        <ServiceFinalCTA content={pageContent.cta} />
+                        <ServiceFinalCTA content={pageContent.cta} location={`service:${slug}`} />
                     </>
                 ) : (
                     <>
