@@ -4,7 +4,7 @@ import { ContactHeaderDots } from "./contact-header-dots"
 import { useRef, useEffect, useState } from "react"
 import { RevealText } from "@/components/ui/reveal-text"
 import { ContactForm } from "./contact-form"
-import { GoodfirmsBadge } from "@/components/ui/goodfirms-badge"
+import { TrustBadges } from "@/components/ui/trust-badges"
 
 export function ContactSection() {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -80,7 +80,7 @@ export function ContactSection() {
                 data-username="eneas_aldabe"
               />
               <div className="mt-8">
-                <GoodfirmsBadge size={170} variant="dark" />
+                <TrustBadges tone="dark" goodfirmsSize={150} sealHeight={96} />
               </div>
             </div>
           </div>

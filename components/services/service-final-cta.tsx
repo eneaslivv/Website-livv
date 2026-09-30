@@ -8,6 +8,7 @@ import { useInView } from "framer-motion"
 import type { ServiceFinalCta } from "@/lib/service-pages-data"
 import { LiquidMetalButton } from "@/components/button-styling/liquid-metal-button"
 import { trackCTAClick } from "@/lib/analytics"
+import { navigateWithCover } from "@/lib/page-cover"
 import { ArrowLink, DrawLine, Label, Reveal, ServiceSection } from "./primitives"
 
 /**
@@ -23,7 +24,7 @@ export function ServiceFinalCTA({ content, location }: { content: ServiceFinalCt
 
   const start = () => {
     trackCTAClick("start_scoping", `${location}:final`)
-    router.push("/contact")
+    navigateWithCover("/contact", () => router.push("/contact"))
   }
 
   return (

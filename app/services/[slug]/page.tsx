@@ -18,6 +18,7 @@ import { ServiceFinalCTA } from "@/components/services/service-final-cta"
 import { getServicePageContent } from "@/lib/service-pages-data"
 import { getServiceFaqs } from "@/lib/service-faqs"
 import { supabase } from "@/lib/supabase/client"
+import { navigateWithCover } from "@/lib/page-cover"
 
 const fallbackServiceData: Record<string, any> = {
     /* ── Custom Software Development ──────────────────────────────
@@ -223,7 +224,7 @@ export default function ServiceDetailPage() {
     }, [slug])
 
     const handleStartScoping = () => {
-        router.push("/contact")
+        navigateWithCover("/contact", () => router.push("/contact"))
     }
 
     return (

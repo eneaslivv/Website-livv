@@ -8,6 +8,7 @@ import { RevealText } from "@/components/ui/reveal-text"
 import Image from "next/image"
 import { useFeaturedPortfolioItems } from "@/hooks/usePublicData"
 import { PortfolioItem } from "@/types/livv-os"
+import { navigateWithCover } from "@/lib/page-cover"
 import {
     pickDisplayCover,
     pickPosterCover,
@@ -102,7 +103,7 @@ function PortfolioGrid() {
         .sort((a, b) => (a.display_order || 0) - (b.display_order || 0))
 
     const handleCardClick = (link: string) => {
-        router.push(link)
+        navigateWithCover(link, () => router.push(link))
     }
 
     return (

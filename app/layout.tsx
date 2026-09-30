@@ -6,12 +6,14 @@ import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { AttributionTracker } from "@/components/analytics/AttributionTracker"
 import { ContactIntentTracker } from "@/components/analytics/ContactIntentTracker"
-import { SiteIntro } from "@/components/ui/site-intro"
+import { BrandIntro, INTRO_SCRIPT } from "@/components/layout/brand-intro"
+import { PageTransition } from "@/components/layout/page-transition"
 import { CookieBanner } from "@/components/analytics/CookieBanner"
 import { EngagementTracker } from "@/components/analytics/EngagementTracker"
 import { SmoothScroll } from "@/components/ui/smooth-scroll"
 import { PublicSiteFrame } from "@/components/layout/site-frame"
 import "./globals.css"
+import "./brand-motion.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { AuthProvider } from "@/context/AuthContext"
 import { LazyMotion, domAnimation } from "framer-motion"
@@ -142,6 +144,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${mondwest.variable} ${playground.variable}`} suppressHydrationWarning>
       <head>
+        {/*
+          Decides whether this page view gets the brand intro and writes
+          html[data-intro] before first paint, so the intro is either there on
+          the very first frame or never shows. See components/layout/brand-intro.tsx.
+        */}
+        <script dangerouslySetInnerHTML={{ __html: INTRO_SCRIPT }} />
         {/*
           Open the TCP + TLS handshake to the third-party origins the page is
           going to hit anyway. The tag scripts below load afterInteractive, so
@@ -346,6 +354,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} antialiased`} suppressHydrationWarning>
+        <BrandIntro />
         <noscript>
           <iframe
             src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
@@ -366,10 +375,10 @@ export default function RootLayout({
                 <PublicSiteFrame>{children}</PublicSiteFrame>
               </SmoothScroll>
             </LazyMotion>
+            <PageTransition />
             <CustomCursor />
             <Analytics />
             <SpeedInsights />
-            <SiteIntro />
             <AttributionTracker />
             <ContactIntentTracker />
             <EngagementTracker />
