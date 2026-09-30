@@ -162,16 +162,23 @@ export function PageTransition() {
       clearTimers()
       setPhase("idle")
     }
+    // `pageshow` also fires after `load` on every ordinary load, with `persisted` false.
+    // Only a restore from the back/forward cache may drop the curtain: dropping it on
+    // the first one loses the navigation of a click made before the page finished
+    // loading (the push is still waiting on its timer) or cuts the reveal short.
+    const onPageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) drop()
+    }
 
     document.addEventListener("click", onClick, true)
     window.addEventListener(NAVIGATE_EVENT, onNavigate)
     window.addEventListener("popstate", drop)
-    window.addEventListener("pageshow", drop)
+    window.addEventListener("pageshow", onPageShow)
     return () => {
       document.removeEventListener("click", onClick, true)
       window.removeEventListener(NAVIGATE_EVENT, onNavigate)
       window.removeEventListener("popstate", drop)
-      window.removeEventListener("pageshow", drop)
+      window.removeEventListener("pageshow", onPageShow)
       drop()
     }
   }, [])
