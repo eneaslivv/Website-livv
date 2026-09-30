@@ -16,7 +16,7 @@ export default function BlogPage() {
     <main className="bg-[#FAF8F3] text-[#2A1818] selection:bg-[#E6E2D6] min-h-screen">
       <Navbar />
 
-      <div className="pt-40 md:pt-52">
+      <div className="pt-32 md:pt-52">
         {/* Hero */}
         <div className="max-w-6xl mx-auto px-6 mb-16">
           <div className="max-w-3xl">
@@ -27,7 +27,7 @@ export default function BlogPage() {
               Insights on building{" "}
               <span className="text-[#C4A35A]">better</span> digital products
             </h1>
-            <p className="text-lg text-[#5A3E3E]/60 leading-relaxed max-w-xl">
+            <p className="text-base md:text-lg text-[#5A3E3E]/75 md:text-[#5A3E3E]/60 leading-relaxed max-w-xl">
               Expert guides on Webflow, Framer, SEO, creative engineering, and
               everything we learn while shipping products for startups and
               growing businesses.

@@ -4,6 +4,7 @@ import { FooterSection } from "@/components/sections/footer-section"
 import { BlogPostHeader } from "@/components/blog/BlogPostHeader"
 import { BlogContentRenderer } from "@/components/blog/BlogContentRenderer"
 import { TableOfContents } from "@/components/blog/TableOfContents"
+import { MobileTableOfContents } from "@/components/blog/MobileTableOfContents"
 import { RelatedPosts } from "@/components/blog/RelatedPosts"
 import { EditorialPicks } from "@/components/blog/EditorialPicks"
 import { BlogCTA } from "@/components/blog/BlogCTA"
@@ -123,13 +124,14 @@ export default async function BlogPostPage({
 
       <Navbar />
 
-      <div className="pt-40 md:pt-52">
+      <div className="pt-32 md:pt-52">
         <div className="max-w-6xl mx-auto px-6 pb-12 md:pb-20">
           <BlogPostHeader post={post} />
 
           {/* Content + TOC */}
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_240px] gap-12 max-w-4xl mx-auto lg:max-w-none">
             <div className="max-w-3xl">
+              <MobileTableOfContents blocks={post.contentBlocks} />
               <BlogContentRenderer blocks={post.contentBlocks} />
             </div>
             <TableOfContents blocks={post.contentBlocks} />

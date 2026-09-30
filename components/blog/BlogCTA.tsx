@@ -9,7 +9,7 @@ interface BlogCTAProps {
 
 export function BlogCTA({ cta }: BlogCTAProps) {
   return (
-    <section className="my-16 bg-gradient-to-br from-[#2A1818] to-[#1a0f0f] rounded-2xl p-8 md:p-12 text-center">
+    <section className="my-12 md:my-16 bg-gradient-to-br from-[#2A1818] to-[#1a0f0f] rounded-2xl p-8 md:p-12 text-center">
       <p className="text-white/90 text-xl md:text-2xl font-medium mb-6 max-w-xl mx-auto leading-relaxed">
         {cta.text}
       </p>
