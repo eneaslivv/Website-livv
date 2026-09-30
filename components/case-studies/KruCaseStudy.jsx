@@ -1170,8 +1170,8 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
-img { display: block; max-width: 100%; }
-a { color: inherit; text-decoration: none; }
+.kru-cs img { display: block; max-width: 100%; }
+.kru-cs a { color: inherit; text-decoration: none; }
 
 .wrap { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
 .section { max-width: 1200px; margin: 0 auto; padding: 128px 24px; scroll-margin-top: 64px; }
@@ -1333,7 +1333,7 @@ h3.h4 { font-size: 14px; font-weight: 500; }
    El "después" va encima y se recorta con clip-path desde --ba-pos, así que
    mover el divisor es cambiar una sola custom property. */
 .ba--cmp { grid-template-columns: 1fr; }
-.ba-cmp { --ba-pos: 50%; position: relative; touch-action: none; user-select: none; cursor: ew-resize; }
+.ba-cmp { --ba-pos: 50%; position: relative; touch-action: pan-y; user-select: none; cursor: ew-resize; }
 .ba-cmp > .ba-layer > .win { width: 100%; }
 .ba-layer--after { position: absolute; inset: 0; clip-path: inset(0 0 0 var(--ba-pos)); }
 .ba-layer--after > .win { height: 100%; }
@@ -1570,7 +1570,8 @@ h3.h4 { font-size: 14px; font-weight: 500; }
   h1.cover-title { letter-spacing: -.03em; }
   .cover-facts { gap: 16px; }
   .toc-row { gap: 14px; padding: 13px 0; }
-  .ts-row { grid-template-columns: 88px minmax(0, 1fr); gap: 14px; }
+  .ts-row { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .ts-row .sample { white-space: normal; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
   .metric-card, .type-card { padding: 24px; }
   .metric-row { gap: 24px; }
   .type-aa { font-size: 64px; letter-spacing: -3px; }
@@ -1580,6 +1581,24 @@ h3.h4 { font-size: 14px; font-weight: 500; }
   .type-weights .w { min-width: 72px; }
   .swatches { grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); }
   .challenge-side { flex-direction: column; }
+  /* la base de 260 px se volvía alto en columna: tarjeta con ~110 px vacíos */
+  .challenge-side .side-card { flex: 0 0 auto; }
+  /* 88 px arriba y abajo en 21 secciones (~3.700 px de blanco) y 36 px de margen
+     lateral contra los 24 del resto del sitio */
+  .section { padding: 64px 4px; }
+  .cover, .page-foot { padding-left: 4px; padding-right: 4px; }
+  .eyebrow { color: var(--grey); }
+  /* El mapa del sitio no tiene JS ni viewBox: el árbol de ~878×1397 se veía 1:1 en
+     una caja de 303 px, casi vacía, con controles que no hacen nada y el scroll de
+     la página bloqueado sobre ella. En el teléfono se muestra entero y se deja pasar. */
+  .board { height: 480px; touch-action: pan-y; cursor: default; }
+  .board-svg { width: 878px; height: 1397px; transform: scale(.34); transform-origin: 0 0; }
+  .board-tools, .board-hint { display: none; }
+  /* «Visit site» lleno era lo más pesado de la pantalla y lleva afuera */
+  .nav-cta { background: transparent; color: var(--ink-3); border: 1px solid var(--line); box-shadow: none; min-height: 44px; }
+  .nav-back { min-height: 44px; }
+  .space-row .sq { font-size: 0; }
+  .swatch .hx { font-size: 11px; }
 }
 @media print { .nav { position: static; } .section { padding: 48px 0; break-inside: avoid; } }
 `;

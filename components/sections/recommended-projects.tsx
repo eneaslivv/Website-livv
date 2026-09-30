@@ -6,6 +6,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 import { usePortfolioItems } from "@/hooks/usePublicData"
+import { useIsMobile } from "@/hooks/use-mobile"
 import { useParams } from "next/navigation"
 import type { PortfolioItem } from "@/types/livv-os"
 import {
@@ -68,28 +69,32 @@ function RecommendedProjectsGallery({ projects }: { projects: PortfolioItem[] })
         offset: ["start end", "end start"],
     })
     const x = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"])
+    // On a phone the scroll-linked drift left the first card cut ~150 px on the left
+    // and the second on the right whenever the row was in view. There the row is a
+    // plain horizontal scroller that snaps to each card.
+    const isMobile = useIsMobile()
 
     return (
-        <section ref={containerRef} className="py-32 overflow-hidden">
-            <div className="max-w-6xl mx-auto px-6 mb-16 flex flex-col md:flex-row justify-between items-end gap-8">
+        <section ref={containerRef} className="py-20 md:py-32 overflow-hidden">
+            <div className="max-w-6xl mx-auto px-6 mb-10 md:mb-16 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 md:gap-8">
                 <div>
                     <div className="w-12 h-[1px] border-t border-dashed border-[#E8BC59] mb-8"></div>
-                    <h2 className="text-4xl md:text-5xl font-light tracking-[-0.08em] text-[#09090B]">Our Projects</h2>
+                    <h2 className="text-4xl md:text-5xl font-light tracking-[-0.04em] md:tracking-[-0.08em] text-[#09090B]">Our Projects</h2>
                 </div>
 
-                <div className="max-w-lg text-right md:text-right">
+                <div className="max-w-lg text-left md:text-right">
                     <p className="text-sm md:text-base text-[#78736A] leading-relaxed font-light">
                         Explore more work we've built in collaboration with startups, agencies, and teams.
                     </p>
                 </div>
             </div>
 
-            <div className="pl-6 md:pl-[calc((100vw-72rem)/2+1.5rem)]">
+            <div className="pl-6 md:pl-[calc((100vw-72rem)/2+1.5rem)] max-md:overflow-x-auto max-md:snap-x max-md:snap-mandatory max-md:scroll-pl-6 max-md:pr-6 no-scrollbar">
                 <motion.div
-                    className="flex gap-8 cursor-grab active:cursor-grabbing w-max"
-                    drag="x"
+                    className="flex gap-4 md:gap-8 md:cursor-grab md:active:cursor-grabbing w-max"
+                    drag={isMobile ? false : "x"}
                     dragConstraints={containerRef}
-                    style={{ x }}
+                    style={{ x: isMobile ? 0 : x }}
                 >
                     {projects.map((project: any, i: number) => {
                         const cover = pickDisplayCover(project)
@@ -98,7 +103,7 @@ function RecommendedProjectsGallery({ projects }: { projects: PortfolioItem[] })
                         <Link
                             key={project.id || i}
                             href={`/projects/${project.slug}`}
-                            className="group relative w-[85vw] md:w-[600px] aspect-[3/2] rounded-[2rem] overflow-hidden shadow-lg"
+                            className="group relative w-[85vw] md:w-[600px] aspect-[3/2] rounded-[2rem] overflow-hidden shadow-lg max-md:snap-start"
                             onMouseEnter={(e) => { const v = e.currentTarget.querySelector('video'); v?.play().catch(() => {}) }}
                             onMouseLeave={(e) => { const v = e.currentTarget.querySelector('video'); if (v) { v.pause(); v.currentTime = 0 } }}
                         >
@@ -116,11 +121,11 @@ function RecommendedProjectsGallery({ projects }: { projects: PortfolioItem[] })
                                         playsInline
                                         preload="metadata"
                                         poster={project.thumbnail || project.image || pickPosterCover(project)}
-                                        className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-opacity duration-500"
+                                        className="absolute inset-0 w-full h-full object-cover opacity-60 md:opacity-80 md:group-hover:opacity-60 transition-opacity duration-500"
                                     />
                                 )}
                                 {cover && !coverIsVideo && (
-                                    <Image src={cover} alt={project.title} fill sizes="(max-width: 768px) 85vw, 600px" loading="lazy" className="object-cover opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
+                                    <Image src={cover} alt={project.title} fill sizes="(max-width: 768px) 85vw, 600px" loading="lazy" className="object-cover opacity-60 md:opacity-80 md:group-hover:opacity-60 transition-opacity duration-500" />
                                 )}
                                 {!cover && (
                                     <Image
@@ -129,7 +134,7 @@ function RecommendedProjectsGallery({ projects }: { projects: PortfolioItem[] })
                                         fill
                                         sizes="(max-width: 768px) 85vw, 600px"
                                         loading="lazy"
-                                        className="object-cover opacity-80 group-hover:opacity-60 transition-opacity duration-500"
+                                        className="object-cover opacity-60 md:opacity-80 md:group-hover:opacity-60 transition-opacity duration-500"
                                     />
                                 )}
                             </div>

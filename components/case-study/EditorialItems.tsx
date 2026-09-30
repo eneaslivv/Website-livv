@@ -53,7 +53,7 @@ function Field({ row }: { row: EditorialField }) {
 
 function Caption({ children }: { children: React.ReactNode }) {
     return (
-        <p className="text-[12px] text-[#8A8681] mt-3 leading-snug">{children}</p>
+        <p className="text-[12px] text-[#6F6B66] md:text-[#8A8681] mt-3 leading-snug">{children}</p>
     )
 }
 
@@ -181,16 +181,21 @@ function Figure({ item }: { item: Extract<EditorialItem, { kind: "figure" }> }) 
 
 function Grid({ item }: { item: Extract<EditorialItem, { kind: "grid" }> }) {
     const cols = item.cols ?? 2
+    // Una grilla de tres que es toda de retratos va de a dos en celular: de a uno,
+    // doce retratos de ~408 px armaban una pared de ocho pantallas. Con un número
+    // impar, el primero ocupa la fila entera para que no quede uno suelto al final.
+    const allPortrait = cols === 3 && item.items.every((img) => img.portrait)
+    const spanFirst = allPortrait && item.items.length % 2 === 1
     const gridCls =
         cols === 4
             ? "grid-cols-2 md:grid-cols-4"
             : cols === 3
-              ? "grid-cols-1 sm:grid-cols-3"
+              ? allPortrait ? "grid-cols-2 sm:grid-cols-3" : "grid-cols-1 sm:grid-cols-3"
               : "grid-cols-1 md:grid-cols-2"
     return (
         <div className="mb-14 md:mb-20" data-reveal-group>
             {item.label && <Label>{item.label}</Label>}
-            <div className={`grid ${gridCls} gap-4 md:gap-5`}>
+            <div className={`grid ${gridCls} gap-x-4 gap-y-8 md:gap-5`}>
                 {item.items.map((img, i) => {
                     const image = (
                         <ZoomableImage
@@ -199,15 +204,15 @@ function Grid({ item }: { item: Extract<EditorialItem, { kind: "grid" }> }) {
                             width={img.w ?? (img.portrait ? 900 : 1400)}
                             height={img.h ?? (img.portrait ? 1350 : 900)}
                             sizes={
-                                cols === 4
-                                    ? "(max-width: 768px) 50vw, 25vw"
+                                cols === 4 || allPortrait
+                                    ? `(max-width: 768px) 50vw, ${Math.round(100 / cols)}vw`
                                     : `(max-width: 768px) 100vw, ${Math.round(100 / cols)}vw`
                             }
                             className={img.frame ? "block w-full h-auto" : "w-full h-auto"}
                         />
                     )
                     return (
-                        <figure key={i} data-reveal-card className="min-w-0">
+                        <figure key={i} data-reveal-card className={`min-w-0 ${spanFirst && i === 0 ? "col-span-2 sm:col-span-1" : ""}`}>
                             {img.frame ? (
                                 <div className="relative w-full overflow-hidden rounded-xl bg-[#EEEBE4] p-[7%]">
                                     <Framed frame={img.frame} dark={false}>{image}</Framed>
@@ -288,7 +293,7 @@ function Palette({ item }: { item: Extract<EditorialItem, { kind: "palette" }> }
                 la mitad de la caja quedaba vacía. */}
             <div
                 data-reveal-card
-                className="grid grid-cols-3 md:[grid-template-columns:repeat(var(--n),minmax(0,1fr))] overflow-hidden rounded-2xl border border-[#EAE7E1]"
+                className="grid grid-cols-3 md:[grid-template-columns:repeat(var(--n),minmax(0,1fr))] overflow-hidden rounded-2xl border border-[#EAE7E1] max-md:[&>*:last-child:nth-child(3n+2)]:col-span-2 max-md:[&>*:last-child:nth-child(3n+1)]:col-span-3 max-md:[&>*:last-child]:aspect-auto"
                 style={{ "--n": Math.min(item.colors.length, 6) } as React.CSSProperties}
             >
                 {item.colors.map((c) => {
@@ -311,7 +316,7 @@ function Palette({ item }: { item: Extract<EditorialItem, { kind: "palette" }> }
                                 {c.name}
                             </span>
                             <span
-                                className="text-[10px] font-mono opacity-70"
+                                className="text-[11px] opacity-90 md:text-[10px] md:opacity-70 font-mono"
                                 style={{ color: fg }}
                             >
                                 {c.hex.toUpperCase()}
@@ -379,7 +384,7 @@ function TypeScale({ item }: { item: Extract<EditorialItem, { kind: "typescale" 
                         className="text-[#14110F] leading-[1.15] tracking-[-0.02em] min-w-0 break-words"
                         // El tamaño declarado es el techo: en una pantalla
                         // angosta 64px se sale de la columna.
-                        style={{ fontSize: `min(${r.size}, 9vw)` }}
+                        style={{ fontSize: `min(${r.size}, calc(${parseFloat(r.size) * 0.6}px + 4vw))` }}
                     >
                         {r.text}
                     </p>
@@ -396,7 +401,7 @@ function Fields({ item }: { item: Extract<EditorialItem, { kind: "fields" }> }) 
             className="mb-14 md:mb-20 grid grid-cols-2 md:grid-cols-3 gap-y-7 gap-x-8 pt-7 border-t border-[#EAE7E1]"
         >
             {item.rows.map((r) => (
-                <div key={r.label} data-reveal-card>
+                <div key={r.label} data-reveal-card className={r.value.length > 40 ? "col-span-2 md:col-span-1" : undefined}>
                     <Field row={r} />
                 </div>
             ))}
