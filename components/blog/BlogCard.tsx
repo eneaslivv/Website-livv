@@ -24,6 +24,10 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
     year: "numeric",
     month: "long",
     day: "numeric",
+    // Posts are dated at UTC midnight or evening. Formatted in the reader's zone,
+    // Argentina saw the day before (and Asia the day after), and the server HTML,
+    // rendered in UTC, stopped matching the client: React error #418.
+    timeZone: "UTC",
   })
 
   return (
