@@ -98,6 +98,11 @@ export function PageTransition() {
       const t = timing()
       clearTimers()
       const url = new URL(href, window.location.href)
+      // Google Analytics' cross-domain linker decorates same-site links with `_gl`
+      // when they are pressed, before this handler reads them. next/link navigates
+      // with the `href` it was given, so without the curtain the URL stays clean:
+      // keep it that way.
+      url.searchParams.delete("_gl")
       const section = SECTIONS[url.pathname.split("/").filter(Boolean)[0] ?? ""]
       if (numRef.current) numRef.current.textContent = section?.n ? `${section.n} ` : ""
       if (textRef.current) textRef.current.textContent = section ? `${section.n ? "— " : ""}${section.text}` : ""
