@@ -153,3 +153,11 @@
 - Newly broken: none
 - Newly fixed: none
 - Notes: Audit skipped — livvvv.com returns 403 via proxy egress (nineteenth consecutive week); playwright installed; cluster-h-editorial.ts touched (new post how-to-choose-an-ai-development-partner shipped 2026-09-21, 22 post slugs total); app/about + app/work touched (interactive globe, profile links, PR Tool hero, imagery refresh); 2 PRs merged (#42 case-studies Figma, #43 PR Tool hero + empty-slug fix); IndexNow ping returned 403 (api.indexnow.org blocked by egress policy, eighteenth consecutive week); GitHub Actions indexnow run #59 succeeded 2026-09-24 (post-deploy ping operational); Vercel deploy status unverifiable (no GitHub Actions deploy workflow — Vercel deploys directly)
+
+## 2026-10-02
+- OK: N/A
+- THIN: N/A
+- BROKEN: N/A
+- Newly broken: none
+- Newly fixed: none
+- Notes: Audit skipped — livvvv.com returns 403 via proxy egress (twentieth consecutive week); cluster-h-editorial.ts touched (new post airtable-zapier-vs-custom-software shipped, 23+ post slugs total); 6 PRs merged this week (#54 services page design, #56 case-study mockups, #57–#63 brand preloader + telón transitions, case-study mockup refresh ×2 + portadas 3:2, tracking/Meta pixel fix, mobile design full overhaul); IndexNow ping returned 403 (api.indexnow.org blocked by egress policy, nineteenth consecutive week); GitHub Actions indexnow run #78 succeeded 2026-09-30 (post-deploy ping operational); Vercel deploy status unverifiable (no GitHub Actions deploy workflow — Vercel deploys directly)
