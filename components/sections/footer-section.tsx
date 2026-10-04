@@ -8,6 +8,8 @@ import { trackContactClick } from "@/lib/analytics"
 import { AnimatedBorders } from "@/components/ui/animated-borders"
 import { TrustBadges } from "@/components/ui/trust-badges"
 
+const GRAIN = `url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`
+
 export function FooterSection({ id }: { id?: string }) {
     const containerRef = useRef<HTMLDivElement>(null)
     const { scrollYProgress } = useScroll({
@@ -143,17 +145,29 @@ export function FooterSection({ id }: { id?: string }) {
                     style={{ y, opacity }}
                     className="w-full relative flex flex-col items-end"
                 >
-                    {/* Stepped Gradient Image - User Provided Asset */}
+                    {/* Stepped gradient in the brand palette (scripts/build-footer-gradient.mjs) */}
                     <div className="relative w-full h-auto flex items-end justify-center">
                         <Image
-                            src="/images/footer-gradient.png"
+                            src="/images/footer-gradient.webp"
                             alt=""
-                            width={1024}
-                            height={426}
+                            width={1600}
+                            height={666}
                             sizes="100vw"
                             loading="lazy"
                             aria-hidden="true"
                             className="w-full h-auto object-cover object-bottom"
+                        />
+                        {/* Grain, only where the gradient has colour */}
+                        <div
+                            aria-hidden="true"
+                            className="pointer-events-none absolute inset-0 opacity-50 mix-blend-overlay"
+                            style={{
+                                backgroundImage: GRAIN,
+                                maskImage: "url(/images/footer-gradient.webp)",
+                                WebkitMaskImage: "url(/images/footer-gradient.webp)",
+                                maskSize: "100% 100%",
+                                WebkitMaskSize: "100% 100%",
+                            }}
                         />
                     </div>
                 </motion.div>
