@@ -22,7 +22,7 @@ export function ProductIndex({ products }: { products: Project[] }) {
     const [active, setActive] = useState<string | null>(null)
 
     return (
-        <div className="relative overflow-hidden border-t border-[#2c2420]/10">
+        <div className="relative overflow-hidden border-t border-[#ddd5cc]">
             <div className="grid grid-cols-1 md:grid-cols-2">
                 {products.map((product, i) => {
                     const isActive = active === product.slug
@@ -38,7 +38,7 @@ export function ProductIndex({ products }: { products: Project[] }) {
                             onMouseLeave={() => setActive((s) => (s === product.slug ? null : s))}
                             onFocus={() => setActive(product.slug)}
                             onBlur={() => setActive((s) => (s === product.slug ? null : s))}
-                            className="group relative flex min-h-[240px] md:min-h-[360px] flex-col justify-between overflow-hidden p-7 md:p-9 focus-visible:outline-none border-[#2c2420]/10 border-b md:[&:nth-child(odd)]:border-r transition-colors duration-300 hover:bg-[#2c2420]/[0.02]"
+                            className="group relative flex min-h-[240px] md:min-h-[360px] flex-col justify-between overflow-hidden p-7 md:p-9 focus-visible:outline-none border-[#ddd5cc] border-b md:[&:nth-child(odd)]:border-r transition-colors duration-300 hover:bg-[#fdfbf7]"
                         >
                             {/* Hover art. Absent art keeps the cell flat, as intended. */}
                             {hasImage && (
@@ -79,11 +79,11 @@ export function ProductIndex({ products }: { products: Project[] }) {
                             )}
 
                             <div className="relative flex items-start justify-between gap-4">
-                                <span className={`text-[22px] md:text-[26px] font-light tabular-nums transition-colors duration-500 ${onArt ? "text-white/55" : "text-[#2c2420]/30"}`}>
+                                <span className={`text-[22px] md:text-[26px] font-light tabular-nums transition-colors duration-500 ${onArt ? "text-white/55" : "text-[#440c15]/30"}`}>
                                     {String(i + 1).padStart(2, "0")}
                                 </span>
                                 <span
-                                    className={`text-[9.5px] font-semibold uppercase transition-colors duration-500 ${onArt ? "text-white/70" : "text-[#8a7e74]"}`}
+                                    className={`text-[9.5px] font-semibold uppercase transition-colors duration-500 ${onArt ? "text-white/70" : "text-[#79665f]"}`}
                                     style={{ letterSpacing: "0.14em" }}
                                 >
                                     {product.category}
@@ -92,15 +92,15 @@ export function ProductIndex({ products }: { products: Project[] }) {
 
                             <div className="relative flex items-end justify-between gap-6">
                                 <div className="min-w-0">
-                                    <h3 className={`text-[clamp(1.4rem,2.4vw,1.85rem)] font-light tracking-tight leading-none transition-colors duration-500 ${onArt ? "text-[#f5f0eb]" : "text-[#2c2420]"}`}>
+                                    <h3 className={`text-[clamp(1.4rem,2.4vw,1.85rem)] font-light tracking-tight leading-none transition-colors duration-500 ${onArt ? "text-[#f5f0eb]" : "text-[#440c15]"}`}>
                                         {product.title}
                                     </h3>
-                                    <p className={`mt-3 text-[14px] font-light leading-relaxed max-w-sm transition-colors duration-500 ${onArt ? "text-white/75" : "text-[#6b625b]"}`}>
+                                    <p className={`mt-3 text-[14px] font-light leading-relaxed max-w-sm transition-colors duration-500 ${onArt ? "text-white/75" : "text-[#79665f]"}`}>
                                         {product.outcome}
                                     </p>
-                                    <p className={`mt-4 text-[12px] transition-colors duration-500 ${onArt ? "text-white/60" : "text-[#8a7e74]"}`}>
+                                    <p className={`mt-4 text-[12px] transition-colors duration-500 ${onArt ? "text-white/60" : "text-[#79665f]"}`}>
                                         {product.licenseFrom != null ? (
-                                            <>From <span className={`font-medium ${onArt ? "text-white/85" : "text-[#2c2420]/80"}`}>${product.licenseFrom}</span>/mo</>
+                                            <>From <span className={`font-medium ${onArt ? "text-white/85" : "text-[#440c15]/80"}`}>${product.licenseFrom}</span>/mo</>
                                         ) : "Pricing on request"}
                                     </p>
                                 </div>
@@ -108,7 +108,7 @@ export function ProductIndex({ products }: { products: Project[] }) {
                                 {/* Arrow chip, revealed on hover */}
                                 <span
                                     aria-hidden
-                                    className={`grid h-12 w-12 shrink-0 place-items-center rounded-xl opacity-0 translate-y-2 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:translate-y-0 group-focus-visible:opacity-100 group-focus-visible:translate-y-0 ${onArt ? "bg-[#f5f0eb] text-[#1a1714]" : "bg-[#1a1714] text-[#f5f0eb]"}`}
+                                    className={`grid h-12 w-12 shrink-0 place-items-center rounded-xl opacity-0 translate-y-2 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:translate-y-0 group-focus-visible:opacity-100 group-focus-visible:translate-y-0 ${onArt ? "bg-[#fdfbf7] text-[#440c15]" : "bg-[#440c15] text-[#fdfbf7]"}`}
                                 >
                                     <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.4}>
                                         <path d="M3 8h10M9 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />

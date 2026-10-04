@@ -1,17 +1,22 @@
 "use client"
 
-import { useEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from "react"
+import { useEffect, useRef, useState, type KeyboardEvent, type PointerEvent, type ReactNode } from "react"
+import Image from "next/image"
 import Link from "next/link"
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
 
 import type { Project } from "@/lib/marketplace-data"
 
 /**
- * Interactive product picker: the list of LIVV products on the left, a live
- * particle field on the right, and a small "system" card that shows what the
- * selected product does. Ported from the Spectrum study (preview.html) — same
- * field and card anatomy, printed on the site's cream instead of a dark stage,
- * with a white card, and without the fullscreen/pause tools, custom cursor or
- * finding popovers.
+ * Interactive product picker in one compact block, about half a viewport tall
+ * on desktop: the section's headline and the list of LIVV products on the
+ * left, a live field on the right, and a small "system" card that shows what
+ * the selected product does.
+ *
+ * The field keeps the idea of the Spectrum study (preview.html) — clouds of
+ * colour that dissolve into dust and binary digits — in the brand palette of
+ * the LIVV Hub guide (03.4, atmospheric gradient): sky, butter, blush and sage
+ * washes on paper, with the digits printed in bordeaux.
  *
  * Every number in the card is illustrative and the card says so ("Sample data").
  */
@@ -121,15 +126,31 @@ function snapshotFor(product: Project): Snapshot {
     )
 }
 
-const FIELD_SRC = "/images/products/system-field.png"
 const SOFTWARE_TYPES: Record<string, string> = {
     payper: "Hospitality software",
     prtool: "Creator campaign software",
     legalflow: "Legal practice software",
     "cms-livv": "Website content management",
 }
+/** Real brand marks, drawn as a mask so they take the ink of the cover they sit on. */
+const LOGOS: Record<string, { src: string; ratio: number; height: number }> = {
+    payper: { src: "/images/products/logos/payper.png", ratio: 331 / 140, height: 40 },
+    prtool: { src: "/images/products/logos/prtool.svg", ratio: 182 / 94, height: 38 },
+}
+/**
+ * Cover art for the card: the product's own imagery, with its mark in the ink
+ * its brand uses on that ground. Products without art wear the LIVV gradient
+ * (bordeaux → blush → sage) and their name set in type.
+ */
+const COVERS: Record<string, { src: string; position: string; tone: "dark" | "light"; logoAt: "left" | "right" }> = {
+    payper: { src: "/images/products/payper-hover.jpg", position: "70% 22%", tone: "dark", logoAt: "left" },
+    prtool: { src: "/images/products/prtool-cover.webp", position: "0% 30%", tone: "light", logoAt: "right" },
+}
+const GRAIN = `url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`
 const WORKING_MS = 920
 const COUNT_MS = 880
+/** Card width on desktop; the stage scales the card down when it is narrower. */
+const CARD_WIDTH = 540
 
 type AnimState = {
     time: number
@@ -141,7 +162,7 @@ type AnimState = {
     redraw: () => void
 }
 
-export function ProductSystem({ products }: { products: Project[] }) {
+export function ProductSystem({ products, intro }: { products: Project[]; intro?: ReactNode }) {
     const [selected, setSelected] = useState(0)
     const [working, setWorking] = useState(false)
     const [announcement, setAnnouncement] = useState("")
@@ -156,7 +177,8 @@ export function ProductSystem({ products }: { products: Project[] }) {
 
     // Read by the render loop every frame, so it lives outside React state.
     const anim = useRef<AnimState>({
-        time: 0,
+        // Starts mid-drift, so the still frame (reduced motion) is a full composition.
+        time: 14,
         sector: 0,
         sectorTarget: 0,
         pointer: { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5, active: 0, target: 0 },
@@ -181,7 +203,6 @@ export function ProductSystem({ products }: { products: Project[] }) {
         let last = 0
         let pageVisible = !document.hidden
         let stageVisible = true
-        let disposed = false
 
         const draw = () => renderer?.draw(a)
         a.redraw = draw
@@ -214,7 +235,12 @@ export function ProductSystem({ products }: { products: Project[] }) {
         }
 
         const resize = () => {
-            stage.style.setProperty("--panel-scale", Math.min(1.1, stage.clientWidth / 780).toFixed(4))
+            const fit = Math.min(
+                1,
+                (stage.clientWidth - 56) / CARD_WIDTH,
+                (stage.clientHeight - 48) / Math.max(card.offsetHeight, 1),
+            )
+            stage.style.setProperty("--panel-scale", fit.toFixed(4))
             renderer?.resize(stage.clientWidth, stage.clientHeight)
             if (a.still) draw()
         }
@@ -242,6 +268,7 @@ export function ProductSystem({ products }: { products: Project[] }) {
         io.observe(stage)
         const ro = new ResizeObserver(resize)
         ro.observe(stage)
+        ro.observe(card)
 
         // Without WebGL the stage keeps its CSS gradient; the card works the same.
         const fallback = () => {
@@ -255,25 +282,19 @@ export function ProductSystem({ products }: { products: Project[] }) {
         }
         canvas.addEventListener("webglcontextlost", onContextLost)
 
-        const image = new Image()
-        image.onload = () => {
-            if (disposed) return
-            try {
-                renderer = createRenderer(canvas, image)
-            } catch (error) {
-                console.warn("ProductSystem: WebGL unavailable,", error)
-            }
-            if (!renderer) return fallback()
+        try {
+            renderer = createRenderer(canvas)
+        } catch (error) {
+            console.warn("ProductSystem: WebGL unavailable,", error)
+        }
+        if (renderer) {
             stage.dataset.renderer = "webgl"
             resize()
             draw()
             start()
-        }
-        image.onerror = fallback
-        image.src = FIELD_SRC
+        } else fallback()
 
         return () => {
-            disposed = true
             stop()
             io.disconnect()
             ro.disconnect()
@@ -359,35 +380,24 @@ export function ProductSystem({ products }: { products: Project[] }) {
 
     const product = products[selected] ?? products[0]
     const snapshot = snapshotFor(product)
+    const logo = LOGOS[product.slug]
+    const cover = COVERS[product.slug]
+    const reducedMotion = useReducedMotion()
 
     return (
-        <div className="grid border border-[#2c2420]/10 lg:grid-cols-[1fr_3fr]">
-            {/* ---------- Picker ---------- */}
-            <div className="flex min-w-0 flex-col lg:border-r lg:border-[#2c2420]/10">
-                <div className="flex-1 p-5 lg:px-[19px] lg:pb-[22px] lg:pt-[18px]">
-                    <p className="max-w-[300px] text-[16px] leading-snug tracking-[-0.25px] text-[#2c2420]">
-                        Software, ready for your brand.
-                    </p>
-                    <p className="mt-3 max-w-[260px] text-[13px] leading-relaxed text-[#6b625b]">
-                        Choose a product. Explore what it does and find the licence for your business.
-                    </p>
-                    <div aria-hidden className="mt-4 flex h-[9px] gap-0.5">
-                        {products.map((p, i) => (
-                            <span
-                                key={p.slug}
-                                className={`w-[5px] transition-colors duration-300 ${i === selected ? "bg-[#b8836e]" : "bg-[#2c2420]/15"}`}
-                            />
-                        ))}
-                    </div>
-                </div>
+        <div className="grid border border-[#ddd5cc] lg:min-h-[clamp(400px,50vh,540px)] lg:grid-cols-[minmax(0,6fr)_minmax(0,7fr)] xl:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+            {/* ---------- Headline + picker ---------- */}
+            <div className="flex min-w-0 flex-col bg-[#fdfbf7] lg:border-r lg:border-[#ddd5cc]">
+                <div className="flex flex-1 flex-col justify-center p-6 xl:px-7">{intro}</div>
 
                 <div
                     role="group"
                     aria-label="Products"
-                    className="grid grid-cols-2 gap-px border-t border-[#2c2420]/10 bg-[#2c2420]/10 sm:grid-cols-4 lg:grid-cols-1"
+                    className="grid grid-cols-2 gap-px border-t border-[#ddd5cc] bg-[#ddd5cc]"
                 >
                     {products.map((p, i) => {
                         const isSelected = i === selected
+                        const isLastOdd = products.length % 2 === 1 && i === products.length - 1
                         return (
                             <button
                                 key={p.slug}
@@ -398,21 +408,15 @@ export function ProductSystem({ products }: { products: Project[] }) {
                                 aria-pressed={isSelected}
                                 onClick={() => select(i)}
                                 onKeyDown={(event) => onPickerKeyDown(event, i)}
-                                className={`group relative min-h-[76px] px-5 py-4 text-left text-[14px] tracking-[-0.2px] transition-[background-color,padding] duration-300 hover:bg-[#faf8f4] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-[#b8836e] sm:px-4 lg:px-[19px] lg:hover:pl-6 ${isSelected ? "bg-[#faf8f4] text-[#2c2420]" : "bg-white text-[#2c2420]/60"}`}
+                                className={`group relative px-4 py-3 text-left text-[14px] tracking-[-0.2px] transition-colors duration-300 hover:bg-white hover:text-[#440c15] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-[#440c15] sm:px-6 xl:px-7 ${isLastOdd ? "col-span-2" : ""} ${isSelected ? "bg-white text-[#440c15]" : "bg-[#fdfbf7] text-[#440c15]/55"}`}
                             >
                                 <span
                                     aria-hidden
-                                    className={`absolute left-0 top-1/2 w-0.5 -translate-y-1/2 bg-[#b8836e] transition-[height] duration-300 ${isSelected ? "h-4" : "h-0"}`}
+                                    className={`absolute left-0 top-1/2 w-0.5 -translate-y-1/2 bg-[#440c15] transition-[height] duration-300 ${isSelected ? "h-5" : "h-0"}`}
                                 />
                                 <span className="block">{p.title}</span>
-                                <span className="mt-1 block pr-2 text-[11px] leading-snug tracking-normal text-[#8a7e74]">
+                                <span className="mt-0.5 block text-[11px] leading-snug tracking-normal text-[#79665f]">
                                     {SOFTWARE_TYPES[p.slug] ?? p.category}
-                                </span>
-                                <span
-                                    aria-hidden
-                                    className="absolute right-5 top-1/2 hidden -translate-x-1 -translate-y-1/2 text-[15px] opacity-0 transition duration-200 group-hover:translate-x-0 group-hover:opacity-60 lg:block"
-                                >
-                                    →
                                 </span>
                             </button>
                         )
@@ -434,52 +438,104 @@ export function ProductSystem({ products }: { products: Project[] }) {
                     const a = anim.current
                     a.pulse = { x: a.pointer.tx, y: a.pointer.ty, start: a.time }
                 }}
-                className="relative isolate flex min-h-[580px] min-w-0 items-center touch-pan-y overflow-hidden bg-white data-[renderer=none]:bg-[image:radial-gradient(ellipse_at_70%_4%,rgba(255,8,223,.16),transparent_45%),radial-gradient(ellipse_at_10%_95%,rgba(7,87,240,.2),transparent_70%)] lg:block lg:aspect-[960/639] lg:min-h-[540px]"
+                className="relative isolate flex min-w-0 items-center touch-pan-y overflow-hidden border-t border-[#ddd5cc] bg-[#fdfbf7] data-[renderer=none]:bg-[image:radial-gradient(ellipse_at_88%_0%,#afc3d8,transparent_52%),radial-gradient(ellipse_at_4%_100%,#ecd2cc,transparent_58%),radial-gradient(ellipse_at_100%_100%,#fff6be,transparent_46%)] lg:block lg:border-t-0"
             >
                 <canvas ref={canvasRef} aria-hidden className="absolute inset-0 block h-full w-full" />
 
-                <div className="relative z-[3] mx-auto my-7 w-[min(460px,calc(100%-28px))] lg:absolute lg:left-1/2 lg:top-1/2 lg:my-0 lg:w-[460px] lg:[transform:translate(-50%,-50%)_scale(var(--panel-scale,1))]">
+                <div className="relative z-[3] mx-auto my-6 w-[min(440px,calc(100%-28px))] lg:absolute lg:left-1/2 lg:top-1/2 lg:my-0 lg:w-[540px] lg:[transform:translate(-50%,-50%)_scale(var(--panel-scale,1))]">
                     <article
                         ref={cardRef}
                         aria-label={`${product.title} software`}
-                        className="relative border border-[#2c2420]/10 bg-white text-[#2c2420] shadow-[0_10px_30px_rgba(44,36,32,0.08)] transition-[border-color] duration-300 [transform:translate3d(var(--card-x,0px),var(--card-y,0px),0)] hover:border-[#2c2420]/20"
+                        className="relative grid border border-[#ddd5cc] bg-white text-[#440c15] shadow-[0_14px_40px_rgba(68,12,21,0.10)] transition-[border-color] duration-300 [transform:translate3d(var(--card-x,0px),var(--card-y,0px),0)] hover:border-[#440c15]/25 lg:grid-cols-[minmax(0,11fr)_minmax(0,13fr)] lg:grid-rows-[1fr_auto]"
                     >
-                        <header className="border-b border-[#2c2420]/10 px-[19px] py-5">
-                            <p className="text-[9px] font-medium uppercase tracking-[1.5px] text-[#8a7e74]">White-label software</p>
-                            <h3 className="mt-2 text-[30px] font-normal leading-tight tracking-[-1px]">{product.title}</h3>
-                            <p className="mt-2 max-w-[350px] text-[13px] leading-[19px] text-[#6b625b]">{product.outcome}</p>
+                        <header className="lg:col-start-1 lg:row-start-1">
+                            {/* Cover: the product's art and its real mark */}
+                            <div aria-hidden className="relative h-[104px] overflow-hidden bg-[#440c15]">
+                                <AnimatePresence initial={false}>
+                                    <motion.div
+                                        key={product.slug}
+                                        className="absolute inset-0"
+                                        initial={{ opacity: 0, scale: 1.05 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ duration: reducedMotion ? 0 : 0.7, ease: [0.22, 1, 0.36, 1] }}
+                                    >
+                                        {cover ? (
+                                            <Image
+                                                src={cover.src}
+                                                alt=""
+                                                fill
+                                                sizes="(max-width: 1023px) 440px, 280px"
+                                                className="object-cover"
+                                                style={{ objectPosition: cover.position }}
+                                            />
+                                        ) : (
+                                            <div className="absolute inset-0 bg-[linear-gradient(35deg,#440c15_0%,#440c15_34%,#ecd2cc_78%,#8d9661_100%)]" />
+                                        )}
+                                        {cover?.tone === "dark" && (
+                                            <div className="absolute inset-0 bg-[linear-gradient(to_top_right,rgba(20,8,10,0.72),rgba(20,8,10,0.08)_70%)]" />
+                                        )}
+                                        <div className="absolute inset-0 opacity-40 mix-blend-overlay" style={{ backgroundImage: GRAIN }} />
+                                        <div
+                                            className={`absolute bottom-3.5 ${cover?.logoAt === "right" ? "right-5" : "left-5"} ${cover?.tone === "light" ? "text-[#080808]" : "text-[#fdfbf7]"}`}
+                                        >
+                                            {logo ? (
+                                                <span
+                                                    className="block bg-current"
+                                                    style={{
+                                                        height: logo.height,
+                                                        aspectRatio: logo.ratio,
+                                                        maskImage: `url(${logo.src})`,
+                                                        WebkitMaskImage: `url(${logo.src})`,
+                                                        maskSize: "contain",
+                                                        WebkitMaskSize: "contain",
+                                                        maskRepeat: "no-repeat",
+                                                        WebkitMaskRepeat: "no-repeat",
+                                                    }}
+                                                />
+                                            ) : (
+                                                <span className="block text-[26px] leading-none tracking-[-0.8px]">{product.title}</span>
+                                            )}
+                                        </div>
+                                    </motion.div>
+                                </AnimatePresence>
+                            </div>
+                            <div className="px-5 pb-4 pt-3.5">
+                                <h3 className="sr-only">{product.title}</h3>
+                                <p className="text-[9px] font-medium uppercase tracking-[1.5px] text-[#79665f]">White-label software</p>
+                                <p className="mt-1.5 text-[13px] leading-[19px] text-[#79665f]">{product.outcome}</p>
+                            </div>
                         </header>
-                        <div className="px-[19px] pt-4 text-[9px] font-medium uppercase tracking-[1.2px] text-[#8a7e74]">Product preview · Sample data</div>
-                        <div className="flex items-start justify-between gap-4 px-[19px] pb-[4px] pt-[12px]">
-                            <div className="min-w-0">
+
+                        <div className="border-y border-[#ddd5cc] bg-[#fdfbf7] px-5 pb-5 pt-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:border-y-0 lg:border-l">
+                            <p className="text-[9px] font-medium uppercase tracking-[1.2px] text-[#79665f]">Product preview · Sample data</p>
+                            <div className="mt-2.5 flex items-baseline justify-between gap-4">
                                 <p
-                                    className={`mb-[5px] text-[13px] font-semibold leading-[18px] tracking-[-0.35px] transition-colors duration-300 ${working ? "text-[#b8836e]" : ""}`}
+                                    className={`min-w-0 text-[13px] font-semibold leading-[18px] tracking-[-0.35px] transition-colors duration-300 ${working ? "text-[#440c15]/55" : ""}`}
                                 >
                                     {working ? snapshot.working : snapshot.status}
                                 </p>
-                                <p className="max-w-[306px] text-[13px] leading-[18px] text-[#6b625b]">{snapshot.description}</p>
+                                <span ref={countRef} className="shrink-0 text-[30px] font-light leading-[32px] tracking-[-0.5px] tabular-nums">
+                                    {initialTotal.toLocaleString("en-US")}
+                                </span>
                             </div>
-                            <span ref={countRef} className="mt-[9px] shrink-0 text-[28px] font-light leading-[32px] tracking-[-0.5px] tabular-nums sm:text-[35px] sm:leading-[39px]">
-                                {initialTotal.toLocaleString("en-US")}
-                            </span>
-                        </div>
+                            <p className="mt-1 text-[12.5px] leading-[18px] text-[#79665f]">{snapshot.description}</p>
 
-                        <div className="px-[19px] pb-[19px] pt-[22px]">
-                            <div className="mb-[15px] grid gap-1">
+                            <div className="mt-4 grid gap-1">
                                 {snapshot.rows.map(([label, value]) => (
                                     <div
                                         key={label}
-                                        className={`flex h-6 items-center gap-[7px] border border-[#2c2420]/10 bg-[#faf8f4] pl-[7px] pr-[5px] font-mono text-[10px] font-semibold leading-none tracking-[0.7px] text-[#2c2420]/85 transition-opacity duration-300 ${working ? "opacity-50" : ""}`}
+                                        className={`flex h-6 items-center gap-[7px] border border-[#ddd5cc] bg-white pl-[7px] pr-[5px] font-mono text-[10px] font-semibold leading-none tracking-[0.7px] text-[#440c15]/85 transition-opacity duration-300 ${working ? "opacity-50" : ""}`}
                                     >
-                                        <span aria-hidden className="h-2 w-1 shrink-0 bg-[#b8836e]" />
+                                        <span aria-hidden className="h-2 w-1 shrink-0 bg-[#440c15]" />
                                         <span className="truncate">{label}</span>
-                                        <span className="ml-auto pl-2 text-[9px] text-[#8a7e74]">{value}</span>
+                                        <span className="ml-auto pl-2 text-[9px] text-[#79665f]">{value}</span>
                                     </div>
                                 ))}
                             </div>
 
                             {snapshot.meters.length > 0 && (
-                                <div className="grid gap-[7px]">
+                                <div className="mt-3.5 grid gap-[7px]">
                                     {snapshot.meters.map(([label, fill, display]) => (
                                         <div
                                             key={label}
@@ -492,30 +548,30 @@ export function ProductSystem({ products }: { products: Project[] }) {
                                                 aria-valuenow={fill}
                                                 aria-valuemin={0}
                                                 aria-valuemax={100}
-                                                className="relative h-1 overflow-hidden bg-[#2c2420]/10"
+                                                className="relative h-1 overflow-hidden bg-[#440c15]/10"
                                             >
                                                 <span
-                                                    className="absolute inset-y-0 left-0 bg-[linear-gradient(90deg,#ff08df_0%,#ff357c_35%,#ffc31b_72%,#ffe329_100%)] transition-[width] duration-[950ms] ease-[cubic-bezier(.2,.7,.15,1)]"
+                                                    className="absolute inset-y-0 left-0 bg-[linear-gradient(90deg,#ecd2cc_0%,#440c15_100%)] transition-[width] duration-[950ms] ease-[cubic-bezier(.2,.7,.15,1)]"
                                                     style={{ width: `${fill}%` }}
                                                 />
                                             </div>
-                                            <span className="text-right tabular-nums text-[#2c2420]/80">{display}</span>
+                                            <span className="text-right tabular-nums text-[#440c15]/80">{display}</span>
                                         </div>
                                     ))}
                                 </div>
                             )}
-
                         </div>
-                        <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-[#2c2420]/10 bg-[#faf8f4] px-[19px] py-4">
-                            <div>
+
+                        <footer className="flex items-center justify-between gap-2.5 px-5 py-3.5 lg:col-start-1 lg:row-start-2 lg:border-t lg:border-[#ddd5cc] lg:px-4">
+                            <div className="whitespace-nowrap">
                                 <p className="text-[13px] font-medium">
-                                    {product.licenseFrom != null ? <>From ${product.licenseFrom}<span className="font-normal text-[#8a7e74]">/mo</span></> : "Pricing on request"}
+                                    {product.licenseFrom != null ? <>From ${product.licenseFrom}<span className="font-normal text-[#79665f]">/mo</span></> : "Pricing on request"}
                                 </p>
-                                <p className="mt-1 text-[10px] text-[#8a7e74]">Your brand, our software</p>
+                                <p className="mt-0.5 text-[10px] text-[#79665f]">Your brand, our software</p>
                             </div>
                             <Link href={`/products/${product.slug}`} aria-label={`Explore ${product.title} software`}
-                                className="group inline-flex min-h-10 items-center gap-4 rounded-full bg-[#2c2420] px-4 text-[12px] text-white transition-colors hover:bg-[#895e4e] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#b8836e]">
-                                Explore product <span aria-hidden className="transition-transform group-hover:translate-x-1 group-focus-visible:translate-x-1 motion-reduce:transform-none">→</span>
+                                className="group inline-flex min-h-9 shrink-0 items-center gap-2 rounded-full bg-[#440c15] px-3.5 text-[12px] text-[#fdfbf7] transition-colors hover:bg-[#2c0405] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#440c15]">
+                                Explore <span aria-hidden className="transition-transform group-hover:translate-x-1 group-focus-visible:translate-x-1 motion-reduce:transform-none">→</span>
                             </Link>
                         </footer>
                     </article>
@@ -530,8 +586,9 @@ export function ProductSystem({ products }: { products: Project[] }) {
 }
 
 /* ------------------------------------------------------------------------ */
-/* WebGL field. The PNG only defines the composition; colour, binary glyphs, */
-/* drift, grain and pointer refraction are all computed in the shader.       */
+/* WebGL field. Nothing is drawn from an image: the clouds, their colour,    */
+/* the dust, the digits, the grain and the pointer are computed in the       */
+/* shader.                                                                   */
 /* ------------------------------------------------------------------------ */
 
 type Renderer = {
@@ -549,13 +606,20 @@ void main() { v_uv = a_position * .5 + .5; gl_Position = vec4(a_position, 0., 1.
 const FRAGMENT = `
 precision highp float;
 varying vec2 v_uv;
-uniform sampler2D u_field;
 uniform sampler2D u_atlas;
 uniform vec2 u_size;
 uniform vec3 u_pointer;
 uniform vec3 u_pulse;
 uniform float u_time;
 uniform float u_sector;
+
+// LIVV Hub palette
+const vec3 PAPER = vec3(.992, .984, .969);
+const vec3 SKY = vec3(.686, .765, .847);
+const vec3 BUTTER = vec3(1., .965, .745);
+const vec3 BLUSH = vec3(.925, .824, .8);
+const vec3 SAGE = vec3(.553, .588, .38);
+const vec3 BORDEAUX = vec3(.267, .047, .082);
 
 float hash(vec2 p) {
   vec3 p3 = fract(vec3(p.xyx) * .1031);
@@ -567,80 +631,92 @@ float noise(vec2 p) {
   f = f*f*(3.-2.*f);
   return mix(mix(hash(i), hash(i+vec2(1.,0.)), f.x), mix(hash(i+vec2(0.,1.)), hash(i+1.), f.x), f.y);
 }
-vec3 spectrum(float t) {
-  vec3 c = vec3(1., .018, .88);
-  c = mix(c, vec3(1., .014, .67), smoothstep(.02,.21,t));
-  c = mix(c, vec3(1., .12, .15), smoothstep(.21,.37,t));
-  c = mix(c, vec3(1., .52, .015), smoothstep(.36,.46,t));
-  c = mix(c, vec3(1., .88, .13), smoothstep(.45,.56,t));
-  c = mix(c, vec3(.73,.86,.94), smoothstep(.57,.69,t));
-  c = mix(c, vec3(.025,.36,1.), smoothstep(.68,.85,t));
-  c = mix(c, vec3(.025,.14,.67), smoothstep(.87,1.08,t));
+float fbm(vec2 p) {
+  float sum = 0., amp = .5;
+  for (int i = 0; i < 4; i++) { sum += amp*noise(p); p = p*2.02 + vec2(11.7, 5.3); amp *= .5; }
+  return sum / .9375;
+}
+// Sky, butter, blush, sage and back: no seam wherever a product moves it.
+vec3 atmosphere(float s) {
+  float k = abs(fract(s*.5 + .5)*2. - 1.);
+  vec3 c = mix(SKY, BUTTER, smoothstep(.10, .36, k));
+  c = mix(c, BLUSH, smoothstep(.42, .66, k));
+  c = mix(c, SAGE, smoothstep(.76, 1., k));
   return c;
 }
-float field(vec2 uv) { return texture2D(u_field, clamp(uv, .001, .999)).r; }
+// Slow, domain-warped clouds. They gather in the top-right and bottom-left
+// corners and leave the centre calm, which is where the card sits.
+float cloud(vec2 uv, float aspect, vec2 push) {
+  float t = u_time;
+  vec2 p = vec2(uv.x*aspect, uv.y) + push;
+  vec2 drift = vec2(u_sector*.62, -u_sector*.41);
+  vec2 w = vec2(fbm(p*1.1 + drift + vec2(0., t*.045)), fbm(p*1.1 + drift + vec2(5.2, 1.3 - t*.038)));
+  vec2 q = p + (w - .5)*1.05;
+  float n = fbm(q*1.7 + drift*.6 + vec2(t*.028, -t*.02));
+  vec2 c = uv - .5;
+  float rim = smoothstep(.12, .62, length(c*vec2(1., 1.25)));
+  float diagonal = abs(c.x - c.y);
+  return smoothstep(.55, .9, n + (rim - .55)*.3 + (diagonal - .35)*.4);
+}
 void main() {
   vec2 uv = vec2(v_uv.x, 1.-v_uv.y);
-  // Keep the composition at its native 3:2 framing on any stage shape.
-  vec2 p = uv;
+  vec2 px = uv * u_size;
   float aspect = u_size.x / u_size.y;
-  if (aspect < 1.5) p.x = (p.x-.5) * aspect / 1.5 + .5;
-  else p.y = (p.y-.5) * 1.5 / aspect + .5;
   float t = u_time;
-  vec2 flow = vec2(
-    sin(p.y*8.2 + t*.21) + .38*sin(p.y*17. + p.x*7. - t*.12),
-    sin(p.x*7.4 - t*.19) + .32*sin(p.x*18. - p.y*6. + t*.15)
-  );
-  vec2 q = p + flow * vec2(.012,.017);
-  q += vec2(sin(p.y*11. + u_sector*.72), cos(p.x*9. + u_sector*.8)) * (.003 * u_sector);
+
+  // The pointer parts the clouds and lights the digits under it.
   vec2 mouseDelta = uv - u_pointer.xy;
   mouseDelta.x *= aspect;
-  float mouseDist = length(mouseDelta);
-  float influence = exp(-mouseDist*mouseDist*15.) * u_pointer.z;
-  q += normalize(mouseDelta+vec2(.0001)) * influence * .024;
-  q += vec2(sin(mouseDist*28.-t*1.8), cos(mouseDist*25.-t*1.5)) * influence * .004;
-  vec2 pulseDelta = uv-u_pulse.xy; pulseDelta.x *= aspect;
-  float pulseAge = t-u_pulse.z;
-  float pulseRadius = length(pulseDelta);
-  float pulseWave = exp(-pow((pulseRadius-pulseAge*.22)*20.,2.)) * exp(-pulseAge*1.2);
-  pulseWave *= step(0.,pulseAge)*step(pulseAge,4.);
-  q += normalize(pulseDelta+vec2(.0001)) * pulseWave*.016;
+  float lens = exp(-dot(mouseDelta, mouseDelta)*14.) * u_pointer.z;
+  vec2 push = -normalize(mouseDelta + vec2(.0001)) * lens * .07;
 
-  float density = field(q);
-  float turbulence = noise(q*vec2(45.,30.)+vec2(t*.16,-t*.11));
-  density = clamp(density + (turbulence-.5)*.12*smoothstep(.012,.12,density), 0., 1.);
-  vec2 logical = q*vec2(960.,640.);
-  float dust = hash(floor(logical*1.32));
-  float micro = hash(floor(logical*2.7) + 91.);
-  float twinkle = .91 + .09*sin(t*.9+hash(floor(logical*.55))*6.283);
-  float light = pow(density,1.03) * (.45+.53*dust) * twinkle;
-  float specks = step(1.-density*.78,dust) * density * (.08+micro*.24);
-  float glow = pow(density,.82)*.14;
-  float spectrumY = clamp(p.y + .024*sin(p.x*8. + t*.14) + .014*sin(t*.10+u_sector*.35),0.,1.);
-  vec3 color = spectrum(spectrumY);
+  // A ring leaves the card when the product changes, or the pointer on click.
+  vec2 pulseDelta = uv - u_pulse.xy;
+  pulseDelta.x *= aspect;
+  float pulseAge = t - u_pulse.z;
+  float ring = exp(-pow((length(pulseDelta) - pulseAge*.5)*8., 2.)) * exp(-pulseAge*1.1);
+  ring *= step(0., pulseAge) * step(pulseAge, 4.);
+  push -= normalize(pulseDelta + vec2(.0001)) * ring * .05;
 
-  // Printed on the page's white: density is ink, not light.
-  vec3 paper = vec3(1.) + (hash(gl_FragCoord.xy) - .5)*.016;
-  float ink = clamp((light + specks)*.95 + glow*1.3, 0., 1.);
-  vec3 result = mix(paper, color*.9, ink);
+  float density = cloud(uv, aspect, push);
 
-  // Sharp 0/1 cells, most legible on the edges of the dense clouds.
-  vec2 cellSize = vec2(6.2,8.1);
-  vec2 grid = logical / cellSize;
+  // Which colour of the palette this part of the stage wears.
+  float band = uv.y*.92 + .1*sin(uv.x*3.1 + t*.07) + (fbm(vec2(uv.x*aspect, uv.y)*.8 + t*.012) - .5)*.55;
+  vec3 tint = atmosphere(band + u_sector*.27);
+
+  // Printed on paper. The body of a cloud is a grainy wash of its colour and
+  // its edge breaks up into dots, with a few seeds of bordeaux.
+  float grain = hash(gl_FragCoord.xy) - .5;
+  float dust = hash(floor(px) + 3.1);
+  float clump = hash(floor(px*.5) + 91.);
+  float twinkle = .88 + .12*sin(t*.9 + hash(floor(px/3.))*6.283);
+  vec3 result = PAPER + grain*.014;
+  float body = smoothstep(.2, .85, density);
+  float dots = step(1. - density*.9, dust) * (1. - body) * (.5 + .5*clump) * twinkle;
+  result = mix(result, tint, body*(.74 + .26*dust)*.96);
+  result = mix(result, tint*.74, dots*.9);
+  result = mix(result, BORDEAUX, step(.986, dust) * smoothstep(.04, .4, density) * .5);
+
+  // Digits on a fixed grid: the clouds drift through and switch them on.
+  vec2 cellSize = vec2(8., 11.);
+  vec2 grid = px / cellSize;
   vec2 cell = floor(grid);
-  vec2 within = fract(grid);
-  float cellRandom = hash(cell+19.7);
-  float cellDensity = field((cell+.5)*cellSize/vec2(960.,640.));
-  float edge = smoothstep(.015,.10,cellDensity) * (1.-smoothstep(.42,.9,cellDensity));
-  float scatter = step(.19,cellRandom);
-  float symbol = floor(hash(cell+floor(t*.37)*.17)*10.);
-  if (cellRandom < .70) symbol = step(.35,cellRandom);
-  vec2 atlasUv = vec2((symbol+within.x)/10., within.y);
-  float glyph = texture2D(u_atlas,atlasUv).a;
-  float glyphPulse = .72+.28*sin(cellRandom*17.+t*.75);
-  result = mix(result, color*.72, clamp(glyph*edge*scatter*glyphPulse*.85, 0., 1.));
-  result = mix(result, color, clamp(pulseWave*density*.2 + influence*pow(density,1.2)*.06, 0., 1.));
-  gl_FragColor = vec4(clamp(result,0.,1.),1.);
+  vec2 within = (fract(grid) - .5)*1.3 + .5;
+  float inside = step(0., within.x)*step(within.x, 1.)*step(0., within.y)*step(within.y, 1.);
+  float cellRandom = hash(cell + 19.7);
+  float cellDensity = cloud((cell + .5)*cellSize/u_size, aspect, push);
+  float edge = smoothstep(.04, .22, cellDensity) * (1. - smoothstep(.5, .92, cellDensity));
+  edge = max(edge, max(lens*.6, ring*.9));
+  float scatter = step(.3, cellRandom);
+  float symbol = step(.5, hash(cell + floor(t*.5 + cellRandom*7.)*.13));
+  // Inside the ring every digit scrambles before it settles back to 0 and 1.
+  symbol = mix(symbol, floor(hash(cell + floor(t*14.))*10.), step(.3, ring));
+  float glyph = texture2D(u_atlas, vec2((symbol + clamp(within.x, 0., 1.))/10., clamp(within.y, 0., 1.))).a * inside;
+  float glyphPulse = .7 + .3*sin(cellRandom*17. + t*.8);
+  result = mix(result, BORDEAUX, clamp(glyph*edge*scatter*glyphPulse*.82, 0., 1.));
+
+  result = mix(result, mix(tint, BORDEAUX, .3), clamp(ring*density*.22, 0., 1.));
+  gl_FragColor = vec4(clamp(result, 0., 1.), 1.);
 }
 `
 
@@ -659,7 +735,7 @@ function glyphAtlas() {
     return atlas
 }
 
-function createRenderer(canvas: HTMLCanvasElement, image: HTMLImageElement): Renderer | null {
+function createRenderer(canvas: HTMLCanvasElement): Renderer | null {
     const gl = canvas.getContext("webgl", {
         alpha: false,
         antialias: false,
@@ -717,7 +793,7 @@ function createRenderer(canvas: HTMLCanvasElement, image: HTMLImageElement): Ren
         gl.uniform1i(gl.getUniformLocation(program, name), unit)
         return texture
     }
-    const textures = [bindTexture(image, 0, "u_field"), bindTexture(glyphAtlas(), 1, "u_atlas")]
+    const atlas = bindTexture(glyphAtlas(), 0, "u_atlas")
 
     const uniforms = {
         size: gl.getUniformLocation(program, "u_size"),
@@ -729,8 +805,8 @@ function createRenderer(canvas: HTMLCanvasElement, image: HTMLImageElement): Ren
     gl.disable(gl.DEPTH_TEST)
     gl.disable(gl.BLEND)
 
-    let width = 960
-    let height = 640
+    let width = 672
+    let height = 450
 
     return {
         resize(w, h) {
@@ -751,7 +827,7 @@ function createRenderer(canvas: HTMLCanvasElement, image: HTMLImageElement): Ren
             gl.drawArrays(gl.TRIANGLES, 0, 6)
         },
         dispose() {
-            textures.forEach((texture) => gl.deleteTexture(texture))
+            gl.deleteTexture(atlas)
             gl.deleteBuffer(buffer)
             gl.deleteProgram(program)
         },
