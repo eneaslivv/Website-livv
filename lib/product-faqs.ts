@@ -62,19 +62,46 @@ export const productFaqs: Record<string, ProductFaq[]> = {
   legalflow: [
     {
       q: "What is LegalFlow?",
-      a: "LegalFlow is a white-label case and document management system for law firms, built by LIVV Creative Studio. It centralises clients, cases, deadlines, document automation and a secure client portal in one branded platform.",
+      a: "LegalFlow is practice management software for law firms, built by LIVV Creative Studio. It brings contract drafting with an AI assistant, documents, clients, tasks, the calendar and the team into one workspace.",
+    },
+    {
+      q: "How does the contract assistant work?",
+      a: "You choose the client and the type of contract, add the context, and the assistant previews and writes a draft you edit in place. From there you can ask it to refine the text with a plain instruction.",
+    },
+    {
+      q: "Is there a portal for the firm's clients?",
+      a: "No. LegalFlow is built for the firm's internal work: lawyers, paralegals and assistants use it; clients do not log in.",
+    },
+    {
+      q: "What language is LegalFlow in?",
+      a: "The interface is in Spanish today.",
     },
     {
       q: "How much does LegalFlow cost?",
-      a: "LegalFlow is licensed from USD 59 per month plus a one-time USD 999 setup, which includes end-to-end case workflows, advanced security features, onboarding support and custom domain setup.",
+      a: "LegalFlow is licensed from USD 59 per month plus a one-time USD 999 setup.",
+    },
+  ],
+
+  "cms-livv": [
+    {
+      q: "What is CMS LIVV?",
+      a: "CMS LIVV is a headless content management system built by LIVV Creative Studio. The studio builds the site and connects it to the CMS; your team edits pages, collections and images from a dashboard, and the site reads the published content.",
     },
     {
-      q: "Is LegalFlow secure enough for legal documents?",
-      a: "LegalFlow stores documents in an encrypted vault rather than a generic cloud drive, with a secure client portal for messaging and file sharing, so case material stays inside a system designed for legal work.",
+      q: "Does my site have to be hosted by LIVV?",
+      a: "No. A site hosted anywhere reads its content through the public read API or the React SDK. CMS LIVV also includes its own renderer for sites LIVV hosts.",
     },
     {
-      q: "Can a law firm run LegalFlow under its own brand?",
-      a: "Yes. LegalFlow is white-label, so the firm's identity and domain are what clients see. Setup includes branding and custom domain configuration.",
+      q: "Who can edit?",
+      a: "A workspace has four roles: owner, admin, editor and viewer. People join by email invitation.",
+    },
+    {
+      q: "Does a change go live as soon as I save it?",
+      a: "Pages and collection items are either draft or published, and only published content is served. For a site hosted on Vercel or Netlify, a deploy hook rebuilds it from the dashboard.",
+    },
+    {
+      q: "How much does CMS LIVV cost?",
+      a: "It is quoted together with the site it runs, because the setup depends on what your team needs to edit.",
     },
   ],
 

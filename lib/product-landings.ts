@@ -98,7 +98,7 @@ const landings: Record<string, ProductLanding> = {
                     src: "/images/products/payper/mapa.webp",
                     alt: "Payper's operations map: the floor plan of an events venue with its modules as layers and live capacity",
                     width: 2000,
-                    height: 1250,
+                    height: 1380,
                 },
             },
             {
@@ -108,7 +108,7 @@ const landings: Record<string, ProductLanding> = {
                     src: "/images/products/payper/resumen.webp",
                     alt: "Payper's owner summary: total sales for the week, transactions, estimated margin and sales by module",
                     width: 2000,
-                    height: 1250,
+                    height: 1380,
                 },
             },
             {
@@ -241,6 +241,178 @@ const landings: Record<string, ProductLanding> = {
                 "Campaign pages with applications",
                 "Performance per campaign and creator",
                 "Payments and reports",
+            ],
+            cta: { label: "Request a demo", href: "/contact" },
+        },
+    },
+
+    // Screens: the real app (repo Abogados-Mori, package `legalflow`) running
+    // on fictional sample data. Its interface is in Spanish.
+    legalflow: {
+        slug: "legalflow",
+        name: "LegalFlow",
+        kind: "Legal practice software",
+        headline: ["Contracts, clients and deadlines for your firm,", "in one workspace."],
+        lead: "LegalFlow is a workspace for law firms. An assistant drafts and refines contracts next to the text, and every client keeps their contracts, documents, tasks and dates in one place.",
+        facts: [
+            ["Built for", "Law firms and legal teams"],
+            ["Covers", "Contracts, documents, clients, tasks and calendar"],
+            ["Pricing", "From $59/mo"],
+        ],
+        cta: { label: "Request a demo", href: "/contact" },
+        hero: {
+            src: "/images/products/legalflow/hero.webp",
+            alt: "LegalFlow's dashboard: active clients, contracts in progress, pending tasks and the most recent contracts",
+            width: 2000,
+            height: 1380,
+        },
+        features: [
+            {
+                title: "Draft contracts with an assistant beside the text",
+                line: "Generate a first draft from the client, the type of contract and its context, then refine the text with a plain instruction.",
+                shot: {
+                    src: "/images/products/legalflow/contrato.webp",
+                    alt: "A lease contract open in LegalFlow, with the drafting assistant panel on the right",
+                    width: 2000,
+                    height: 1380,
+                },
+            },
+            {
+                title: "Every client, with their history",
+                line: "Contracts, documents and tasks on one timeline per client, from the day they were added.",
+                shot: {
+                    src: "/images/products/legalflow/cliente.webp",
+                    alt: "A client's timeline in LegalFlow: signed contracts, drafts and tasks in date order",
+                    width: 2000,
+                    height: 1380,
+                },
+            },
+            {
+                title: "The firm's work on one board",
+                line: "Tasks by status, with priority, practice area, due date, subtasks and who is on it.",
+                shot: {
+                    src: "/images/products/legalflow/tareas.webp",
+                    alt: "LegalFlow's task board with columns for to do, in progress and completed",
+                    width: 2000,
+                    height: 1380,
+                },
+            },
+            {
+                title: "Hearings and deadlines on the calendar",
+                line: "Events and task due dates share one month view, so nothing depends on memory.",
+                shot: {
+                    src: "/images/products/legalflow/calendario.webp",
+                    alt: "LegalFlow's calendar for a month, with hearings, signings and task deadlines",
+                    width: 2000,
+                    height: 1380,
+                },
+            },
+        ],
+        roles: {
+            heading: ["One firm,", "one shared workspace."],
+            items: [
+                { name: "Administrator", line: "Adds the team and gives each person their role." },
+                { name: "Lawyer", line: "Drafts and refines contracts, and follows each client." },
+                { name: "Paralegal", line: "Keeps documents filed and tasks moving." },
+                { name: "Assistant", line: "Runs the calendar and the day's follow-ups." },
+            ],
+        },
+        band: {
+            kind: "gradient",
+            line: "Your firm's work, in one place.",
+            caption: "LegalFlow, by LIVV Creative Studio.",
+        },
+        offer: {
+            heading: ["Licensed", "under your firm's brand."],
+            line: "LegalFlow is white-label software: LIVV sets it up with your firm's identity and keeps the product maintained.",
+            price: "From $59/mo",
+            priceNote: "Plus a one-time setup of $999",
+            includes: [
+                "Contract drafting with an AI assistant",
+                "Documents and clients",
+                "Task board and calendar",
+                "Team with roles",
+            ],
+            cta: { label: "Request a demo", href: "/contact" },
+        },
+    },
+
+    // Screens: the real page editor (livv-cms), captured from its dev
+    // playground. The dashboard behind the login is not shown yet — add those
+    // screens when there is a demo workspace to capture them from.
+    "cms-livv": {
+        slug: "cms-livv",
+        name: "CMS LIVV",
+        kind: "Website content management",
+        headline: ["Your website's content,", "edited by your own team."],
+        lead: "CMS LIVV is a headless CMS. The studio builds the site and connects it; your team edits pages, collections and images from a dashboard, and the site reads what you publish.",
+        facts: [
+            ["Built for", "Teams that edit their own site"],
+            ["Covers", "Pages, collections, media and publishing"],
+            ["Pricing", "On request"],
+        ],
+        cta: { label: "Request a demo", href: "/contact" },
+        hero: {
+            src: "/images/products/cms-livv/hero.webp",
+            alt: "The CMS LIVV page editor with a hero section open: its layers on the left, the fields in the middle and the section's properties on the right",
+            width: 2000,
+            height: 1280,
+        },
+        features: [
+            {
+                title: "Build pages from blocks",
+                line: "Nine block types, from hero to form, added and reordered from one panel.",
+                shot: {
+                    src: "/images/products/cms-livv/bloques.webp",
+                    alt: "The CMS LIVV page editor: the page's sections and the catalogue of blocks to add",
+                    width: 2000,
+                    height: 1280,
+                },
+            },
+            {
+                title: "Edit a section as a form",
+                line: "Each block opens as its own fields, with lists you can add to, reorder and remove.",
+                shot: {
+                    src: "/images/products/cms-livv/formulario.webp",
+                    alt: "A features block open in the CMS LIVV editor, with its heading and a repeatable list of items",
+                    width: 2000,
+                    height: 1280,
+                },
+            },
+            {
+                title: "Write and format in place",
+                line: "Rich text with headings, lists and links, saved to the section it belongs to.",
+                shot: {
+                    src: "/images/products/cms-livv/texto.webp",
+                    alt: "A rich text block being edited in CMS LIVV, with its formatting bar",
+                    width: 2000,
+                    height: 1280,
+                },
+            },
+        ],
+        roles: {
+            heading: ["Built by the studio,", "edited by you."],
+            items: [
+                { name: "Studio", line: "Builds the site and connects it through the read API or the React SDK." },
+                { name: "Your team", line: "Edits pages, collection items and images, and publishes when ready." },
+            ],
+        },
+        band: {
+            kind: "gradient",
+            line: "Built once. Edited by you.",
+            caption: "CMS LIVV, by LIVV Creative Studio.",
+        },
+        offer: {
+            heading: ["Set up", "with your site."],
+            line: "CMS LIVV comes with a site LIVV builds or connects for you. Tell us what your team needs to edit and we scope it.",
+            price: "On request",
+            priceNote: "Quoted with your site",
+            includes: [
+                "Page editor with nine block types",
+                "Collections with drafts and publishing",
+                "Media library",
+                "Read API and React SDK",
+                "Roles and invitations by email",
             ],
             cta: { label: "Request a demo", href: "/contact" },
         },

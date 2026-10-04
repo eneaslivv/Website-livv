@@ -268,7 +268,7 @@ function Band({ band, content }: { band: ProductBand; content: Content }) {
                         ) : (
                             <>
                                 <div className="absolute inset-0 bg-[linear-gradient(35deg,#440c15_0%,#440c15_34%,#ecd2cc_78%,#8d9661_100%)]" />
-                                <p className="absolute left-6 top-6 max-w-[16ch] text-[2rem] font-light leading-[1.05] tracking-[-0.04em] md:left-10 md:top-10 md:text-[3.25rem]">
+                                <p className="absolute left-6 top-6 max-w-[13ch] text-[2rem] font-light leading-[1.05] tracking-[-0.04em] text-balance md:left-10 md:top-10 md:text-[3.25rem]">
                                     {band.line}
                                 </p>
                             </>

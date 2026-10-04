@@ -97,13 +97,13 @@ Production-grade web apps deployed under the client's brand. LIVV operates sever
 ## 5. Products (built by LIVV, in production)
 
 ### 5.1 Payper
-Custom POS and operating system for modern hospitality. QR ordering, kitchen management, payments, guest data. For restaurants, bars, and hotels. Built originally to replace a Shopify + Toast + manual spreadsheet reconciliation stack for a hospitality operator. White-label ready. https://livvvv.com/products/payper
+Operating system for bars, restaurants and events. QR ordering and payment, cashless top-ups, ticketing and access, stock and the owner's dashboard. No fixed fee: a percentage of cashless transactions. https://livvvv.com/products/payper · https://payperapp.io
 
 ### 5.2 PRTool
 Platform for creator partnerships. Briefings, campaigns, payments between brands and creators. For PR agencies and talent managers. https://livvvv.com/products/prtool
 
 ### 5.3 LegalFlow
-Case management, document automation, client collaboration for law firms that want to move faster. Built to replace Clio plus two spreadsheet-based workarounds for non-standard billing and compliance logging. https://livvvv.com/products/legalflow
+Practice management for law firms: AI-assisted contract drafting, documents, clients, tasks and calendar in one workspace, for the firm's internal use. Interface in Spanish. https://livvvv.com/products/legalflow
 
 ### 5.4 Registrar
 Voice-first income and expense tracking. The user speaks a movement in plain language; Registrar transcribes it, assigns a category and files it, so the ledger stays current without manual data entry. Voice capture works in Spanish and English. Licensed white-label from USD 39/month plus a one-time USD 999 setup. https://livvvv.com/products/registrar
