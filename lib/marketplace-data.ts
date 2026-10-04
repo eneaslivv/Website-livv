@@ -15,6 +15,8 @@ export interface Project {
     modules: string[]
     /** Monthly white-label license, starting price */
     licenseFrom?: number
+    /** How it is priced when there is no monthly license. Without either, "Pricing on request". */
+    priceNote?: string
     /** Which UI mock to render in the card's visual area */
     screen: ScreenVariant
     accent: string
@@ -43,10 +45,11 @@ export const projects: Project[] = [
         title: "Payper",
         category: "Operations · Hospitality",
         description:
-            "All-in-one operating system for bars, venues and events. Orders, payments, stock and real-time control from a single dashboard — deployed under your brand.",
+            "All-in-one operating system for bars, venues and events. Orders, payments, access and stock from a single dashboard.",
         outcome: "Run bars, venues and events from one system.",
         modules: ["Orders", "Payments", "Inventory", "Analytics"],
-        licenseFrom: 49,
+        // Priced as on payperapp.io: a percentage of cashless transactions, no license.
+        priceNote: "No fixed fee",
         screen: "pos",
         accent: "#b8836e",
         heroImage: "/images/products/payper-hover.jpg",
@@ -73,11 +76,11 @@ export const projects: Project[] = [
         id: "3",
         slug: "legalflow",
         title: "LegalFlow",
-        category: "Legal · Workflow Automation",
+        category: "Legal · Practice Management",
         description:
-            "Case and document management system for law firms. Centralizes clients, cases, deadlines and internal workflows.",
-        outcome: "Centralize cases, documents and deadlines.",
-        modules: ["Cases", "Documents", "Deadlines"],
+            "Practice management for law firms. Contract drafting with an AI assistant, plus documents, clients, tasks and calendar in one workspace.",
+        outcome: "Draft contracts and run the firm from one place.",
+        modules: ["Contracts", "Clients", "Tasks"],
         licenseFrom: 59,
         screen: "cases",
         accent: "#8a7e74",
@@ -90,9 +93,9 @@ export const projects: Project[] = [
         title: "CMS LIVV",
         category: "Content · Website Management",
         description:
-            "Manage website content, portfolio projects and products from one workspace.",
-        outcome: "Manage your website content in one place.",
-        modules: ["Portfolio", "Products", "Categories"],
+            "Headless CMS: the studio builds the site and your team edits pages, collections and images from one dashboard.",
+        outcome: "Edit your website's content yourself.",
+        modules: ["Pages", "Collections", "Media"],
         screen: "board",
         accent: "#a0694f",
         clipCount: 0,

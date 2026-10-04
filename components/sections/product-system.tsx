@@ -65,19 +65,19 @@ const SNAPSHOTS: Record<string, Snapshot> = {
         meta: "CAMPAIGNS 4",
     },
     legalflow: {
-        status: "Docket up to date",
-        working: "Indexing documents",
-        description: "Active cases, with every document filed and every deadline tracked.",
-        total: 142,
+        status: "Contracts on track",
+        working: "Drafting contract",
+        description: "Contracts this month, each tied to its client, its tasks and its dates.",
+        total: 42,
         rows: [
-            ["HEARING · CASE 2291", "MON"],
-            ["FILING DUE · CASE 1874", "48H"],
+            ["LEASE DRAFT · IN REVIEW", "TODAY"],
+            ["HEARING · MON 11:30", "AGENDA"],
         ],
         meters: [
-            ["DOCS FILED", 91, "91%"],
-            ["ON TIME", 98, "98%"],
+            ["SIGNED", 68, "68%"],
+            ["TASKS ON TIME", 94, "94%"],
         ],
-        meta: "NEXT DEADLINE 48H",
+        meta: "CLIENTS 10",
     },
     registrar: {
         status: "Month balanced",
@@ -565,7 +565,7 @@ export function ProductSystem({ products, intro }: { products: Project[]; intro?
                         <footer className="flex items-center justify-between gap-2.5 px-5 py-3.5 lg:col-start-1 lg:row-start-2 lg:border-t lg:border-[#ddd5cc] lg:px-4">
                             <div className="whitespace-nowrap">
                                 <p className="text-[13px] font-medium">
-                                    {product.licenseFrom != null ? <>From ${product.licenseFrom}<span className="font-normal text-[#79665f]">/mo</span></> : "Pricing on request"}
+                                    {product.licenseFrom != null ? <>From ${product.licenseFrom}<span className="font-normal text-[#79665f]">/mo</span></> : (product.priceNote ?? "Pricing on request")}
                                 </p>
                                 <p className="mt-0.5 text-[10px] text-[#79665f]">Your brand, our software</p>
                             </div>

@@ -20,13 +20,12 @@ const productMeta: Record<
   payper: {
     name: "Payper",
     title:
-      "Payper — The Operating System for Modern Hospitality | LIVV Creative Studio",
+      "Payper — Orders, Payments and Access for Venues | LIVV Creative Studio",
     description:
-      "Unified hospitality platform — QR ordering, kitchen management, and payments. White-label ready, deployed under your brand in days. Built by LIVV Creative Studio in Buenos Aires, Argentina.",
+      "Payper runs bars, restaurants and events: QR ordering and payment, cashless top-ups, ticketing and access, stock and the owner's dashboard in one system. No fixed fee to start. Built by LIVV Creative Studio in Buenos Aires, Argentina.",
     shortDescription:
-      "Unified hospitality platform — QR ordering, kitchen management, and payments. White-label SaaS by LIVV Creative Studio.",
+      "Operating system for bars, restaurants and events — QR ordering, cashless, ticketing and stock. Built by LIVV Creative Studio.",
     category: "Hospitality SaaS",
-    priceFromUSD: 49,
   },
   prtool: {
     name: "PRTool",
@@ -41,13 +40,22 @@ const productMeta: Record<
   },
   legalflow: {
     name: "LegalFlow",
-    title: "LegalFlow — Case Management, Automated | LIVV Creative Studio",
+    title: "LegalFlow — Contracts, Clients and Deadlines for Law Firms | LIVV Creative Studio",
     description:
-      "Secure case management, document automation, and client collaboration for law firms that want to move faster. Built by LIVV Creative Studio (Buenos Aires, Argentina).",
+      "LegalFlow is practice management software for law firms: contract drafting with an AI assistant, documents, clients, tasks and calendar in one workspace. Built by LIVV Creative Studio (Buenos Aires, Argentina).",
     shortDescription:
-      "Case management and document automation for modern law firms. White-label SaaS by LIVV Creative Studio.",
+      "Practice management for law firms — AI-assisted contract drafting, clients, tasks and calendar. White-label SaaS by LIVV Creative Studio.",
     category: "Legal Tech SaaS",
     priceFromUSD: 59,
+  },
+  "cms-livv": {
+    name: "CMS LIVV",
+    title: "CMS LIVV — A Headless CMS Your Team Can Edit | LIVV Creative Studio",
+    description:
+      "CMS LIVV is a headless CMS: the studio builds the site and your team edits pages, collections and images from a dashboard, with drafts, publishing and roles. Built by LIVV Creative Studio (Buenos Aires, Argentina).",
+    shortDescription:
+      "Headless CMS with a block-based page editor, collections, media and a read API. Built by LIVV Creative Studio.",
+    category: "Content Management",
   },
   registrar: {
     name: "Registrar",

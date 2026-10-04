@@ -6,9 +6,9 @@
  * does not match visible content is a structured-data violation and gets
  * discounted by search engines and AI answer engines alike.
  *
- * Answers may only state facts already published on this site: white-label
- * licensing, the listed prices, the 48-hour deployment claim, and what each
- * product does. No invented metrics, clients or case-study results.
+ * Answers may only state what each product does today and the prices listed
+ * on its landing (lib/product-landings.ts). No invented metrics, clients or
+ * case-study results.
  */
 
 export interface ProductFaq {
@@ -20,23 +20,23 @@ export const productFaqs: Record<string, ProductFaq[]> = {
   payper: [
     {
       q: "What is Payper?",
-      a: "Payper is a white-label operating system for bars, venues and events built by LIVV Creative Studio. It covers QR ordering, kitchen displays, waiter tools, payments and inventory in one platform, and is licensed to agencies and operators who deploy it under their own brand and domain.",
+      a: "Payper is the operating system for bars, restaurants, venues and events, built and run by LIVV Creative Studio. It covers QR ordering and payment, cashless top-ups, ticketing and access, stock and the owner's dashboard in one platform.",
     },
     {
       q: "How much does Payper cost?",
-      a: "Payper is licensed from USD 49 per month plus a one-time USD 499 setup. The licence includes custom branding, unlimited locations, priority support and the option of a full source licence.",
+      a: "There is no fixed fee to get started: Payper charges a percentage of the cashless transactions it processes. Demos and onboarding run through payperapp.io.",
     },
     {
-      q: "Can I resell Payper under my own brand?",
-      a: "Yes. Payper is white-label by design: your logo, your colours, your domain. Agencies and operators licence the platform, sell it to their own clients and own the client relationship, while LIVV Creative Studio maintains the underlying product.",
+      q: "Do guests need to install an app?",
+      a: "No. Guests scan a QR code and the menu opens in their phone's browser, with no app to install and no login.",
     },
     {
-      q: "How long does it take to launch Payper?",
-      a: "A branded deployment goes live in under 48 hours. Setup covers connecting your domain, applying your branding and importing your menu, after which you can print QR codes and start taking orders.",
+      q: "Can the menu carry my venue's brand?",
+      a: "Yes. Each venue sets its own theme for the menu its guests see.",
     },
     {
       q: "Who is Payper for?",
-      a: "Bars, restaurants, nightlife venues and event operators that need ordering, payments and stock control in one system — and the agencies or software resellers that serve them.",
+      a: "Bars, restaurants, nightlife venues and event producers that want ordering, payments, access and stock in one system instead of several.",
     },
   ],
 
@@ -62,19 +62,46 @@ export const productFaqs: Record<string, ProductFaq[]> = {
   legalflow: [
     {
       q: "What is LegalFlow?",
-      a: "LegalFlow is a white-label case and document management system for law firms, built by LIVV Creative Studio. It centralises clients, cases, deadlines, document automation and a secure client portal in one branded platform.",
+      a: "LegalFlow is practice management software for law firms, built by LIVV Creative Studio. It brings contract drafting with an AI assistant, documents, clients, tasks, the calendar and the team into one workspace.",
+    },
+    {
+      q: "How does the contract assistant work?",
+      a: "You choose the client and the type of contract, add the context, and the assistant previews and writes a draft you edit in place. From there you can ask it to refine the text with a plain instruction.",
+    },
+    {
+      q: "Is there a portal for the firm's clients?",
+      a: "No. LegalFlow is built for the firm's internal work: lawyers, paralegals and assistants use it; clients do not log in.",
+    },
+    {
+      q: "What language is LegalFlow in?",
+      a: "The interface is in Spanish today.",
     },
     {
       q: "How much does LegalFlow cost?",
-      a: "LegalFlow is licensed from USD 59 per month plus a one-time USD 999 setup, which includes end-to-end case workflows, advanced security features, onboarding support and custom domain setup.",
+      a: "LegalFlow is licensed from USD 59 per month plus a one-time USD 999 setup.",
+    },
+  ],
+
+  "cms-livv": [
+    {
+      q: "What is CMS LIVV?",
+      a: "CMS LIVV is a headless content management system built by LIVV Creative Studio. The studio builds the site and connects it to the CMS; your team edits pages, collections and images from a dashboard, and the site reads the published content.",
     },
     {
-      q: "Is LegalFlow secure enough for legal documents?",
-      a: "LegalFlow stores documents in an encrypted vault rather than a generic cloud drive, with a secure client portal for messaging and file sharing, so case material stays inside a system designed for legal work.",
+      q: "Does my site have to be hosted by LIVV?",
+      a: "No. A site hosted anywhere reads its content through the public read API or the React SDK. CMS LIVV also includes its own renderer for sites LIVV hosts.",
     },
     {
-      q: "Can a law firm run LegalFlow under its own brand?",
-      a: "Yes. LegalFlow is white-label, so the firm's identity and domain are what clients see. Setup includes branding and custom domain configuration.",
+      q: "Who can edit?",
+      a: "A workspace has four roles: owner, admin, editor and viewer. People join by email invitation.",
+    },
+    {
+      q: "Does a change go live as soon as I save it?",
+      a: "Pages and collection items are either draft or published, and only published content is served. For a site hosted on Vercel or Netlify, a deploy hook rebuilds it from the dashboard.",
+    },
+    {
+      q: "How much does CMS LIVV cost?",
+      a: "It is quoted together with the site it runs, because the setup depends on what your team needs to edit.",
     },
   ],
 
