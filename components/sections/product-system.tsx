@@ -565,7 +565,7 @@ export function ProductSystem({ products, intro }: { products: Project[]; intro?
                         <footer className="flex items-center justify-between gap-2.5 px-5 py-3.5 lg:col-start-1 lg:row-start-2 lg:border-t lg:border-[#ddd5cc] lg:px-4">
                             <div className="whitespace-nowrap">
                                 <p className="text-[13px] font-medium">
-                                    {product.licenseFrom != null ? <>From ${product.licenseFrom}<span className="font-normal text-[#79665f]">/mo</span></> : "Pricing on request"}
+                                    {product.licenseFrom != null ? <>From ${product.licenseFrom}<span className="font-normal text-[#79665f]">/mo</span></> : (product.priceNote ?? "Pricing on request")}
                                 </p>
                                 <p className="mt-0.5 text-[10px] text-[#79665f]">Your brand, our software</p>
                             </div>

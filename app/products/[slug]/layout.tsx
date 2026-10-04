@@ -20,13 +20,12 @@ const productMeta: Record<
   payper: {
     name: "Payper",
     title:
-      "Payper — The Operating System for Modern Hospitality | LIVV Creative Studio",
+      "Payper — Orders, Payments and Access for Venues | LIVV Creative Studio",
     description:
-      "Unified hospitality platform — QR ordering, kitchen management, and payments. White-label ready, deployed under your brand in days. Built by LIVV Creative Studio in Buenos Aires, Argentina.",
+      "Payper runs bars, restaurants and events: QR ordering and payment, cashless top-ups, ticketing and access, stock and the owner's dashboard in one system. No fixed fee to start. Built by LIVV Creative Studio in Buenos Aires, Argentina.",
     shortDescription:
-      "Unified hospitality platform — QR ordering, kitchen management, and payments. White-label SaaS by LIVV Creative Studio.",
+      "Operating system for bars, restaurants and events — QR ordering, cashless, ticketing and stock. Built by LIVV Creative Studio.",
     category: "Hospitality SaaS",
-    priceFromUSD: 49,
   },
   prtool: {
     name: "PRTool",

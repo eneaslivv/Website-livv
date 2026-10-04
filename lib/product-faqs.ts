@@ -6,9 +6,9 @@
  * does not match visible content is a structured-data violation and gets
  * discounted by search engines and AI answer engines alike.
  *
- * Answers may only state facts already published on this site: white-label
- * licensing, the listed prices, the 48-hour deployment claim, and what each
- * product does. No invented metrics, clients or case-study results.
+ * Answers may only state what each product does today and the prices listed
+ * on its landing (lib/product-landings.ts). No invented metrics, clients or
+ * case-study results.
  */
 
 export interface ProductFaq {
@@ -20,23 +20,23 @@ export const productFaqs: Record<string, ProductFaq[]> = {
   payper: [
     {
       q: "What is Payper?",
-      a: "Payper is a white-label operating system for bars, venues and events built by LIVV Creative Studio. It covers QR ordering, kitchen displays, waiter tools, payments and inventory in one platform, and is licensed to agencies and operators who deploy it under their own brand and domain.",
+      a: "Payper is the operating system for bars, restaurants, venues and events, built and run by LIVV Creative Studio. It covers QR ordering and payment, cashless top-ups, ticketing and access, stock and the owner's dashboard in one platform.",
     },
     {
       q: "How much does Payper cost?",
-      a: "Payper is licensed from USD 49 per month plus a one-time USD 499 setup. The licence includes custom branding, unlimited locations, priority support and the option of a full source licence.",
+      a: "There is no fixed fee to get started: Payper charges a percentage of the cashless transactions it processes. Demos and onboarding run through payperapp.io.",
     },
     {
-      q: "Can I resell Payper under my own brand?",
-      a: "Yes. Payper is white-label by design: your logo, your colours, your domain. Agencies and operators licence the platform, sell it to their own clients and own the client relationship, while LIVV Creative Studio maintains the underlying product.",
+      q: "Do guests need to install an app?",
+      a: "No. Guests scan a QR code and the menu opens in their phone's browser, with no app to install and no login.",
     },
     {
-      q: "How long does it take to launch Payper?",
-      a: "A branded deployment goes live in under 48 hours. Setup covers connecting your domain, applying your branding and importing your menu, after which you can print QR codes and start taking orders.",
+      q: "Can the menu carry my venue's brand?",
+      a: "Yes. Each venue sets its own theme for the menu its guests see.",
     },
     {
       q: "Who is Payper for?",
-      a: "Bars, restaurants, nightlife venues and event operators that need ordering, payments and stock control in one system — and the agencies or software resellers that serve them.",
+      a: "Bars, restaurants, nightlife venues and event producers that want ordering, payments, access and stock in one system instead of several.",
     },
   ],
 

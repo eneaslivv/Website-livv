@@ -15,6 +15,8 @@ export interface Project {
     modules: string[]
     /** Monthly white-label license, starting price */
     licenseFrom?: number
+    /** How it is priced when there is no monthly license. Without either, "Pricing on request". */
+    priceNote?: string
     /** Which UI mock to render in the card's visual area */
     screen: ScreenVariant
     accent: string
@@ -43,10 +45,11 @@ export const projects: Project[] = [
         title: "Payper",
         category: "Operations · Hospitality",
         description:
-            "All-in-one operating system for bars, venues and events. Orders, payments, stock and real-time control from a single dashboard — deployed under your brand.",
+            "All-in-one operating system for bars, venues and events. Orders, payments, access and stock from a single dashboard.",
         outcome: "Run bars, venues and events from one system.",
         modules: ["Orders", "Payments", "Inventory", "Analytics"],
-        licenseFrom: 49,
+        // Priced as on payperapp.io: a percentage of cashless transactions, no license.
+        priceNote: "No fixed fee",
         screen: "pos",
         accent: "#b8836e",
         heroImage: "/images/products/payper-hover.jpg",

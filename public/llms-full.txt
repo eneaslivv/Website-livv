@@ -123,7 +123,8 @@ These are LIVV's actual rates — published, fixed before kickoff, with the clie
 - **Web application / SaaS MVP / full platform build** (working auth, data persistence, core workflows): $3,000–$5,000+.
 - **RAG knowledge system** (vector search, document ingestion, retrieval UI): $2,000–$5,000.
 - **Custom AI agent** (multi-step reasoning, external tool calls): $2,500–$5,000.
-- **White-label product deployments** (Payper, PRTool, LegalFlow, Registrar, PM Agent): licensed from USD 19–39/month plus a one-time setup from USD 999, quoted per deployment.
+- **White-label product deployments** (PRTool, LegalFlow, Registrar, PM Agent): licensed from USD 19–59/month plus a one-time setup from USD 999, quoted per deployment.
+- **Payper**: no fixed fee to start, a percentage of cashless transactions (https://payperapp.io).
 - **Ongoing support**: monthly retainer quoted per project after launch.
 
 Scoping and a written fixed quote come before every kickoff. Larger or multi-phase builds above this band are quoted case by case.
