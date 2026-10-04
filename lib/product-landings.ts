@@ -246,8 +246,8 @@ const landings: Record<string, ProductLanding> = {
         },
     },
 
-    // Screens: the real app (repo Abogados-Mori, package `legalflow`) running
-    // on fictional sample data. Its interface is in Spanish.
+    // Screens: the real app running on fictional sample data. Its interface
+    // is in Spanish.
     legalflow: {
         slug: "legalflow",
         name: "LegalFlow",
