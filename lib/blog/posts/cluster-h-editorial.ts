@@ -9231,4 +9231,441 @@ export const clusterHEditorial: BlogPost[] = [
     createdAt: "2026-09-28T12:24:20.000Z",
     updatedAt: "2026-09-28T12:24:20.000Z",
   },
+
+  /* ────────────────────────────────────────────────────────────
+   *   Piece 24 — Building AI Features That Users Actually Use
+   * ──────────────────────────────────────────────────────────── */
+  {
+    id: "h-024",
+    slug: "building-ai-features-that-users-actually-use",
+    title: "Building AI Features That Users Actually Use",
+    excerpt:
+      "Most AI features fail not because the model is wrong but because the feature was designed around what the model can do rather than what a user needs to get done. Here is what actually drives adoption.",
+    content: "",
+    contentBlocks: [
+      {
+        type: "heading",
+        level: 2,
+        id: "key-takeaways",
+        content: "Key takeaways",
+      },
+      {
+        type: "list",
+        ordered: false,
+        items: [
+          "Most AI features that fail do so because they were added to signal product sophistication rather than to solve a specific, observable user problem, and usage data confirms this pattern around eight weeks after launch.",
+          "The gap between a compelling demo and a feature users return to is almost always a UX problem, not a model quality problem; the demo was curated, the product is not.",
+          "AI features built around tasks users already perform repeatedly outperform features built around entirely new activities that users were not doing before the feature existed.",
+          "Reliable expectations matter as much as reliable outputs: users who experience unexpected failure enough times will route around the feature permanently, even after the underlying issue is fixed.",
+          "Adoption metrics for AI features need their own tracking, separate from general product metrics, because without dedicated instrumentation a team cannot tell whether the model or the interface is the bottleneck.",
+        ],
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "why-most-ai-features-go-unused",
+        content: "Why most AI features go unused",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Most AI features do not fail because the model is wrong. They fail because the feature was built around what the model can do rather than what a user needs to get done.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Product teams add AI capabilities to show momentum, to check a roadmap box, or because a demonstration impressed someone in a meeting. Those are the wrong reasons to ship an AI feature, and users can tell, not in an articulate way, but through the mundane decision to not return to it.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The result shows up in usage data around eight weeks after launch. Initial engagement is high because novelty drives exploration. Then usage drops, and it drops hard. The feature continues to exist in the product, enabled for everyone, visited by almost no one.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "This pattern is not specific to one industry or one type of AI capability. It shows up in internal tools, in consumer products, and in enterprise software. The underlying cause is consistent: the team optimized for the capability rather than the workflow.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A feature built around a capability asks the question: what can we do with AI? A feature built around a workflow asks a different question: which tasks are our users doing repeatedly, and are those tasks currently slower or less accurate than they need to be? The second question is harder to answer but it is the one that produces features users keep.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "what-actually-drives-adoption",
+        content: "What actually drives adoption",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Users adopt AI features when the feature makes a task they do repeatedly either faster or noticeably more accurate. The emphasis belongs on repeatedly.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A feature that saves 20 minutes on a task someone does once a year will not register as valuable. A feature that saves 3 minutes on a task someone does 15 times a day will become indispensable within two weeks. This framing reorients the product question away from what AI can do and toward which tasks in this product are both repeated and currently inefficient.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The secondary condition is accuracy. An AI feature must produce correct output often enough that users develop a reliable expectation of its behavior. AI features that work 80 percent of the time and fail silently 20 percent of the time do not get used.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Users who experience unexpected failure enough times will route around the feature permanently, even after the underlying problem is fixed. They have already updated their mental model: this feature is unreliable. A single positive experience after a string of bad ones does not undo that update.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "This is a higher bar than it sounds. It does not mean the model must be perfect. It means the model must be accurate enough, on the specific inputs users actually send, that a reasonable user forms a positive expectation of its behavior over the first two weeks of use. Getting to that bar often requires adjusting the scope of the feature so it only handles the cases where it is reliable, not all the cases where it could theoretically be applied.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "the-demo-to-product-gap",
+        content: "The demo-to-product gap",
+      },
+      {
+        type: "paragraph",
+        content:
+          "There is a specific moment in AI product development where things go wrong. The demo works. Everyone watching is impressed. The demo is run on a chosen dataset, with crafted prompts, under conditions that favor the model. No one is watching it fail.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A product is the same system running on a user's actual data, with unpredictable inputs, at scale, without anyone on hand to explain when it does something unexpected. The model behavior that read as intelligent in the demo reads as broken in production, and the difference is not in the model.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The gap is in the interface design around the model. A demo does not need affordances for failure because the demo is curated. A product needs to handle the cases where the model is wrong, uncertain, or working with insufficient context. These are the design problems that determine whether an AI feature survives contact with real users.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Designing for failure is not a pessimistic stance. It is the engineering practice that separates AI features people rely on from AI features that get turned off after a quarter. That means giving users a clear and easy path to correct model output, a way to understand why the model produced what it produced, and confidence that their corrections persist rather than getting overwritten on the next run.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Teams that skip this work ship the demo as the product. The demo impresses internally and disappoints in production. The pattern repeats on the next AI feature unless someone names it.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "finding-the-right-tasks",
+        content: "Finding the right tasks",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Not all tasks benefit from AI assistance. The ones that do share a recognizable pattern: they involve processing or synthesizing information that already exists in some structured form, the output is something the user has a strong prior about and can evaluate quickly, and the task is repeated often enough that the time savings compound.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Tasks that do not fit this pattern tend to produce AI features that get used once. Fully open-ended creative generation is a common example: users explore it, find it interesting or not, and move on. The task the AI was doing was not a task the user had previously; it was a new activity the product invited. Most users are not looking for new activities in a product they use to get work done.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Tasks with high-stakes, low-reversibility outputs also fail to sustain adoption. Users do not delegate consequential decisions to a system they do not fully understand, and AI models are genuinely difficult to understand in the way that produces real trust. An AI feature that produces draft contracts gets used to explore what the model does; it does not reliably get used to produce contracts that go to clients without review, and when it is used that way, the results are usually incidents.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The productive range is: repeated tasks, medium stakes, fast feedback loops, and outputs that are easy to verify. Classification, summarization, first-draft generation of structured outputs, and data extraction from unstructured text all fit this profile well. If you are evaluating which AI capabilities to build for your product, the existing custom software and AI integration work in your organization is often the clearest source of candidate tasks, because those workflows are already instrumented and the inefficiencies are already known.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "When in doubt, ask your users what they copy and paste, what they retype from one tool to another, and what they do every day that they would describe as tedious rather than difficult. The answers to those questions are a better product brief for an AI feature than any benchmark comparison.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "feedback-loops",
+        content: "Feedback loops: correction as a product requirement",
+      },
+      {
+        type: "paragraph",
+        content:
+          "An AI feature without a correction mechanism is an AI feature that degrades in perceived quality over time. The first time a user sees a wrong output, they correct it manually and move on. The fifth time they see a wrong output from the same category, they stop trusting the feature for that category. The tenth time, they stop using the feature entirely.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Correction mechanisms are not optional additions. They are the feedback loop that keeps the feature viable. For consumer products, that mechanism is usually a thumbs-down button, a regenerate option, or an edit-in-place affordance. For internal tools, it is often a structured correction log that feeds back into the system prompt or evaluation pipeline.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "What makes a correction mechanism effective is low friction. Users who have to navigate a secondary screen to flag a wrong output will not flag the output. They will close the screen and lose trust in the feature instead. Corrections that require more than one interaction are corrections that mostly do not get filed.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The analytical function of corrections is equally important. Without structured correction data, teams trying to improve an AI feature are guessing about what to fix. With even modest structured correction data, patterns become visible quickly: a particular document type is failing, a particular prompt shape is producing hallucinated details, a particular user segment is phrasing inputs in a way the prompt was not designed for. These are fixable problems, but only after you have the data to find them.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Designing the correction flow before the feature ships is far less expensive than retrofitting it afterward. Products that launched without a correction mechanism and tried to add one later consistently report that users had already formed a fixed negative opinion of the feature's reliability before the mechanism arrived.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "expectations-and-honesty",
+        content: "Expectations and how interfaces set them",
+      },
+      {
+        type: "paragraph",
+        content:
+          "AI features fail adoption at a specific moment: when the user's expectation of what the feature does diverges from what the feature actually does. That divergence can happen in either direction and both are damaging.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Calibrated expectations are set by the interface, not by documentation. The label on a button shapes the user's expectation before the output appears. \"Generate summary\" implies a polished output ready to use. \"Draft summary\" implies something to review. \"Suggest a summary\" implies a starting point the user is expected to edit. These distinctions matter because they change the user's mental model of what they are about to receive.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "A user who expected a draft is tolerant of imperfection in a way that a user who expected a finished product is not. That tolerance is the working space the team has to operate in while the model improves. Interfaces that oversell the capability consume that tolerance on launch day.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "This does not mean AI features should undersell what they can do. It means the interface should be accurate. If the model is reliable on four out of five input types and unreliable on the fifth, the interface should surface that distinction at the point of use. Users who understand where the model is uncertain can apply their own judgment at exactly the point where judgment is needed, which is the most efficient way to get correct outcomes from an imperfect model.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "For teams deciding how to frame their AI features at launch, the question is not how to make the feature sound most capable. The question is how to set expectations accurately enough that users feel good about what they get, rather than disappointed by what they expected.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "shipping-iteratively",
+        content: "Shipping iteratively without breaking trust",
+      },
+      {
+        type: "paragraph",
+        content:
+          "AI model behavior changes between versions. This is unlike most other software changes, where a given input deterministically produces the same output. AI outputs are probabilistic, and a model update can shift the distribution of outputs in ways that are not immediately obvious from standard testing.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "This creates a specific problem for AI features in production: what worked reliably for users may work differently after an update, even when the update improves average benchmark performance. The user who built a workflow around a particular output pattern finds that the pattern has changed. They did not agree to that kind of maintenance relationship with the feature.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The practical response is to version-pin production AI features, or at a minimum to test model updates against a sample of actual production inputs before deploying. Both practices are standard among teams that have operated AI features for more than a year. Teams shipping their first AI feature often skip both steps, update to a new model version because the benchmarks improved, and discover afterward that a portion of their highest-volume users quietly broke.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Shipping AI features iteratively means treating the model as a dependency that requires the same stability guarantees as any other dependency. It means maintaining a regression test suite built from real user inputs, not synthetic inputs constructed during development. It means communicating changes to users in the cases where behavior is expected to change visibly, the same way teams communicate breaking changes in APIs.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "This operational overhead is easy to underestimate before you have run an AI feature in production. Building it into the development process before shipping is far less expensive than discovering the need for it after the first problematic update. The teams that operate AI features most confidently are not the ones with the best models; they are the ones with the best instrumentation and the clearest process for managing model changes.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "For teams evaluating how to approach AI integration in their own products, the post on how to integrate AI into your existing business covers the workflow inventory and pattern selection steps that precede the feature design questions addressed here.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "measuring-ai-feature-adoption",
+        content: "Measuring whether an AI feature is actually being used",
+      },
+      {
+        type: "paragraph",
+        content:
+          "General product metrics do not tell you whether an AI feature is working. Page views and session length are too coarse. What you need is instrumentation specific to the AI feature: how many users triggered it, how many accepted the output without correction, how many corrected it, and how many abandoned the flow after seeing the output.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The acceptance rate is the most direct signal of model quality for a given input distribution. A correction rate above 40 percent on a specific task type is a signal that the model is not meeting user expectations on that task. An abandonment rate above 20 percent is a signal that the interface design around the model is failing, because users are seeing output and leaving rather than engaging with it.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Retention is the metric that confirms whether users have genuinely adopted the feature or only explored it. A feature with high week-one usage and low week-four usage has novelty, not adoption. A feature where week-four usage equals or exceeds week-one usage has found a place in the user's workflow.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "Setting up this instrumentation before launch is the only way to detect problems while they are still recoverable. Teams that wait until they notice a problem in aggregate product metrics are typically six to eight weeks behind the actual decline in feature trust. By that point, the users who would have been the feature's best advocates have already formed a negative opinion.",
+      },
+      {
+        type: "paragraph",
+        content:
+          "The AI integration examples post covers specific instrumentation patterns across different business contexts, and the cost-of-AI-integration post addresses the budget implications of operating AI features at different usage volumes.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        id: "faq",
+        content: "Frequently asked questions",
+      },
+      {
+        type: "faq",
+        items: [
+          {
+            question:
+              "What is the most common reason AI features fail in production?",
+            answer:
+              "The most common reason is that the feature was designed around model capability rather than a specific user workflow. Usage data typically shows a sharp drop around six to eight weeks after launch, after initial novelty wears off. The fix is to redesign the feature around a task users do repeatedly, with a clear correction mechanism and accurate expectation-setting in the interface.",
+          },
+          {
+            question:
+              "How do I decide which tasks in my product are good candidates for AI?",
+            answer:
+              "The clearest candidates are tasks users do repeatedly, where the output is easy to verify, and where the inputs are structured enough that the model's behavior is predictable. Classification tasks, summarization of well-defined document types, first-draft generation of structured outputs, and extraction of named fields from semi-structured text all fit this profile well. Asking your users what they copy and paste or retype from one tool to another is one of the most direct ways to surface candidate tasks.",
+          },
+          {
+            question:
+              "What should a correction mechanism for an AI feature include?",
+            answer:
+              "At minimum, a correction mechanism needs a low-friction way for users to signal that the output was wrong, a way to edit or override the output in place, and a backend log that records corrections with enough context to identify patterns. For production features with meaningful volume, that log should feed into either prompt improvement or evaluation pipelines. The friction threshold is one interaction: corrections that require navigating a secondary screen mostly do not get filed.",
+          },
+          {
+            question:
+              "How do I set user expectations for an AI feature at launch?",
+            answer:
+              "The most effective method is the label on the action that triggers the feature. Words like \"draft,\" \"suggest,\" and \"propose\" signal that output requires review. Words like \"generate\" or \"create\" imply finality. Match the label to the actual reliability of the model on the input types your users will send. If the model is unreliable on certain input types, surface that at the point of use rather than in documentation.",
+          },
+          {
+            question:
+              "What is version pinning for an AI model and why does it matter?",
+            answer:
+              "Version pinning means deploying your production AI feature against a specific model version rather than the latest available version. It matters because model providers update their models regularly, and updates can change output distributions in ways that break workflows users have built around specific behavior patterns. Teams operating version-pinned features test any model update against a sample of real production inputs before deploying to all users.",
+          },
+          {
+            question:
+              "How do I measure whether an AI feature is being adopted rather than just explored?",
+            answer:
+              "The key metric is retention: week-four usage as a percentage of week-one usage. A feature with high initial exploration and low week-four usage has novelty, not adoption. Within a session, acceptance rate (output used without correction) and abandonment rate (session exits immediately after seeing output) are the most direct signals of model and interface quality respectively. These metrics require feature-specific instrumentation, separate from general product analytics.",
+          },
+          {
+            question:
+              "When should I fine-tune a model versus improving my prompts?",
+            answer:
+              "Prompt improvement should come first in almost every case. A well-structured prompt with clear instructions, examples of desired output format, and explicit guidance about failure cases will outperform a poorly prompted fine-tuned model. Fine-tuning becomes relevant when the task requires a specific output style or domain knowledge that cannot be conveyed through a reasonable-length prompt, or when prompt length is a significant cost driver at production volume. For most product teams shipping their first AI feature, the bottleneck is prompt design and interface design, not model capability.",
+          },
+          {
+            question:
+              "How much does it cost to add AI features to an existing product in 2026?",
+            answer:
+              "The development cost to add a well-scoped AI feature to an existing product typically runs $8,000 to $25,000 for a boutique or mid-tier development team. That range covers discovery, prompt engineering, interface design for correction and expectation-setting, instrumentation, and integration with an API like the Anthropic Claude API or OpenAI API. Ongoing operational costs depend on volume: at moderate usage, API costs run $50 to $500 per month. High-volume features at tens of millions of tokens per month can run $2,000 to $10,000 per month in API costs depending on model tier and token mix.",
+          },
+        ],
+      },
+    ],
+    coverImage: "/images/blog/technical-integration.webp",
+    author,
+    category: aiIntegrationCategory,
+    tags: [
+      "AI features",
+      "AI product design",
+      "AI adoption",
+      "AI integration",
+      "product development",
+      "AI UX",
+      "AI feedback loops",
+      "AI feature adoption",
+      "building AI products",
+    ],
+    readingTimeMinutes: 13,
+    published: true,
+    featured: true,
+    displayOrder: 24,
+    seoTitle:
+      "Building AI Features That Users Actually Use (2026) · LIVV",
+    seoDescription:
+      "Why most AI features fail after launch and what actually drives adoption: task selection, correction mechanisms, expectation-setting, and how to measure whether users keep coming back.",
+    faqSchema: [
+      {
+        question:
+          "What is the most common reason AI features fail in production?",
+        answer:
+          "The most common reason is that the feature was designed around model capability rather than a specific user workflow. Usage data typically shows a sharp drop around six to eight weeks after launch, after initial novelty wears off. The fix is to redesign the feature around a task users do repeatedly, with a clear correction mechanism and accurate expectation-setting in the interface.",
+      },
+      {
+        question:
+          "How do I decide which tasks in my product are good candidates for AI?",
+        answer:
+          "The clearest candidates are tasks users do repeatedly, where the output is easy to verify, and where the inputs are structured enough that the model's behavior is predictable. Classification, summarization of well-defined document types, first-draft generation of structured outputs, and extraction of named fields from semi-structured text all fit this profile well. Asking your users what they copy and paste or retype from one tool to another is one of the most direct ways to surface candidate tasks.",
+      },
+      {
+        question:
+          "What should a correction mechanism for an AI feature include?",
+        answer:
+          "At minimum, a correction mechanism needs a low-friction way for users to signal that the output was wrong, a way to edit or override the output in place, and a backend log that records corrections with enough context to identify patterns. For production features with meaningful volume, that log should feed into either prompt improvement or evaluation pipelines. The friction threshold is one interaction: corrections that require navigating a secondary screen mostly do not get filed.",
+      },
+      {
+        question:
+          "How do I set user expectations for an AI feature at launch?",
+        answer:
+          "The most effective method is the label on the action that triggers the feature. Words like draft, suggest, and propose signal that output requires review. Words like generate or create imply finality. Match the label to the actual reliability of the model on the input types your users will send. If the model is unreliable on certain input types, surface that at the point of use rather than in documentation.",
+      },
+      {
+        question:
+          "What is version pinning for an AI model and why does it matter?",
+        answer:
+          "Version pinning means deploying your production AI feature against a specific model version rather than the latest available version. It matters because model providers update their models regularly, and updates can change output distributions in ways that break workflows users have built around specific behavior patterns. Teams operating version-pinned features test any model update against a sample of real production inputs before deploying to all users.",
+      },
+      {
+        question:
+          "How do I measure whether an AI feature is being adopted rather than just explored?",
+        answer:
+          "The key metric is retention: week-four usage as a percentage of week-one usage. A feature with high initial exploration and low week-four usage has novelty, not adoption. Within a session, acceptance rate (output used without correction) and abandonment rate (session exits immediately after seeing output) are the most direct signals of model and interface quality. These metrics require feature-specific instrumentation, separate from general product analytics.",
+      },
+      {
+        question:
+          "When should I fine-tune a model versus improving my prompts?",
+        answer:
+          "Prompt improvement should come first in almost every case. A well-structured prompt with clear instructions, examples of desired output format, and explicit guidance about failure cases will outperform a poorly prompted fine-tuned model. Fine-tuning becomes relevant when the task requires a specific output style or domain knowledge that cannot be conveyed through a reasonable-length prompt, or when prompt length is a significant cost driver at production volume.",
+      },
+      {
+        question:
+          "How much does it cost to add AI features to an existing product in 2026?",
+        answer:
+          "The development cost to add a well-scoped AI feature to an existing product typically runs $8,000 to $25,000 for a boutique or mid-tier development team. That range covers discovery, prompt engineering, interface design for correction and expectation-setting, instrumentation, and integration with an API. Ongoing API costs at moderate usage run $50 to $500 per month; high-volume features at tens of millions of tokens per month can run $2,000 to $10,000 per month depending on model tier.",
+      },
+    ],
+    internalLinks: [
+      {
+        slug: "how-to-integrate-ai-into-your-existing-business",
+        text: "How to Integrate AI Into Your Existing Business",
+      },
+      {
+        slug: "ai-integration-examples-real-business-use-cases",
+        text: "AI Integration Examples: 10 Real Business Use Cases",
+      },
+      {
+        slug: "the-cost-of-ai-integration-what-to-budget-in-2026",
+        text: "The Cost of AI Integration: What to Budget in 2026",
+      },
+    ],
+    cta,
+    relatedPostSlugs: [
+      "how-to-integrate-ai-into-your-existing-business",
+      "ai-integration-examples-real-business-use-cases",
+      "the-cost-of-ai-integration-what-to-budget-in-2026",
+    ],
+    createdAt: "2026-10-05T12:23:18.000Z",
+    updatedAt: "2026-10-05T12:23:18.000Z",
+  },
 ]

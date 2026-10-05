@@ -82,7 +82,7 @@ integration`, `RAG vs fine-tuning`, `custom AI chatbot development`,
 - [x] **How to Choose an AI Development Partner** `how-to-choose-an-ai-development-partner`
       Buyer's guide style, ~3,000 words. Mirrors the existing
       Hiring a Creative Engineering Studio piece.
-- [~] **Building AI Features That Users Actually Use** `building-ai-features-that-users-actually-use`
+- [x] **Building AI Features That Users Actually Use** `building-ai-features-that-users-actually-use`
       Opinion / expertise, ~2,500 words.
 - [ ] **Zapier vs Make vs Custom AI Automation: A Business Owner's Comparison**
       Comparison, ~2,200 words. Cost curves at volume, silent-failure
