@@ -14,8 +14,14 @@ import styles from "./project-archive.module.css"
 type ArchiveProject = PortfolioItem & { _is_draft?: boolean }
 const normalize = (value: string) => value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
 const projectName = (title: string) => title.replace(/^case study\s*[—–:-]\s*/i, "")
+/**
+ * Featured on this page only. `featured` in the CMS also puts a project on the
+ * home grid; these lead the archive without showing up there.
+ */
+const FEATURED_ON_WORK = new Set(["pirana-blinblin", "hit-after-office"])
+const isFeatured = (project: ArchiveProject) => Boolean(project.featured) || FEATURED_ON_WORK.has(project.slug ?? "")
 // Featured first, video covers ahead of stills; the sort is stable, so the CMS display_order holds inside each group.
-const priority = (project: ArchiveProject) => (project.featured ? 0 : 2) + (isVideoCoverUrl(pickDisplayCover(project)) ? 0 : 1)
+const priority = (project: ArchiveProject) => (isFeatured(project) ? 0 : 2) + (isVideoCoverUrl(pickDisplayCover(project)) ? 0 : 1)
 
 function VideoPreview({ src }: { src: string }) {
     const [playing, setPlaying] = useState(false)
@@ -92,7 +98,7 @@ export function ProjectArchive() {
     categories.sort((a, b) => a.localeCompare(b))
     const filtered = projects.filter(project => {
         const searchable = [project.title, project.subtitle, project.description, project.category, project.services, ...(project.tech_tags || [])].filter(Boolean).join(" ")
-        return (!featuredOnly || project.featured)
+        return (!featuredOnly || isFeatured(project))
             && (!category || project.category?.trim() === category)
             && normalize(searchable).includes(normalize(query.trim()))
     })
@@ -108,7 +114,7 @@ export function ProjectArchive() {
                         All projects <span>{loading ? "—" : projects.length}</span>
                     </button>
                     <button type="button" aria-pressed={featuredOnly} onClick={() => setFeaturedOnly(true)}>
-                        Featured <span>{loading ? "—" : projects.filter(project => project.featured).length}</span>
+                        Featured <span>{loading ? "—" : projects.filter(isFeatured).length}</span>
                     </button>
                 </div>
                 <div className={styles.filters}>
