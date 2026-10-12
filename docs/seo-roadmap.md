@@ -84,7 +84,7 @@ integration`, `RAG vs fine-tuning`, `custom AI chatbot development`,
       Hiring a Creative Engineering Studio piece.
 - [x] **Building AI Features That Users Actually Use** `building-ai-features-that-users-actually-use`
       Opinion / expertise, ~2,500 words.
-- [ ] **Zapier vs Make vs Custom AI Automation: A Business Owner's Comparison**
+- [x] **Zapier vs Make vs Custom AI Automation: A Business Owner's Comparison** `zapier-vs-make-vs-custom-ai-automation`
       Comparison, ~2,200 words. Cost curves at volume, silent-failure
       maintenance reality, when no-code breaks, the hybrid pattern
       (no-code plumbing + custom AI brain).
