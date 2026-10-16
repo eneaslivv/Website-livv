@@ -1,0 +1,229 @@
+/*
+ * Motion for the Wendell proposal. The house curve and entry lengths come from
+ * the brand guide (09): cubic-bezier(.22, 1, .36, 1), entries around 550–900 ms.
+ * The hero runs on CSS so it plays on first paint, before React hydrates.
+ * Everything here stops for visitors who asked for less motion.
+ */
+
+.page {
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------- Hero atmosphere ---------- */
+
+.aurora {
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  filter: blur(70px) saturate(115%);
+}
+
+.blob {
+  position: absolute;
+  border-radius: 9999px;
+  opacity: 0.32;
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+
+.blobA {
+  width: 46vw;
+  height: 46vw;
+  left: 52%;
+  top: 6%;
+  background: radial-gradient(circle at 40% 40%, #ecd2cc, rgba(236, 210, 204, 0) 68%);
+  animation: driftA 48s var(--ease) infinite alternate;
+}
+
+.blobB {
+  width: 38vw;
+  height: 38vw;
+  left: 66%;
+  top: 46%;
+  background: radial-gradient(circle at 50% 50%, #afc3d8, rgba(175, 195, 216, 0) 70%);
+  opacity: 0.22;
+  animation: driftB 54s var(--ease) infinite alternate;
+}
+
+.blobC {
+  width: 30vw;
+  height: 30vw;
+  left: 34%;
+  top: 58%;
+  background: radial-gradient(circle at 50% 50%, #fff6be, rgba(255, 246, 190, 0) 70%);
+  opacity: 0.1;
+  animation: driftC 60s var(--ease) infinite alternate;
+}
+
+.blobD {
+  width: 52vw;
+  height: 52vw;
+  left: 8%;
+  top: -6%;
+  background: radial-gradient(circle at 50% 50%, #822b2e, rgba(130, 43, 46, 0) 70%);
+  opacity: 0.45;
+  mix-blend-mode: normal;
+  animation: driftD 52s var(--ease) infinite alternate;
+}
+
+@keyframes driftA {
+  to { transform: translate3d(-6vw, 5vh, 0) scale(1.06); }
+}
+@keyframes driftB {
+  to { transform: translate3d(-8vw, -7vh, 0) scale(0.96); }
+}
+@keyframes driftC {
+  to { transform: translate3d(6vw, -5vh, 0) scale(1.08); }
+}
+@keyframes driftD {
+  to { transform: translate3d(5vw, 6vh, 0) scale(1.05); }
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.1;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+
+
+/* ---------- Hero text entrance (plays before hydration) ---------- */
+
+.line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+.word {
+  display: inline-block;
+  transform: translate3d(0, 108%, 0);
+  animation: rise 1s var(--ease) forwards;
+  animation-delay: var(--d, 0ms);
+}
+
+@keyframes rise {
+  to { transform: translate3d(0, 0, 0); }
+}
+
+.fadeUp {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  animation: fadeUp 0.9s var(--ease) forwards;
+  animation-delay: var(--d, 0ms);
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.pulseDot {
+  position: relative;
+}
+.pulseDot::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 9999px;
+  border: 1px solid currentColor;
+  animation: ping 2.2s var(--ease) infinite;
+}
+@keyframes ping {
+  0% { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+.scrollCue {
+  animation: cue 2.4s var(--ease) infinite;
+}
+@keyframes cue {
+  0% { transform: translateY(-100%); }
+  60%, 100% { transform: translateY(260%); }
+}
+
+/* ---------- Ticker ---------- */
+
+.ticker {
+  display: flex;
+  width: max-content;
+  animation: ticker 60s linear infinite;
+}
+.tickerWrap:hover .ticker {
+  animation-play-state: paused;
+}
+@keyframes ticker {
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+/* ---------- Capability cards ---------- */
+
+.icon path,
+.icon circle,
+.icon rect,
+.icon polyline,
+.icon line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+.card:hover .icon path,
+.card:hover .icon circle,
+.card:hover .icon rect,
+.card:hover .icon polyline,
+.card:hover .icon line {
+  animation: draw 0.9s var(--ease) both;
+}
+@keyframes draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* ---------- Closing atmosphere ---------- */
+
+.closing {
+  background:
+    radial-gradient(60% 80% at 85% 10%, rgba(175, 195, 216, 0.75), transparent 60%),
+    radial-gradient(55% 70% at 10% 95%, rgba(236, 210, 204, 0.9), transparent 60%),
+    radial-gradient(40% 50% at 95% 95%, rgba(255, 246, 190, 0.8), transparent 60%),
+    #fdfbf7;
+}
+
+.signPen {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.signDrawn .signPen {
+  animation: draw 2.2s var(--ease) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blob,
+  .ticker,
+  .scrollCue,
+  .pulseDot::after {
+    animation: none !important;
+  }
+  .word,
+  .fadeUp {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+  .signPen {
+    stroke-dashoffset: 0;
+    animation: none !important;
+  }
+  .card:hover .icon path,
+  .card:hover .icon circle,
+  .card:hover .icon rect,
+  .card:hover .icon polyline,
+  .card:hover .icon line {
+    animation: none;
+  }
+}
