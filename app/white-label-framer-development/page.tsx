@@ -21,6 +21,13 @@ export const metadata: Metadata = {
     url: `${SITE_URL}${path}`,
     images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "White-Label Framer Development for Agencies | LIVV",
+    description:
+      "A senior Framer development partner for agencies that need invisible production capacity without hiring an internal team.",
+    images: ["/assets/og-image.png"],
+  },
 }
 
 const faq = [
