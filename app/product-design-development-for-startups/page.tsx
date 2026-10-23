@@ -21,6 +21,13 @@ export const metadata: Metadata = {
     url: `${SITE_URL}${path}`,
     images: [{ url: "/assets/og-image.png", width: 1200, height: 630, alt: "LIVV Creative Studio" }],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Product Design & Development for Startups | LIVV",
+    description:
+      "A senior design and engineering partner for startups moving from funding, launch or hiring pressure into shipped product.",
+    images: ["/assets/og-image.png"],
+  },
 }
 
 const faq = [
